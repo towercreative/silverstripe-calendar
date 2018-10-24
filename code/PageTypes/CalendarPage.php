@@ -38,15 +38,6 @@ class CalendarPage extends \Page
         return true;
     }
 
-    /*
-    public function getCMSValidator()
-    {
-        return new RequiredFields([
-            'Calendars'
-        ]);
-    }
-*/
-
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
