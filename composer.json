@@ -24,7 +24,8 @@
         "silverstripe/framework": "~4.1",
         "silverware/calendar": "~1",
         "nesbot/carbon": "^1.27",
-        "silverstripe/tagfield": "^2.1"
+        "silverstripe/tagfield": "^2.1",
+        "weboftalent/gridrows": "^2.0"
     },
     "autoload": {
         "psr-4": {
