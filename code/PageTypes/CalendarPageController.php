@@ -49,7 +49,8 @@ class CalendarPageController extends PageController
     public function init()
     {
         parent::init();
-        Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
+        //Requirements::javascript('silverstripe/admin: thirdparty/jquery/jquery.js');
+       // Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
         Requirements::css('titledk/silverstripe-calendar:css/pagetypes/CalendarPage.css');
         Requirements::css('titledk/silverstripe-calendar:css/modules.css');
 
