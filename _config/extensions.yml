@@ -1,0 +1,7 @@
+---
+Name: silverstripe-calendar-extensions
+---
+TitleDK\Calendar\Calendars\Calendar:
+  extensions:
+    - TitleDK\Calendar\Libs\ColorPool\DoURLSegmentExtension
+    - TitleDK\Calendar\Colors\CalendarColorExtension
