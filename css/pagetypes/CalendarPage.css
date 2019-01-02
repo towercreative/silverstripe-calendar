@@ -1,3 +1,31 @@
+ul.CalendarPageMenu, ul.CalendarPageSearch {
+    background: yellow;
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+ul.CalendarPageSearch {
+    float: right;
+}
+
+input[name=q] {
+    background: green;
+    display: inline;
+    float: left;
+}
+
+input[value=search] {
+    background: cyan;
+    display: inline;
+    float: right;
+}
+
+ul.CalendarPageMenu li, ul.CalendarPageSearch li {
+    display: inline-block;
+    padding-right: 1em;
+}
+
 .EventList .event {
   padding: 10px; }
   .EventList .event.odd {
