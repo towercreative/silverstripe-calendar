@@ -16,7 +16,6 @@ use TitleDK\Calendar\PageTypes\CalendarPage;
  */
 class Calendar extends DataObject
 {
-
     private static $table_name = 'Calendar';
 
     private static $db = array(
