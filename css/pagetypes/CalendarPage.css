@@ -1,5 +1,4 @@
-ul.CalendarPageMenu, ul.CalendarPageSearch {
-    background: yellow;
+.typography ul.CalendarPageMenu, ul.CalendarPageSearch {
     list-style-type: none;
     padding-left: 0;
     margin-left: 0;
@@ -9,14 +8,20 @@ ul.CalendarPageSearch {
     float: right;
 }
 
+form#EventSearch {
+    width: 100%;
+}
+
+#EventSearchQuery {
+    margin-top: 10px;
+}
+
 input[name=q] {
-    background: green;
     display: inline;
     float: left;
 }
 
 input[value=search] {
-    background: cyan;
     display: inline;
     float: right;
 }
@@ -27,7 +32,11 @@ ul.CalendarPageMenu li, ul.CalendarPageSearch li {
 }
 
 .EventList .event {
+    background: yellow;
+    display: block;
+    clear: both;
   padding: 10px; }
+  
   .EventList .event.odd {
     background: #efefef; }
 
@@ -59,7 +68,8 @@ ul.CalendarPageMenu li, ul.CalendarPageSearch li {
 
 .event .feedBox {
   width: 30px;
-  position: absolute; }
+  position: absolute;
+}
 
 .EventRegistration h3 span {
   display: block; }
