@@ -1,2 +1,1 @@
-SEARCH
 <% include EventSearch %>
