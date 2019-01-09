@@ -1,87 +1,102 @@
 .typography ul.CalendarPageMenu, ul.CalendarPageSearch {
-    list-style-type: none;
-    padding-left: 0;
-    margin-left: 0;
+	list-style-type: none;
+	padding-left: 0;
+	margin-left: 0;
 }
 
 ul.CalendarPageSearch {
-    float: right;
+	float: right;
 }
 
 form#EventSearch {
-    width: 100%;
+	width: 100%;
 }
 
 #EventSearchQuery {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 input[name=q] {
-    display: inline;
-    float: left;
+	display: inline;
+	float: left;
 }
 
 input[value=search] {
-    display: inline;
-    float: right;
+	display: inline;
+	float: right;
 }
 
 ul.CalendarPageMenu li, ul.CalendarPageSearch li {
-    display: inline-block;
-    padding-right: 1em;
+	display: inline-block;
+	padding-right: 1em;
 }
 
 .EventList .event {
-    background: yellow;
-    display: block;
-    clear: both;
-  padding: 10px; }
-  
-  .EventList .event.odd {
-    background: #efefef; }
+	background: yellow;
+	display: block;
+	clear: both;
+	padding: 10px;
+}
+
+.EventList .event.odd {
+	background: #efefef;
+}
 
 .event.row {
-  margin-bottom: 20px; }
+	margin-bottom: 20px;
+}
 
-.event:before,
-.event:after {
-  content: "";
-  display: table; }
+.event:before, .event:after {
+	content: "";
+	display: table;
+}
 
 .event:after {
-  clear: both; }
+	clear: both;
+}
 
 .event .content {
-  margin-left: 100px; }
+	margin-left: 100px;
+}
 
 .event h4 {
-  color: #333;
-  letter-spacing: -1px;
-  margin-top: 0; }
+	color: #333;
+	letter-spacing: -1px;
+	margin-top: 0;
+}
 
 .event .details {
-  margin: 10px 0;
-  overflow: hidden; }
-  .event .details p {
-    font-size: 12px;
-    text-overflow: ellipsis; }
+	margin: 10px 0;
+	overflow: hidden;
+}
+
+.event .details p {
+	font-size: 12px;
+	text-overflow: ellipsis;
+}
 
 .event .feedBox {
-  width: 30px;
-  position: absolute;
+	width: 30px;
+	position: absolute;
 }
 
 .EventRegistration h3 span {
-  display: block; }
-  .EventRegistration h3 span.first {
-    color: #999;
-    font-size: 80%; }
+	display: block;
+}
+
+.EventRegistration h3 span.first {
+	color: #999;
+	font-size: 80%;
+}
 
 .EventRegistration form {
-  margin-top: 26px; }
+	margin-top: 26px;
+}
 
 .fc-event {
-  cursor: pointer !important; }
+	cursor: pointer !important;
+}
 
 #FullcalendarCustomNav a.current {
-  background-color: #e6e6e6; }
+	background-color: #e6e6e6;
+}
