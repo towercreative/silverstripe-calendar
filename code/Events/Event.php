@@ -115,7 +115,7 @@ class Event extends DataObject
 
     public function DetailsSummary()
     {
-        $ModifiedContent = implode(' ', array_slice(explode(' ', strip_tags($this->Details, "<a>")), 0, 25))."&hellip;";
+        $ModifiedContent = implode(' ', array_slice(explode(' ', strip_tags($this->Details, "<a>")), 0, 25));
         return $ModifiedContent;
     }
 
