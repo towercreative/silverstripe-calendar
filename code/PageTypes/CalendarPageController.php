@@ -76,8 +76,7 @@ class CalendarPageController extends PageController
                 'Events' => $events,
                 'GridLayout' => $grid
             ];
-            //return $this->returnTemplate();
-            return $this;
+            return $this->returnTemplate();
         } elseif ($indexSetting == 'calendarview') {
             return $this->calendarview()->renderWith(array('CalendarPage_calendarview', 'Page'));
         }
@@ -113,8 +112,8 @@ class CalendarPageController extends PageController
 
     public function eventlist()
     {
-        //return $this->returnTemplate();
-        return $this;
+        return $this->returnTemplate();
+       // return $this;
     }
 
     public function registered($req)
@@ -125,8 +124,8 @@ class CalendarPageController extends PageController
     public function eventregistration()
     {
         //TODO: filter this so only registerable events are shown
-        //return $this->returnTemplate();
-        return $this;
+        return $this->returnTemplate();
+       // return $this;
     }
 
 
