@@ -17,6 +17,6 @@ class EventTest extends SapphireTest {
 
     public function test_details_summary()
     {
-        $this->assertEquals('This is detail about the test event title&hellip;', $this->event->DetailsSummary());
+        $this->assertEquals('This is detail about the test event title', $this->event->DetailsSummary());
     }
 }

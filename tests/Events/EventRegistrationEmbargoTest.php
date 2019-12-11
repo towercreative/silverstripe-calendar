@@ -60,12 +60,11 @@ class EventRegistrationEmbargoTest extends SapphireTest {
         $this->event->Title = 'Test Event Title';
         $this->event->Details = 'This is detail about the test event title';
        // $this->event->startDateTime = '2018-05-10 16:20';
-        error_log('TIME: ' . $this->now->format('Y:m:d H:i:s'));
-        $this->event->StartDateTime = $this->getSSDateTimeFromCarbon($this->now);
+        error_log('TIME: ' . $this->now->format('Y-m-d H:i:s'));
+        $this->getSSDateTimeFromCarbon($this->now);
+        $this->event->StartDateTime = $this->getSSDateTimeFromCarbon($this->now->addHours(6));
         $this->event->EndDate = $this->getSSDateTimeFromCarbon($this->now);
-
-        error_log(print_r($this->event, 1));
-
+        $this->event->write();
     }
 
     public function test_default_embargo_date()
