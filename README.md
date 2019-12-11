@@ -1,9 +1,11 @@
 # SilverStripe Calendar
-[![Build Status](https://travis-ci.org/gordonbanderson/silverstripe-calendar.svg?branch=upgradess4)](https://travis-ci.org/gordonbanderson/silverstripe-calendar)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/badges/quality-score.png?b=upgradess4)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/?branch=upgradess4)
-[![Code Coverage](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/badges/coverage.png?b=upgradess4)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/?branch=upgradess4)
-[![Build Status](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/badges/build.png?b=upgradess4)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/build-status/upgradess4)
-[![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-calendar/coverage.svg?branch=upgradess4)](https://codecov.io/github/gordonbanderson/silverstripe-calendar?branch=upgradess4)
+[![Build Status](https://travis-ci.org/gordonbanderson/silverstripe-calendar.svg?branch=upgradess4clean)](https://travis-ci.org/gordonbanderson/silverstripe-calendar)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/badges/quality-score.png?b=upgradess4clean)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/?branch=upgradess4clean)
+[![Build Status](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/badges/build.png?b=upgradess4clean)](https://scrutinizer-ci.com/g/gordonbanderson/silverstripe-calendar/build-status/upgradess4clean)
+[![CircleCI](https://circleci.com/gh/gordonbanderson/silverstripe-calendar.svg?style=svg)](https://circleci.com/gh/gordonbanderson/silverstripe-calendar)
+
+[![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-calendar/coverage.svg?branch=upgradess4clean)](https://codecov.io/github/gordonbanderson/silverstripe-calendar?branch=upgradess4clean)
+
 
 [![Latest Stable Version](https://poser.pugx.org/titledk/silverstripe-calendar/version)](https://packagist.org/packages/titledk/silverstripe-calendar)
 [![Latest Unstable Version](https://poser.pugx.org/titledk/silverstripe-calendar/v/unstable)](//packagist.org/packages/titledk/silverstripe-calendar)
@@ -11,11 +13,15 @@
 [![License](https://poser.pugx.org/titledk/silverstripe-calendar/license)](https://packagist.org/packages/titledk/silverstripe-calendar)
 [![Monthly Downloads](https://poser.pugx.org/titledk/silverstripe-calendar/d/monthly)](https://packagist.org/packages/titledk/silverstripe-calendar)
 [![Daily Downloads](https://poser.pugx.org/titledk/silverstripe-calendar/d/daily)](https://packagist.org/packages/titledk/silverstripe-calendar)
+[![composer.lock](https://poser.pugx.org/titledk/silverstripe-calendar/composerlock)](https://packagist.org/packages/titledk/silverstripe-calendar)
 
-[![Dependency Status](https://www.versioneye.com/php/titledk:silverstripe-calendar/badge.svg)](https://www.versioneye.com/php/titledk:silverstripe-calendar)
-[![Reference Status](https://www.versioneye.com/php/titledk:silverstripe-calendar/reference_badge.svg?style=flat)](https://www.versioneye.com/php/titledk:silverstripe-calendar/references)
+[![GitHub Code Size](https://img.shields.io/github/languages/code-size/gordonbanderson/silverstripe-calendar)](https://github.com/gordonbanderson/silverstripe-calendar)
+[![GitHub Repo Size](https://img.shields.io/github/repo-size/gordonbanderson/silverstripe-calendar)](https://github.com/gordonbanderson/silverstripe-calendar)
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/gordonbanderson/silverstripe-calendar)](https://github.com/gordonbanderson/silverstripe-calendar)
+[![GitHub Activity](https://img.shields.io/github/commit-activity/m/gordonbanderson/silverstripe-calendar)](https://github.com/gordonbanderson/silverstripe-calendar)
+[![GitHub Issues](https://img.shields.io/github/issues/gordonbanderson/silverstripe-calendar)](https://github.com/gordonbanderson/silverstripe-calendar/issues)
 
-![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-calendar/branch.svg?branch=upgradess4)
+![codecov.io](https://codecov.io/github/gordonbanderson/silverstripe-calendar/branch.svg?branch=upgradess4clean)
 
 _by Title Web Solutions_
 
