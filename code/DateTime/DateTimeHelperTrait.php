@@ -28,6 +28,8 @@ trait DateTimeHelperTrait
     public function getSSDateTimeFromCarbon($carbonDate)
     {
         $dateAsString = $carbonDate->format('Y-m-d H:i:s');
-        return DBDatetime::create('DateForTemplate')->setValue($dateAsString);
+        error_log('DAS: ' . $dateAsString);
+        return $dateAsString;
+        //return DBDatetime::create('DateForTemplate')->setValue($dateAsString);
     }
 }
