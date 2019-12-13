@@ -32,10 +32,12 @@ before_script:
   - composer validate
   - echo $INSTALLER_VERSION
   - composer require --prefer-source --no-update silverstripe/recipe-cms:4.4.x-dev
-  - less .env
+
   - if [[ $DB == PGSQL ]]; then composer require --no-update silverstripe/postgresql:2.x-dev; fi
   - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
+  - find .
+  
     # Run dev/build
   - vendor/bin/sake dev/build flush=all
 
