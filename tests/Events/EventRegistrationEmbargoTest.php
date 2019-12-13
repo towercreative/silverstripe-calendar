@@ -62,8 +62,8 @@ class EventRegistrationEmbargoTest extends SapphireTest {
        // $this->event->startDateTime = '2018-05-10 16:20';
         error_log('TIME: ' . $this->now->format('Y-m-d H:i:s'));
         $this->getSSDateTimeFromCarbon($this->now);
-        $this->event->StartDateTime = $this->getSSDateTimeFromCarbon($this->now->addHours(6));
-        $this->event->EndDate = $this->getSSDateTimeFromCarbon($this->now);
+        $this->event->StartDateTime = $this->getSSDateTimeFromCarbon($this->now);
+        $this->event->EndDate = $this->getSSDateTimeFromCarbon($this->now->addHours(6));
         $this->event->write();
     }
 
@@ -71,6 +71,6 @@ class EventRegistrationEmbargoTest extends SapphireTest {
     {
         $embargoDate = $this->event->getRegistrationEmbargoDate();
         error_log('EMBARGO DATE: ' . $embargoDate);
-        $this->assertEquals($this->event->EndDate, $embargoDate);
+        $this->assertEquals($this->event->StartDateTime, $embargoDate);
     }
 }
