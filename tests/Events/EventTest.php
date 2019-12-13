@@ -41,13 +41,14 @@ class EventTest extends SapphireTest {
 
     public function test_calc_end_date_time_based_on_duration()
     {
-        $this->event->Duration = '04:30:00';
+        // @todo Not sure how to set this
+        $this->event->Duration->setValue('05:30:00');
         $this->event->write();
         $this->assertEquals('2018-05-16 08:45:00', $this->event->calcEndDateTimeBasedOnDuration());
     }
 
     public function test_is_all_day()
     {
-        
+
     }
 }
