@@ -6,6 +6,9 @@ use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Events\Event;
 
 class EventTest extends SapphireTest {
+    /** @var Event  */
+    private $event;
+
     public function setUp()
     {
         parent::setUp();
@@ -18,5 +21,10 @@ class EventTest extends SapphireTest {
     public function test_details_summary()
     {
         $this->assertEquals('This is detail about the test event title', $this->event->DetailsSummary());
+    }
+
+    public function test_event_page_title_no_calendar_page()
+    {
+        $this->assertEquals('-', $this->event->getEventPageCalendarTitle());
     }
 }
