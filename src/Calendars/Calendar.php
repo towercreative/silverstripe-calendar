@@ -18,19 +18,19 @@ class Calendar extends DataObject
 {
     private static $table_name = 'Calendar';
 
-    private static $db = array(
+    private static $db = [
         'Title' => 'Varchar',
-    );
+    ];
 
-    private static $has_many = array(
+    private static $has_many = [
         'Events' => 'TitleDK\Calendar\Events\Event'
-    );
+    ];
 
     private static $default_sort = 'Title';
 
-    private static $summary_fields = array(
+    private static $summary_fields = [
         'Title' => 'Title',
-    );
+    ];
 
 
     //Public calendars are simply called 'Calendar'
@@ -89,7 +89,7 @@ class Calendar extends DataObject
      * @param Member $member
      * @return boolean
      */
-    public function canCreate($member = null, $context = array())
+    public function canCreate($member = null, $context = [])
     {
         return $this->canManage($member);
     }

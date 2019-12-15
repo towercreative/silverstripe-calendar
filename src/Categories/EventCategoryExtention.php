@@ -14,9 +14,9 @@ use SilverStripe\ORM\DataExtension;
 class EventCategoryExtension extends DataExtension
 {
 
-    private static $belongs_many_many = array(
+    private static $belongs_many_many = [
         'Categories' => EventCategory::class
-    );
+    ];
 
 
     public function updateCMSFields(FieldList $fields)

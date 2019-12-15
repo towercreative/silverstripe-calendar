@@ -19,7 +19,7 @@ class ColorpaletteField extends DropdownField
         parent::__construct($name, ($title===null) ? $name : $title, $source, $value, $form);
     }
 
-    public function Field($properties = array())
+    public function Field($properties = [])
     {
         $this->addExtraClass('ColorpaletteInput');
         ColorpaletteHelper::requirements();
