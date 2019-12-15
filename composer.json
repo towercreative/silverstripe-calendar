@@ -20,12 +20,13 @@
         }
     ],
     "require": {
-        "php" : "~5.6|~7.0",
+        "php": "~5.6|~7.0",
         "silverstripe/framework": "~4.1",
         "silverware/calendar": "~1",
-        "nesbot/carbon": "^1.27",
+        "nesbot/carbon": "^2",
         "silverstripe/tagfield": "^2.1",
-        "weboftalent/gridrows": "^2.0"
+        "weboftalent/gridrows": "^2.0",
+        "silverstripe/recipe-cms": "4.x-dev"
     },
     "autoload": {
         "psr-4": {
@@ -44,6 +45,18 @@
             "css",
             "javascript",
             "thirdparty"
+        ],
+        "project-files-installed": [
+            "app/.htaccess",
+            "app/_config.php",
+            "app/_config/mysite.yml",
+            "app/src/Page.php",
+            "app/src/PageController.php"
+        ],
+        "public-files-installed": [
+            ".htaccess",
+            "index.php",
+            "web.config"
         ]
     },
     "support": {
