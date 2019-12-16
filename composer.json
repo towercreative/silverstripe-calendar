@@ -34,6 +34,11 @@
             "TitleDK\\Calendar\\Tests\\": "tests/"
         }
     },
+    "autoload-dev": {
+        "classmap": [
+            "src/DateTime/DateTimeHelperTrait.php"
+        ]
+    },
     "extra": {
         "installer-name": "calendar",
         "screenshots": [
