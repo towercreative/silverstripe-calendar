@@ -20,12 +20,12 @@
         }
     ],
     "require": {
-        "php": "~5.6|~7.0",
-        "silverstripe/framework": "~4.1",
+        "php": "~5.6|~7",
+        "silverstripe/framework": "~4",
         "silverware/calendar": "~1",
-        "nesbot/carbon": "^2",
-        "silverstripe/tagfield": "^2.1",
-        "weboftalent/gridrows": "^2.0",
+        "nesbot/carbon": "^1",
+        "silverstripe/tagfield": "^2",
+        "weboftalent/gridrows": "^2",
         "silverstripe/recipe-cms": "4.x-dev"
     },
     "autoload": {
@@ -45,25 +45,13 @@
             "css",
             "javascript",
             "thirdparty"
-        ],
-        "project-files-installed": [
-            "app/.htaccess",
-            "app/_config.php",
-            "app/_config/mysite.yml",
-            "app/src/Page.php",
-            "app/src/PageController.php"
-        ],
-        "public-files-installed": [
-            ".htaccess",
-            "index.php",
-            "web.config"
         ]
     },
     "support": {
         "issues": "https://github.com/titledk/silverstripe-calendar/issues"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.9.2",
+        "phpstan/phpstan": "^0",
         "phpunit/phpunit": "^5.7"
     },
     "minimum-stability": "dev",
