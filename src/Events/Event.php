@@ -301,15 +301,18 @@ class Event extends DataObject
     public function calcEndDateTimeBasedOnDuration()
     {
         $duration = $this->Duration;
+
         error_log('DURATION: ' . $duration);
 
-        // @todo This is not making sense
-        $secs = (substr($duration, 0, 2) * 3600) + (substr($duration, 3, 2) * 60);
+        // @todo This only takes account of hoursr and minutes, not seconds
+        $secs = (substr($duration, 0, 2) * 3600) +
+            (substr($duration, 3, 2) * 60) +
+            (substr($duration, 6, 2))
+        ;
 
-        error_log('SECS: '. $secs);
+        error_log('SECS: ' . $secs);
 
         $startDate = strtotime($this->StartDateTime);
-        error_log('START DATE: ' . $startDate);
 
         $endDate = $startDate + $secs;
         $formatDate = date("Y-m-d H:i:s", $endDate);

@@ -1,6 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Events;
 
+use SilverStripe\ORM\FieldType\DBDatetime;
+
 /**
  * Event Helper
  * Helper class for event related calculations and formatting
@@ -24,14 +26,18 @@ class EventHelper
      * Format:
      * Jun 7th - Jun 10th
      *
-     * @param SS_Datetime $startObj
-     * @param SS_Datetime $endObj
+     * @param DBDatetime $startObj
+     * @param DBDatetime $endObj
      * @return string
      */
     public static function formatted_dates($startObj, $endObj)
     {
+        error_log('START OBJ: ' . $startObj);
+        error_log('END OBJ: ' . $endObj);
+
         //Checking if end date is set
-        $endDateIsset = isset($endObj);
+        $endDateIsset = !empty($endObj->getValue());
+
 
         $startTime = strtotime($startObj->value);
         $endTime = strtotime($endObj->value);

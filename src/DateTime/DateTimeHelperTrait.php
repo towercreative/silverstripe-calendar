@@ -15,10 +15,8 @@ trait DateTimeHelperTrait
      */
     public function carbonDateTime($ssDateTimeString)
     {
-        error_log('INPUT: ' . $ssDateTimeString);
         //2018-05-21 13:04:00
         $result = Carbon::createFromFormat('Y-m-d H:i:s', $ssDateTimeString);
-        error_log('CDT: ' . $ssDateTimeString . ' ==> ' . $result);
         return $result;
     }
 
@@ -28,7 +26,6 @@ trait DateTimeHelperTrait
     public function getSSDateTimeFromCarbon($carbonDate)
     {
         $dateAsString = $carbonDate->format('Y-m-d H:i:s');
-        error_log('DAS: ' . $dateAsString);
         return $dateAsString;
         //return DBDatetime::create('DateForTemplate')->setValue($dateAsString);
     }

@@ -1,0 +1,24 @@
+TitleDK\Calendar\Tags\EventTag:
+  tag1:
+    Title: Cumberland Sausages
+  tag2:
+    Title: Eggs
+  tag3:
+    Title: Beans
+  tag4:
+    Title: Beans
+  tag5:
+    Title: Beans
+
+TitleDK\Calendar\Events\Event:
+  event1:
+    Title: This is an example event
+    StartDateTime: 2019-12-16 20:00
+    Duration: 02:00:00
+    TimeFrameType: Duration
+    Tags:
+      - =>TitleDK\Calendar\Tags\EventTag.tag1
+      - =>TitleDK\Calendar\Tags\EventTag.tag2
+      - =>TitleDK\Calendar\Tags\EventTag.tag3
+      - =>TitleDK\Calendar\Tags\EventTag.tag4
+      - =>TitleDK\Calendar\Tags\EventTag.tag5
