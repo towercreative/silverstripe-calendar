@@ -4,5 +4,6 @@ namespace TitleDK\Calendar\Tests\SubSites;
 
 use \SilverStripe\Dev\SapphireTest;
 
-class EventSubsiteExtensionTest extends SapphireTest {
+class EventSubsiteExtensionTest extends SapphireTest
+{
 }

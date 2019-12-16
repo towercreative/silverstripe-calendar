@@ -33,11 +33,10 @@ class EventRegistrationEmbargoExtension extends DataExtension
         $rightTitle .= $relativeTimeEmbargo < 0 ? 'before' : 'after';
         $rightTitle .= $relativeTimeEmbargo . ' minutes relative to the end datetime of the event';
         $embargoField->setRightTitle($rightTitle);
-        $fields->addFieldToTab('Root.Main',
+        $fields->addFieldToTab(
+            'Root.Main',
             $embargoField,
             'CalendarID'
         );
-
     }
-
 }

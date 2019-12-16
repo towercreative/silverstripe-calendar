@@ -33,8 +33,5 @@ class EventLocationExtension extends DataExtension
         $mapField = new TextField('MapURL', 'External Map URL');
         $mapField->setRightTitle('Map will open in a new window or relevant mobile phone app');
         $fields->addFieldToTab('Root.Location', $mapField);
-
     }
-
-
 }

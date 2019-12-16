@@ -41,12 +41,12 @@ class AttendeesExtension extends DataExtension
     public function updateCMSFields(FieldList $fields)
     {
         
-        $gridField = GridField::create('Attendees', 'Attendees',
+        $gridField = GridField::create(
+            'Attendees',
+            'Attendees',
             $this->owner->Attendees()
         );
 
         $fields->addFieldToTab('Root.Attendees', $gridField);//, 'NumberOfTickets' );
-
     }
-
 }

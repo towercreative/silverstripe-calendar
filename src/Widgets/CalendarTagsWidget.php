@@ -122,6 +122,5 @@ class CalendarTagsWidget extends Widget
         }
 
         return $tags;
-
     }
 }

@@ -128,6 +128,5 @@ class EventRegistrationStateMachine
 
         $this->registration->Status = $to;
         $this->registration->write();
-
     }
 }

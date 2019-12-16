@@ -18,5 +18,4 @@ class GroupsCalendarExtension extends DataExtension
         'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
         'Wibble' => 'Varchar'
     );
-
 }

@@ -122,7 +122,6 @@ class CalendarHelper
         $currMonthStr = date('Y-m-d', strtotime($month));
         $nextMonthStr = date('Y-m-d', $nextMonth);
         return self::events_for_date_range($currMonthStr, $nextMonthStr, $calendarIDs);
-
     }
 
     /**

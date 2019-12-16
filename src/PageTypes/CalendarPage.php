@@ -55,12 +55,12 @@ class CalendarPage extends \Page
                 ->setSource($calendarsMap)
                 ->setAttribute(
                     'data-placeholder',
-                    'Select a calendar')
+                    'Select a calendar'
+                )
                     ->setRightTitle('Only events from these calendars will shown on this page.'),
             'Content'
         );
 
         return $fields;
     }
-
 }

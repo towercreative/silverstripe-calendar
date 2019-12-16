@@ -28,9 +28,10 @@ class EventImageExtension extends DataExtension
         $fields->addFieldToTab('Root.Main', $uploadField);
     }
 
-    public function getThumbnail() {
+    public function getThumbnail()
+    {
         if ($image = $this->owner->FeaturedImage()) {
-            return $image->Fit(80,80);
+            return $image->Fit(80, 80);
         } else {
             return '(No Image)';
         }

@@ -44,7 +44,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
 
 
 
-     private static $managed_models = array(
+    private static $managed_models = array(
         'TitleDK\Calendar\Events\Event',
         'TitleDK\Calendar\Categories\PublicEventCategory',
         'TitleDK\Calendar\Calendars\Calendar'

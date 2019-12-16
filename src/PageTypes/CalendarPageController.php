@@ -17,7 +17,6 @@ use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Tags\EventTag;
 
-
 class CalendarPageController extends PageController
 {
 
@@ -68,7 +67,6 @@ class CalendarPageController extends PageController
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
         if ($indexSetting == 'eventlist') {
-
             $events = $this->Events(); // already paged
             $grid = $this->owner->createGridLayout($events, 2);
 
@@ -350,7 +348,7 @@ class CalendarPageController extends PageController
                 ->sort('StartDateTime ASC');
 
             return  new PaginatedList($events, $this->getRequest());
-        } else if ($action == 'recent') {
+        } elseif ($action == 'recent') {
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
             $now = $this->CurrentMonthDay();
@@ -363,7 +361,6 @@ class CalendarPageController extends PageController
 
             return  new PaginatedList($events, $this->getRequest());
         }
-
     }
 
     /**
@@ -505,6 +502,4 @@ class CalendarPageController extends PageController
         $url = Controller::join_links($this->Link(), 'calendar', ($calendar) ? $calendar->Link : '');
         return CalendarHelper::add_preview_params($url, $this->data());
     }
-
-
 }

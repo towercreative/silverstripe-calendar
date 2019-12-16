@@ -96,7 +96,7 @@ class CalendarEventsMonthYearWidget extends Widget
         $forTemplate = new ArrayList();
 
         // convert results to that suitable for SS4, and also formatting of the data as appropriate
-        foreach($dbResult as $row) {
+        foreach ($dbResult as $row) {
             $monthNumber = $row['M'];
             $yearNumber = $row['Y'];
 

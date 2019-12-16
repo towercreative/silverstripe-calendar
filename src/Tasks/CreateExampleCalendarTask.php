@@ -8,7 +8,6 @@
 
 namespace TitleDK\Calendar\Tasks;
 
-
 use SilverStripe\Dev\BuildTask;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Events\Event;
@@ -44,6 +43,5 @@ class CreateExampleCalendarTask extends BuildTask
 
         $event = new Event();
         $event->Title = 'Example Event';
-
     }
 }

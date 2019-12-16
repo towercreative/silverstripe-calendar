@@ -109,8 +109,10 @@ class EventRegistrationExtension extends DataExtension
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            $nTicketsAvailableField = new NumericField('NumberOfAvailableTickets',
-                'Total Number of Available Tickets prior to Sale')
+            $nTicketsAvailableField = new NumericField(
+                'NumberOfAvailableTickets',
+                'Total Number of Available Tickets prior to Sale'
+            )
         );
 
         $fields->addFieldToTab(
@@ -218,7 +220,7 @@ class EventRegistrationExtension extends DataExtension
         foreach ($registrations as $record) {
             $attendees = $record->Attendees();
             // these are many many
-            foreach($attendees as $attendee) {
+            foreach ($attendees as $attendee) {
                 $clonedRecord = clone $record;
                 $clonedRecord->Title = 'TITLE'; //$attendee->Title;
                 $clonedRecord->FirstName = $attendee->FirstName;
@@ -232,7 +234,6 @@ class EventRegistrationExtension extends DataExtension
 
             $registration = EventRegistration::get()->byID($record->ID);
             $record->RegistrationCode = $registration->getRegistrationCode();
-
         }
 
         return $updatedRecords;

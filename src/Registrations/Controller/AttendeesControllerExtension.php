@@ -47,8 +47,7 @@ class AttendeesControllerExtension extends Extension
         $jsonField = HiddenField::create('AttendeesJSON');
         $data = $form->getData();
         if (!isset($data['AttendeesJSON'])) {
-
-            if( $member = Security::getCurrentUser() ) {
+            if ($member = Security::getCurrentUser()) {
                 $details = [
                     [
                         'first_name' => $member->FirstName,

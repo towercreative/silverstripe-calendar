@@ -94,7 +94,6 @@ class EventHelper
         // @todo see note above
         // @tod null date passes this test without the addition of empty
         if (date('g:ia', $endTime) == '12:00am' && !empty($endDate)) {
-
             $endDate = date('M j, Y', $endTime);
         } else {
             // This is the straddling midnight case
