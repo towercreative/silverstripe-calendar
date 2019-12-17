@@ -1,0 +1,47 @@
+TitleDK\Calendar\Tags\EventTag:
+  tag1:
+    Title: Cumberland Sausages
+  tag2:
+    Title: Eggs
+  tag3:
+    Title: Beans
+  tag4:
+    Title: Beans
+  tag5:
+    Title: Beans
+
+TitleDK\Calendar\Events\Event:
+  eventWithDuration:
+    Title: This is an example event with duration
+    StartDateTime: 2019-10-12 18:00
+
+    # Seconds included here to ensure calculation does not regress
+    Duration: 04:05:24
+
+    TimeFrameType: Duration
+    Tags:
+      - =>TitleDK\Calendar\Tags\EventTag.tag1
+      - =>TitleDK\Calendar\Tags\EventTag.tag2
+      - =>TitleDK\Calendar\Tags\EventTag.tag3
+
+  eventSameDay:
+    Title: SilverStripe Meet Up
+    StartDateTime: 2019-12-16 20:00
+    EndDateTime: 2019-12-16 21:30
+    TimeFrameType: DateTime
+    Details: <a href="https://silverstripe.org">SilverStripe</a> meetup, <b>almost sold out</b>
+
+  eventCricketSeason:
+    Title: Scottish Cricket Season
+    StartDateTime: 2020-04-11 12:00
+    EndDateTime: 2020-09-21 21:30
+    TimeFrameType: DateTime
+    Details: Multi month event example
+
+  eventWeekend:
+    Title: Freezing in the Park
+    StartDateTime: 2019-12-13 19:00
+    EndDateTime: 2019-12-15 21:30
+    TimeFrameType: DateTime
+    Details: Weekend example, in the same month
+

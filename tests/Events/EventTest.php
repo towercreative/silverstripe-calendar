@@ -12,22 +12,30 @@ use TitleDK\Calendar\Events\Event;
 
 class EventTest extends SapphireTest
 {
-use DateTimeHelperTrait;
+    protected static $fixture_file = 'tests/events.yml';
+
+    /** @var Event */
+    private $eveningMeetUpEvent;
+
+    /** @var Event */
+    private $durationEvent;
+
+    /** @var Event */
+    private $cricketSeasonEvent;
+
+    /** @var Event */
+    private $weekendEvent;
+
+    use DateTimeHelperTrait;
 
     public function setUp()
     {
         parent::setUp();
 
-        // fix the concept of now for testing purposes
-        $this->now = Carbon::create(2018, 5, 16, 8);
-        Carbon::setTestNow($this->now);
-
-        /** @var Event event */
-        $this->event = new Event();
-        $this->event->Title = 'Test Event Title';
-        $this->event->Details = 'This is detail about the test event title';
-        $this->event->StartDateTime = $this->getSSDateTimeFromCarbon($this->now);
-
+        $this->eveningMeetUpEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventSameDay');
+        $this->durationEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventWithDuration');
+        $this->cricketSeasonEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventCricketSeason');
+        $this->weekendEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventWeekend');
     }
 
     public function testSummaryFields()
@@ -42,12 +50,13 @@ use DateTimeHelperTrait;
 
     public function test_event_page_title_no_calendar_page()
     {
-        $this->assertEquals('-', $this->event->getEventPageCalendarTitle());
+        $this->assertEquals('-', $this->eveningMeetUpEvent->getEventPageCalendarTitle());
     }
 
-    public function testDetailsSummary()
+    public function test_details_summary()
     {
-        $this->assertEquals('This is detail about the test event title', $this->event->DetailsSummary());
+        $this->assertEquals('<a href="https://silverstripe.org">SilverStripe</a> meetup, almost sold out',
+            $this->eveningMeetUpEvent->DetailsSummary());
     }
 
     public function testOnBeforeWrite()
@@ -77,10 +86,8 @@ use DateTimeHelperTrait;
 
     public function test_calc_end_date_time_based_on_duration()
     {
-        $this->event->Duration = '05:30:24';
-
         // 8am +5.5 hours 13:30
-        $this->assertEquals('2018-05-16 13:30:24', $this->event->calcEndDateTimeBasedOnDuration());
+        $this->assertEquals('2019-10-12 22:05:24', $this->durationEvent->calcEndDateTimeBasedOnDuration());
     }
 
     public function testIsAllDay()
@@ -130,34 +137,27 @@ use DateTimeHelperTrait;
 
     public function testGetFormattedStartDate()
     {
-        $this->assertEquals('May 16, 2018', $this->event->getFormattedStartDate());
+        $this->assertEquals('Dec 16, 2019', $this->eveningMeetUpEvent->getFormattedStartDate());
     }
 
     public function test_get_formatted_dates_end_date_set_different_days_in_same_month()
     {
-        $this->event->EndDateTime = $this->getSSDateTimeFromCarbon($this->now->addDays(2));
-        error_log('EDT: ' . $this->event->EndDateTime);
-        $this->assertEquals('May 16th - 18th', $this->event->getFormattedDates());
+        $this->assertEquals('Dec 13th - 15th', $this->weekendEvent->getFormattedDates());
     }
 
     public function test_get_formatted_dates_end_date_set_different_days_in_different_month()
     {
-        $this->event->EndDateTime = $this->getSSDateTimeFromCarbon($this->now->addMonths(2));
-        error_log('EDT: ' . $this->event->EndDateTime);
-        $this->assertEquals('May 16th - Jul 16th', $this->event->getFormattedDates());
+        $this->assertEquals('Apr 11th - Sep 21st', $this->cricketSeasonEvent->getFormattedDates());
     }
 
     public function test_get_formatted_dates_end_date_set_same_day()
     {
-        $this->event->EndDateTime = $this->getSSDateTimeFromCarbon($this->now->addHours(2));
-        error_log('EDT: ' . $this->event->EndDateTime);
-        $this->assertEquals('May 16th', $this->event->getFormattedDates());
+        $this->assertEquals('Dec 16th', $this->eveningMeetUpEvent->getFormattedDates());
     }
 
     public function test_get_formatted_dates_no_end_date_set()
     {
-
-        $this->assertEquals('May 16th', $this->event->getFormattedDates());
+        $this->assertEquals('Oct 12th', $this->durationEvent->getFormattedDates());
     }
 
     public function testGetFormattedTimeframe()
