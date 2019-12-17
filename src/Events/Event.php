@@ -302,15 +302,9 @@ class Event extends DataObject
     {
         $duration = $this->Duration;
 
-        error_log('DURATION: ' . $duration);
-
-        // @todo This only takes account of hoursr and minutes, not seconds
         $secs = (substr($duration, 0, 2) * 3600) +
             (substr($duration, 3, 2) * 60) +
-            (substr($duration, 6, 2))
-        ;
-
-        error_log('SECS: ' . $secs);
+            (substr($duration, 6, 2));
 
         $startDate = strtotime($this->StartDateTime);
 

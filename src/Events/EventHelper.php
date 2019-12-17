@@ -32,12 +32,8 @@ class EventHelper
      */
     public static function formatted_dates($startObj, $endObj)
     {
-        error_log('START OBJ: ' . $startObj);
-        error_log('END OBJ: ' . $endObj);
-
         //Checking if end date is set
         $endDateIsset = !empty($endObj->getValue());
-
 
         $startTime = strtotime($startObj->value);
         $endTime = strtotime($endObj->value);

@@ -27,6 +27,5 @@ trait DateTimeHelperTrait
     {
         $dateAsString = $carbonDate->format('Y-m-d H:i:s');
         return $dateAsString;
-        //return DBDatetime::create('DateForTemplate')->setValue($dateAsString);
     }
 }
