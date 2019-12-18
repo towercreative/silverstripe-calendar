@@ -31,6 +31,15 @@ TitleDK\Calendar\Events\Event:
     TimeFrameType: DateTime
     Details: <a href="https://silverstripe.org">SilverStripe</a> meetup, <b>almost sold out</b>
 
+  # For testing the isAllDay method, added the AllDay true fla
+  eventAllDay:
+    Title: SilverStripe Booze Up
+    StartDateTime: 2019-12-16 09:00
+    EndDateTime: 2019-12-16 21:30
+    AllDay: true
+    TimeFrameType: DateTime
+    Details: Christmas Booze Up
+
   eventCricketSeason:
     Title: Scottish Cricket Season
     StartDateTime: 2020-04-11 12:00

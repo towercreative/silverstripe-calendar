@@ -6,6 +6,7 @@ use \SilverStripe\Dev\SapphireTest;
 
 
 use Carbon\Carbon;
+use SilverStripe\Forms\RequiredFields;
 use SilverStripe\ORM\FieldType\DBTime;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
@@ -26,6 +27,9 @@ class EventTest extends SapphireTest
     /** @var Event */
     private $weekendEvent;
 
+    /** @var Event */
+    private $allDayEvent;
+
     use DateTimeHelperTrait;
 
     public function setUp()
@@ -33,6 +37,7 @@ class EventTest extends SapphireTest
         parent::setUp();
 
         $this->eveningMeetUpEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventSameDay');
+        $this->allDayEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventAllDay');
         $this->durationEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventWithDuration');
         $this->cricketSeasonEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventCricketSeason');
         $this->weekendEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventWeekend');
@@ -74,46 +79,68 @@ class EventTest extends SapphireTest
         $this->markTestSkipped('TODO');
     }
 
-    public function testCalcEndDateTimeBasedOnDuration()
+    public function test_calc_duration_based_on__end_date_time_less_than_24_hours()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertEquals('01:30', $this->eveningMeetUpEvent->calcDurationBasedOnEndDateTime($this->eveningMeetUpEvent->EndDateTime));
     }
 
-    public function testCalcDurationBasedOnEndDateTime()
+    public function test_calc_duration_based_on__end_date_time_more_than_24_hours()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertFalse( $this->weekendEvent->calcDurationBasedOnEndDateTime($this->weekendEvent->EndDateTime));
     }
 
     public function test_calc_end_date_time_based_on_duration()
     {
-        // 8am +5.5 hours 13:30
         $this->assertEquals('2019-10-12 22:05:24', $this->durationEvent->calcEndDateTimeBasedOnDuration());
     }
 
-    public function testIsAllDay()
+    public function test_is_not_all_day()
     {
-        $this->markTestSkipped('TODO');
+        // if the AllDay flag is not set and the event does not straddle a day then is not all day
+        $this->assertFalse($this->eveningMeetUpEvent->isAllDay());
+    }
+
+    public function test_long_event_is_all_day()
+    {
+        // if the time deltas > 24 hours, the event is all day
+        $this->assertTrue($this->weekendEvent->isAllDay());
+    }
+
+    public function test_is_all_day()
+    {
+        $this->assertTrue($this->allDayEvent->isAllDay());
     }
 
     public function testGetFrontEndFields()
     {
-        $this->markTestSkipped('TODO');
+        // this calls front end fields method
+        $fields = $this->weekendEvent->getAddNewFields();
+        $names = [];
+        foreach($fields as $field) {
+            $names[] = $field->Name;
+        }
+
+        $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
     }
 
+    // @todo figure out a better test here
     public function testGetCMSFields()
     {
-        $this->markTestSkipped('TODO');
+        $fields = $this->weekendEvent->getCMSFields();
+        $names = [];
+        foreach($fields as $field) {
+            $names[] = $field->Name;
+        }
+        $this->assertEquals(['Root'], $names);
     }
 
     public function testGetCMSValidator()
     {
-        $this->markTestSkipped('TODO');
+        /** @var RequiredFields $validator */
+        $validator = $this->weekendEvent->getCMSValidator();
+        $this->assertEquals(['Title', 'CalendarID'], $validator->getRequired());
     }
 
-    public function testGetAddNewFields()
-    {
-        $this->markTestSkipped('TODO');
-    }
 
     public function testGetIsPastEvent()
     {
