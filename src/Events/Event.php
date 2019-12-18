@@ -355,9 +355,13 @@ class Event extends DataObject
         $startTime = strtotime($this->StartDateTime);
         $endTime = strtotime($this->EndDateTime);
 
-        if (($endTime - $startTime) > $secsInDay) {
+        $durationInSeconds = $endTime - $startTime;
+        if ($durationInSeconds > $secsInDay) {
             return true;
         }
+
+        // return an explicit false instead of relying on a falsey null.  This was picked up by unit testing
+        return false;
     }
 
 
