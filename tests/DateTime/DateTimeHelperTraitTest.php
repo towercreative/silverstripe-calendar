@@ -28,7 +28,7 @@ class DateTimeHelperTraitTest extends SapphireTest
         $this->assertEquals('05', $carbon->month);
         $this->assertEquals('21', $carbon->day);
         $this->assertEquals('13', $carbon->hour);
-        $this->assertEquals('04', $carbon->minute());
+        $this->assertEquals('04', $carbon->minute);
         $this->assertEquals('00', $carbon->second);
     }
 

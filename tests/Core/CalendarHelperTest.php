@@ -3,9 +3,13 @@
 namespace TitleDK\Calendar\Tests\Core;
 
 use \SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Core\CalendarHelper;
+use TitleDK\Calendar\Events\Event;
 
 class CalendarHelperTest extends SapphireTest
 {
+    protected static $fixture_file = 'tests/events.yml';
+
     public function testGetValidCalendarIDsForCurrentUser()
     {
         $this->markTestSkipped('TODO');
@@ -13,7 +17,7 @@ class CalendarHelperTest extends SapphireTest
 
     public function testComing_events()
     {
-        $this->markTestSkipped('TODO');
+
     }
 
     public function testComing_events_limited()
@@ -26,19 +30,34 @@ class CalendarHelperTest extends SapphireTest
         $this->markTestSkipped('TODO');
     }
 
-    public function testAll_events()
+    public function test_all_events()
     {
-        $this->markTestSkipped('TODO');
+        $events = Event::get();
+        $allEvents = CalendarHelper::all_events();
+        $this->assertEquals($events->count(), $allEvents->count());
+        $this->debugEvents($events);
     }
 
-    public function testAll_events_limited()
+    public function test_all_events_limited()
     {
-        $this->markTestSkipped('TODO');
+        $allEvents = CalendarHelper::all_events_limited(4);
+        $this->assertEquals(4, $allEvents->count());
     }
 
-    public function testEvents_for_month()
+    public function test_events_for_month_december()
     {
-        $this->markTestSkipped('TODO');
+        $events = CalendarHelper::events_for_month('2019-12');
+        $this->debugEvents($events);
+        $this->assertEquals(7, $events->count());
+    }
+
+    // @todo What is the expected behaviour here?
+    public function test_events_for_month_in_long_event()
+    {
+        // during the cricket season event
+        $events = CalendarHelper::events_for_month('2020-06');
+        $this->debugEvents($events);
+        $this->assertEquals(0, $events->count());
     }
 
     public function testEvents_for_date_range()
@@ -49,5 +68,13 @@ class CalendarHelperTest extends SapphireTest
     public function testAdd_preview_params()
     {
         $this->markTestSkipped('TODO');
+    }
+
+
+    private function debugEvents($events)
+    {
+        foreach($events as $event) {
+            //error_log($event->Title . ' ' . $event->StartDateTime . ' --> ' . $event->EndDateTime);
+        }
     }
 }

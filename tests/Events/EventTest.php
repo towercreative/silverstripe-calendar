@@ -2,6 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Events;
 
+use SilverStripe\Control\Director;
 use \SilverStripe\Dev\SapphireTest;
 
 
@@ -30,6 +31,18 @@ class EventTest extends SapphireTest
     /** @var Event */
     private $allDayEvent;
 
+    /** @var Event */
+    private $futureEvent;
+
+    /** @var Event */
+    private $zeroSecondsEvent1;
+
+    /** @var Event */
+    private $zeroSecondsEvent2;
+
+    /** @var Event */
+    private $noEndEvent;
+
     use DateTimeHelperTrait;
 
     public function setUp()
@@ -41,11 +54,26 @@ class EventTest extends SapphireTest
         $this->durationEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventWithDuration');
         $this->cricketSeasonEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventCricketSeason');
         $this->weekendEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventWeekend');
+        $this->futureEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventFuture');
+        $this->zeroSecondsEvent1 = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventZeroSeconds1');
+        $this->zeroSecondsEvent2 = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventZeroSeconds2');
+        $this->noEndEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventNoEnd');
     }
 
-    public function testSummaryFields()
+    public function test_summary_fields()
     {
-        $this->markTestSkipped('TODO');
+        $fields = $this->eveningMeetUpEvent->summaryFields();
+        $this->assertEquals([
+            'Title' => 'Title',
+            'StartDateTime' => 'Date and Time',
+            'DatesAndTimeframe' => 'Presentation String',
+            'TimeFrameType' => 'Time frame type',
+            'Duration' => 'Duration',
+            'Calendar.Title' => 'Calendar',
+
+            // this is from the event image extension
+            'Thumbnail' => 'Thumbnail'
+        ], $fields);
     }
 
     public function testGetEventPageCalendarTitle()
@@ -142,9 +170,23 @@ class EventTest extends SapphireTest
     }
 
 
-    public function testGetIsPastEvent()
+    public function test_from_past_is_past_event()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->weekendEvent->getIsPastEvent());
+    }
+
+    public function test_from_past_is_future_event()
+    {
+        // need to massage dates
+        $now = Carbon::now();
+
+        // anything in the future is fine
+        $start =$this->getSSDateTimeFromCarbon($now->addDays(10));
+        $end =$this->getSSDateTimeFromCarbon($now->addDays(20));
+
+        $this->weekendEvent->StartDateTime = $start;
+        $this->weekendEvent->EndDateTime = $end;
+        $this->assertFalse($this->futureEvent->getIsPastEvent());
     }
 
     public function testRegistrationEmbargoDate()
@@ -187,19 +229,68 @@ class EventTest extends SapphireTest
         $this->assertEquals('Oct 12th', $this->durationEvent->getFormattedDates());
     }
 
-    public function testGetFormattedTimeframe()
+    public function test_get_formatted_dates_no_end_date_set_non_duration_event()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertEquals('Dec 13th', $this->noEndEvent->getFormattedDates());
     }
 
-    public function testGetStartAndEndDates()
+    public function test_get_formatted_dates_start_end_same()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertEquals('Dec 13th', $this->zeroSecondsEvent1->getFormattedDates());
     }
 
-    public function testGetDatesAndTimeframe()
+    public function test_get_formatted_time_frame_same_day()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertEquals('8:00pm - 9:30pm', $this->eveningMeetUpEvent->getFormattedTimeframe());
+    }
+
+    public function test_get_formatted_time_frame_same_month()
+    {
+        $this->assertNull( $this->weekendEvent->getFormattedTimeframe());
+    }
+
+    public function test_get_formatted_time_frame_multi_month()
+    {
+        $this->assertNull( $this->cricketSeasonEvent->getFormattedTimeframe());
+    }
+
+    public function test_get_formatted_time_frame_zero_seconds()
+    {
+        $this->assertNull( $this->zeroSecondsEvent1->getFormattedTimeframe());
+    }
+
+    public function test_get_formatted_time_frame_zero_seconds_after_parsing()
+    {
+        $this->assertNull( $this->zeroSecondsEvent2->getFormattedTimeframe());
+    }
+
+    // @todo Check the behaviour here, the choice of an hour seems arbitrary
+    public function test_get_formatted_time_frame_no_end_date()
+    {
+        $this->assertEquals('7:00pm - 8:00pm', $this->noEndEvent->getFormattedTimeframe());
+    }
+
+    public function test_get_start_and_end_dates()
+    {
+        // this currently shows a duration of 9hrs which is incorrect
+        // Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020 (9hrs)
+        // @todo Fix, removed the (9hrs) in order to flag it as a bug
+        $this->assertEquals('Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020', $this->cricketSeasonEvent->getStartAndEndDates());
+    }
+
+    public function test_get_dates_and_time_frame_same_day()
+    {
+        $this->assertEquals('Dec 16th @ 8:00pm - 9:30pm', $this->eveningMeetUpEvent->getDatesAndTimeframe());
+    }
+
+    public function test_get_dates_and_time_frame_same_month()
+    {
+        $this->assertEquals('Dec 13th - 15th', $this->weekendEvent->getDatesAndTimeframe());
+    }
+
+    public function test_get_dates_and_time_frame_same_year()
+    {
+        $this->assertEquals('Apr 11th - Sep 21st', $this->cricketSeasonEvent->getDatesAndTimeframe());
     }
 
     public function testGetInternalLink()
@@ -209,17 +300,20 @@ class EventTest extends SapphireTest
 
     public function testGetRelativeLink()
     {
-        $this->markTestSkipped('TODO');
+        $id = $this->eveningMeetUpEvent->ID;
+        $link = 'detail/' . $id;
+        $this->assertEquals($link, $this->eveningMeetUpEvent->getRelativeLink());
     }
 
     public function testCanView()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->cricketSeasonEvent->canView());
     }
 
-    public function testCanCreate()
+    public function test_can_create()
     {
-        $this->markTestSkipped('TODO');
+        // @todo is this correct?
+        $this->assertTrue($this->cricketSeasonEvent->canCreate());
     }
 
     public function testCanCreateTags()
@@ -229,12 +323,12 @@ class EventTest extends SapphireTest
 
     public function testCanEdit()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->cricketSeasonEvent->canEdit());
     }
 
     public function testCanDelete()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->cricketSeasonEvent->canDelete());
     }
 
     public function testCanManage()
@@ -242,8 +336,20 @@ class EventTest extends SapphireTest
         $this->markTestSkipped('TODO');
     }
 
-    public function testTicketsRemaining()
+    public function test_tickets_remaining()
     {
-        $this->markTestSkipped('TODO');
+        if (Director::isDev()) {
+            error_log('**** DEV MODE ****');
+        }
+
+        if (Director::isTest()) {
+            error_log('**** TEST MODE ****');
+        }
+
+        if (Director::isLive()) {
+            error_log('**** LIVE MODE ****');
+        }
+        error_log('TICKETS: ' .  $this->cricketSeasonEvent->TicketsRemaining());
+        $this->assertEquals(444444, $this->cricketSeasonEvent->TicketsRemaining());
     }
 }

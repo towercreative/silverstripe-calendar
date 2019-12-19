@@ -54,3 +54,51 @@ TitleDK\Calendar\Events\Event:
     TimeFrameType: DateTime
     Details: Weekend example, in the same month
 
+  eventFuture:
+    Title: Freezing in the Park
+    StartDateTime: 9019-12-13 19:00
+    EndDateTime: 9019-12-15 21:30
+    TimeFrameType: DateTime
+    Details: Weekend waaaaay in the future
+
+  # The following are for time formatting tests, to try and get 100% coverage
+  eventZeroSeconds1:
+    Title: Blink And You Will Miss It
+    StartDateTime: 2019-12-13 19:00
+    EndDateTime: 2019-12-13 19:00
+    TimeFrameType: DateTime
+    Details: Zero second event with identical times
+
+  eventZeroSeconds2:
+    Title: Blink And You Will Miss It
+    StartDateTime: 2019-12-13 19:00
+    EndDateTime: 2019-12-13 7PM
+    TimeFrameType: DateTime
+    Details: Zero second event with identical times
+
+  eventNewYear:
+    Title: Happy New Year!!
+    StartDateTime: 2019-12-31 19:00
+    EndDateTime: 2020-01-01 07:00
+    TimeFrameType: DateTime
+    Details: Event straddling new year
+
+  eventNoEnd:
+    Title: Blink And You Will Miss It
+    StartDateTime: 2019-12-13 19:00
+    TimeFrameType: DateTime
+    Details: Event with no end time
+
+TitleDK\Calendar\Calendars\Calendar:
+  testCalendar:
+    Title: Test Calendar
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventWithDuration
+      - =>TitleDK\Calendar\Events\Event.eventSameDay
+      - =>TitleDK\Calendar\Events\Event.eventAllDay
+      - =>TitleDK\Calendar\Events\Event.eventCricketSeason
+      - =>TitleDK\Calendar\Events\Event.eventWeekend
+      - =>TitleDK\Calendar\Events\Event.eventFuture
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds1
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds2
+      - =>TitleDK\Calendar\Events\Event.eventNoEnd
