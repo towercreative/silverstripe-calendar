@@ -603,7 +603,6 @@ class Event extends DataObject
     public function getFormattedDates()
     {
         // @todo use standard silverstripe date formatters, otherwise we are looking at 2 different formatting types :(
-
         return EventHelper::formatted_dates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
 
