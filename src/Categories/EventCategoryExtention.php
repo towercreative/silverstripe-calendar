@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Categories;
 
+use SilverStripe\Forms\CheckboxSetField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\ORM\DataExtension;
@@ -25,8 +26,7 @@ class EventCategoryExtension extends DataExtension
             //TODO: This should only be the case for public events
             return PublicEventCategory::get()->map()->toArray();
         };
-        $categoriesField = ListboxField::create('Categories', 'Categories')
-            ->setMultiple(true)
+        $categoriesField = CheckboxSetField::create('Categories', 'Categories')
             ->setSource($categories());
 
         //If the quickaddnew module is installed, use it to allow
