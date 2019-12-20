@@ -64,7 +64,8 @@ class ColorpaletteHelper
         $arr = $s['basepalette'];
         return $arr;
 
-
+        // @todo the following code appears to be unreachable
+/*
         if ($type == 'hsv') {
             $s = 1;
             $v = 1;
@@ -96,5 +97,6 @@ class ColorpaletteHelper
 
             return $arr;
         }
+*/
     }
 }

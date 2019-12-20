@@ -7,6 +7,8 @@ use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\FieldList;
+use TitleDK\Calendar\Calendars\Calendar;
+use TitleDK\Calendar\Core\CalendarConfig;
 
 /**
  * CalendarsForm
@@ -32,7 +34,7 @@ class CalendarsForm extends Form // @todo This was CMSForm
             $gridCalendarConfig->removeComponentsByType(GridFieldDataColumns::class);
             $gridCalendarConfig->addComponent($dataColumns = new GridFieldDataColumns(), GridFieldEditButton::class);
 
-            $c = singleton('Calendar');
+            $c = singleton('TitleDK\Calendar\Calendars\Calendar');
             $summaryFields = $c->summaryFields();
 
             //$summaryFields = array(

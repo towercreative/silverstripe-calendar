@@ -1,6 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Libs\ColorPool;
 
+# Can this be replaced with https://packagist.org/packages/nmirceac/color-tools
+
 /**
  * Color
  */

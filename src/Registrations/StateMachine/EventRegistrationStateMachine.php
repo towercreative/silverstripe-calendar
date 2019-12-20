@@ -1,34 +1,6 @@
 <?php
 namespace TitleDK\Calendar\Registrations\StateMachine;
 
-use SilverStripe\Control\Controller;
-use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
-use SilverStripe\Forms\RequiredFields;
-use SilverStripe\ORM\DataList;
-use SilverStripe\ORM\FieldType\DBBoolean;
-use SilverStripe\ORM\FieldType\DBDatetime;
-use SilverStripe\Forms\TextField;
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Forms\DatetimeField;
-use SilverStripe\Forms\HeaderField;
-use SilverStripe\Forms\TimeField;
-use SilverStripe\Forms\SelectionGroup;
-use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\Tab;
-use SilverStripe\Forms\TabSet;
-use SilverStripe\ORM\DataObject;
-use SilverStripe\Security\Permission;
-use SilverStripe\TagField\TagField;
-use TitleDK\Calendar\Calendars\Calendar;
-use TitleDK\Calendar\Core\CalendarConfig;
-use TitleDK\Calendar\Core\CalendarHelper;
-use TitleDK\Calendar\PageTypes\CalendarPage;
-use TitleDK\Calendar\PageTypes\EventPage;
-use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
-use TitleDK\Calendar\Tags\EventTag;
-
 /**
  * Event Model
  *
@@ -57,6 +29,11 @@ class EventRegistrationStateMachine
     public function __construct($registration)
     {
         $this->registration = $registration;
+    }
+
+    public function getStatus()
+    {
+        return $this->registration->Status;
     }
 
     /**

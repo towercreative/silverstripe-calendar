@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Admin\Forms;
 
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
@@ -9,6 +10,9 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\Forms\GridField\GridField;
+use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
+use TitleDK\Calendar\Core\CalendarConfig;
+use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;
 
 /**
@@ -32,7 +36,7 @@ class EventsForm extends Form
         $gridEventConfig->removeComponentsByType(GridFieldDataColumns::class);
         $dataColumns = new GridFieldDataColumns();
 
-        $summaryFields = Event::$summary_fields;
+        $summaryFields = Config::inst()->get(Event::class, 'summary_fields');
         //Show the page if the event is connected to an event page
         if (CalendarConfig::subpackage_setting('pagetypes', 'enable_eventpage')) {
             $summaryFields['getEventPageCalendarTitle'] = 'Page';

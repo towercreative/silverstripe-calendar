@@ -93,13 +93,13 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     protected function determineFormClass()
     {
         switch ($this->modelClass) {
-            case 'Calendar':
+            case 'TitleDK\Calendar\Calendars\Calendar':
                 $class = 'TitleDK\Calendar\Admin\Forms\CalendarsForm';
                 break;
-            case 'EventCategory':
+            case 'TitleDK\Calendar\Categories\PublicEventCategory':
                 $class = 'TitleDK\Calendar\Admin\Forms\CategoriesForm';
                 break;
-            case 'Event':
+            case 'TitleDK\Calendar\Events\Event':
                 $class = 'TitleDK\Calendar\Admin\Forms\EventsForm';
                 break;
             default:

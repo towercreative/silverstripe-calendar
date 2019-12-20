@@ -42,6 +42,9 @@ class EventRegistration extends DataObject
 
     private static $default_sort = 'Created DESC';
 
+    private static $defaults = [
+        'Status' => 'Available'
+    ];
 
     private static $summary_fields = array(
         'Created' => 'Created DESC',
