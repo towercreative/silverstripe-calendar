@@ -3,21 +3,23 @@
 namespace TitleDK\Calendar\Tests\Colors;
 
 use \SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Colors\ColorpaletteField;
 
 class ColorpaletteFieldTest extends SapphireTest
 {
-    public function test__construct()
+
+    public function testFieldColorWithHash()
     {
-        $this->markTestSkipped('TODO');
+        $paletteField = new ColorpaletteField('ColorField', 'Chooose a color', null, '#48E');
+        $field = $paletteField->Field([]);
+        $this->assertEquals('#48E', $paletteField->value);
     }
 
-    public function testField()
+    public function testFieldColorWithNoHash()
     {
-        $this->markTestSkipped('TODO');
+        $paletteField = new ColorpaletteField('ColorField', 'Chooose a color', null, '48E');
+        $field = $paletteField->Field([]);
+        $this->assertEquals('#48E', $paletteField->value);
     }
 
-    public function testGetColorWithHash()
-    {
-        $this->markTestSkipped('TODO');
-    }
 }
