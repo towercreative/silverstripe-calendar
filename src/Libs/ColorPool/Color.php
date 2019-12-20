@@ -26,20 +26,26 @@ class Color
         }
 
         if ($color instanceof Color) {
+            error_log('T1');
             // clone
             $c = $color;
         } else {
+            error_log('T2');
             $color = rtrim($color, " \t");
             $color = strtolower($color);
 
             if ($color[0] == '#') {
+                error_log('T3');
                 $c = self::fromHexString($color);
             }
 
             if (substr($color, 0, 3) == 'rgb') {
-                $c = self::fromRBGString($color);
+                error_log('T4');
+                $c = self::fromRGBString($color);
             }
         }
+
+        error_log('T5');
 
         $this->r = $c->r;
         $this->g = $c->g;

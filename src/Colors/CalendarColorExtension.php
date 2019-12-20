@@ -19,7 +19,8 @@ class CalendarColorExtension extends DataExtension
 
     public function TextColor()
     {
-        return $this->owner->calculateTextColor($this->owner->getColorWithHash());
+        $colorWithHash = $this->owner->getColorWithHash();
+        return $this->owner->calculateTextColor($colorWithHash);
     }
 
     /**
@@ -29,7 +30,7 @@ class CalendarColorExtension extends DataExtension
      * @param type $color
      * @return string
      */
-    private function calculateTextColor($color)
+    public function calculateTextColor($color)
     {
         $c = str_replace('#', '', $color);
         $rgb[0] = hexdec(substr($c, 0, 2));

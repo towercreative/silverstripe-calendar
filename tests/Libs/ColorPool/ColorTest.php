@@ -3,12 +3,24 @@
 namespace TitleDK\Calendar\Tests\Libs\ColorPool;
 
 use \SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Libs\ColorPool\Color;
 
 class ColorTest extends SapphireTest
 {
-    public function test__construct()
+    public function test__construct_param_not_string()
     {
-        $this->markTestSkipped('TODO');
+        $c = new Color(444);
+        $this->assertNull($c->r);
+        $this->assertNull($c->g);
+        $this->assertNull($c->b);
+    }
+
+    public function test__construct_param_string()
+    {
+        $c = new Color("rgb\t428");
+        $this->assertEquals('', $c->r);
+        $this->assertEquals('', $c->g);
+        $this->assertEquals('', $c->b);
     }
 
     public function testFromHexString()

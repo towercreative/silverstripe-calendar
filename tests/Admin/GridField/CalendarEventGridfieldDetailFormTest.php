@@ -3,11 +3,13 @@
 namespace TitleDK\Calendar\Tests\Admin\GridField;
 
 use \SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Admin\GridField\CalendarEventPageGridFieldDetailForm;
 
 class CalendarEventGridfieldDetailFormTest extends SapphireTest
 {
-    public function testItemEditForm()
+    public function test_item_edit_form()
     {
-        $this->markTestSkipped('TODO');
+        $this->markTestSkipped('rendering form');
+
     }
 }
