@@ -26,26 +26,20 @@ class Color
         }
 
         if ($color instanceof Color) {
-            error_log('T1');
             // clone
             $c = $color;
         } else {
-            error_log('T2');
             $color = rtrim($color, " \t");
             $color = strtolower($color);
 
             if ($color[0] == '#') {
-                error_log('T3');
                 $c = self::fromHexString($color);
             }
 
             if (substr($color, 0, 3) == 'rgb') {
-                error_log('T4');
                 $c = self::fromRGBString($color);
             }
         }
-
-        error_log('T5');
 
         $this->r = $c->r;
         $this->g = $c->g;
@@ -78,7 +72,10 @@ class Color
     public static function fromRGBString($color)
     {
         $color = rtrim($color, "rgb (\t)");
+        error_log('COLOR: ' . $color);
         $rgb = preg_split('\s+,\s+', $color);
+        error_log('RGB');
+        var_dump($rgb);
 
         $c = new self();
         list($c->r, $c->g, $c->b) = array_map('intval', $rgb);
@@ -336,41 +333,6 @@ class Color
         return $this;
     }
 
-    /**
-     * Apply callbacks on HSV or HSL value of the color
-     * @fixme: is this pointless?
-     *
-     * @param callback $h_callback Callback for Hue
-     * @param callback $s_callback Callback for Saturation
-     * @param callback $l_callback Callback for Lightness / Value
-     * @param string   $type       'hsl' or 'hsv'
-     */
-    public function apply($h_callback, $s_callback, $l_callback, $type = 'hsl')
-    {
-        if ($type == 'hsl') {
-            $hsx = $this->toHSL();
-        } elseif ($type == 'hsv') {
-            $hsx = $this->toHSV();
-        } else {
-            throw new Exception(
-                "Invalid type for filter; use 'hsl' or 'hsv'"
-            );
-        }
-
-        $h = call_user_func($h_callback, array($hsx[0]));
-        $s = call_user_func($s_callback, array($hsx[1]));
-        $x = call_user_func($x_callback, array($hsx[2]));
-
-        $c = new Color();
-
-        if ($type == 'hsl') {
-            $c = self::fromHSL($h, $s, $x);
-        } elseif ($type == 'hsv') {
-            $c = self::fromHSV($h, $s, $x);
-        }
-
-        return $c;
-    }
 
     /**
      * Convert the current color to HSL values
