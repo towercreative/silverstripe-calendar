@@ -36,6 +36,8 @@ TitleDK\Calendar\Events\Event:
     EndDateTime: 2019-12-16 21:30
     TimeFrameType: DateTime
     Details: <a href="https://silverstripe.org">SilverStripe</a> meetup, <b>almost sold out</b>
+    Categories:
+      - =>TitleDK\Calendar\Categories\PublicEventCategory.category1
 
   # For testing the isAllDay method, added the AllDay true fla
   eventAllDay:
@@ -68,6 +70,7 @@ TitleDK\Calendar\Events\Event:
     Details: Weekend waaaaay in the future
     Categories:
       - =>TitleDK\Calendar\Categories\PublicEventCategory.category1
+      - =>TitleDK\Calendar\Categories\PublicEventCategory.category2
 
   # The following are for time formatting tests, to try and get 100% coverage
   eventZeroSeconds1:
@@ -90,6 +93,8 @@ TitleDK\Calendar\Events\Event:
     EndDateTime: 2020-01-01 07:00
     TimeFrameType: DateTime
     Details: Event straddling new year
+    Categories:
+      - =>TitleDK\Calendar\Categories\PublicEventCategory.category1
 
   eventNoEnd:
     Title: Blink And You Will Miss It
