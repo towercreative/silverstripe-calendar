@@ -3,36 +3,39 @@
 namespace TitleDK\Calendar\Tests\Calendars;
 
 use \SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Calendars\Calendar;
 
 class CalendarTest extends SapphireTest
 {
-    public function testGetCMSFields()
+    /** @var Calendar */
+    private $calendar;
+
+    public function setUp()
     {
-        $this->markTestSkipped('TODO');
+        $this->calendar = new Calendar();
+        return parent::setUp();
     }
+
 
     public function testCanView()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->calendar->canView());
     }
 
     public function testCanCreate()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertFalse($this->calendar->canCreate());
     }
 
     public function testCanEdit()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertFalse($this->calendar->canEdit());
     }
 
     public function testCanDelete()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertFalse($this->calendar->canDelete());
     }
 
-    public function testCanManage()
-    {
-        $this->markTestSkipped('TODO');
-    }
+
 }
