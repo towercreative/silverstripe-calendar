@@ -1,6 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Core;
 
+use TitleDK\Calendar\Events\Event;
+
 /**
  * Calendar Config
  *
@@ -228,7 +230,7 @@ class CalendarConfig
                     if ($ssversion == '3.0') {
                         Object::add_extension('Calendar', 'CalendarColorExtension');
                     } else {
-                        Calendar::add_extension(CalendarColorExtension::class);
+                        Calendar:add_extension(CalendarColorExtension::class);
                     }
                 }
                 if ($s['shading']) {
