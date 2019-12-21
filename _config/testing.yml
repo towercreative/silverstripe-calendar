@@ -1,0 +1,24 @@
+---
+Name: test-calendar
+Only:
+  #@todo Figure out how to run phpunit in test mode.  It is defaulting to dev mode.  Dev is enabled here temporarily
+  #in order to test extensions
+  environment: dev
+---
+
+#enable all extensions for testing purposes
+TitleDK\Calendar\Events\Event:
+  extensions:
+    - TitleDK\Calendar\Events\EventImageExtension
+    - TitleDK\Calendar\Events\EventLocationExtension
+    - TitleDK\Calendar\Registrations\EventRegistrationExtension
+    - TitleDK\Calendar\Categories\EventCategoryExtension
+    - TitleDK\Calendar\Calendars\EventCalendarExtension
+
+TitleDK\Calendar\Registrations\EventRegistration:
+  extensions:
+    - TitleDK\Calendar\Registrations\AttendeesExtension
+
+TitleDK\Calendar\Calendars\Calendar:
+  extensions:
+    - TitleDK\Calendar\Colors\CalendarColorExtension
