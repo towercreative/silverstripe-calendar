@@ -130,12 +130,6 @@ class Event extends DataObject
     {
         parent::onBeforeWrite();
 
-        $debug = false;
-        if (CalendarConfig::subpackage_enabled('debug')) {
-            $debug = true;
-        }
-        //echo "executing onbeforewrite \n";
-
         //only allowing to run this once:
         if ($this->hasWritten) {
             return false;
@@ -154,9 +148,6 @@ class Event extends DataObject
             if (!$this->ID) {
                 if (date("H:i", strtotime($this->StartDateTime))  == '00:00') {
                     $this->AllDay = true;
-                    if ($debug) {
-                        $this->debugLog('Converted to allday event as the entered time was 00:00');
-                    }
                 }
             }
         }
@@ -168,22 +159,13 @@ class Event extends DataObject
             //If not, leave the end date blank for now, and it'll be taken care later in this method
             if ($this->StartDateTime != $formatDate) {
                 $this->EndDateTime = $formatDate;
-                if ($debug) {
-                    $this->debugLog('Time frame type: Duration: Set end date');
-                }
             } else {
                 //setting the end date/time to null, as it has automatically been set via javascript
                 $this->EndDateTime = null;
-                if ($debug) {
-                    $this->debugLog('Time frame type: Duration: setting the end date/time to null, as it has automatically been set via javascript');
-                }
             }
         } else {
             //reset duration
             $this->Duration = '';
-            if ($debug) {
-                $this->debugLog('reset duration');
-            }
         }
 
         //Sanity checks:
@@ -195,9 +177,6 @@ class Event extends DataObject
         if (CalendarConfig::subpackage_setting('events', 'force_end')) {
             if (!$this->EndDateTime) {
                 $this->EndDateTime = date("Y-m-d H:i:s", strtotime($this->StartDateTime) + 3600);
-                if ($debug) {
-                    $this->debugLog('Sanity check 1: Setting end date');
-                }
             }
         }
 
@@ -212,9 +191,6 @@ class Event extends DataObject
                 $msg = "Sanity check 2: Setting end date = start date and setting all day \n"
                 . "as {$this->EndDateTime} was lower than {$this->StartDateTime} \n"
                 . strtotime($this->EndDateTime) . " vs " . strtotime($this->StartDateTime);
-                if ($debug) {
-                    $this->debugLog($msg);
-                }
             }
         }
 
@@ -225,15 +201,9 @@ class Event extends DataObject
                 if ($this->NoEnd) {
                     $this->Duration = null;
                     $this->EndDateTime = null;
-                    if ($debug) {
-                        $this->debugLog('Sanity check 3: as the event has the noend setting, setting duration and enddatetime to null');
-                    }
                 }
             } else {
                 $this->NoEnd = true;
-                if ($debug) {
-                    $this->debugLog('Sanity check 3: as end date/time has not been set, setting NoEnd to true');
-                }
             }
         }
 
@@ -242,9 +212,6 @@ class Event extends DataObject
         //noend is enforced over allday
         if ($this->AllDay && $this->NoEnd) {
             $this->AllDay = false;
-            if ($debug) {
-                $this->debugLog('Sanity check 4: as both allday and noend have been set, noend wins');
-            }
         }
     }
 
