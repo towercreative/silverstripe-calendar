@@ -13,12 +13,29 @@ TitleDK\Calendar\Events\Event:
     - TitleDK\Calendar\Events\EventLocationExtension
     - TitleDK\Calendar\Registrations\EventRegistrationExtension
     - TitleDK\Calendar\Categories\EventCategoryExtension
-    - TitleDK\Calendar\Calendars\EventCalendarExtension
+    - TitleDK\Calendar\Events\EventRegistrationEmbargoExtension
+
+#
+#  src/Widgets/CalendarPageWidgetExtension.php
+#  src/SubSites/AbstractSubsiteExtension.php
+#  src/SubSites/CalendarSubsiteExtension.php
+ # src/SubSites/EventSubsiteExtension.php
+  #src/SubSites/EventCategorySubsiteExtension.php
+  #src/PageTypes/Extensions/EventPageController.php
+  #src/Libs/DoURLSegmentExtension.php
+  #src/Calendars/ShadedCalendarExtension.php
+  #src/Calendars/GroupsCalendarExtension.php
+  #src/Calendars/EventCalendarExtension.php
 
 TitleDK\Calendar\Registrations\EventRegistration:
   extensions:
     - TitleDK\Calendar\Registrations\AttendeesExtension
+    - TitleDK\Calendar\Events\EventRegistrationEmbargoExtension
 
 TitleDK\Calendar\Calendars\Calendar:
   extensions:
     - TitleDK\Calendar\Colors\CalendarColorExtension
+
+TitleDK\Calendar\Registrations\EventRegistrationController:
+  extensions:
+    - TitleDK\Calendar\Registrations\Controller\AttendeesControllerExtension
