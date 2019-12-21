@@ -49,7 +49,7 @@ before_script:
 
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit -d memory_limit=1G  tests/ '' flush=1; fi
-  - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit -d memory_limit=1G  --coverage-clover=coverage.xml '' flush=1; fi
+  - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit -d memory_limit=1G  --coverage-clover=coverage.xml; fi
   - if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs src/ tests/ ; fi
   - if [[ $NPM_TEST ]]; then git diff-files --quiet -w --relative=client; fi
   - if [[ $NPM_TEST ]]; then git diff --name-status --relative=client; fi
