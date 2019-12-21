@@ -3,6 +3,8 @@
 namespace TitleDK\Calendar\Tests\Colors;
 
 use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Forms\Tab;
+use SilverStripe\Forms\TabSet;
 use TitleDK\Calendar\Calendars\Calendar;
 
 class CalendarColorExtensionTest extends SapphireTest
@@ -39,13 +41,25 @@ class CalendarColorExtensionTest extends SapphireTest
 
     public function test_update_cms_fields()
     {
-        $fields = $this->calendar->getCMSFields()->toArray();
+        $fields = $this->calendar->getCMSFields();
+
+        /** @var TabSet $rootTab */
+        $rootTab = $fields->fieldByName('Root');
+
+        /** @var Tab $mainTab */
+        $mainTab = $rootTab->fieldByName('Main');
+        $fields = $mainTab->FieldList();
             $names = array_map(function($field) {
                 return $field->Name;
             },
-            $fields);
+            $fields->toArray());
 
             // @todo fix this test
-        $this->assertEquals([], $names);
+        $this->assertEquals([
+            'URLSegment',
+            'Title',
+            'Color',
+            'Groups'
+        ], $names);
     }
 }
