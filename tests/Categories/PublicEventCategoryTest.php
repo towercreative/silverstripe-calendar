@@ -28,18 +28,19 @@ class PublicEventCategoryTest extends SapphireTest
     {
         $category1 = $this->objFromFixture('TitleDK\Calendar\Categories\PublicEventCategory', 'category1');
 
-        /** @var PublicEventCategory $category1 */
-        $events = $this->category1->comingEvents()->toArray();
+        // category 1 has a past and 2 future events, only the future events should show
+        $events = $this->category1->comingEvents('2019-12-30')->toArray();
         $titles = array_map(function($event) {
             return $event->Title;
         }, $events);
+        $this->assertEquals(['Happy New Year!!', 'Chilling in the Future'], $titles);
 
-        $this->assertEquals([], $titles);
-
-        foreach($events as $event) {
-            error_log($event->Title);
-        }
-
+        // category 2 has onlhy the event way in the future
+        $events = $this->category2->comingEvents('2019-12-30')->toArray();
+        $titles = array_map(function($event) {
+            return $event->Title;
+        }, $events);
+        $this->assertEquals(['Chilling in the Future'], $titles);
     }
 
     public function testCanView()
@@ -49,21 +50,17 @@ class PublicEventCategoryTest extends SapphireTest
 
     public function testCanCreate()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->category1->canCreate());
     }
 
     public function testCanEdit()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->category1->canEdit());
     }
 
     public function testCanDelete()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->category1->canDelete());
     }
 
-    public function testCanManage()
-    {
-        $this->markTestSkipped('TODO');
-    }
 }
