@@ -48,9 +48,7 @@ before_script:
   - php vendor/silverstripe/framework/tests/dump_constants.php
 
 script:
-  # '' flush=1 is breaking with some versions of PHP
-  # - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit -d memory_limit=1G  tests/ '' flush=1; fi
-  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit -d memory_limit=1G  tests/; fi
+  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit -d memory_limit=1G  tests/ '' flush=1; fi
   - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit -d memory_limit=1G  --coverage-clover=coverage.xml '' flush=1; fi
   - if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs src/ tests/ ; fi
   - if [[ $NPM_TEST ]]; then git diff-files --quiet -w --relative=client; fi
