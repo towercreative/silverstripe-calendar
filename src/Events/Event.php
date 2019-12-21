@@ -36,6 +36,15 @@ use TitleDK\Calendar\Tags\EventTag;
  *
  * Events must be associated with a calendar
  *
+ * @property string $Title
+ * @property boolean $AllDay
+ * @property boolean $NoEnd
+ * @property string $StartDateTime
+ * @property string $EndDateTime
+ * @property string $Duration
+ * @property string $TimeFrameType
+ * @property string $Details
+ *
  * @package calendar
  */
 class Event extends DataObject
