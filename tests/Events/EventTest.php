@@ -72,7 +72,9 @@ class EventTest extends SapphireTest
             'Calendar.Title' => 'Calendar',
 
             // this is from the event image extension
-            'Thumbnail' => 'Thumbnail'
+            'Thumbnail' => 'Thumbnail',
+
+            'RegistrationEmbargoAt' => 'Registration embargo at'
         ], $fields);
     }
 
@@ -275,7 +277,8 @@ class EventTest extends SapphireTest
         // this currently shows a duration of 9hrs which is incorrect
         // Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020 (9hrs)
         // @todo Fix, removed the (9hrs) in order to flag it as a bug
-        $this->assertEquals('Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020', $this->cricketSeasonEvent->getStartAndEndDates());
+        $this->assertEquals('Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020  (3921 hrs)',
+            $this->cricketSeasonEvent->getStartAndEndDates());
     }
 
     public function test_get_dates_and_time_frame_same_day()
@@ -336,7 +339,7 @@ class EventTest extends SapphireTest
         $this->markTestSkipped('TODO');
     }
 
-    public function test_tickets_remaining()
+    public function test_tickets_remaining_no_registrations()
     {
         if (Director::isDev()) {
             error_log('**** DEV MODE ****');
@@ -350,6 +353,6 @@ class EventTest extends SapphireTest
             error_log('**** LIVE MODE ****');
         }
         error_log('TICKETS: ' .  $this->cricketSeasonEvent->TicketsRemaining());
-        $this->assertEquals(444444, $this->cricketSeasonEvent->TicketsRemaining());
+        $this->assertEquals(0, $this->cricketSeasonEvent->TicketsRemaining());
     }
 }
