@@ -72,10 +72,7 @@ class Color
     public static function fromRGBString($color)
     {
         $color = rtrim($color, "rgb (\t)");
-        error_log('COLOR: ' . $color);
         $rgb = preg_split('\s+,\s+', $color);
-        error_log('RGB');
-        var_dump($rgb);
 
         $c = new self();
         list($c->r, $c->g, $c->b) = array_map('intval', $rgb);
