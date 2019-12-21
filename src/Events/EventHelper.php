@@ -1,7 +1,9 @@
 <?php
 namespace TitleDK\Calendar\Events;
 
+use Carbon\Carbon;
 use SilverStripe\ORM\FieldType\DBDatetime;
+use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 
 /**
  * Event Helper
@@ -11,6 +13,7 @@ use SilverStripe\ORM\FieldType\DBDatetime;
  */
 class EventHelper
 {
+    use DateTimeHelperTrait;
 
     /**
      * Date format for YMD
@@ -76,8 +79,8 @@ class EventHelper
     {
         $startDate = date(self::YMD_DATE_FORMAT, strtotime($startObj->value));
         $endDate = date(self::YMD_DATE_FORMAT, strtotime($endObj->value));
-
-        if ($startDate == $endDate) {
+        
+        if ($startDate === $endDate) {
             return false;
         }
 
@@ -99,8 +102,12 @@ class EventHelper
             $endDate = date('M j, Y', $endTime);
         } else {
             // This is the straddling midnight case
-            // @todo Add unit test
-            $endDate = date('M j, Y (g', $endTime) . 'hrs)';
+            // time zones do not matter here, it is the delta in hours that is required
+            $startDateCarbon = Carbon::createFromFormat('Y-m-d H:i:s', $startObj->value);
+            $endDateCarbon = Carbon::createFromFormat('Y-m-d H:i:s', '2020-09-21 21:30:00');
+
+            $durationHrs = $endDateCarbon->diffInHours($startDateCarbon);
+            $endDate = date('M j, Y', $endTime) . '  (' . $durationHrs . ' hrs)';
         }
 
         return $startDate." &ndash; ".$endDate;
