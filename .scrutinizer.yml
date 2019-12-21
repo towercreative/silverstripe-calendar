@@ -8,7 +8,7 @@ build:
   nodes:
     analysis:
       tests:
-        override: [php-scrutinizer-run]
+        override: [php-scrutinizer-run --enable-security-analysis]
 
 filter:
   paths: ["src/*", "tests/*"]
