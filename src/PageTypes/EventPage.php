@@ -18,7 +18,8 @@ class EventPage extends \Page
 {
 
     private static $singular_name = 'Event Page';
-    private static $description = 'Provides for a permanent URL for recurring events like festivals, monthly shopping events etc.';
+    private static $description = 'Provides for a permanent URL for recurring events like festivals, monthly shopping ' .
+        'events etc.';
 
     private static $has_many = array(
         'Events' => 'TitleDK\Calendar\Events\Event',

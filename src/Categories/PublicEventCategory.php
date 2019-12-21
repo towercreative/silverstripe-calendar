@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Categories;
 
+use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use TitleDK\Calendar\Categories\EventCategory;
 

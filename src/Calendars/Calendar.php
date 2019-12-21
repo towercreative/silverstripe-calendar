@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Calendars;
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Group;
+use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
