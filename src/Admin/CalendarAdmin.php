@@ -1,27 +1,20 @@
 <?php
 namespace TitleDK\Calendar\Admin;
 
-use SilverShop\Admin\ProductBulkLoader;
-use SilverShop\Model\Variation\AttributeType;
-use SilverShop\Page\Product;
-use SilverShop\Page\ProductCategory;
-use SilverStripe\Dev\CsvBulkLoader;
-use SilverStripe\Forms\GridField\GridFieldImportButton;
-use SilverStripe\View\Requirements;
-use SilverStripe\Forms\GridField\GridFieldExportButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
-use SilverStripe\Forms\GridField\GridFieldFilterHeader;
-use SilverStripe\Forms\GridField\GridFieldPrintButton;
-use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Control\Controller;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Admin\ModelAdmin;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldExportButton;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
+use SilverStripe\Forms\GridField\GridFieldImportButton;
+use SilverStripe\Forms\GridField\GridFieldPrintButton;
 use SilverStripe\Security\PermissionProvider;
+use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Core\CalendarConfig;
-use TitleDK\Calendar\Events\Event;
-use TitleDK\Calendar\Events\EventCsvBulkLoader;
 
 /**
  * Calendar Admin
@@ -40,9 +33,6 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
         'CategoriesForm',
         'EventsForm'
     );
-
-
-
 
     private static $managed_models = array(
         'TitleDK\Calendar\Events\Event',
