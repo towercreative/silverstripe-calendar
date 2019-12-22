@@ -11,7 +11,6 @@ class Color
     public $r;
     public $g;
     public $b;
-    private $hsxCache=array();
 
     /**
      * Constructor

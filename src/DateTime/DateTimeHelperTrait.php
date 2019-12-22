@@ -7,7 +7,7 @@ use SilverStripe\ORM\FieldType\DBDatetime;
 trait DateTimeHelperTrait
 {
     /**
-     * @param $ssDateTimeString time returned from a SilverStripe DateField or DateTimeField
+     * @param string $ssDateTimeString time returned from a SilverStripe DateField or DateTimeField
      *
      * @todo Timezones
      *

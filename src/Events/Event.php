@@ -20,6 +20,7 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\Calendars\Calendar;
@@ -44,6 +45,8 @@ use TitleDK\Calendar\Tags\EventTag;
  * @property string $Duration
  * @property string $TimeFrameType
  * @property string $Details
+ *
+ * @method DataList Tags list of event tags
  *
  * @package calendar
  */
@@ -109,6 +112,8 @@ class Event extends DataObject
 
 
     /* ---- from event has event page extension ---- */
+
+    // @todo this method is suspicous
 
     public function getEventPageCalendarTitle()
     {
@@ -197,9 +202,6 @@ class Event extends DataObject
             if (strtotime($this->EndDateTime) < strtotime($this->StartDateTime)) {
                 $this->EndDateTime = $this->StartDateTime;
                 $this->AllDay = true;
-                $msg = "Sanity check 2: Setting end date = start date and setting all day \n"
-                . "as {$this->EndDateTime} was lower than {$this->StartDateTime} \n"
-                . strtotime($this->EndDateTime) . " vs " . strtotime($this->StartDateTime);
             }
         }
 
@@ -379,13 +381,6 @@ class Event extends DataObject
                 )),
             LiteralField::create('Clear', '<div class="clear"></div>')
         );
-
-        //Date field settings
-        $timeExpl = 'Time, e.g. 11:15am or 15:30';
-
-        //$startDateTime->setConfig('datavalueformat', 'YYYY-MM-dd HH:mm');
-        //$endDateTime->setConfig('datavalueformat', 'YYYY-MM-dd HH:mm');
-
 
         // @todo API for show calendar has changed
         $startDateTime

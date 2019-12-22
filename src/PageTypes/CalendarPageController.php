@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\PageTypes;
 
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\RequiredFields;
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\PaginatedList;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
@@ -278,7 +279,7 @@ class CalendarPageController extends PageController
      *
      * @param $paged true to paginate the list
      *
-     * @return type
+     * @return PaginatedList
      */
     public function Events()
     {

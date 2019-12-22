@@ -3,6 +3,7 @@ namespace TitleDK\Calendar\Categories;
 
 use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
 
 /**
@@ -10,6 +11,8 @@ use SilverStripe\ORM\DataObject;
  *
  * @package calendar
  * @subpackage categories
+ *
+ * @method DataList Events get the events associated with this category
  */
 class EventCategory extends DataObject
 {

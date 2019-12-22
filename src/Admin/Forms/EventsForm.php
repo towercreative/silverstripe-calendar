@@ -71,7 +71,7 @@ class EventsForm extends Form
             $gridConfig
         );
         $fields->addFieldToTab('Root.Coming', $comingGridField);
-        
+
         // Find all past events, including those with null start time
         $time = date('Y-m-d', time());
         $pastEvents = Event::get()
