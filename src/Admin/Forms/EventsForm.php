@@ -14,6 +14,7 @@ use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\PageTypes\EventPage_Controller;
 
 /**
  * Events Form
@@ -54,8 +55,8 @@ class EventsForm extends Form
 
     /**
      * Contructor
-     * @param type $controller
-     * @param type $name
+     * @param EventPage_Controller $controller
+     * @param string $name
      */
     public function __construct($controller, $name)
     {
@@ -63,32 +64,14 @@ class EventsForm extends Form
         $fields->push(TabSet::create("Root"));
         $gridConfig = self::eventConfig();
 
-        /*
-         * Coming events
-         */
-        $comingTab = $fields->findOrMakeTab(
-            'Root.Coming',
-            _t('Event.COMING_EVENT_PLURAL', 'Coming events')
-        );
-
         $comingGridField = GridField::create(
             'ComingEvents',
             '',
             CalendarHelper::coming_events(),
             $gridConfig
         );
-
         $fields->addFieldToTab('Root.Coming', $comingGridField);
-
-        /*
-         * Past events
-         */
-
-        $pastTab = $fields->findOrMakeTab(
-            'Root.Past',
-            _t('Event.PAST_EVENT_PLURAL', 'Past events')
-        );
-
+        
         // Find all past events, including those with null start time
         $time = date('Y-m-d', time());
         $pastEvents = Event::get()
