@@ -162,7 +162,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
 
     public function providePermissions()
     {
-        $title = LeftAndMain::menu_title_for_class($this->class);
+        $title = LeftAndMain::menu_title($this->class);
         return array(
             "CMS_ACCESS_CalendarAdmin" => array(
                 'name' => _t('CMSMain.ACCESS', "Access to '{title}' section", array('title' => $title)),
