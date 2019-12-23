@@ -1,0 +1,63 @@
+TitleDK\Calendar\Tags\EventTag:
+  tag1:
+    Title: Conference
+  tag2:
+    Title: SilverStripe
+
+
+TitleDK\Calendar\Categories\PublicEventCategory:
+  category1:
+    Title: Conference
+
+TitleDK\Calendar\Events\Event:
+  conference:
+    Title: Example Conference
+    EndDateTime: 2019-10-16 09:00
+    StartDateTime: 2019-10-19 18:00
+
+    TimeFrameType: DateTime
+    Tags:
+      - =>TitleDK\Calendar\Tags\EventTag.tag1
+      - =>TitleDK\Calendar\Tags\EventTag.tag2
+
+
+TitleDK\Calendar\Registrations\Attendee:
+  attendee1:
+    Title: Sir
+    FirstName: David
+    Surname: Attenborough
+    Company: The World
+    Phone: 082 344 2631
+    Email: fred.fred@fred.com
+
+TitleDK\Calendar\Registrations\EventRegistration:
+  registration1:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Fred Bloggs
+    PayersName: Acme Co
+    Email: fred.bloggs@gmail.com
+    Status: Booked
+    NumberOfTickets: 1
+    AmountPaid: 20
+    Notes: Random Notes
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee1
+
+  registration2:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Fred Bloggs
+    PayersName: Acme Co
+    Email: fred.bloggs@gmail.com
+    Status: Booked
+    NumberOfTickets: 1
+    AmountPaid: 20
+    Notes: Random Notes
+
+
+
+TitleDK\Calendar\Calendars\Calendar:
+  conferenceCalendar:
+    Title: Conference Calendar
+    Events:
+      - =>TitleDK\Calendar\Events\Event.conference
+
