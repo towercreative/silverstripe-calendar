@@ -12,6 +12,9 @@ use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 /**
  * Extend event registration
  *
+ * Each registration can have multiple attendees, for example an IT company register 4 people for an event such as a
+ * conference or seminar
+ *
  * Class EventRegistrationAttendeesExtension
  * @package TitleDK\Calendar\Attendee
  */
@@ -40,7 +43,7 @@ class AttendeesExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields)
     {
-        
+
         $gridField = GridField::create(
             'Attendees',
             'Attendees',
