@@ -14,7 +14,7 @@ TitleDK\Calendar\Events\Event:
     Title: Example Conference
     EndDateTime: 2019-10-16 09:00
     StartDateTime: 2019-10-19 18:00
-
+    TicketsRequired: true
     TimeFrameType: DateTime
     Tags:
       - =>TitleDK\Calendar\Tags\EventTag.tag1
@@ -1149,4 +1149,10 @@ TitleDK\Calendar\Calendars\Calendar:
     Title: Conference Calendar
     Events:
       - =>TitleDK\Calendar\Events\Event.conference
+
+TitleDK\Calendar\PageTypes\CalendarPage:
+    calendarpageconference:
+      Title: Conference Page
+      Calendars:
+        - =>TitleDK\Calendar\Calendars\Calendar.conferenceCalendar
 

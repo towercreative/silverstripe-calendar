@@ -2,10 +2,28 @@
 
 namespace TitleDK\Calendar\Tests\PageTypes;
 
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Dev\FunctionalTest;
 use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Security\Member;
+use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 
-class CalendarPageControllerTest extends SapphireTest
+class CalendarPageControllerTest extends FunctionalTest
 {
+    protected static $fixture_file = ['tests/registered-events.yml'];
+
+    /** @var CalendarPage */
+    private $calendarPage;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'calendarpageconference');
+
+        // this is necessary to publish a page from the fixtures so that it can be seen
+        $this->calendarPage->publishRecursive();
+    }
     public function testInit()
     {
         $this->markTestSkipped('TODO');
@@ -13,7 +31,17 @@ class CalendarPageControllerTest extends SapphireTest
 
     public function testIndex()
     {
-        $this->markTestSkipped('TODO');
+        $pages = SiteTree::get();
+        foreach($pages as $page) {
+            error_log($page->ClassName);
+            error_log($page->Link());
+        }
+
+        $page = $this->get('/conference-page/');
+
+        $this->assertEquals(200, $page->getStatusCode());
+        error_log($page->getBody());
+        $this->assertExactHTMLMatchBySelector('title', 'wibble');
     }
 
     public function testUpcoming()

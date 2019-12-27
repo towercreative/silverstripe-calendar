@@ -3,12 +3,25 @@
 namespace TitleDK\Calendar\Tests\Libs;
 
 use \SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Calendars\Calendar;
+use TitleDK\Calendar\Libs\ICSExport;
 
 class ICSExportTest extends SapphireTest
 {
+    protected static $fixture_file = ['tests/events.yml', 'tests/eventpages.yml'];
+
+    /** @var Calendar */
+    private $calendar;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->calendar = $this->objFromFixture(Calendar::class, 'testCalendar');
+    }
+
     public function test__construct()
     {
-        $this->markTestSkipped('TODO');
+        $export = new ICSExport([$this->calendar]);
     }
 
     public function testGetFile()

@@ -44,4 +44,5 @@ class CalendarPageTest extends SapphireTest
         ], $names);
 
     }
+
 }
