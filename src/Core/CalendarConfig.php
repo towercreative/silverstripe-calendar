@@ -273,14 +273,7 @@ class CalendarConfig
                     Event::add_extension('EventRegistrationExtension');
                 }
             }
-
-            //Adding URL Segment extension to Calendar (currently done for all but could be made configurable later)
-            Object::add_extension('Calendar', 'DoURLSegmentExtension');
-            if ($ssversion == '3.0') {
-                Object::add_extension('Calendar', 'DoURLSegmentExtension');
-            } else {
-                Calendar::add_extension('DoURLSegmentExtension');
-            }
+            
         }
     }
 }

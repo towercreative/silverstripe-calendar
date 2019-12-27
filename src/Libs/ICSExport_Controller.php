@@ -1,5 +1,5 @@
 <?php
-namespace TitleDK\Calendar\Libs\ColorPool;
+namespace TitleDK\Calendar\Libs;
 
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Email\Email;

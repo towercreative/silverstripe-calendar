@@ -22,6 +22,7 @@ use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\FieldType\DBInt;
 use SilverStripe\TagField\TagField;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
 
 /**

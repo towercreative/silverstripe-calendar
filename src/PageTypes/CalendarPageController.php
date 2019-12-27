@@ -1,16 +1,13 @@
 <?php
 namespace TitleDK\Calendar\PageTypes;
 
-use SilverStripe\Forms\DropdownField;
-use SilverStripe\Forms\RequiredFields;
-use SilverStripe\ORM\DataList;
-use SilverStripe\ORM\PaginatedList;
-use SilverStripe\Security\Security;
-use SilverStripe\View\Requirements;
-use SilverStripe\Core\Convert;
-use SilverStripe\Control\HTTP;
-use SilverStripe\Control\Controller;
 use PageController;
+use SilverStripe\CMS\Controllers\ContentController;
+use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTP;
+use SilverStripe\Core\Convert;
+use SilverStripe\ORM\PaginatedList;
+use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
@@ -18,7 +15,8 @@ use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Tags\EventTag;
 
-class CalendarPageController extends PageController
+// @todo using page controller, the output for textIndex was likes of a default page controller
+class CalendarPageController extends ContentController
 {
 
     private static $allowed_actions = array(
@@ -64,6 +62,8 @@ class CalendarPageController extends PageController
      */
     public function index()
     {
+        parent::index();
+
         // @todo config
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
@@ -87,11 +87,9 @@ class CalendarPageController extends PageController
     public function upcoming()
     {
         $events = $this->Events(false);
-        $grid = $this->owner->createGridLayout($events, 2);
 
         return [
-            'Events' => new PaginatedList($events, $this->getRequest()),
-            'GridLayout' => $grid
+            'Events' => new PaginatedList($events, $this->getRequest())
         ];
     }
 
@@ -101,11 +99,9 @@ class CalendarPageController extends PageController
     public function recent()
     {
         $events = $this->Events(false);
-        $grid = $this->owner->createGridLayout($events, 2);
 
         return [
-            'Events' => new PaginatedList($events, $this->getRequest()),
-            'GridLayout' => $grid
+            'Events' => new PaginatedList($events, $this->getRequest())
         ];
     }
 

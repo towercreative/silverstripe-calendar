@@ -1,5 +1,5 @@
 <?php
-namespace TitleDK\Calendar\Libs\ColorPool;
+namespace TitleDK\Calendar\Libs;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\ORM\DataExtension;
@@ -22,7 +22,6 @@ class DoURLSegmentExtension extends DataExtension
     {
         $this->owner->URLSegment = singleton(SiteTree::class)->generateURLSegment($this->owner->Title);
     }
-
 
     /**
      * Get the link, which appears to return the URLSegment
