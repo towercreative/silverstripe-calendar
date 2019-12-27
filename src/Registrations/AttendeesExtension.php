@@ -24,19 +24,6 @@ class AttendeesExtension extends DataExtension
         'Attendees' => Attendee::class
     ];
 
-    /*
-     * ID         | int(11)                                            | NO   | PRI | NULL                                    | auto_increment |
-| ClassName  | enum('TitleDK\\Calendar\\Registrations\\Attendee') | YES  | MUL | TitleDK\Calendar\Registrations\Attendee |                |
-| LastEdited | datetime                                           | YES  |     | NULL                                    |                |
-| Created    | datetime                                           | YES  |     | NULL                                    |                |
-| Title      | varchar(255)                                       | YES  |     | NULL                                    |                |
-| FirstName  | varchar(255)                                       | YES  |     | NULL                                    |                |
-| Surname    | varchar(255)                                       | YES  |     | NULL                                    |                |
-| Company    | varchar(255)                                       | YES  |     | NULL                                    |                |
-| Phone      | varchar(255)                                       | YES  |     | NULL                                    |                |
-| Email      | varchar(255)
-     */
-
     // @todo This will need fixed
     private static $summary_fields = ['Title', 'AttendeeName', 'FirstName', 'Surname', 'Phone', 'Email'];
 
