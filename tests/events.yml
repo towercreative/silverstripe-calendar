@@ -81,7 +81,7 @@ TitleDK\Calendar\Events\Event:
     Details: Zero second event with identical times
 
   eventZeroSeconds2:
-    Title: Blink And You Will Miss It
+    Title: Blink And You Will Miss It 2
     StartDateTime: 2019-12-13 19:00
     EndDateTime: 2019-12-13 7PM
     TimeFrameType: DateTime
@@ -97,7 +97,7 @@ TitleDK\Calendar\Events\Event:
       - =>TitleDK\Calendar\Categories\PublicEventCategory.category1
 
   eventNoEnd:
-    Title: Blink And You Will Miss It
+    Title: The Neverending Event
     StartDateTime: 2019-12-13 19:00
     TimeFrameType: DateTime
     Details: Event with no end time
