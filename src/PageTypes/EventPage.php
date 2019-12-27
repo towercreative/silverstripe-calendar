@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\PageTypes;
 
+use Carbon\Carbon;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridField;
@@ -27,20 +28,23 @@ class EventPage extends \Page
 
     public function ComingEvents()
     {
+        $timestamp = Carbon::now()->timestamp;
         //Coming events
         $comingEvents = $this->Events()
             ->filter(array(
-                    'StartDateTime:GreaterThan' => date('Y-m-d', time() - 24*60*60)
+                    'StartDateTime:GreaterThan' => date('Y-m-d', $timestamp - 24*60*60)
                 ));
         return $comingEvents;
     }
 
     public function PastEvents()
     {
+        $timestamp = Carbon::now()->timestamp;
+
         //Past events
         $pastEvents = $this->Events()
             ->filter(array(
-                    'StartDateTime:LessThan' => date('Y-m-d', time())
+                    'StartDateTime:LessThan' => date('Y-m-d', $timestamp)
                 ));
         return $pastEvents;
     }
