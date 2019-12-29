@@ -33,7 +33,9 @@ class EventRegistrationTest extends SapphireTest
     {
        // $this->generateFixtures();
         $registration = $this->objFromFixture(EventRegistration::class, 'registration10');
-        $this->assertEquals('-0011', $registration->getRegistrationCode());
+        $id = $registration->ID;
+        error_log('REG ID: ' . $id);
+        $this->assertEquals('-' . $id, $registration->getRegistrationCode());
     }
 
 

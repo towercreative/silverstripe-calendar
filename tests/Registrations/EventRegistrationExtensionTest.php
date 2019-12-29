@@ -76,8 +76,11 @@ class EventRegistrationExtensionTest extends SapphireTest
 
     public function test_get_register_link()
     {
+        $conferencePage = $this->objFromFixture(CalendarPage::class, 'calendarpageconference');
         $expected = '/conference-page/register/' .
-            $this->objFromFixture(CalendarPage::class, 'calendarpageconference')->ID;
+            $conferencePage->ID;
+        error_log('test_get_register_link: ID=' . $conferencePage->ID);
+        error_log('test_get_register_link: EXPECTED=' . $expected);
         $this->assertEquals($expected, $this->event->getRegisterLink());
     }
 

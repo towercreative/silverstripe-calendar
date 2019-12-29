@@ -9,6 +9,9 @@ use TitleDK\Calendar\Registrations\EventRegistration;
 
 class AttendeesExtensionTest extends SapphireTest
 {
+    // This test does not work with Postgresql without a fixtures file
+    protected static $fixture_file = 'tests/events.yml';
+
     public function test_update_cms_fields()
     {
         $registration = new EventRegistration();
