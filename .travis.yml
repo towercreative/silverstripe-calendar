@@ -16,7 +16,7 @@ env:
 matrix:
   include:
     - php: 7.1
-      env: DB=PGSQL RECIPE_VERSION=4.3.x-dev PHPUNIT_TEST=1
+      env: DB=PGSQL RECIPE_VERSION=4.3.x-dev PHPCS_TEST=1 PHPUNIT_TEST=1
     - php: 7.2
       env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
     - php: 7.3
@@ -25,16 +25,12 @@ matrix:
       env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
     - php: 7.3
       env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
-    - php: 7.4
-      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1 PHP_CS_TEST=1
 
 before_script:
   # Init PHP
   - phpenv rehash
   - phpenv config-rm xdebug.ini
-  - echo 'memory_limit = 4G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - pwd
-  - cat .env
+  - echo 'memory_limit = 2G' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 
   # Install composer dependencies
