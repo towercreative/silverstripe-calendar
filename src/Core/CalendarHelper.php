@@ -133,7 +133,7 @@ class CalendarHelper
     public static function events_for_date_range($startDateStr, $endDateStr, $calendarIDS = [])
     {
         $endDateStr .= ' 23:59:59';
-        $sql = "((StartDateTime BETWEEN '$startDateStr' AND '$endDateStr') OR (EndDateTime BETWEEN '$startDateStr' AND '$endDateStr'))";
+        $sql = "((\"StartDateTime\" BETWEEN '$startDateStr' AND '$endDateStr') OR (\"EndDateTime\" BETWEEN '$startDateStr' AND '$endDateStr'))";
 
         $events = Event::get()
             ->where($sql);
