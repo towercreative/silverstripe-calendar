@@ -86,7 +86,7 @@ class CalendarPageController extends ContentController
      */
     public function upcoming()
     {
-        $events = $this->Events(false);
+        $events = $this->Events();
 
         return [
             'Events' => new PaginatedList($events, $this->getRequest())
@@ -95,10 +95,13 @@ class CalendarPageController extends ContentController
 
     /**
      * Show recent events
+     *
+     * @todo This is broken, the above method and this one call Events with a non existent parameter.  upcoming and
+     * recent are not the same
      */
     public function recent()
     {
-        $events = $this->Events(false);
+        $events = $this->Events();
 
         return [
             'Events' => new PaginatedList($events, $this->getRequest())
