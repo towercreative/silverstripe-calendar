@@ -63,18 +63,20 @@ class EventTest extends SapphireTest
     public function test_summary_fields()
     {
         $fields = $this->eveningMeetUpEvent->summaryFields();
+
+        // @TimeFrameType and RegistrationEmbargoAt have different cases on the trailing words with Postgresql
         $this->assertEquals([
             'Title' => 'Title',
             'StartDateTime' => 'Date and Time',
             'DatesAndTimeframe' => 'Presentation String',
-            'TimeFrameType' => 'Time frame type',
+            'TimeFrameType' => 'Time Frame Type',
             'Duration' => 'Duration',
             'Calendar.Title' => 'Calendar',
 
             // this is from the event image extension
             'Thumbnail' => 'Thumbnail',
 
-            'RegistrationEmbargoAt' => 'Registration embargo at'
+            'RegistrationEmbargoAt' => 'Embargo Registration At'
         ], $fields);
     }
 

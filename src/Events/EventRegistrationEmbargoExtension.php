@@ -21,7 +21,9 @@ class EventRegistrationEmbargoExtension extends DataExtension
     );
 
 
-    private static $summary_fields = ['RegistrationEmbargoAt'];
+    private static $summary_fields = [
+        'RegistrationEmbargoAt' => 'Embargo Registration At'
+    ];
 
     public function updateCMSFields(FieldList $fields)
     {

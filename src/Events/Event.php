@@ -89,7 +89,7 @@ class Event extends DataObject
         'Title' => 'Title',
         'StartDateTime' => 'Date and Time',
         'DatesAndTimeframe' => 'Presentation String',
-        'TimeFrameType' => 'TimeFrameType',
+        'TimeFrameType' => 'Time Frame Type',
         'Duration' => 'Duration',
         'Calendar.Title' => 'Calendar'
     );
