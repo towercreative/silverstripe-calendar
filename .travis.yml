@@ -9,6 +9,11 @@ cache:
   directories:
     - $HOME/.composer/cache/files
 
+addons:
+  postgresql: 9.6
+  apt:
+    packages:
+      - postgresql-9.6-postgis-2.3
 env:
   global:
     - COMPOSER_ROOT_VERSION=4.x-dev
@@ -16,7 +21,7 @@ env:
 matrix:
   include:
     - php: 7.1
-      env: DB=PGSQL RECIPE_VERSION=4.3.x-dev PHPCS_TEST=1 PHPUNIT_TEST=1
+      env: DB=PGSQL RECIPE_VERSION=4.3.x-dev  PHPUNIT_TEST=1
     - php: 7.2
       env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
     - php: 7.3
@@ -24,9 +29,12 @@ matrix:
     - php: 7.3
       env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
     - php: 7.3
-      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
+        env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
+    - php: 7.3
+        env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPCS_TEST=1
 
 before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
   # Init PHP
   - phpenv rehash
   - phpenv config-rm xdebug.ini
