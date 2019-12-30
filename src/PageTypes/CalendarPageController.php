@@ -139,7 +139,7 @@ class CalendarPageController extends ContentController
             Requirements::javascript($prefix . '/2.9.1/fullcalendar/lib/moment.min.js');
             Requirements::javascript($prefix . '/2.9.1/fullcalendar/fullcalendar.min.js');
             Requirements::css($prefix . '/2.9.1/fullcalendar/fullcalendar.min.css');
-            Requirements::css($prefix '/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
+            Requirements::css($prefix . '/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
 
             //xdate - needed for some custom code - e.g. shading
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/xdate/xdate.js');
