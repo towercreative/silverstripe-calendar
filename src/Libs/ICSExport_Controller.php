@@ -121,9 +121,6 @@ class ICSExport_Controller extends Controller
 
         $eventsArr = $events->toNestedArray();
 
-        //Debug::dump($eventsArr);
-        //return false;
-
         $ics = new ICSExport($eventsArr);
         return $this->output($ics, 'all');
     }
