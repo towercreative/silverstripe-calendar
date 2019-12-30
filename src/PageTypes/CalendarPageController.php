@@ -148,7 +148,8 @@ class CalendarPageController extends ContentController
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/xdate/xdate.js');
 
             Requirements::javascript(
-                'titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js');
+                'titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js'
+            );
 
             $url = CalendarHelper::add_preview_params($this->Link(), $this->data());
 

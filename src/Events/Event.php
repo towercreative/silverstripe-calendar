@@ -381,14 +381,13 @@ class Event extends DataObject
             //NoEnd field - will only be shown if end dates are not enforced - see below
             CheckboxField::create('NoEnd', 'Open End'),
             HeaderField::create('TimeFrameHeader', $timeFrameHeaderText, 5),
-            //LiteralField::create('TimeFrameText','<em class="TimeFrameText">Choose the type of time frame you\'d like to enter</em>'),
             SelectionGroup::create(
                 'TimeFrameType',
-                array(
+                [
                 "Duration//Duration" => TimeField::create('Duration', '')->setRightTitle('up to 24h')
                     ->setAttribute('placeholder', 'Enter duration'),
                 "DateTime//Date/Time" => $endDateTime = DatetimeField::create('EndDateTime', '')
-                )
+                ]
             ),
             LiteralField::create('Clear', '<div class="clear"></div>')
         );

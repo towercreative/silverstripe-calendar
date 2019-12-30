@@ -26,7 +26,8 @@ class CalendarColorExtension extends DataExtension
     /**
      * Text Color calculation
      * From http://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
-     * Here is a discussion on that topic: http://stackoverflow.com/questions/1331591/given-a-background-color-black-or-white-text
+     * Here is a discussion on that topic:
+     * http://stackoverflow.com/questions/1331591/given-a-background-color-black-or-white-text
      *
      * @param  string $color
      * @return string
