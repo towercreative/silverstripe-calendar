@@ -31,15 +31,7 @@ class ICSExportTest extends SapphireTest
 
     public function testGetString()
     {
-        $calendars = Calendar::get();
-        error_log('N CALENDARS: ' . $calendars->first());
-        $events = new ArrayList();
-        foreach ($calendars as $cal) {
-            $events->merge($cal->Events());
-        }
-
-
-        $eventsArr = $events->toNestedArray();
+        $eventsArr = $this->createEventsArray();
 
         $ics = new ICSExport($eventsArr);
         error_log($ics->getString());
@@ -56,46 +48,33 @@ class ICSExportTest extends SapphireTest
 
     public function testCleanString()
     {
-        $this->markTestSkipped('TODO');
+        $src = "wibble<br/>wobble";
+        $this->assertEquals("wibble\\nwobble", ICSExport::cleanString($src));
     }
 
     public function testIcs_from_sscal()
     {
-        $this->markTestSkipped('TODO');
+        $eventsArr = $this->createEventsArray();
+        $calendar = Calendar::get()->first();
+        $ics = new ICSExport($eventsArr);
+        $this->assertEquals($ics->getString(), ICSExport::ics_from_sscal($calendar)->getString());
     }
 
-    public function testInit()
-    {
-        $this->markTestSkipped('TODO');
-    }
 
-    public function testIndex()
-    {
-        $this->markTestSkipped('TODO');
-    }
 
-    public function testCal()
+    /**
+     * @return array
+     */
+    private function createEventsArray()
     {
-        $this->markTestSkipped('TODO');
-    }
+        $calendars = Calendar::get();
+        error_log('N CALENDARS: ' . $calendars->count());
+        $events = new ArrayList();
+        foreach ($calendars as $cal) {
+            $events->merge($cal->Events());
+        }
 
-    public function testAll()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
-    public function testMy()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
-    public function testMemberCalendar()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
-    public function testOutput()
-    {
-        $this->markTestSkipped('TODO');
+        $eventsArr = $events->toNestedArray();
+        return $eventsArr;
     }
 }
