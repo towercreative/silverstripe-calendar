@@ -29,9 +29,9 @@ matrix:
     - php: 7.3
       env: DB=MYSQL RECIPE_VERSION=4.4.x-dev PHPUNIT_TEST=1
     - php: 7.3
-        env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
+      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
     - php: 7.3
-        env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPCS_TEST=1
+      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPCS_TEST=1
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
