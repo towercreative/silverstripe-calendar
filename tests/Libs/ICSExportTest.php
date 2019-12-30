@@ -3,6 +3,7 @@
 namespace TitleDK\Calendar\Tests\Libs;
 
 use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\ORM\ArrayList;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Libs\ICSExport;
 
@@ -21,7 +22,21 @@ class ICSExportTest extends SapphireTest
 
     public function test__construct()
     {
-        $export = new ICSExport([$this->calendar]);
+        $calendars = Calendar::get();
+        $events = new ArrayList();
+        foreach ($calendars as $cal) {
+            $events->merge($cal->Events());
+        }
+
+
+        $eventsArr = $events->toNestedArray();
+
+        $ics = new ICSExport($eventsArr);
+        error_log($ics->getString());
+
+
+        // @todo check the output - note there is a timestamp issue which changes each time the tests are run
+        $this->markAsRisky();
     }
 
     public function testGetFile()
