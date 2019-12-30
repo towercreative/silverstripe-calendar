@@ -23,24 +23,24 @@ use SilverStripe\Dev\Debug;
 class ICSExport
 {
     /**
-     * @var array $_arrCalendar the calendar array
+     * @var array $arrCalendar the calendar array
      */
-    protected $_arrCalendar = array();
+    protected $arrCalendar = array();
 
     /**
-     * @var string $_strIcsHeader the header of the calendar
+     * @var string $stricsHeader the header of the calendar
      */
-    protected $_strIcsHeader = "BEGIN:VCALENDAR\r\nPRODID:-//php/ics\r\nVERSION:2.0\r\nMETHOD:PUBLISH\r\n";
+    protected $stricsHeader = "BEGIN:VCALENDAR\r\nPRODID:-//php/ics\r\nVERSION:2.0\r\nMETHOD:PUBLISH\r\n";
 
     /**
-     * @var string $_strIcsFooter the footer of the calendar
+     * @var string $stricsfooter the footer of the calendar
      */
-    protected $_strIcsFooter = 'END:VCALENDAR';
+    protected $stricsfooter = 'END:VCALENDAR';
 
     /**
-     * @var string $_strIcs ics string
+     * @var string $strics ics string
      */
-    protected $_strIcs = '';
+    protected $strics = '';
 
     /**
      * __construct
@@ -49,12 +49,12 @@ class ICSExport
      */
     public function __construct(array $arrCalendar)
     {
-        $this->_arrCalendar = $arrCalendar;
-        $this->_strIcs = $this->_strIcsHeader;
-        foreach ($this->_arrCalendar as $arrEvent) {
-            $this->_strIcs .= self::generateEventString($arrEvent);
+        $this->arrCalendar = $arrCalendar;
+        $this->strics = $this->stricsHeader;
+        foreach ($this->arrCalendar as $arrEvent) {
+            $this->strics .= self::generateEventString($arrEvent);
         }
-        $this->_strIcs .= $this->_strIcsFooter;
+        $this->strics .= $this->stricsfooter;
     }
 
     /**
@@ -67,7 +67,7 @@ class ICSExport
         ob_start();
         header("Content-type: text/calendar");
         header('Content-Disposition: attachment; filename="' .  $strFilename . '"');
-        echo $this->_strIcs;
+        echo $this->strics;
         ob_flush();
         die();
     }
@@ -79,7 +79,7 @@ class ICSExport
      */
     public function getString()
     {
-        return $this->_strIcs;
+        return $this->strics;
     }
 
 

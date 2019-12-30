@@ -44,7 +44,6 @@ class AttendeesControllerExtension extends Extension
 
         $fields->fieldByName('NumberOfTickets')->setReadonly(true);
 
-
         $jsonField = HiddenField::create('AttendeesJSON');
         $data = $form->getData();
         if (!isset($data['AttendeesJSON'])) {
@@ -64,21 +63,6 @@ class AttendeesControllerExtension extends Extension
             } else {
                 $jsonField->setValue('[]');
             }
-
-            /*
-            <tr><th>Attendees</th>
-                        <td>
-                            <ul>
-                            <% loop $EventRegistration.Attendees %>
-                                <li>$Title $FirstName $Surname<br/>
-                                    <% include Utils/FontAwesomeIcon Icon='phone' %>$Phone &nbsp;
-                                    <% include Utils/FontAwesomeIcon Icon='envelope-o' %>$Email
-                                </li>
-                            <% end_loop %>
-                            </ul>
-                        </td>
-                    </tr>
-            */
         }
 
         $fields->push($jsonField);

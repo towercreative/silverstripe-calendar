@@ -115,7 +115,8 @@ class EventTest extends SapphireTest
 
     public function test_calc_duration_based_on__end_date_time_less_than_24_hours()
     {
-        $this->assertEquals('01:30', $this->eveningMeetUpEvent->calcDurationBasedOnEndDateTime($this->eveningMeetUpEvent->EndDateTime));
+        $this->assertEquals('01:30',
+            $this->eveningMeetUpEvent->calcDurationBasedOnEndDateTime($this->eveningMeetUpEvent->EndDateTime));
     }
 
     public function test_calc_duration_based_on__end_date_time_more_than_24_hours()

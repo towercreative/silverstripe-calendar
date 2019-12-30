@@ -58,9 +58,10 @@ class CalendarsForm extends Form // @todo This was CMSForm
             //settings for the case that colors are enabled
             if ($s['colors']) {
                 $dataColumns->setFieldFormatting(
-                    array(
-                    "Title" => '<div style=\"height:20px;width:20px;display:inline-block;vertical-align:middle;margin-right:6px;background:$Color\"></div> $Title'
-                    )
+                    [
+                    "Title" => '<div style=\"height:20px;width:20px;display:inline-block;vertical-align:middle;' .
+                        'margin-right:6px;background:$Color\"></div> $Title'
+                    ]
                 );
             }
 

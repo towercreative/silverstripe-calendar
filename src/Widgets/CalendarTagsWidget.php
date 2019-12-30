@@ -2,10 +2,6 @@
 
 namespace TitleDK\Calendar\Widgets;
 
-if (!class_exists('\\SilverStripe\\Widgets\\Model\\Widget')) {
-    return;
-}
-
 use SilverStripe\Blog\Model\Blog;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\ORM\ArrayList;

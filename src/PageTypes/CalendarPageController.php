@@ -135,15 +135,17 @@ class CalendarPageController extends ContentController
         //Debug::dump($s);
 
         if (isset($s['calendarpage']['calendarview']) && $s['calendarpage']['calendarview']) {
-            Requirements::javascript('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/lib/moment.min.js');
-            Requirements::javascript('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.js');
-            Requirements::css('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.min.css');
-            Requirements::css('titledk/silverstripe-calendar:thirdparty/fullcalendar/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
+            $prefix = 'titledk/silverstripe-calendar:thirdparty/fullcalendar';
+            Requirements::javascript($prefix . '/2.9.1/fullcalendar/lib/moment.min.js');
+            Requirements::javascript($prefix . '/2.9.1/fullcalendar/fullcalendar.min.js');
+            Requirements::css($prefix . '/2.9.1/fullcalendar/fullcalendar.min.css');
+            Requirements::css($prefix '/2.9.1/fullcalendar/fullcalendar.print.css', 'print');
 
             //xdate - needed for some custom code - e.g. shading
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/xdate/xdate.js');
 
-            Requirements::javascript('titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js');
+            Requirements::javascript(
+                'titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js');
 
             $url = CalendarHelper::add_preview_params($this->Link(), $this->data());
 
@@ -291,7 +293,7 @@ class CalendarPageController extends ContentController
         if ($action == 'eventregistration'
             || $action == 'eventlist'
             || ($action == '' && $indexSetting == 'eventlist')
-            
+
         ) {
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
