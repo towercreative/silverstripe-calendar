@@ -8,7 +8,7 @@ use SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension;
 /**
  * Event Registration Controller
  *
- * @package calendar
+ * @package    calendar
  * @subpackage registrations
  */
 class EventRegistrationController extends Controller
@@ -66,7 +66,7 @@ class EventRegistrationController extends Controller
         return $form;
 
         // DATA NOT LOADED HERE
-       // $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
+        // $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
         error_log('++++ DATA ++++');
         //error_log(print_r($data, 1));
         //return $data ? $form->loadDataFrom($data) : $form;
@@ -76,8 +76,8 @@ class EventRegistrationController extends Controller
     /**
      * AJAX Json Response handler
      *
-     * @param array|null $retVars
-     * @param boolean $success
+     * @param  array|null $retVars
+     * @param  boolean    $success
      * @return \SS_HTTPResponse
      */
     public function handleJsonResponse($success = false, $retVars = null)

@@ -65,15 +65,19 @@ class CalendarEventsMonthYearWidget extends Widget
      */
     public function getCMSFields()
     {
-        $this->beforeUpdateCMSFields(function ($fields) {
-            /**
-             * @var FieldList $fields
-             */
-            $fields->merge([
-                DropdownField::create('CalendarPageID', 'Calendar Page', CalendarPage::get()->map()),
-                NumericField::create('NumberOfMonths', _t(__CLASS__ . '.NumberOfPosts', 'Number of Months'))
-            ]);
-        });
+        $this->beforeUpdateCMSFields(
+            function ($fields) {
+                /**
+                 * @var FieldList $fields
+                 */
+                $fields->merge(
+                    [
+                    DropdownField::create('CalendarPageID', 'Calendar Page', CalendarPage::get()->map()),
+                    NumericField::create('NumberOfMonths', _t(__CLASS__ . '.NumberOfPosts', 'Number of Months'))
+                    ]
+                );
+            }
+        );
 
         return parent::getCMSFields();
     }
@@ -90,7 +94,9 @@ class CalendarEventsMonthYearWidget extends Widget
         $sql = 'SELECT DISTINCT YEAR(StartDateTime) AS Y,Month(StartDateTime) AS M from Event INNER JOIN Calendar WHERE '.
         'CalendarID IN (' . $calendarIDs . ') ORDER BY Y DESC, M DESC';
 
-        /** @var PDOQuery $dbResult */
+        /**
+ * @var PDOQuery $dbResult
+*/
         $dbResult = DB::query($sql);
 
         $forTemplate = new ArrayList();
@@ -102,12 +108,14 @@ class CalendarEventsMonthYearWidget extends Widget
 
             $monthInQuestion = Carbon::create($yearNumber, $monthNumber, 1);
 
-            $rowData = new ArrayData([
+            $rowData = new ArrayData(
+                [
                 'Month' => $monthInQuestion->format('F'),
                 'Year' => $yearNumber,
                 'Title' => $monthInQuestion->format('F') . ' ' . $yearNumber,
                 'URLParam' => $monthInQuestion->format('Y-m')
-            ]);
+                ]
+            );
             $forTemplate->push($rowData);
         }
 

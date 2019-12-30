@@ -19,7 +19,7 @@ use TitleDK\Calendar\Core\CalendarConfig;
 /**
  * Calendar Admin
  *
- * @package calendar
+ * @package    calendar
  * @subpackage admin
  */
 class CalendarAdmin extends ModelAdmin implements PermissionProvider
@@ -67,14 +67,18 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     public function getManagedModels()
     {
         // Unset managed models according to config
-        /** @todo change to use config API */
+        /**
+ * @todo change to use config API
+*/
         $models = parent::getManagedModels();
         if (!$this->calendarsEnabled()
-            && isset($models['Calendar'])) {
+            && isset($models['Calendar'])
+        ) {
             unset($models['Calendar']);
         }
         if (!$this->categoriesEnabled()
-            && isset($models['Calendar'])) {
+            && isset($models['Calendar'])
+        ) {
             unset($models['PublicEventCategory']);
         }
         return $models;

@@ -9,7 +9,7 @@ use SilverStripe\ORM\DataExtension;
  * Event Calendar Extension
  * Allowing events to have calendars
  *
- * @package calendar
+ * @package    calendar
  * @subpackage calendars
  */
 class EventCalendarExtension extends DataExtension

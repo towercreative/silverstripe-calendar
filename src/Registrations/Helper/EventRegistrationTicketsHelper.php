@@ -13,6 +13,7 @@ class EventRegistrationTicketsHelper
 
     /**
      * EventRegistrationTicketsHelper constructor.
+     *
      * @param $registration
      */
     public function __construct($event)
@@ -36,7 +37,7 @@ class EventRegistrationTicketsHelper
     /**
      * Get the number of tickets freely available (ie not being processed)
      *
-     * @param $registrations
+     * @param  $registrations
      * @return int
      */
     public function numberOfTicketsNotAvailable()

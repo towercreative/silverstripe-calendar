@@ -1,7 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Libs\ColorPool;
 
-# Can this be replaced with https://packagist.org/packages/nmirceac/color-tools
+// Can this be replaced with https://packagist.org/packages/nmirceac/color-tools
 
 /**
  * Color
@@ -15,7 +15,7 @@ class Color
     /**
      * Constructor
      *
-     * @param string $color The color string hex or rgb
+     * @param   string $color The color string hex or rgb
      * @returns null
      */
     public function __construct($color = null)
@@ -48,7 +48,7 @@ class Color
     /**
      * Construct a Color from hex string
      *
-     * @param string $color The hex string
+     * @param   string $color The hex string
      * @returns Color the color object
      */
     public static function fromHexString($color)
@@ -65,7 +65,7 @@ class Color
     /**
      * Construct Color object from an rgb string
      *
-     * @param string $color The rgb string representing the color
+     * @param   string $color The rgb string representing the color
      * @returns Color object with for the rgb string
      */
     public static function fromRGBString($color)
@@ -291,8 +291,8 @@ class Color
     /**
      * Return a contrasting color
      *
-     * @param float $fraction The amount of contrast default = 1.0 i.e 100% or
-     *        180 degrees
+     * @param   float $fraction The amount of contrast default = 1.0 i.e 100% or
+     *                          180 degrees
      * @returns Color the contrasting color
      */
     public function contrast($fraction = 1.0)

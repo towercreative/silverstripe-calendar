@@ -12,7 +12,7 @@ use SilverStripe\ORM\DataList;
  *
  * @method DataList Calendars Get the calendars associated with the group
  *
- * @package calendar
+ * @package    calendar
  * @subpackage calendars
  */
 class GroupsCalendarExtension extends DataExtension

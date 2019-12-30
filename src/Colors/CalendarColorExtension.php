@@ -8,7 +8,7 @@ use SilverStripe\ORM\DataExtension;
  * Color Extension
  * Allows calendars or categories to have colors
  *
- * @package calendar
+ * @package    calendar
  * @subpackage colors
  */
 class CalendarColorExtension extends DataExtension
@@ -27,7 +27,8 @@ class CalendarColorExtension extends DataExtension
      * Text Color calculation
      * From http://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
      * Here is a discussion on that topic: http://stackoverflow.com/questions/1331591/given-a-background-color-black-or-white-text
-     * @param string $color
+     *
+     * @param  string $color
      * @return string
      */
     public function calculateTextColor($color)

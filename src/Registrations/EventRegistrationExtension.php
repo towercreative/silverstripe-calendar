@@ -30,7 +30,7 @@ use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
  *
  * Add this extension to Event
  *
- * @package calendar
+ * @package    calendar
  * @subpackage registrations
  */
 class EventRegistrationExtension extends DataExtension
@@ -200,8 +200,8 @@ class EventRegistrationExtension extends DataExtension
 
 
         // @todo This is loading old data
-       // $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
-       // return $data ? $form->loadDataFrom($data) : $form;
+        // $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
+        // return $data ? $form->loadDataFrom($data) : $form;
 
         return $form;
     }
@@ -244,7 +244,7 @@ class EventRegistrationExtension extends DataExtension
     /**
      * Sanitise a model class' name for inclusion in a link
      *
-     * @param string $class
+     * @param  string $class
      * @return string
      */
     protected function sanitiseClassName($class)

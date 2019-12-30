@@ -18,10 +18,9 @@ use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
  * Draws on, and inspired by
  * https://github.com/webbuilders-group/GridFieldDetailFormAddNew/blob/master/gridfield/GridFieldDetailFormAddNew.php
  *
- * @package calendar
+ * @package    calendar
  * @subpackage admin
  */
 class CalendarEventGridFieldDetailForm extends GridFieldDetailForm
 {
 }
-

@@ -13,7 +13,6 @@ use TitleDK\Calendar\Core\CalendarConfig;
  *
  * List of colors:
  * http://www.imagemagick.org/script/color.php
- *
  */
 class ColorpaletteHelper
 {
@@ -23,9 +22,9 @@ class ColorpaletteHelper
         //      if ($dev) {
             //Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.js');
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.mod.js');
-//      } else {
-//          Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.min.js');
-//      }
+        //      } else {
+        //          Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.min.js');
+        //      }
         Requirements::css('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.css');
     }
 
@@ -53,7 +52,7 @@ class ColorpaletteHelper
      * Color variation:
      * http://stackoverflow.com/questions/1177826/simple-color-variation
      *
-     * @param int $numColors Number of colors - default: 30
+     * @param  int $numColors Number of colors - default: 30
      * @return null
      */
     public static function get_palette($numColors = 50, $type = 'hsv')
@@ -65,7 +64,7 @@ class ColorpaletteHelper
         return $arr;
 
         // @todo the following code appears to be unreachable
-/*
+        /*
         if ($type == 'hsv') {
             $s = 1;
             $v = 1;
@@ -97,6 +96,6 @@ class ColorpaletteHelper
 
             return $arr;
         }
-*/
+        */
     }
 }

@@ -9,7 +9,7 @@ use SilverStripe\ORM\DataExtension;
 /**
  * Allowing events to have many-many categories
  *
- * @package calendar
+ * @package    calendar
  * @subpackage categories
  */
 class EventCategoryExtension extends DataExtension

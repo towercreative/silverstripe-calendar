@@ -10,12 +10,14 @@ use SilverStripe\ORM\DataObject;
 /**
  * Event Registration
  *
- * @package calendar
+ * @package    calendar
  * @subpackage registrations
  */
 class EventRegistration extends DataObject
 {
-    /** @var string constant for the key used for successful event registration */
+    /**
+ * @var string constant for the key used for successful event registration
+*/
     const EVENT_REGISTRATION_SUCCESS_SESSION_KEY = 'event_registration_successful';
 
     const EVENT_REGISTRATION_KEY = 'event_registration_id';

@@ -21,7 +21,7 @@ use TitleDK\Calendar\Events\Event;
  * ...and YES, I know SilverStripe 3.1 has a built-in config system, this
  * has been coded prior to this though - pull requests welcome ;)
  *
- * @package calendar
+ * @package    calendar
  * @subpackage core
  */
 class CalendarConfig
@@ -30,6 +30,7 @@ class CalendarConfig
     /**
      * Base calendar settings
      * All basic features are enabled
+     *
      * @var type
      */
     protected static $settings = array(
@@ -142,7 +143,8 @@ class CalendarConfig
 
     /**
      * Getter for subpackage specific settings
-     * @param string $subpackage
+     *
+     * @param  string $subpackage
      * @return array
      */
     public static function subpackage_settings($subpackage)
@@ -159,7 +161,8 @@ class CalendarConfig
      * 2. it
      *   a) either doesn't have an 'enabled' attribute (then it's enabled by default)
      *   b) or has an 'enabled' attribute that's set to true
-     * @param string $subpackage
+     *
+     * @param  string $subpackage
      * @return boolean
      */
     public static function subpackage_enabled($subpackage)
@@ -188,6 +191,7 @@ class CalendarConfig
 
     /**
      * Getter for a specific setting from a subpackage
+     *
      * @param string $subpackage
      * @param string $setting
      */
@@ -203,6 +207,7 @@ class CalendarConfig
     /**
      * Calendar initialization
      * Should be called from the project _config.php file
+     *
      * @param array|null $settings
      */
     public static function init($settings = null)
@@ -273,7 +278,6 @@ class CalendarConfig
                     Event::add_extension('EventRegistrationExtension');
                 }
             }
-            
         }
     }
 }

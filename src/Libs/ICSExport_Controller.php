@@ -7,7 +7,6 @@ use SilverStripe\Core\Convert;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\Security\Member;
 
-
 //by Anselm
 /**
  * ICS Export controller
@@ -19,8 +18,6 @@ use SilverStripe\Security\Member;
  *
  * More explaination:
  * https://github.com/colinburns/daypack.com.au/issues/48
- *
- *
  */
 class ICSExport_Controller extends Controller
 {
@@ -70,7 +67,7 @@ class ICSExport_Controller extends Controller
 
             //echo $cal->getLink();
 
-        //Public calendar via url
+            //Public calendar via url
         } else {
             //calendar url is requested
             //echo 'request is a string';
@@ -140,13 +137,17 @@ class ICSExport_Controller extends Controller
     protected function memberCalendar($member)
     {
         $events = PrivateEvent::get()
-            ->filter(array(
+            ->filter(
+                array(
                 'OwnerID' => $member->ID
-            ))
-            ->filter(array(
+                )
+            )
+            ->filter(
+                array(
                 'StartDateTime:GreaterThan' => PrivateCalendarController::offset_date('start', null, 300),
                 'EndDateTime:LessThan' => PrivateCalendarController::offset_date('end', null, 300),
-            ));
+                )
+            );
 
 
         $eventsArr = $events->toNestedArray();

@@ -48,7 +48,7 @@ class CalendarPageController extends ContentController
     {
         parent::init();
         Requirements::javascript('//code.jquery.com/jquery-3.3.1.min.js');
-       // Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
+        // Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
         Requirements::css('titledk/silverstripe-calendar:css/pagetypes/CalendarPage.css');
         Requirements::css('titledk/silverstripe-calendar:css/modules.css');
 
@@ -108,7 +108,7 @@ class CalendarPageController extends ContentController
     public function eventlist()
     {
         return $this->returnTemplate();
-       // return $this;
+        // return $this;
     }
 
     public function registered($req)
@@ -120,14 +120,13 @@ class CalendarPageController extends ContentController
     {
         //TODO: filter this so only registerable events are shown
         return $this->returnTemplate();
-       // return $this;
+        // return $this;
     }
 
 
     /**
      * Calendar View
      * Renders the fullcalendar
-     *
      */
     public function calendarview()
     {
@@ -163,7 +162,8 @@ class CalendarPageController extends ContentController
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars(), true);
 
             //Calendar initialization (and possibility for later configuration options)
-            Requirements::customScript("
+            Requirements::customScript(
+                "
 				(function($) {
 					$(function () {
 						//Initializing fullcalendar
@@ -177,7 +177,8 @@ class CalendarPageController extends ContentController
 						});
 					});
 				})(jQuery);
-			");
+			"
+            );
 
             return $this;
         } else {
@@ -188,7 +189,8 @@ class CalendarPageController extends ContentController
 
     /**
      * Displays details of an event
-     * @param \HttpRequest $req
+     *
+     * @param  \HttpRequest $req
      * @return array
      */
     public function detail($req)
@@ -220,7 +222,7 @@ class CalendarPageController extends ContentController
     /**
      * Display events for all tags - note no filtering currently
      *
-     * @param $req
+     * @param  $req
      * @return array
      */
     public function tag($req)
@@ -241,7 +243,8 @@ class CalendarPageController extends ContentController
 
     /**
      * Event registration
-     * @param $req
+     *
+     * @param  $req
      * @return array
      */
     public function register($req)
@@ -255,7 +258,8 @@ class CalendarPageController extends ContentController
 
     /**
      * Returns true if registrations enabled
-     * @todo Fix to SS4 config
+     *
+     * @todo   Fix to SS4 config
      * @return bool are registrations enabled
      */
     public function RegistrationsEnabled()
@@ -287,7 +291,7 @@ class CalendarPageController extends ContentController
         if ($action == 'eventregistration'
             || $action == 'eventlist'
             || ($action == '' && $indexSetting == 'eventlist')
-
+            
         ) {
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 

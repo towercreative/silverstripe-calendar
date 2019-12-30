@@ -11,7 +11,9 @@ namespace TitleDK\Calendar\Registrations\StateMachine;
 class EventRegistrationStateMachine
 {
 
-    /** @var EventRegistration */
+    /**
+     * @var EventRegistration
+     */
     protected $registration;
 
     const AWAITING_PAYMENT = 'AwaitingPayment';
@@ -99,8 +101,10 @@ class EventRegistrationStateMachine
         // @todo Can events be thrown?
         $currentState = $this->registration->Status;
         if ($currentState != $from) {
-            throw new \InvalidArgumentException("Registration {$this->registration->ID} was in state "
-                . "{$currentState}, was expecting {$from}");
+            throw new \InvalidArgumentException(
+                "Registration {$this->registration->ID} was in state "
+                . "{$currentState}, was expecting {$from}"
+            );
         }
 
         $this->registration->Status = $to;

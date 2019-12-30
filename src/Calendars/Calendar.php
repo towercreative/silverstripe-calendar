@@ -12,7 +12,7 @@ use TitleDK\Calendar\PageTypes\CalendarPage;
  * Calendar Model
  * The calendar serves as a holder for events, but events can exist as instances on their own.
  *
- * @package calendar
+ * @package    calendar
  * @subpackage calendars
  */
 class Calendar extends DataObject
@@ -75,9 +75,9 @@ class Calendar extends DataObject
     }
 
     /**
-     *
      * Anyone can view public calendar
-     * @param Member $member
+     *
+     * @param  Member $member
      * @return boolean
      */
     public function canView($member = null)
@@ -87,7 +87,7 @@ class Calendar extends DataObject
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canCreate($member = null, $context = [])
@@ -97,7 +97,7 @@ class Calendar extends DataObject
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canEdit($member = null)
@@ -107,7 +107,7 @@ class Calendar extends DataObject
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canDelete($member = null)
@@ -117,7 +117,7 @@ class Calendar extends DataObject
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     protected function canManage($member)

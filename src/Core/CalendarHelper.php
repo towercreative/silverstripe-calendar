@@ -11,7 +11,7 @@ use TitleDK\Calendar\Events\Event;
  * Calendar Helper
  * Helper class for calendar related calculations
  *
- * @package calendar
+ * @package    calendar
  * @subpackage core
  */
 class CalendarHelper
@@ -78,9 +78,11 @@ class CalendarHelper
     public static function past_events()
     {
         $events = Event::get()
-            ->filter(array(
+            ->filter(
+                array(
                     'StartDateTime:LessThan' => date('Y-m-d', time())
-                ));
+                )
+            );
 
         return $events;
     }
@@ -106,6 +108,7 @@ class CalendarHelper
     /***
      * Get events for a specific month
      * Format: 2013-07
+     *
      * @param type $month
      * @param $calendarIDs optional CSV or array of calendar ID to filter by
      */
@@ -125,9 +128,9 @@ class CalendarHelper
     }
 
     /**
-     * @param $startDateStr start date in format 2018-05-15
-     * @param $endDateStr ditto end date
-     * @param array $calendarIDS list of calendar IDs visible
+     * @param  $startDateStr start date in format 2018-05-15
+     * @param  $endDateStr   ditto end date
+     * @param  array $calendarIDS  list of calendar IDs visible
      * @return \SilverStripe\ORM\DataList
      */
     public static function events_for_date_range($startDateStr, $endDateStr, $calendarIDS = [])
@@ -149,7 +152,8 @@ class CalendarHelper
 
     /**
      * If applicable, adds preview parameters. ie. CMSPreview and SubsiteID.
-     * @param type $link
+     *
+     * @param  type $link
      * @return type
      */
     public static function add_preview_params($link, $object)

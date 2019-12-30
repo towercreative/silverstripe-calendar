@@ -12,7 +12,7 @@ use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
  * A page that can serve as a permanent url for recurring events like festivals, monthly shopping events etc.
  * Dates are added manually.
  *
- * @package calendar
+ * @package    calendar
  * @subpackage pagetypes
  */
 class EventPage extends \Page
@@ -31,9 +31,11 @@ class EventPage extends \Page
         $timestamp = Carbon::now()->timestamp;
         //Coming events
         $comingEvents = $this->Events()
-            ->filter(array(
+            ->filter(
+                array(
                     'StartDateTime:GreaterThan' => date('Y-m-d', $timestamp - 24*60*60)
-                ));
+                )
+            );
         return $comingEvents;
     }
 
@@ -43,9 +45,11 @@ class EventPage extends \Page
 
         //Past events
         $pastEvents = $this->Events()
-            ->filter(array(
+            ->filter(
+                array(
                     'StartDateTime:LessThan' => date('Y-m-d', $timestamp)
-                ));
+                )
+            );
         return $pastEvents;
     }
 
@@ -95,6 +99,7 @@ class EventPage extends \Page
 
     /**
      * Title shown in the calendar administration
+     *
      * @return string
      */
     public function getCalendarTitle()

@@ -11,7 +11,7 @@ use TitleDK\Calendar\Core\CalendarConfig;
 /**
  * Categories Form
  *
- * @package calendar
+ * @package    calendar
  * @subpackage admin
  */
 class CategoriesForm extends Form
@@ -19,6 +19,7 @@ class CategoriesForm extends Form
 
     /**
      * Contructor
+     *
      * @param type $controller
      * @param type $name
      */

@@ -10,8 +10,9 @@ use SilverStripe\Forms\Form;
 
 /**
  * Event Registration Form
- **
- * @package calendar
+ * *
+ *
+ * @package    calendar
  * @subpackage registrations
  */
 class EventRegistrationForm extends Form
@@ -19,6 +20,7 @@ class EventRegistrationForm extends Form
 
     /**
      * Contructor
+     *
      * @param type $controller
      * @param type $name
      */
@@ -65,8 +67,9 @@ class EventRegistrationForm extends Form
 
     /**
      * Register action
-     * @param type $data
-     * @param type $form
+     *
+     * @param  type $data
+     * @param  type $form
      * @return \SS_HTTPResponse
      */
     public function doRegister($data, $form)
@@ -92,7 +95,7 @@ class EventRegistrationForm extends Form
         $email->setTemplate('EventRegistration');
         $email->send();
 
-       // @todo why is this here?
+        // @todo why is this here?
         //  exit;
     }
 

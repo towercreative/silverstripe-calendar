@@ -14,7 +14,7 @@ use TitleDK\Calendar\Events\Event;
  * Fullcalendar controller
  * Controller/API, used for interacting with the fullcalendar js plugin
  *
- * @package calendar
+ * @package    calendar
  * @subpackage fullcalendar
  */
 class FullcalendarController extends Controller
@@ -72,8 +72,8 @@ class FullcalendarController extends Controller
      * Calculate start/end date for event list
      * Currently set to offset of 30 days
      *
-     * @param string $type ("start"/"end")
-     * @param int $timestamp
+     * @param string $type      ("start"/"end")
+     * @param int    $timestamp
      * return \SS_Datetime
      */
     public function eventlistOffsetDate($type, $timestamp, $offset = 30)
@@ -84,7 +84,8 @@ class FullcalendarController extends Controller
     /**
      * Calculate start/end date for event list
      * TODO this should go in a helper class
-     * @param string $type
+     *
+     * @param string  $type
      * @param integer $timestamp
      */
     public static function offset_date($type, $timestamp, $offset = 30)
@@ -117,25 +118,31 @@ class FullcalendarController extends Controller
     /**
      * Handles returning the JSON events data for a time range.
      *
-     * @param SS_HTTPRequest $request
+     * @param  SS_HTTPRequest $request
      * @return SS_HTTPResponse
      */
     public function events($request, $json = true)
     {
-        /** @var string $calendars comma separated list of calendar IDs to show events for */
+        /**
+ * @var string $calendars comma separated list of calendar IDs to show events for
+*/
         $calendars = $request->getVar('calendars');
 
-        /** @var string $offset days to offset by */
+        /**
+ * @var string $offset days to offset by
+*/
         $offset = empty($request->getVar('offset')) ? 30 : $request->getVar('offset');
 
         $calendarsSupplied = !empty($calendars);
 
         // start a query for events
         $events = Event::get()
-            ->filter(array(
+            ->filter(
+                array(
                 'StartDateTime:GreaterThan' => $this->eventlistOffsetDate('start', $request->postVar('start'), $offset),
                 'EndDateTime:LessThan' => $this->eventlistOffsetDate('end', $request->postVar('end'), $offset),
-            ));
+                )
+            );
 
         //If shaded events are enabled we need to filter shaded calendars out
         //note that this only takes effect when no calendars have been supplied
@@ -144,9 +151,11 @@ class FullcalendarController extends Controller
         if ($sC['shading']) {
             if (!$calendars) {
                 $calendars = Calendar::get();
-                $calendars = $calendars->filter(array(
+                $calendars = $calendars->filter(
+                    array(
                     'shaded' => false
-                ));
+                    )
+                );
             }
         }
 
@@ -176,11 +185,14 @@ class FullcalendarController extends Controller
                 }
 
                 $resultArr = self::format_event_for_fullcalendar($event);
-                $resultArr = array_merge($resultArr, array(
-                'backgroundColor' => $bgColor,
-                'textColor' => '#FFF',
-                'borderColor' => $borderColor,
-                ));
+                $resultArr = array_merge(
+                    $resultArr,
+                    array(
+                    'backgroundColor' => $bgColor,
+                    'textColor' => '#FFF',
+                    'borderColor' => $borderColor,
+                    )
+                );
                 $result[] = $resultArr;
             }
         }
@@ -203,9 +215,11 @@ class FullcalendarController extends Controller
         if (!$calendars) {
             $calendars = Calendar::get();
         }
-        $calendars = $calendars->filter(array(
+        $calendars = $calendars->filter(
+            array(
             'shaded' => true
-        ));
+            )
+        );
 
         return $this->events($request, $json, $calendars, $offset);
     }
@@ -225,8 +239,8 @@ class FullcalendarController extends Controller
     /**
      * AJAX Json Response handler
      *
-     * @param array|null $retVars
-     * @param boolean $success
+     * @param  array|null $retVars
+     * @param  boolean    $success
      * @return \SS_HTTPResponse
      */
     public function handleJsonResponse($success = false, $retVars = null)
@@ -248,6 +262,7 @@ class FullcalendarController extends Controller
 
     /**
      * Format an event to comply with the fullcalendar format
+     *
      * @param Event $event
      */
     public static function format_event_for_fullcalendar($event)
@@ -273,6 +288,7 @@ class FullcalendarController extends Controller
 
     /**
      * Format SS_Datime to fullcalendar format
+     *
      * @param SS_Datetime $datetime
      */
     public static function format_datetime_for_fullcalendar($datetime)

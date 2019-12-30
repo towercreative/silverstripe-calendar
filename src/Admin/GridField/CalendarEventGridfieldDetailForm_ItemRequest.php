@@ -7,8 +7,6 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
 
-
-
 /**
  * extension to the @see GridFieldDetailForm_ItemRequest
  */

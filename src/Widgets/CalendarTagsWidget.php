@@ -55,20 +55,25 @@ class CalendarTagsWidget extends Widget
 
     public function getCMSFields()
     {
-        $this->beforeUpdateCMSFields(function ($fields) {
-            /**
-             * @var FieldList $fields
-             */
-            $fields->merge([
-                DropdownField::create('CalendarPageID', 'Calendar Page', CalendarPage::get()->map())
-            ]);
-        });
+        $this->beforeUpdateCMSFields(
+            function ($fields) {
+                /**
+                 * @var FieldList $fields
+                 */
+                $fields->merge(
+                    [
+                    DropdownField::create('CalendarPageID', 'Calendar Page', CalendarPage::get()->map())
+                    ]
+                );
+            }
+        );
 
         return parent::getCMSFields();
     }
 
     /**
      * // @todo revisit once calendar page has many calendars
+     *
      * @return array
      */
     public function getTags()

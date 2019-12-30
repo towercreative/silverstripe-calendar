@@ -8,7 +8,7 @@ use TitleDK\Calendar\Categories\EventCategory;
 /**
  * Public Event Category
  *
- * @package calendar
+ * @package    calendar
  * @subpackage categories
  */
 class PublicEventCategory extends EventCategory
@@ -17,15 +17,18 @@ class PublicEventCategory extends EventCategory
     public function ComingEvents($from = false)
     {
         $events = $this->Events()
-            ->filter(array(
+            ->filter(
+                array(
                 'StartDateTime:GreaterThan' => date('Y-m-d', $from ? strtotime($from) : time())
-            ));
+                )
+            );
         return $events;
     }
 
     /**
      * Anyone can view public event categories
-     * @param Member $member
+     *
+     * @param  Member $member
      * @return boolean
      */
     public function canView($member = null)
@@ -35,7 +38,7 @@ class PublicEventCategory extends EventCategory
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canCreate($member = null, $context = [])
@@ -45,7 +48,7 @@ class PublicEventCategory extends EventCategory
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canEdit($member = null)
@@ -55,7 +58,7 @@ class PublicEventCategory extends EventCategory
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canDelete($member = null)
@@ -65,7 +68,7 @@ class PublicEventCategory extends EventCategory
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     protected function canManage($member)

@@ -10,7 +10,6 @@ use TitleDK\Calendar\Events\Event;
 /**
  * A blog tag for keyword descriptions of a blog post.
  *
- *
  * @method Blog Blog()
  *
  * @property string $Title
@@ -32,6 +31,7 @@ class EventTag extends DataObject
 
     /**
      * {@inheritDoc}
+     *
      * @var string
      */
     private static $table_name = 'EventTag';
@@ -50,7 +50,7 @@ class EventTag extends DataObject
     private static $has_one = [
         'Calendar' => Calendar::class
     ];
-*/
+     */
 
     /**
      * @var array

@@ -9,7 +9,7 @@ use SilverStripe\ORM\DataObject;
 /**
  * Event Category
  *
- * @package calendar
+ * @package    calendar
  * @subpackage categories
  *
  * @method DataList Events get the events associated with this category

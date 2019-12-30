@@ -19,7 +19,7 @@ use TitleDK\Calendar\PageTypes\EventPage_Controller;
 /**
  * Events Form
  *
- * @package calendar
+ * @package    calendar
  * @subpackage admin
  */
 class EventsForm extends Form
@@ -55,8 +55,9 @@ class EventsForm extends Form
 
     /**
      * Contructor
+     *
      * @param EventPage_Controller $controller
-     * @param string $name
+     * @param string               $name
      */
     public function __construct($controller, $name)
     {

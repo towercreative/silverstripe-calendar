@@ -13,7 +13,7 @@ use TitleDK\Calendar\Core\CalendarConfig;
 /**
  * CalendarsForm
  *
- * @package calendar
+ * @package    calendar
  * @subpackage admin
  */
 class CalendarsForm extends Form // @todo This was CMSForm
@@ -21,6 +21,7 @@ class CalendarsForm extends Form // @todo This was CMSForm
 
     /**
      * Contructor
+     *
      * @param type $controller
      * @param type $name
      */
@@ -56,9 +57,11 @@ class CalendarsForm extends Form // @todo This was CMSForm
 
             //settings for the case that colors are enabled
             if ($s['colors']) {
-                $dataColumns->setFieldFormatting(array(
+                $dataColumns->setFieldFormatting(
+                    array(
                     "Title" => '<div style=\"height:20px;width:20px;display:inline-block;vertical-align:middle;margin-right:6px;background:$Color\"></div> $Title'
-                ));
+                    )
+                );
             }
 
 

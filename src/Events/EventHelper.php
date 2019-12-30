@@ -17,6 +17,7 @@ class EventHelper
 
     /**
      * Date format for YMD
+     *
      * @todo move to config
      */
     const YMD_DATE_FORMAT='Y-m-d';
@@ -29,8 +30,8 @@ class EventHelper
      * Format:
      * Jun 7th - Jun 10th
      *
-     * @param DBDatetime $startObj
-     * @param DBDatetime $endObj
+     * @param  DBDatetime $startObj
+     * @param  DBDatetime $endObj
      * @return string
      */
     public static function formatted_dates($startObj, $endObj)
@@ -44,7 +45,7 @@ class EventHelper
         $startMonth = date('M', $startTime);
 
         // include ordinal, e.g. 1st, 4th
-        $startDayOfMonth = $startObj->DayOfMonth(true) ;
+        $startDayOfMonth = $startObj->DayOfMonth(true);
 
         $str = $startMonth . ' ' . $startDayOfMonth ;
 
@@ -117,8 +118,9 @@ class EventHelper
      * Formatted time frame
      * Returns either a string or null
      * Time frame is only applicable if both start and end time is on the same day
-     * @param string $startStr
-     * @param string $endStr
+     *
+     * @param  string $startStr
+     * @param  string $endStr
      * @return string|null
      */
     public static function formatted_timeframe($startStr, $endStr)

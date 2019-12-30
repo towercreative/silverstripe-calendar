@@ -137,8 +137,6 @@ class Event extends DataObject
      * Sanity checks before write
      * Rules for event saving:
      * 1. Events have
-     *
-     *
      */
     public function onBeforeWrite()
     {
@@ -228,8 +226,9 @@ class Event extends DataObject
 
     /**
      * Set new start/end dates
-     * @param string $start Should be SS_Datetime compatible
-     * @param string $end Should be SS_Datetime compatible
+     *
+     * @param string  $start Should be SS_Datetime compatible
+     * @param string  $end   Should be SS_Datetime compatible
      * @param boolean $write If true, write to the db
      */
     public function setStartEnd($start, $end, $write = true)
@@ -245,7 +244,8 @@ class Event extends DataObject
 
     /**
      * Set new end date
-     * @param string $end Should be SS_Datetime compatible
+     *
+     * @param string  $end   Should be SS_Datetime compatible
      * @param boolean $write If true, write to the db
      */
     public function setEnd($end, $write = true)
@@ -274,6 +274,7 @@ class Event extends DataObject
     /**
      * Calculation of end date based on duration
      * Should only be used in OnBeforeWrite
+     *
      * @return string
      */
     public function calcEndDateTimeBasedOnDuration()
@@ -295,7 +296,8 @@ class Event extends DataObject
     /**
      * Calculation of duration based on end datetime
      * Returns false if there's more than 24h between start and end date
-     * @param string $end
+     *
+     * @param  string $end
      * @return string|false
      */
     public function calcDurationBasedOnEndDateTime($end)
@@ -321,6 +323,7 @@ class Event extends DataObject
      * All Day getter
      * Any events that spans more than 24h will be displayed as allday events
      * Beyond that those events marked as all day events will also be displayed as such
+     *
      * @return boolean|null
      */
     public function isAllDay()
@@ -357,12 +360,16 @@ class Event extends DataObject
         }
 
 
-        /** @var DatetimeField $startDateTime */
+        /**
+ * @var DatetimeField $startDateTime
+*/
         $startDateTime = DatetimeField::create('StartDateTime', 'Start');
 
 
 
-        /** @var DatetimeField $endDateTime */
+        /**
+ * @var DatetimeField $endDateTime
+*/
         $endDateTime = DatetimeField::create('EndDateTime', '');
 
         $fields = FieldList::create(
@@ -374,11 +381,14 @@ class Event extends DataObject
             CheckboxField::create('NoEnd', 'Open End'),
             HeaderField::create('TimeFrameHeader', $timeFrameHeaderText, 5),
             //LiteralField::create('TimeFrameText','<em class="TimeFrameText">Choose the type of time frame you\'d like to enter</em>'),
-            SelectionGroup::create('TimeFrameType', array(
+            SelectionGroup::create(
+                'TimeFrameType',
+                array(
                 "Duration//Duration" => TimeField::create('Duration', '')->setRightTitle('up to 24h')
                     ->setAttribute('placeholder', 'Enter duration'),
                 "DateTime//Date/Time" => $endDateTime = DatetimeField::create('EndDateTime', '')
-                )),
+                )
+            ),
             LiteralField::create('Clear', '<div class="clear"></div>')
         );
 
@@ -492,9 +502,11 @@ class Event extends DataObject
 
     public function getCMSValidator()
     {
-        return new RequiredFields([
+        return new RequiredFields(
+            [
             'Title', 'CalendarID'
-        ]);
+            ]
+        );
     }
 
 
@@ -618,19 +630,19 @@ class Event extends DataObject
         //for now all event details will only have one link - that is the main calendar page
         //NOTE: this could be amended by calling that link via AJAX, and thus could be shown as an overlay
         //everywhere on the site
-//      //if the event page is enabled, we provide for links to event pages
-//      if (CalendarConfig::subpackage_setting('pagetypes','enable_eventpage')) {
-//          $eventPage = $this->EventPage();
-//          if ($eventPage->exists()) {
-//              return $eventPage->Link();
-//          } else {
-//              $calendarPage = CalendarPage::get()->First();
-//              return $calendarPage->Link() .  $detailStr;
-//          }
-//      } else {
+        //      //if the event page is enabled, we provide for links to event pages
+        //      if (CalendarConfig::subpackage_setting('pagetypes','enable_eventpage')) {
+        //          $eventPage = $this->EventPage();
+        //          if ($eventPage->exists()) {
+        //              return $eventPage->Link();
+        //          } else {
+        //              $calendarPage = CalendarPage::get()->First();
+        //              return $calendarPage->Link() .  $detailStr;
+        //          }
+        //      } else {
         $calendarPage = CalendarPage::get()->First();
         return CalendarHelper::add_preview_params(Controller::join_links($calendarPage->Link('detail'), $this->ID), $this);
-//      }
+        //      }
     }
 
     /**
@@ -643,7 +655,8 @@ class Event extends DataObject
 
     /**
      * Anyone can view public events
-     * @param Member $member
+     *
+     * @param  Member $member
      * @return boolean
      */
     public function canView($member = null)
@@ -653,7 +666,7 @@ class Event extends DataObject
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canCreate($member = null, $context = [])
@@ -677,7 +690,7 @@ class Event extends DataObject
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canEdit($member = null)
@@ -687,7 +700,7 @@ class Event extends DataObject
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     public function canDelete($member = null)
@@ -697,7 +710,7 @@ class Event extends DataObject
 
     /**
      *
-     * @param Member $member
+     * @param  Member $member
      * @return boolean
      */
     protected function canManage($member)

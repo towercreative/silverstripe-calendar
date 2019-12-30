@@ -19,7 +19,7 @@ use TitleDK\Calendar\Registrations\EventRegistration;
  * Calendar Page
  * Listing of public events.
  *
- * @package calendar
+ * @package    calendar
  * @subpackage pagetypes
  */
 class CalendarPage extends \Page

@@ -17,8 +17,7 @@ use SilverStripe\Forms\Form;
 /**
  * Event Registration Form
  *
- *
- * @package calendar
+ * @package    calendar
  * @subpackage registrations
  */
 class PaymentRegistrationForm extends Form
@@ -26,6 +25,7 @@ class PaymentRegistrationForm extends Form
 
     /**
      * Contructor
+     *
      * @param type $controller
      * @param type $name
      */
@@ -81,8 +81,9 @@ class PaymentRegistrationForm extends Form
     /**
      * ---- override this ----
      * Register action
-     * @param type $data
-     * @param type $form
+     *
+     * @param  type $data
+     * @param  type $form
      * @return \SS_HTTPResponse
      */
     public function doRegister($data, $form)

@@ -10,16 +10,14 @@ use SilverStripe\Dev\Debug;
 
 
 /**
- *
  * Distributed under the GNU Lesser General Public License (LGPL v3)
  * (http://www.gnu.org/licenses/lgpl.html)
  * This program is distributed in the hope that it will be useful -
  * WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @author Dominik Zogg <dominik.zogg@gmail.com>
+ * @author    Dominik Zogg <dominik.zogg@gmail.com>
  * @copyright Copyright (c) 2011, Dominik Zogg
- *
  */
 
 class ICSExport
@@ -46,6 +44,7 @@ class ICSExport
 
     /**
      * __construct
+     *
      * @param array $arrCalendar the calendar as an array
      */
     public function __construct(array $arrCalendar)
@@ -60,6 +59,7 @@ class ICSExport
 
     /**
      * getFile
+     *
      * @param string $strFilename the names of the file
      */
     public function getFile($strFilename)
@@ -74,6 +74,7 @@ class ICSExport
 
     /**
      * getString
+     *
      * @return string ics string
      */
     public function getString()
@@ -107,9 +108,9 @@ class ICSExport
     }
 
     /**
-     *
      * generateEventString
-     * @param array $arrEvent
+     *
+     * @param  array $arrEvent
      * @return string event as ics string
      */
     public static function generateEventString(array $arrEvent)
@@ -150,10 +151,10 @@ class ICSExport
         }
 
         // set location
-//        if(isset($arrEvent['location']))
-//        {
-//            $arrEventParts['LOCATION'] = self::cleanString($arrEvent['location']);
-//        }
+        //        if(isset($arrEvent['location']))
+        //        {
+        //            $arrEventParts['LOCATION'] = self::cleanString($arrEvent['location']);
+        //        }
 
                 //setting end date = start date if no end date is present
                 //TODO: warning, or log here
@@ -168,11 +169,12 @@ class ICSExport
 
 
         // check if all needed values are set if not throw exception
-        if (!isset($arrEventParts['UID']) ||
-           !isset($arrEventParts['DTSTAMP']) ||
-           !isset($arrEventParts['DTSTART']) ||
-           !isset($arrEventParts['DTEND']) ||
-           !isset($arrEventParts['SUMMARY'])) {
+        if (!isset($arrEventParts['UID'])
+            || !isset($arrEventParts['DTSTAMP'])
+            || !isset($arrEventParts['DTSTART'])
+            || !isset($arrEventParts['DTEND'])
+            || !isset($arrEventParts['SUMMARY'])
+        ) {
             Debug::dump($arrEventParts);
             throw new \Exception('at least one missing value');
         }
@@ -191,7 +193,8 @@ class ICSExport
 
     /**
      * cleanString
-     * @param string $strDirtyString the dirty input string
+     *
+     * @param  string $strDirtyString the dirty input string
      * @return string cleaned string
      */
     public static function cleanString($strDirtyString)
@@ -204,6 +207,7 @@ class ICSExport
 
         /**
          * returns an ICSExport calendar object by supplying a Silverstripe calendar
+         *
          * @param type $cal
          */
     public static function ics_from_sscal($cal)
@@ -217,5 +221,3 @@ class ICSExport
         return $ics;
     }
 }
-
-

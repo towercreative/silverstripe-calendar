@@ -71,7 +71,7 @@ class EventCsvBulkLoader extends CsvBulkLoader
         return $spec;
     }
     /**
-     * @param $val
+     * @param  $val
      * @return string|DateTime
      */
     protected static function importDate($val, $rt = 'string')
@@ -146,9 +146,9 @@ class EventCsvBulkLoader extends CsvBulkLoader
     }
 
     /**
-     * @param $obj
-     * @param $val
-     * @param $record
+     * @param  $obj
+     * @param  $val
+     * @param  $record
      * @return DataObject
      */
     public static function findOrCreateCalendarByTitle(&$obj, $val, $record)

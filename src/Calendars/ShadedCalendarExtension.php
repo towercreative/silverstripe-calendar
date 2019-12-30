@@ -9,7 +9,7 @@ use SilverStripe\ORM\DataExtension;
  * Allowing calendars to be shaded
  * This can be used with calendars containing secondary information
  *
- * @package calendar
+ * @package    calendar
  * @subpackage calendars
  */
 class ShadedCalendarExtension extends DataExtension

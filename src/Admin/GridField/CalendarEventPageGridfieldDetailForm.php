@@ -3,7 +3,8 @@ namespace TitleDK\Calendar\Admin\GridField;
 
 /**
  * CalendarEvent Page Gridfield DetailForm
- * @package calendar
+ *
+ * @package    calendar
  * @subpackage admin
  */
 class CalendarEventPageGridFieldDetailForm extends CalendarEventGridFieldDetailForm

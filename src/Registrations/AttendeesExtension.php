@@ -16,6 +16,7 @@ use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
  * conference or seminar
  *
  * Class EventRegistrationAttendeesExtension
+ *
  * @package TitleDK\Calendar\Attendee
  */
 class AttendeesExtension extends DataExtension

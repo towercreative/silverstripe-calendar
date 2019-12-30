@@ -23,6 +23,7 @@ use TitleDK\Calendar\Registrations\Attendee;
  * Extend event registration controller
  *
  * Class EventRegistrationAttendeesExtension
+ *
  * @package TitleDK\Calendar\Attendee
  */
 class AttendeesControllerExtension extends Extension
@@ -64,7 +65,7 @@ class AttendeesControllerExtension extends Extension
                 $jsonField->setValue('[]');
             }
 
-          /*
+            /*
             <tr><th>Attendees</th>
                         <td>
                             <ul>
@@ -77,7 +78,7 @@ class AttendeesControllerExtension extends Extension
                             </ul>
                         </td>
                     </tr>
-          */
+            */
         }
 
         $fields->push($jsonField);
