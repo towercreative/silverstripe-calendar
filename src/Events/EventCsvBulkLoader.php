@@ -48,11 +48,18 @@ class EventCsvBulkLoader extends CsvBulkLoader
          */
         $spec['fields'] = array(
             'Title' => _t('Event.Title', 'Title'),
-            'Start Date' => _t('Event.StartDateSpec', 'Start date in format {dateformat}', '',
-                ['dateformat' => $dateFormat]),
+            'Start Date' => _t(
+                'Event.StartDateSpec',
+                'Start date in format {dateformat}',
+                '',
+                ['dateformat' => $dateFormat]
+            ),
             'Start Time' => _t('Event.StartTime', 'Start Time'),
-            'End Date' => _t('Event.EndDateSpec', 'End date in format {dateformat}'.'',
-                ['dateformat' => $dateFormat]),
+            'End Date' => _t(
+                'Event.EndDateSpec',
+                'End date in format {dateformat}'.'',
+                ['dateformat' => $dateFormat]
+            ),
             'End Time' => _t('Event.EndTime', 'End Time')
         );
 

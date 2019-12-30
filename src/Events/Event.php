@@ -129,8 +129,10 @@ class Event extends DataObject
 
     public function DetailsSummary()
     {
-        $ModifiedContent = implode(' ', array_slice(explode(' ',
-            strip_tags($this->Details, "<a>")), 0, 25));
+        $ModifiedContent = implode(' ', array_slice(explode(
+            ' ',
+            strip_tags($this->Details, "<a>")
+        ), 0, 25));
         return $ModifiedContent;
     }
 
@@ -641,8 +643,10 @@ class Event extends DataObject
         //          }
         //      } else {
         $calendarPage = CalendarPage::get()->First();
-        return CalendarHelper::add_preview_params(Controller::join_links($calendarPage->Link('detail'), $this->ID),
-            $this);
+        return CalendarHelper::add_preview_params(
+            Controller::join_links($calendarPage->Link('detail'), $this->ID),
+            $this
+        );
         //      }
     }
 

@@ -69,8 +69,10 @@ class CalendarEventsMonthYearWidget extends Widget
                 $fields->merge(
                     [
                     DropdownField::create('CalendarPageID', 'Calendar Page', CalendarPage::get()->map()),
-                    NumericField::create('NumberOfMonths',
-                        _t(__CLASS__ . '.NumberOfPosts', 'Number of Months'))
+                    NumericField::create(
+                        'NumberOfMonths',
+                        _t(__CLASS__ . '.NumberOfPosts', 'Number of Months')
+                    )
                     ]
                 );
             }

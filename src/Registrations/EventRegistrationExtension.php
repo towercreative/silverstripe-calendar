@@ -118,8 +118,10 @@ class EventRegistrationExtension extends DataExtension
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            $paymentRequiredField = new CheckboxField('PaymentRequired',
-                'Payment Required (must also check "Tickets Required" for this to work)')
+            $paymentRequiredField = new CheckboxField(
+                'PaymentRequired',
+                'Payment Required (must also check "Tickets Required" for this to work)'
+            )
         );
 
         $fields->addFieldToTab(

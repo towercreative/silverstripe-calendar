@@ -67,7 +67,8 @@ class Calendar extends DataObject
                     'data-placeholder',
                     _t(__CLASS__ . '.ADDGROUP', 'Add group restriction', 'Placeholder text for a dropdown')
                 )->setRightTitle(
-                    'Only these groups will be able to see this calendar and events, leave empty for public')
+                    'Only these groups will be able to see this calendar and events, leave empty for public'
+                )
         );
 
         //Events shouldn't be editable from here by default

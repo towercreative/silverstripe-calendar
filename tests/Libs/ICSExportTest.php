@@ -22,7 +22,17 @@ class ICSExportTest extends SapphireTest
 
     public function test__construct()
     {
+    }
+
+    public function testGetFile()
+    {
+        $this->markTestSkipped('TODO');
+    }
+
+    public function testGetString()
+    {
         $calendars = Calendar::get();
+        error_log('N CALENDARS: ' . $calendars->first());
         $events = new ArrayList();
         foreach ($calendars as $cal) {
             $events->merge($cal->Events());
@@ -39,22 +49,7 @@ class ICSExportTest extends SapphireTest
         $this->markAsRisky();
     }
 
-    public function testGetFile()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
-    public function testGetString()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
     public function testIcs_date()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
-    public function testGenerateEventString()
     {
         $this->markTestSkipped('TODO');
     }
