@@ -39,7 +39,7 @@ class CalendarPageController extends ContentController
     );
 
     private static $url_handlers = [
-      '' => 'upcoming',
+      '' => 'upcoming', // @todo This is not working with latest version of SS4
         'recent' => 'recent'
     ];
 
@@ -48,13 +48,10 @@ class CalendarPageController extends ContentController
     {
         parent::init();
         Requirements::javascript('//code.jquery.com/jquery-3.3.1.min.js');
-        // Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
+        Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
         Requirements::css('titledk/silverstripe-calendar:css/pagetypes/CalendarPage.css');
         Requirements::css('titledk/silverstripe-calendar:css/modules.css');
 
-        //custom stying
-        // @todo this breaks, comment out for now
-        //Requirements::themedCSS('CalendarPage');
     }
 
     /**
@@ -86,7 +83,7 @@ class CalendarPageController extends ContentController
      */
     public function upcoming()
     {
-        $events = $this->Events();
+        $events = $this->UpComingEvents() ;
 
         return [
             'Events' => new PaginatedList($events, $this->getRequest())
@@ -291,6 +288,8 @@ class CalendarPageController extends ContentController
     {
         $action = $this->request->param('Action');
 
+        echo 'ACTION:' . $action;
+
         //Normal & Registerable events
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
@@ -327,8 +326,8 @@ class CalendarPageController extends ContentController
                 }
 
                 $filter .= " (
-					Title LIKE '%$qitem%'
-					OR Details LIKE '%$qitem%'
+					\"Title\" LIKE '%$qitem%'
+					OR \"Details\" LIKE '%$qitem%'
 				)";
                 $first = false;
             }
@@ -343,18 +342,7 @@ class CalendarPageController extends ContentController
 
         // recent or upcoming
         if ($action == 'upcoming') {
-            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
-            $now = $this->CurrentMonthDay();
-            $next = strtotime('+1 month', time());
-            $inOneMonth = date('Y-m-d', $next);
-
-
-            // This method takes a csv of IDs, not an array.
-            $events = CalendarHelper::events_for_date_range($now, $inOneMonth, $calendarIDs)
-                ->sort('StartDateTime ASC');
-
-            return  new PaginatedList($events, $this->getRequest());
         } elseif ($action == 'recent') {
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
@@ -368,6 +356,27 @@ class CalendarPageController extends ContentController
 
             return  new PaginatedList($events, $this->getRequest());
         }
+    }
+
+
+    private function UpComingEvents()
+    {
+        echo "In UPCCOMING EVENTS";
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
+
+        echo 'UPCOMING!!!!!!';
+        print_r($calendarIDs);
+
+        $now = $this->CurrentMonthDay();
+        $next = strtotime('+1 month', time());
+        $inOneMonth = date('Y-m-d', $next);
+
+
+        // This method takes a csv of IDs, not an array.
+        $events = CalendarHelper::events_for_date_range($now, $inOneMonth, $calendarIDs)
+            ->sort('"StartDateTime" ASC');
+
+        return  new PaginatedList($events, $this->getRequest());
     }
 
     /**
