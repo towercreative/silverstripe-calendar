@@ -51,14 +51,15 @@ class ColorTest extends SapphireTest
 
     public function test_from_hsl()
     {
-        $color = Color::fromHSL(0.4,0.8,0.8);
+        $color = Color::fromHSL(0.4, 0.8, 0.8);
         $this->assertEquals('#a3f5c4', $color->toHexString());
     }
 
     public function testFromHSV()
     {
-        $color = Color::fromHSV(0.4,0.8,0.8);
-        $this->assertEquals('#29cc6a', $color->toHexString());    }
+        $color = Color::fromHSV(0.4, 0.8, 0.8);
+        $this->assertEquals('#29cc6a', $color->toHexString());
+    }
 
     public function test_darken()
     {
@@ -106,7 +107,8 @@ class ColorTest extends SapphireTest
                 0.8245614035087718,
                 0.6705882352941176
                 ],
-            $this->testColor->toHSV());
+            $this->testColor->toHSV()
+        );
     }
 
     public function test_luma()
@@ -116,6 +118,6 @@ class ColorTest extends SapphireTest
 
     public function test_is_dark()
     {
-        $this->assertTrue( $this->testColor->isDark());
+        $this->assertTrue($this->testColor->isDark());
     }
 }

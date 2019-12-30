@@ -30,7 +30,10 @@ class CalendarPageTest extends SapphireTest
         $mainTab = $rootTab->fieldByName('Main');
         $fields = $mainTab->FieldList();
 
-        $names = array_map(function($field) {
+        // This is present for PostgresSQL on Travis only
+        $fields->removeByName('InstallWarningHeader');
+
+        $names = array_map(function ($field) {
             return $field->Name;
         },
             $fields->toArray());
@@ -42,7 +45,5 @@ class CalendarPageTest extends SapphireTest
             'Content',
             'Metadata'
         ], $names);
-
     }
-
 }

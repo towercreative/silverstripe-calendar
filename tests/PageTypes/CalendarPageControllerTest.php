@@ -32,7 +32,7 @@ class CalendarPageControllerTest extends FunctionalTest
     public function testIndex()
     {
         $pages = SiteTree::get();
-        foreach($pages as $page) {
+        foreach ($pages as $page) {
             error_log($page->ClassName);
             error_log($page->Link());
         }

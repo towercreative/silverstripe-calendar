@@ -90,8 +90,10 @@ class EventTest extends SapphireTest
 
     public function test_details_summary()
     {
-        $this->assertEquals('<a href="https://silverstripe.org">SilverStripe</a> meetup, almost sold out',
-            $this->eveningMeetUpEvent->DetailsSummary());
+        $this->assertEquals(
+            '<a href="https://silverstripe.org">SilverStripe</a> meetup, almost sold out',
+            $this->eveningMeetUpEvent->DetailsSummary()
+        );
     }
 
     public function testOnBeforeWrite()
@@ -116,7 +118,7 @@ class EventTest extends SapphireTest
 
     public function test_calc_duration_based_on__end_date_time_more_than_24_hours()
     {
-        $this->assertFalse( $this->weekendEvent->calcDurationBasedOnEndDateTime($this->weekendEvent->EndDateTime));
+        $this->assertFalse($this->weekendEvent->calcDurationBasedOnEndDateTime($this->weekendEvent->EndDateTime));
     }
 
     public function test_calc_end_date_time_based_on_duration()
@@ -146,7 +148,7 @@ class EventTest extends SapphireTest
         // this calls front end fields method
         $fields = $this->weekendEvent->getAddNewFields();
         $names = [];
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             $names[] = $field->Name;
         }
 
@@ -158,7 +160,7 @@ class EventTest extends SapphireTest
     {
         $fields = $this->weekendEvent->getCMSFields();
         $names = [];
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             $names[] = $field->Name;
         }
         $this->assertEquals(['Root'], $names);
@@ -248,22 +250,22 @@ class EventTest extends SapphireTest
 
     public function test_get_formatted_time_frame_same_month()
     {
-        $this->assertNull( $this->weekendEvent->getFormattedTimeframe());
+        $this->assertNull($this->weekendEvent->getFormattedTimeframe());
     }
 
     public function test_get_formatted_time_frame_multi_month()
     {
-        $this->assertNull( $this->cricketSeasonEvent->getFormattedTimeframe());
+        $this->assertNull($this->cricketSeasonEvent->getFormattedTimeframe());
     }
 
     public function test_get_formatted_time_frame_zero_seconds()
     {
-        $this->assertNull( $this->zeroSecondsEvent1->getFormattedTimeframe());
+        $this->assertNull($this->zeroSecondsEvent1->getFormattedTimeframe());
     }
 
     public function test_get_formatted_time_frame_zero_seconds_after_parsing()
     {
-        $this->assertNull( $this->zeroSecondsEvent2->getFormattedTimeframe());
+        $this->assertNull($this->zeroSecondsEvent2->getFormattedTimeframe());
     }
 
     // @todo Check the behaviour here, the choice of an hour seems arbitrary
@@ -277,8 +279,10 @@ class EventTest extends SapphireTest
         // this currently shows a duration of 9hrs which is incorrect
         // Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020 (9hrs)
         // @todo Fix, removed the (9hrs) in order to flag it as a bug
-        $this->assertEquals('Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020  (3921 hrs)',
-            $this->cricketSeasonEvent->getStartAndEndDates());
+        $this->assertEquals(
+            'Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020  (3921 hrs)',
+            $this->cricketSeasonEvent->getStartAndEndDates()
+        );
     }
 
     public function test_get_dates_and_time_frame_same_day()

@@ -11,7 +11,7 @@ class PaymentRegistrationFormTest extends SapphireTest
     {
         $form = new PaymentRegistrationForm(null, 'paymentFormTest');
         $fields = $form->Fields()->toArray();
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
         $this->assertEquals([
@@ -30,13 +30,14 @@ class PaymentRegistrationFormTest extends SapphireTest
         $form = new PaymentRegistrationForm(null, 'paymentFormTest');
         $form->setDone();
         $fields = $form->Fields()->toArray();
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
         $this->assertEquals([
             'CompleteMsg',
             'SecurityID'
-        ], $names);    }
+        ], $names);
+    }
 
     public function testDoRegister()
     {
@@ -51,5 +52,6 @@ class PaymentRegistrationFormTest extends SapphireTest
         /** @var FieldList $fields */
         $fields = $form->Fields();
         $emailField = $fields->fieldByName('Email');
-        $this->assertEquals('fred@fred.com', $emailField->Value());    }
+        $this->assertEquals('fred@fred.com', $emailField->Value());
+    }
 }

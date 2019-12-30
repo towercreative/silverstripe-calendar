@@ -31,7 +31,7 @@ class EventRegistrationExtensionTest extends SapphireTest
         /** @var Tab $mainTab */
         $mainTab = $rootTab->fieldByName('Main');
         $fields = $mainTab->FieldList();
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields->toArray());
 
@@ -54,7 +54,7 @@ class EventRegistrationExtensionTest extends SapphireTest
         $registrationsTab = $rootTab->fieldByName('Registrations');
         $fields = $registrationsTab->FieldList();
 
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         },
             $fields->toArray());

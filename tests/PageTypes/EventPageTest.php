@@ -30,7 +30,7 @@ class EventPageTest extends SapphireTest
     public function testComingEvents()
     {
         $comingEvents = $this->eventPage->ComingEvents()->sort('StartDateTime');
-        foreach($comingEvents as $event) {
+        foreach ($comingEvents as $event) {
             $carbonStartDateTime = $this->carbonDateTime($event->StartDateTime);
             $this->assertGreaterThan(Carbon::now()->timestamp, $carbonStartDateTime->timestamp);
         }
@@ -42,7 +42,7 @@ class EventPageTest extends SapphireTest
     public function testPastEvents()
     {
         $pastEvents = $this->eventPage->PastEvents()->sort('StartDateTime');
-        foreach($pastEvents as $event) {
+        foreach ($pastEvents as $event) {
             $carbonStartDateTime = $this->carbonDateTime($event->StartDateTime);
             $this->assertLessThan(Carbon::now()->timestamp, $carbonStartDateTime->timestamp);
         }
@@ -62,7 +62,10 @@ class EventPageTest extends SapphireTest
         $mainTab = $rootTab->fieldByName('Main');
         $fields = $mainTab->FieldList();
 
-        $names = array_map(function($field) {
+        // This is present for PostgresSQL on Travis only
+        $fields->removeByName('InstallWarningHeader');
+
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields->toArray());
         $this->assertEquals(['Title', 'URLSegment', 'MenuTitle', 'Content', 'Metadata'], $names);

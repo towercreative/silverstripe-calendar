@@ -30,14 +30,14 @@ class PublicEventCategoryTest extends SapphireTest
 
         // category 1 has a past and 2 future events, only the future events should show
         $events = $this->category1->comingEvents('2019-12-30')->toArray();
-        $titles = array_map(function($event) {
+        $titles = array_map(function ($event) {
             return $event->Title;
         }, $events);
         $this->assertEquals(['Happy New Year!!', 'Chilling in the Future'], $titles);
 
         // category 2 has onlhy the event way in the future
         $events = $this->category2->comingEvents('2019-12-30')->toArray();
-        $titles = array_map(function($event) {
+        $titles = array_map(function ($event) {
             return $event->Title;
         }, $events);
         $this->assertEquals(['Chilling in the Future'], $titles);
@@ -62,5 +62,4 @@ class PublicEventCategoryTest extends SapphireTest
     {
         $this->assertTrue($this->category1->canDelete());
     }
-
 }

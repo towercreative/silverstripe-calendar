@@ -23,7 +23,7 @@ class EventRegistrationTest extends SapphireTest
     public function testGetFrontEndFields()
     {
         $fields = $this->conference->getFrontEndFields()->toArray();
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
         $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
@@ -87,7 +87,7 @@ class EventRegistrationTest extends SapphireTest
         error_log($attendees);
 
         $registrations = '';
-        for($i=0; $i<20; $i++) {
+        for ($i=0; $i<20; $i++) {
             $firstName = $faker->firstNameMale;
             $lastName = $faker->lastName;
             $email = $faker->email;

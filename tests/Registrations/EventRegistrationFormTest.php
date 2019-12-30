@@ -12,7 +12,7 @@ class EventRegistrationFormTest extends SapphireTest
     {
         $form = new EventRegistrationForm(null, 'eventFormTest');
         $fields = $form->Fields()->toArray();
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
         $this->assertEquals(['Name', 'Email', 'EventID', 'SecurityID'], $names);
@@ -23,7 +23,7 @@ class EventRegistrationFormTest extends SapphireTest
         $form = new EventRegistrationForm(null, 'eventFormTest');
         $form->setDone();
         $fields = $form->Fields()->toArray();
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
         $this->assertEquals(['CompleteMsg', 'SecurityID'], $names);

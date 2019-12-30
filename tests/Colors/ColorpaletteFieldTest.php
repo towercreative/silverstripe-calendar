@@ -21,5 +21,4 @@ class ColorpaletteFieldTest extends SapphireTest
         $field = $paletteField->Field([]);
         $this->assertEquals('#48E', $paletteField->value);
     }
-
 }

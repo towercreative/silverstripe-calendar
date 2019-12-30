@@ -24,7 +24,7 @@ class AttendeesExtensionTest extends SapphireTest
         $mainTab = $rootTab->fieldByName('Main');
         $fields = $mainTab->FieldList()->toArray();
 
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
 
@@ -44,7 +44,7 @@ class AttendeesExtensionTest extends SapphireTest
         $attendeesTab = $rootTab->fieldByName('Attendees');
         $fields = $attendeesTab->FieldList()->toArray();
 
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
 

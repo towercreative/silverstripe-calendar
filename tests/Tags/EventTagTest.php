@@ -20,10 +20,13 @@ class EventTagTest extends SapphireTest
     public function test_get_tag_url_segment_duplicate_title()
     {
         # Duplicate titles are saved with a segment of -1, -2 etc
-        $this->assertEquals('beans-1',
-            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag4')->URLSegment);
-        $this->assertEquals('beans-2',
-            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag5')->URLSegment);
+        $this->assertEquals(
+            'beans-1',
+            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag4')->URLSegment
+        );
+        $this->assertEquals(
+            'beans-2',
+            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag5')->URLSegment
+        );
     }
-
 }

@@ -17,7 +17,6 @@ class CalendarHelperTest extends SapphireTest
 
     public function testComing_events()
     {
-
     }
 
     public function testComing_events_limited()
@@ -73,7 +72,7 @@ class CalendarHelperTest extends SapphireTest
 
     private function debugEvents($events)
     {
-        foreach($events as $event) {
+        foreach ($events as $event) {
             //error_log($event->Title . ' ' . $event->StartDateTime . ' --> ' . $event->EndDateTime);
         }
     }

@@ -11,7 +11,7 @@ class EventCategoryExtentionTest extends SapphireTest
     {
         $event = new Event();
         $fields = $event->getCMSFields()->toArray();
-        $names = array_map(function($field) {
+        $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
 

@@ -28,7 +28,6 @@ class EventRegistrationStateMachineTest extends SapphireTest
     {
         $this->stateMachine->awaitingPayment();
         $this->assertEquals('AwaitingPayment', $this->stateMachine->getStatus());
-
     }
 
     public function testPaymentExpired()
@@ -57,7 +56,8 @@ class EventRegistrationStateMachineTest extends SapphireTest
     {
         $this->stateMachine->awaitingPayment();
         $this->stateMachine->makeTicketAvailableAfterPaymentTimedOut();
-        $this->assertEquals('Available', $this->stateMachine->getStatus());    }
+        $this->assertEquals('Available', $this->stateMachine->getStatus());
+    }
 
     public function testPaymentSucceeded()
     {
@@ -73,5 +73,4 @@ class EventRegistrationStateMachineTest extends SapphireTest
         $this->stateMachine->booked();
         $this->assertEquals('Booked', $this->stateMachine->getStatus());
     }
-
 }

@@ -17,7 +17,6 @@ class DateTimeHelperTraitTest extends SapphireTest
         // fix the concept of now for testing purposes
         $this->now = Carbon::create(2018, 5, 16, 8, 20);
         Carbon::setTestNow($this->now);
-
     }
 
 
@@ -34,6 +33,6 @@ class DateTimeHelperTraitTest extends SapphireTest
 
     public function testGetSSDateTimeFromCarbon()
     {
-        $this->assertEquals('2018-05-16 08:20:00',      $this->getSSDateTimeFromCarbon($this->now));
+        $this->assertEquals('2018-05-16 08:20:00', $this->getSSDateTimeFromCarbon($this->now));
     }
 }

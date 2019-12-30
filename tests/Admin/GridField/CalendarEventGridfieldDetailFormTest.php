@@ -10,6 +10,5 @@ class CalendarEventGridfieldDetailFormTest extends SapphireTest
     public function test_item_edit_form()
     {
         $this->markTestSkipped('rendering form');
-
     }
 }

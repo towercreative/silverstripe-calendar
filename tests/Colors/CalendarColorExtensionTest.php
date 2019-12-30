@@ -49,7 +49,7 @@ class CalendarColorExtensionTest extends SapphireTest
         /** @var Tab $mainTab */
         $mainTab = $rootTab->fieldByName('Main');
         $fields = $mainTab->FieldList();
-            $names = array_map(function($field) {
+            $names = array_map(function ($field) {
                 return $field->Name;
             },
             $fields->toArray());

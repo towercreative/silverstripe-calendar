@@ -36,6 +36,4 @@ class CalendarTest extends SapphireTest
     {
         $this->assertFalse($this->calendar->canDelete());
     }
-
-
 }
