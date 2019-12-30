@@ -60,6 +60,8 @@ class EventTag extends DataObject
     ];
 
     /**
+     * @todo is this needed?
+     *
      * {@inheritdoc}
      */
     protected function getListUrlSegment()
