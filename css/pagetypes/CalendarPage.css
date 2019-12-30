@@ -14,6 +14,8 @@ form#EventSearch {
 
 #EventSearchQuery {
 	margin-top: 10px;
+    padding: 4px 15px;
+
 }
 
 input[name=q] {
@@ -95,6 +97,15 @@ ul.CalendarPageMenu li, ul.CalendarPageSearch li {
 
 .fc-event {
 	cursor: pointer !important;
+}
+
+/* This prevents the calendar from scrolling internally */
+.fc-scroller {
+    overflow: visible !important ;
+}
+
+.typography .fc-view-container table td, .typography .fc-view-container table th {
+    padding: 0px;
 }
 
 #FullcalendarCustomNav a.current {
