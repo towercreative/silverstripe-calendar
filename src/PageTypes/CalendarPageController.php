@@ -39,7 +39,7 @@ class CalendarPageController extends ContentController
     );
 
     private static $url_handlers = [
-      '' => 'upcoming', // @todo This is not working with latest version of SS4
+        '' => 'upcoming',
         'recent' => 'recent'
     ];
 
@@ -51,7 +51,6 @@ class CalendarPageController extends ContentController
         Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
         Requirements::css('titledk/silverstripe-calendar:css/pagetypes/CalendarPage.css');
         Requirements::css('titledk/silverstripe-calendar:css/modules.css');
-
     }
 
     /**
@@ -65,12 +64,12 @@ class CalendarPageController extends ContentController
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
         if ($indexSetting == 'eventlist') {
+
+            // @todo What should be here?
             $events = $this->Events(); // already paged
-            $grid = $this->owner->createGridLayout($events, 2);
 
             return [
-                'Events' => $events,
-                'GridLayout' => $grid
+                'Events' => $events
             ];
             return $this->returnTemplate();
         } elseif ($indexSetting == 'calendarview') {
@@ -93,12 +92,10 @@ class CalendarPageController extends ContentController
     /**
      * Show recent events
      *
-     * @todo This is broken, the above method and this one call Events with a non existent parameter.  upcoming and
-     * recent are not the same
      */
     public function recent()
     {
-        $events = $this->Events();
+        $events = $this->RecentEvents();
 
         return [
             'Events' => new PaginatedList($events, $this->getRequest())
@@ -131,8 +128,6 @@ class CalendarPageController extends ContentController
     public function calendarview()
     {
         $s = CalendarConfig::subpackage_settings('pagetypes');
-
-        //Debug::dump($s);
 
         if (isset($s['calendarpage']['calendarview']) && $s['calendarpage']['calendarview']) {
             $prefix = 'titledk/silverstripe-calendar:thirdparty/fullcalendar';
@@ -252,6 +247,7 @@ class CalendarPageController extends ContentController
      */
     public function register($req)
     {
+        // @todo config a la SS4
         if (CalendarConfig::subpackage_enabled('registrations')) {
             return $this->detail($req);
         } else {
@@ -288,8 +284,6 @@ class CalendarPageController extends ContentController
     {
         $action = $this->request->param('Action');
 
-        echo 'ACTION:' . $action;
-
         //Normal & Registerable events
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
@@ -298,66 +292,79 @@ class CalendarPageController extends ContentController
             || ($action == '' && $indexSetting == 'eventlist')
 
         ) {
-            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
-
-            // This method takes a csv of IDs, not an array.
-            $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
-
-            if ($action == 'eventregistration') {
-                $events = $events
-                    ->filter('Registerable', 1);
-            }
-
+            $events = $this->getRegisterableEvents($action);
             return  new PaginatedList($events, $this->getRequest());
         }
 
         //Search
         if ($action == 'search') {
-            $query = $this->SearchQuery();
-            $query = strtolower(addslashes($query));
-            //Debug::dump($query);
-            $qarr = preg_split('/[ +]/', $query);
-
-            $filter = '';
-            $first = true;
-            foreach ($qarr as $qitem) {
-                if (!$first) {
-                    $filter .= " AND ";
-                }
-
-                $filter .= " (
-					\"Title\" LIKE '%$qitem%'
-					OR \"Details\" LIKE '%$qitem%'
-				)";
-                $first = false;
-            }
-
-            //Debug::dump($filter);
-            $events = CalendarHelper::all_events()
-                ->where($filter);
-
+            $events = $this->performSearch();
             return new PaginatedList($events, $this->getRequest());
         }
 
-
-        // recent or upcoming
-        if ($action == 'upcoming') {
-
-        } elseif ($action == 'recent') {
-            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
-
-            $now = $this->CurrentMonthDay();
-            $prev = strtotime('-1 month', time());
-            $oneMonthAgo = date('Y-m-d', $prev);
-
-            // This method takes a csv of IDs, not an array.
-            $events = CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
-                ->sort('StartDateTime DESC');
-
-            return  new PaginatedList($events, $this->getRequest());
-        }
     }
 
+
+    private function getRegisterableEvents($action)
+    {
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
+
+        // This method takes a csv of IDs, not an array.
+        $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
+
+        if ($action == 'eventregistration') {
+            $events = $events
+                ->filter('Registerable', 1);
+        }
+        return $events;
+    }
+
+    private function performSearch()
+    {
+        $query = $this->SearchQuery();
+
+        // @todo This is case sensitive with Postgresql, not so with MySQL
+        //$query = strlower(addslashes($query));
+        $query = (addslashes($query));
+        //Debug::dump($query);
+        $qarr = preg_split('/[ +]/', $query);
+
+        $filter = '';
+        $first = true;
+        foreach ($qarr as $qitem) {
+            if (!$first) {
+                $filter .= " AND ";
+            }
+
+            $filter .= " (
+					\"Title\" LIKE '%$qitem%'
+					OR \"Details\" LIKE '%$qitem%'
+				)";
+            $first = false;
+        }
+
+
+        //Debug::dump($filter);
+        $events = CalendarHelper::all_events()
+            ->where($filter);
+        return $events;
+    }
+
+
+    private function RecentEvents()
+    {
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
+
+        $now = $this->CurrentMonthDay();
+        $prev = strtotime('-1 month', time());
+        $oneMonthAgo = date('Y-m-d', $prev);
+
+        // This method takes a csv of IDs, not an array.
+        $events = CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
+            ->sort('StartDateTime DESC');
+
+        return  new PaginatedList($events, $this->getRequest());
+    }
 
     private function UpComingEvents()
     {
@@ -497,6 +504,7 @@ class CalendarPageController extends ContentController
 
     public function SearchQuery()
     {
+        // @todo SQL injection risk here I suspect
         if (isset($_GET['q'])) {
             $q = $_GET['q'];
             return $q;
