@@ -18,7 +18,7 @@
                     Previous</a>
                 <a href="$NextMonthLink" class="btn">
                     Next</a></div>
-            <div class="fc-center"><h2>December 2019</h2>
+            <div class="fc-center"><h2>$EventPageTitle</h2>
             </div><div class="fc-clear"></div></div>
     </div>
 </div>
