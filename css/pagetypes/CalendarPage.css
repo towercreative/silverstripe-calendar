@@ -104,6 +104,10 @@ ul.CalendarPageMenu li, ul.CalendarPageSearch li {
     overflow: visible !important ;
 }
 
+.fc-right, .fc-center {
+    margin-top: 10px;
+}
+
 .typography .fc-view-container table td, .typography .fc-view-container table th {
     padding: 0px;
 }
