@@ -1,4 +1,4 @@
-    <% if $SearchEnabled %>
+ <% if $SearchEnabled %>
         <ul class="CalendarPageSearch">
         <li class="search">
             <form id="EventSearch" action="{$Link}search">
