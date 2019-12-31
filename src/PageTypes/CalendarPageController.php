@@ -11,6 +11,7 @@ use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
+use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Tags\EventTag;
@@ -18,6 +19,8 @@ use TitleDK\Calendar\Tags\EventTag;
 // @todo using page controller, the output for textIndex was likes of a default page controller
 class CalendarPageController extends ContentController
 {
+
+    use DateTimeHelperTrait;
 
     private static $allowed_actions = array(
         'past', // displaying past events
@@ -355,7 +358,7 @@ class CalendarPageController extends ContentController
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
-        $now = $this->CurrentMonthDay();
+        $now = $this->RealtimeMonthDay();
         $prev = strtotime('-1 month', time());
         $oneMonthAgo = date('Y-m-d', $prev);
 
@@ -371,16 +374,36 @@ class CalendarPageController extends ContentController
         echo "In UPCCOMING EVENTS";
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
-        echo 'UPCOMING!!!!!!';
-        print_r($calendarIDs);
+        $currentMonth = $this->CurrentMonth();
+        echo 'CURR MONTH=' . $currentMonth;
 
-        $now = $this->CurrentMonthDay();
-        $next = strtotime('+1 month', time());
+        $now = $this->RealtimeMonthDay();
+
+        echo "<br>NOW= " . $now;
+
+        $nowMonth = substr($now,0,7);
+
+        // if nowMonth is the same as the current month, as in realtime month
+
+        $start = null;
+        $finish = null;
+
+        if ($currentMonth == $nowMonth) {
+            echo '**** THIS REAL MONTH ****';
+            $start = $now;
+        } else {
+            echo '**** A DIFFERENT MONTH ****';
+            $start = $currentMonth . '-01';
+        }
+
+        $startCarbon = $this->carbonDateTime($start .' 00:00:00')->timestamp;
+        echo 'SC=' . $startCarbon;
+        $next = strtotime('+1 month', $startCarbon);
         $inOneMonth = date('Y-m-d', $next);
 
 
         // This method takes a csv of IDs, not an array.
-        $events = CalendarHelper::events_for_date_range($now, $inOneMonth, $calendarIDs)
+        $events = CalendarHelper::events_for_date_range($start, $inOneMonth, $calendarIDs)
             ->sort('"StartDateTime" ASC');
 
         return  new PaginatedList($events, $this->getRequest());
@@ -414,6 +437,7 @@ class CalendarPageController extends ContentController
     }
 
 
+    // @todo this is badly named as it uses the parameterized month, not 'now'
     public function CurrentMonth()
     {
         if (isset($_GET['month'])) {
@@ -424,18 +448,19 @@ class CalendarPageController extends ContentController
         }
     }
 
-    public function CurrentMonthDay()
+    public function RealtimeMonthDay()
     {
         $r =  date('Y-m-d', time());
         return $r;
     }
 
-    public function NextMonthDay()
+    public function RealtimeNextMonthDay()
     {
         $r =  date('Y-m-d', time());
         return $r;
     }
 
+    // @todo This is inconsistent with the JavaScript which uses the full month name
     public function CurrentMonthStr()
     {
         $month = $this->CurrentMonth();
@@ -461,6 +486,7 @@ class CalendarPageController extends ContentController
         $url = HTTP::setGetVar('month', $month, $url);
         return CalendarHelper::add_preview_params($url, $this->data());
     }
+
     public function PrevMonth()
     {
         $month = $this->CurrentMonth();
