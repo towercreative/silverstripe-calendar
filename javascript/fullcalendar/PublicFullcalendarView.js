@@ -14,7 +14,6 @@ var PublicFullcalendarView;
 			fullcalendar: {
 				header: {
 					left: 'prev, next',
-					//center: 'title'
 					right: 'title'
 				},
 				shadedevents: false,
@@ -232,8 +231,7 @@ var PublicFullcalendarView;
 		}
 
 		/**
-		 * Initializing the custom navigation
-		 * //TODO this should be configurable - we don't always need a custom nav
+		 * This deals with the button clicks for calendar navigation purposes
 		 */
 		this.init_customnav = function(){
 			var nav = $('#FullcalendarCustomNav');
