@@ -6,6 +6,9 @@
 
 **Closed issues:**
 
+- Fix Rendering in the Simple Theme [\#22](https://github.com/gordonbanderson/silverstripe-calendar/issues/22)
+- Calendar Renders With a ScrollBar [\#21](https://github.com/gordonbanderson/silverstripe-calendar/issues/21)
+- Upcoming and Recent Methods in Calendar Page Controller Broken [\#16](https://github.com/gordonbanderson/silverstripe-calendar/issues/16)
 - Calendar Helper Does Not Pickup Events Starting in Last Day of Month [\#10](https://github.com/gordonbanderson/silverstripe-calendar/issues/10)
 
 **Merged pull requests:**

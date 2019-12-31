@@ -1,18 +1,24 @@
-
 <div id="FullcalendarCustomNav">
+    MENU=$CurrentMenu
 	<div class="fullcalendarCustomNavTop">
+        <% if $CurrentMenu == 'calendarview' %>
 		<div class="date-tabs">
 			<a href="#" class="day btn">Day</a>
 			<a href="#" class="week btn">Week</a>
 			<a href="#" class="month current btn">Month</a>
 		</div>
-		<a href="#" class="today btn" id="CalendarTodayButton">Today</a>
+        <% end_if %>
 	</div>
-	<div class="fullcalendarCustomNavBottom">
-		<div class="prev-next">
-			<a href="#" class="prev btn">Previous</a>
-			<div id="FullcalendarTitle" class="title"></div>
-			<a href="#" class="next btn">Next</a>
-		</div>
-	</div>
+
+    <div id="calendar" class="fc fc-unthemed fc-ltr">
+        <div class="fc-toolbar">
+            <div class="fc-left"></div>
+            <div class="fc-right">
+                <a href="$PrevMonthLink" class="btn">
+                    Previous</a>
+                <a href="$NextMonthLink" class="btn">
+                    Next</a></div>
+            <div class="fc-center"><h2>$EventPageTitle</h2>
+            </div><div class="fc-clear"></div></div>
+    </div>
 </div>

@@ -77,7 +77,7 @@ class EventsForm extends Form
         $time = date('Y-m-d', time());
         $pastEvents = Event::get()
             ->where("\"StartDateTime\" < '$time' OR \"StartDateTime\" IS NULL")
-            ->sort('StartDateTime DESC');
+            ->sort('"StartDateTime" DESC');
 
         $pastGridField = GridField::create(
             'PastEvents',

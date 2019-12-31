@@ -61,7 +61,7 @@ class CalendarConfig
                 'controllerUrl' => '/fullcalendar/',
                 'fullcalendar_js_settings' => "
 					header: {
-						left: 'prev, next',
+						left: '',
 						//center: 'title'
 						//right: 'title'
 						//left: 'prev, next',

@@ -57,7 +57,7 @@ class CalendarHelper
     public static function coming_events($from = false)
     {
         $time = ($from ? strtotime($from) : mktime(0, 0, 0, date('m'), date('d'), date('Y')));
-        $sql = "(StartDateTime >= '".date('Y-m-d', $time)." 00:00:00')";
+        $sql = "(\"StartDateTime\" >= '".date('Y-m-d', $time)." 00:00:00')";
         $events = Event::get()->where($sql);
 
         return $events;

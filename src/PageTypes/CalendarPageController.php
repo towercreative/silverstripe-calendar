@@ -11,6 +11,7 @@ use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
+use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Tags\EventTag;
@@ -18,6 +19,8 @@ use TitleDK\Calendar\Tags\EventTag;
 // @todo using page controller, the output for textIndex was likes of a default page controller
 class CalendarPageController extends ContentController
 {
+
+    use DateTimeHelperTrait;
 
     private static $allowed_actions = array(
         'past', // displaying past events
@@ -39,7 +42,7 @@ class CalendarPageController extends ContentController
     );
 
     private static $url_handlers = [
-      '' => 'upcoming',
+        '' => 'upcoming',
         'recent' => 'recent'
     ];
 
@@ -48,13 +51,9 @@ class CalendarPageController extends ContentController
     {
         parent::init();
         Requirements::javascript('//code.jquery.com/jquery-3.3.1.min.js');
-        // Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
+        Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
         Requirements::css('titledk/silverstripe-calendar:css/pagetypes/CalendarPage.css');
         Requirements::css('titledk/silverstripe-calendar:css/modules.css');
-
-        //custom stying
-        // @todo this breaks, comment out for now
-        //Requirements::themedCSS('CalendarPage');
     }
 
     /**
@@ -68,12 +67,12 @@ class CalendarPageController extends ContentController
         $s = CalendarConfig::subpackage_settings('pagetypes');
         $indexSetting = $s['calendarpage']['index'];
         if ($indexSetting == 'eventlist') {
+
+            // @todo What should be here?
             $events = $this->Events(); // already paged
-            $grid = $this->owner->createGridLayout($events, 2);
 
             return [
-                'Events' => $events,
-                'GridLayout' => $grid
+                'Events' => $events
             ];
             return $this->returnTemplate();
         } elseif ($indexSetting == 'calendarview') {
@@ -86,7 +85,7 @@ class CalendarPageController extends ContentController
      */
     public function upcoming()
     {
-        $events = $this->Events();
+        $events = $this->UpComingEvents() ;
 
         return [
             'Events' => new PaginatedList($events, $this->getRequest())
@@ -96,12 +95,10 @@ class CalendarPageController extends ContentController
     /**
      * Show recent events
      *
-     * @todo This is broken, the above method and this one call Events with a non existent parameter.  upcoming and
-     * recent are not the same
      */
     public function recent()
     {
-        $events = $this->Events();
+        $events = $this->RecentEvents();
 
         return [
             'Events' => new PaginatedList($events, $this->getRequest())
@@ -134,8 +131,6 @@ class CalendarPageController extends ContentController
     public function calendarview()
     {
         $s = CalendarConfig::subpackage_settings('pagetypes');
-
-        //Debug::dump($s);
 
         if (isset($s['calendarpage']['calendarview']) && $s['calendarpage']['calendarview']) {
             $prefix = 'titledk/silverstripe-calendar:thirdparty/fullcalendar';
@@ -255,6 +250,7 @@ class CalendarPageController extends ContentController
      */
     public function register($req)
     {
+        // @todo config a la SS4
         if (CalendarConfig::subpackage_enabled('registrations')) {
             return $this->detail($req);
         } else {
@@ -299,75 +295,118 @@ class CalendarPageController extends ContentController
             || ($action == '' && $indexSetting == 'eventlist')
 
         ) {
-            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
-
-            // This method takes a csv of IDs, not an array.
-            $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
-
-            if ($action == 'eventregistration') {
-                $events = $events
-                    ->filter('Registerable', 1);
-            }
-
+            $events = $this->getRegisterableEvents($action);
             return  new PaginatedList($events, $this->getRequest());
         }
 
         //Search
         if ($action == 'search') {
-            $query = $this->SearchQuery();
-            $query = strtolower(addslashes($query));
-            //Debug::dump($query);
-            $qarr = preg_split('/[ +]/', $query);
-
-            $filter = '';
-            $first = true;
-            foreach ($qarr as $qitem) {
-                if (!$first) {
-                    $filter .= " AND ";
-                }
-
-                $filter .= " (
-					Title LIKE '%$qitem%'
-					OR Details LIKE '%$qitem%'
-				)";
-                $first = false;
-            }
-
-            //Debug::dump($filter);
-            $events = CalendarHelper::all_events()
-                ->where($filter);
-
+            $events = $this->performSearch();
             return new PaginatedList($events, $this->getRequest());
         }
 
-
-        // recent or upcoming
-        if ($action == 'upcoming') {
-            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
-
-            $now = $this->CurrentMonthDay();
-            $next = strtotime('+1 month', time());
-            $inOneMonth = date('Y-m-d', $next);
+    }
 
 
-            // This method takes a csv of IDs, not an array.
-            $events = CalendarHelper::events_for_date_range($now, $inOneMonth, $calendarIDs)
-                ->sort('StartDateTime ASC');
+    private function getRegisterableEvents($action)
+    {
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
-            return  new PaginatedList($events, $this->getRequest());
-        } elseif ($action == 'recent') {
-            $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
+        // This method takes a csv of IDs, not an array.
+        $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
 
-            $now = $this->CurrentMonthDay();
-            $prev = strtotime('-1 month', time());
-            $oneMonthAgo = date('Y-m-d', $prev);
-
-            // This method takes a csv of IDs, not an array.
-            $events = CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
-                ->sort('StartDateTime DESC');
-
-            return  new PaginatedList($events, $this->getRequest());
+        if ($action == 'eventregistration') {
+            $events = $events
+                ->filter('Registerable', 1);
         }
+        return $events;
+    }
+
+    private function performSearch()
+    {
+        $query = $this->SearchQuery();
+
+        // @todo This is case sensitive with Postgresql, not so with MySQL
+        //$query = strlower(addslashes($query));
+        $query = (addslashes($query));
+        //Debug::dump($query);
+        $qarr = preg_split('/[ +]/', $query);
+
+        $filter = '';
+        $first = true;
+        foreach ($qarr as $qitem) {
+            if (!$first) {
+                $filter .= " AND ";
+            }
+
+            $filter .= " (
+					\"Title\" LIKE '%$qitem%'
+					OR \"Details\" LIKE '%$qitem%'
+				)";
+            $first = false;
+        }
+
+
+        //Debug::dump($filter);
+        $events = CalendarHelper::all_events()
+            ->where($filter);
+        return $events;
+    }
+
+
+    private function RecentEvents()
+    {
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
+
+        $now = $this->RealtimeMonthDay();
+        $prev = strtotime('-1 month', time());
+        $oneMonthAgo = date('Y-m-d', $prev);
+
+        // This method takes a csv of IDs, not an array.
+        $events = CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
+            ->sort('StartDateTime DESC');
+
+        return  new PaginatedList($events, $this->getRequest());
+    }
+
+    private function UpComingEvents()
+    {
+        echo "In UPCCOMING EVENTS";
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
+
+        $currentMonth = $this->CurrentMonth();
+        echo 'CURR MONTH=' . $currentMonth;
+
+        $now = $this->RealtimeMonthDay();
+
+        echo "<br>NOW= " . $now;
+
+        $nowMonth = substr($now,0,7);
+
+        // if nowMonth is the same as the current month, as in realtime month
+
+        $start = null;
+        $finish = null;
+
+        if ($currentMonth == $nowMonth) {
+            echo '**** THIS REAL MONTH ****';
+            $start = $now;
+        } else {
+            echo '**** A DIFFERENT MONTH ****';
+            $start = $currentMonth . '-01';
+        }
+
+        $startCarbon = $this->carbonDateTime($start .' 00:00:00')->timestamp;
+        echo 'SC=' . $startCarbon;
+        $next = strtotime('+1 month', $startCarbon);
+        $inOneMonth = date('Y-m-d', $next);
+
+
+        // This method takes a csv of IDs, not an array.
+        $events = CalendarHelper::events_for_date_range($start, $inOneMonth, $calendarIDs)
+            ->sort('"StartDateTime" ASC');
+
+        return  new PaginatedList($events, $this->getRequest());
     }
 
     /**
@@ -398,6 +437,7 @@ class CalendarPageController extends ContentController
     }
 
 
+    // @todo this is badly named as it uses the parameterized month, not 'now'
     public function CurrentMonth()
     {
         if (isset($_GET['month'])) {
@@ -408,18 +448,19 @@ class CalendarPageController extends ContentController
         }
     }
 
-    public function CurrentMonthDay()
+    public function RealtimeMonthDay()
     {
         $r =  date('Y-m-d', time());
         return $r;
     }
 
-    public function NextMonthDay()
+    public function RealtimeNextMonthDay()
     {
         $r =  date('Y-m-d', time());
         return $r;
     }
 
+    // @todo This is inconsistent with the JavaScript which uses the full month name
     public function CurrentMonthStr()
     {
         $month = $this->CurrentMonth();
@@ -445,6 +486,7 @@ class CalendarPageController extends ContentController
         $url = HTTP::setGetVar('month', $month, $url);
         return CalendarHelper::add_preview_params($url, $this->data());
     }
+
     public function PrevMonth()
     {
         $month = $this->CurrentMonth();
@@ -488,6 +530,7 @@ class CalendarPageController extends ContentController
 
     public function SearchQuery()
     {
+        // @todo SQL injection risk here I suspect
         if (isset($_GET['q'])) {
             $q = $_GET['q'];
             return $q;
