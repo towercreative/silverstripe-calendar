@@ -103,7 +103,7 @@ class CalendarPageControllerTest extends FunctionalTest
 
     public function testRegistrationsEnabled()
     {
-        $this->assertTrue($this->calendarPageController->RegistrationsEnabled());
+        $this->assertFalse($this->calendarPageController->RegistrationsEnabled());
     }
 
     public function test_search_enabled()
