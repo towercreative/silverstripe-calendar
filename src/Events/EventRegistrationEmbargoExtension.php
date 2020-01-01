@@ -12,6 +12,8 @@ use SilverStripe\ORM\FieldType\DBDatetime;
  * Add an image to an event
  *
  * @package calendar
+ * @property \TitleDK\Calendar\Events\Event|\TitleDK\Calendar\Registrations\EventRegistration|\TitleDK\Calendar\Events\EventRegistrationEmbargoExtension $owner
+ * @property string $RegistrationEmbargoAt
  */
 class EventRegistrationEmbargoExtension extends DataExtension
 {

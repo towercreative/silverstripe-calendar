@@ -8,8 +8,10 @@ use SilverStripe\ORM\DataExtension;
  * Color Extension
  * Allows calendars or categories to have colors
  *
- * @package    calendar
+ * @package calendar
  * @subpackage colors
+ * @property \TitleDK\Calendar\Calendars\Calendar|\TitleDK\Calendar\Colors\CalendarColorExtension $owner
+ * @property string $Color
  */
 class CalendarColorExtension extends DataExtension
 {

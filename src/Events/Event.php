@@ -37,18 +37,38 @@ use TitleDK\Calendar\Tags\EventTag;
  *
  * Events must be associated with a calendar
  *
+ * @package calendar
+ * @property string $RegistrationEmbargoAt
+ * @property boolean $Registerable
+ * @property string $Cost
+ * @property boolean $TicketsRequired
+ * @property int $NumberOfAvailableTickets
+ * @property boolean $PaymentRequired
+ * @property string $RSVPEmail
+ * @property string $LocationName
+ * @property string $MapURL
  * @property string $Title
  * @property boolean $AllDay
  * @property boolean $NoEnd
  * @property string $StartDateTime
- * @property string $EndDateTime
- * @property string $Duration
  * @property string $TimeFrameType
+ * @property string $Duration
+ * @property string $EndDateTime
  * @property string $Details
- *
- * @method DataList Tags list of event tags
- *
- * @package calendar
+ * @property int $FeaturedImageID
+ * @property int $EventPageID
+ * @property int $CalendarID
+ * @method \SilverStripe\Assets\Image FeaturedImage()
+ * @method \TitleDK\Calendar\PageTypes\EventPage EventPage()
+ * @method \TitleDK\Calendar\Calendars\Calendar Calendar()
+ * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Registrations\EventRegistration[] Registrations()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Categories\EventCategory[] Categories()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Tags\EventTag[] Tags()
+ * @mixin \TitleDK\Calendar\Events\EventImageExtension
+ * @mixin \TitleDK\Calendar\Events\EventLocationExtension
+ * @mixin \TitleDK\Calendar\Registrations\EventRegistrationExtension
+ * @mixin \TitleDK\Calendar\Categories\EventCategoryExtension
+ * @mixin \TitleDK\Calendar\Events\EventRegistrationEmbargoExtension
  */
 class Event extends DataObject
 {

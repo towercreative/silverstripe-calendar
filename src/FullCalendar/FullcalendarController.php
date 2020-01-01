@@ -14,7 +14,7 @@ use TitleDK\Calendar\Events\Event;
  * Fullcalendar controller
  * Controller/API, used for interacting with the fullcalendar js plugin
  *
- * @package    calendar
+ * @package calendar
  * @subpackage fullcalendar
  */
 class FullcalendarController extends Controller

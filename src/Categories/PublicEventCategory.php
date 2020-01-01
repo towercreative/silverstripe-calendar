@@ -8,7 +8,7 @@ use TitleDK\Calendar\Categories\EventCategory;
 /**
  * Public Event Category
  *
- * @package    calendar
+ * @package calendar
  * @subpackage categories
  */
 class PublicEventCategory extends EventCategory

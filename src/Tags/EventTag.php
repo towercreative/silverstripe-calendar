@@ -10,11 +10,9 @@ use TitleDK\Calendar\Events\Event;
 /**
  * A blog tag for keyword descriptions of a blog post.
  *
- * @method Blog Blog()
- *
  * @property string $Title
  * @property string $URLSegment
- * @property int $BlogID
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Events\Event[] Events()
  */
 class EventTag extends DataObject
 {

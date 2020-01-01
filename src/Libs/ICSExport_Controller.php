@@ -18,6 +18,7 @@ use SilverStripe\Security\Member;
  *
  * More explaination:
  * https://github.com/colinburns/daypack.com.au/issues/48
+ *
  */
 class ICSExport_Controller extends Controller
 {

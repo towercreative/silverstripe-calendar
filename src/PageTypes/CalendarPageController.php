@@ -17,6 +17,13 @@ use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Tags\EventTag;
 
 // @todo using page controller, the output for textIndex was likes of a default page controller
+/**
+ * Class \TitleDK\Calendar\PageTypes\CalendarPageController
+ *
+ * @property \TitleDK\Calendar\PageTypes\CalendarPage dataRecord
+ * @method \TitleDK\Calendar\PageTypes\CalendarPage data()
+ * @mixin \TitleDK\Calendar\PageTypes\CalendarPage
+ */
 class CalendarPageController extends ContentController
 {
 

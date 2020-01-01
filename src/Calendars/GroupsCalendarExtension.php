@@ -10,10 +10,10 @@ use SilverStripe\ORM\DataList;
  * Event Calendar Extension
  * Allowing events to have calendars
  *
- * @method DataList Calendars Get the calendars associated with the group
- *
- * @package    calendar
+ * @package calendar
  * @subpackage calendars
+ * @property \TitleDK\Calendar\Calendars\GroupsCalendarExtension $owner
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Calendars\Calendar[] Calendar()
  */
 class GroupsCalendarExtension extends DataExtension
 {

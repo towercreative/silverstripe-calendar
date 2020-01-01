@@ -1,6 +1,13 @@
 <?php
 namespace TitleDK\Calendar\PageTypes;
 
+/**
+ * Class \TitleDK\Calendar\PageTypes\EventPage_Controller
+ *
+ * @property \TitleDK\Calendar\PageTypes\EventPage dataRecord
+ * @method \TitleDK\Calendar\PageTypes\EventPage data()
+ * @mixin \TitleDK\Calendar\PageTypes\EventPage
+ */
 class EventPage_Controller extends \PageController
 {
 

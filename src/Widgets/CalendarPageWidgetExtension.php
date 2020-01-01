@@ -9,9 +9,12 @@ use SilverStripe\ORM\DataExtension;
 use SilverStripe\Widgets\Forms\WidgetAreaEditor;
 
 /**
- * @method Blog Blog()
+ * Class \TitleDK\Calendar\Widgets\CalendarPageWidgetExtension
  *
- * @property int $NumberOfPosts
+ * @property \TitleDK\Calendar\Widgets\CalendarPageWidgetExtension $owner
+ * @property boolean $InheritSideBar
+ * @property boolean $Wibble
+ * @property int $CalendarSideBarID
  */
 class CalendarPageWidgetExtension extends DataExtension
 {

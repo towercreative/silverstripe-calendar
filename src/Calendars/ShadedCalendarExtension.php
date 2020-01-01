@@ -9,8 +9,10 @@ use SilverStripe\ORM\DataExtension;
  * Allowing calendars to be shaded
  * This can be used with calendars containing secondary information
  *
- * @package    calendar
+ * @package calendar
  * @subpackage calendars
+ * @property \TitleDK\Calendar\Calendars\ShadedCalendarExtension $owner
+ * @property boolean $Shaded
  */
 class ShadedCalendarExtension extends DataExtension
 {

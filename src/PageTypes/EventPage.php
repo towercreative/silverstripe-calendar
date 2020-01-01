@@ -10,10 +10,12 @@ use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
 /**
  * Event Page
  * A page that can serve as a permanent url for recurring events like festivals, monthly shopping events etc.
+ *
  * Dates are added manually.
  *
- * @package    calendar
+ * @package calendar
  * @subpackage pagetypes
+ * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Events\Event[] Events()
  */
 class EventPage extends \Page
 {

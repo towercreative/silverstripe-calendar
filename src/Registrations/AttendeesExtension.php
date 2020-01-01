@@ -18,6 +18,8 @@ use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
  * Class EventRegistrationAttendeesExtension
  *
  * @package TitleDK\Calendar\Attendee
+ * @property \TitleDK\Calendar\Registrations\EventRegistration|\TitleDK\Calendar\Registrations\AttendeesExtension $owner
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Registrations\Attendee[] Attendees()
  */
 class AttendeesExtension extends DataExtension
 {

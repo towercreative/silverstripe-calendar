@@ -13,8 +13,14 @@ use TitleDK\Calendar\Registrations\EventRegistration;
  * Add a location to an event
  *
  * @todo Use Mappable
- *
  * @package calendar
+ * @property string $Title
+ * @property string $FirstName
+ * @property string $Surname
+ * @property string $Company
+ * @property string $Phone
+ * @property string $Email
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Registrations\EventRegistration[] Registrations()
  */
 class Attendee extends DataObject
 {

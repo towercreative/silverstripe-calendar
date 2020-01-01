@@ -19,7 +19,7 @@ use TitleDK\Calendar\Core\CalendarConfig;
 /**
  * Calendar Admin
  *
- * @package    calendar
+ * @package calendar
  * @subpackage admin
  */
 class CalendarAdmin extends ModelAdmin implements PermissionProvider

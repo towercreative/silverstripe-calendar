@@ -10,6 +10,9 @@ use SilverStripe\ORM\DataExtension;
  * Add an image to an event
  *
  * @package calendar
+ * @property \TitleDK\Calendar\Events\Event|\TitleDK\Calendar\Events\EventImageExtension $owner
+ * @property int $FeaturedImageID
+ * @method \SilverStripe\Assets\Image FeaturedImage()
  */
 class EventImageExtension extends DataExtension
 {

@@ -9,8 +9,11 @@ use SilverStripe\ORM\DataExtension;
  * Event Calendar Extension
  * Allowing events to have calendars
  *
- * @package    calendar
+ * @package calendar
  * @subpackage calendars
+ * @property \TitleDK\Calendar\Calendars\EventCalendarExtension $owner
+ * @property int $CalendarID
+ * @method \TitleDK\Calendar\Calendars\Calendar Calendar()
  */
 class EventCalendarExtension extends DataExtension
 {

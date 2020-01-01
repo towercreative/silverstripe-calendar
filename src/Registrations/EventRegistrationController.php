@@ -8,8 +8,9 @@ use SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension;
 /**
  * Event Registration Controller
  *
- * @package    calendar
+ * @package calendar
  * @subpackage registrations
+ * @mixin \TitleDK\Calendar\Registrations\Controller\AttendeesControllerExtension
  */
 class EventRegistrationController extends Controller
 {

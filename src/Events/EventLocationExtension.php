@@ -11,8 +11,10 @@ use SilverStripe\ORM\DataExtension;
  * Add a location to an event
  *
  * @todo Use Mappable
- *
  * @package calendar
+ * @property \TitleDK\Calendar\Events\Event|\TitleDK\Calendar\Events\EventLocationExtension $owner
+ * @property string $LocationName
+ * @property string $MapURL
  */
 class EventLocationExtension extends DataExtension
 {

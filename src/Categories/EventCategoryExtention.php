@@ -9,8 +9,10 @@ use SilverStripe\ORM\DataExtension;
 /**
  * Allowing events to have many-many categories
  *
- * @package    calendar
+ * @package calendar
  * @subpackage categories
+ * @property \TitleDK\Calendar\Events\Event|\TitleDK\Calendar\Categories\EventCategoryExtension $owner
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Categories\EventCategory[] Categories()
  */
 class EventCategoryExtension extends DataExtension
 {

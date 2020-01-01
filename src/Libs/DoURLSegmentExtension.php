@@ -7,6 +7,9 @@ use SilverStripe\ORM\DataExtension;
 /**
  * DataObject URL Segment Extension
  * inspired by https://github.com/dospuntocero/doarticles/blob/master/code/utils/DOArticleURLSegmentDecorator.php
+ *
+ * @property \TitleDK\Calendar\Calendars\Calendar|\TitleDK\Calendar\Libs\DoURLSegmentExtension $owner
+ * @property string $URLSegment
  */
 class DoURLSegmentExtension extends DataExtension
 {

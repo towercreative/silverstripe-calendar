@@ -9,7 +9,11 @@ use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataQuery;
 use SilverStripe\ORM\Queries\SQLSelect;
 
-abstract class AbstractSubsiteExtension extends DataExtension
+abstract /**
+ * Class \TitleDK\Calendar\SubSites\AbstractSubsiteExtension
+ *
+ */
+class AbstractSubsiteExtension extends DataExtension
 {
 
     public function updateCMSFields(FieldList $fields)

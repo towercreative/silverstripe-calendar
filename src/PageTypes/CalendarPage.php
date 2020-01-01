@@ -19,8 +19,9 @@ use TitleDK\Calendar\Registrations\EventRegistration;
  * Calendar Page
  * Listing of public events.
  *
- * @package    calendar
+ * @package calendar
  * @subpackage pagetypes
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Calendars\Calendar[] Calendars()
  */
 class CalendarPage extends \Page
 {

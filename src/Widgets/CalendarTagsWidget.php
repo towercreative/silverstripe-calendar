@@ -12,7 +12,10 @@ use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
- * @method Blog Blog()
+ * Class \TitleDK\Calendar\Widgets\CalendarTagsWidget
+ *
+ * @property int $CalendarPageID
+ * @method \TitleDK\Calendar\PageTypes\CalendarPage CalendarPage()
  */
 class CalendarTagsWidget extends Widget
 {

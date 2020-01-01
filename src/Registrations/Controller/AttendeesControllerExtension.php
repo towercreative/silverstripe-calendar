@@ -25,6 +25,7 @@ use TitleDK\Calendar\Registrations\Attendee;
  * Class EventRegistrationAttendeesExtension
  *
  * @package TitleDK\Calendar\Attendee
+ * @property \TitleDK\Calendar\Registrations\EventRegistrationController|\TitleDK\Calendar\Registrations\Controller\AttendeesControllerExtension $owner
  */
 class AttendeesControllerExtension extends Extension
 {

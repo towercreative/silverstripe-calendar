@@ -30,8 +30,16 @@ use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
  *
  * Add this extension to Event
  *
- * @package    calendar
+ * @package calendar
  * @subpackage registrations
+ * @property \TitleDK\Calendar\Events\Event|\TitleDK\Calendar\Registrations\EventRegistrationExtension $owner
+ * @property boolean $Registerable
+ * @property string $Cost
+ * @property boolean $TicketsRequired
+ * @property int $NumberOfAvailableTickets
+ * @property boolean $PaymentRequired
+ * @property string $RSVPEmail
+ * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Registrations\EventRegistration[] Registrations()
  */
 class EventRegistrationExtension extends DataExtension
 {

@@ -16,9 +16,11 @@ use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
- * @method Blog Blog()
+ * Class \TitleDK\Calendar\Widgets\CalendarEventsMonthYearWidget
  *
- * @property int $NumberOfPosts
+ * @property int $NumberOfMonths
+ * @property int $CalendarPageID
+ * @method \TitleDK\Calendar\PageTypes\CalendarPage CalendarPage()
  */
 class CalendarEventsMonthYearWidget extends Widget
 {

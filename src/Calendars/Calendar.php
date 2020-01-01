@@ -12,8 +12,16 @@ use TitleDK\Calendar\PageTypes\CalendarPage;
  * Calendar Model
  * The calendar serves as a holder for events, but events can exist as instances on their own.
  *
- * @package    calendar
+ * @package calendar
  * @subpackage calendars
+ * @property string $URLSegment
+ * @property string $Color
+ * @property string $Title
+ * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Events\Event[] Events()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\PageTypes\CalendarPage[] CalendarPages()
+ * @method \SilverStripe\ORM\ManyManyList|\SilverStripe\Security\Group[] Groups()
+ * @mixin \TitleDK\Calendar\Libs\DoURLSegmentExtension
+ * @mixin \TitleDK\Calendar\Colors\CalendarColorExtension
  */
 class Calendar extends DataObject
 {

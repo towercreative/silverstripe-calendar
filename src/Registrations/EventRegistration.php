@@ -10,8 +10,21 @@ use SilverStripe\ORM\DataObject;
 /**
  * Event Registration
  *
- * @package    calendar
+ * @package calendar
  * @subpackage registrations
+ * @property string $RegistrationEmbargoAt
+ * @property string $Name
+ * @property string $PayersName
+ * @property string $Email
+ * @property string $Status
+ * @property int $NumberOfTickets
+ * @property string $AmountPaid
+ * @property string $Notes
+ * @property int $EventID
+ * @method \TitleDK\Calendar\Events\Event Event()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Registrations\Attendee[] Attendees()
+ * @mixin \TitleDK\Calendar\Registrations\AttendeesExtension
+ * @mixin \TitleDK\Calendar\Events\EventRegistrationEmbargoExtension
  */
 class EventRegistration extends DataObject
 {

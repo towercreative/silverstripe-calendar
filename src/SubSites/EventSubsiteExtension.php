@@ -1,6 +1,13 @@
 <?php
 namespace TitleDK\Calendar\SubSites;
 
+/**
+ * Class \TitleDK\Calendar\SubSites\EventSubsiteExtension
+ *
+ * @property \TitleDK\Calendar\SubSites\EventSubsiteExtension $owner
+ * @property int $SubsiteID
+ * @method \Subsite Subsite()
+ */
 class EventSubsiteExtension extends AbstractSubsiteExtension
 {
 
