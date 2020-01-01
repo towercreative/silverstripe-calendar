@@ -13,6 +13,7 @@ use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\Helpers\CalendarPageHelper;
 use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Tags\EventTag;
 
@@ -26,7 +27,6 @@ use TitleDK\Calendar\Tags\EventTag;
  */
 class CalendarPageController extends ContentController
 {
-
     use DateTimeHelperTrait;
 
     private static $allowed_actions = array(
@@ -48,6 +48,9 @@ class CalendarPageController extends ContentController
         'upcoming'
     );
 
+    /** @var CalendarPageHelper */
+    private $calendarPageHelper;
+
     private static $url_handlers = [
         '' => 'upcoming',
         'recent' => 'recent'
@@ -61,6 +64,7 @@ class CalendarPageController extends ContentController
         Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
         Requirements::css('titledk/silverstripe-calendar:css/pagetypes/CalendarPage.css');
         Requirements::css('titledk/silverstripe-calendar:css/modules.css');
+        $this->calendarPageHelper = new CalendarPageHelper();
     }
 
     /**
@@ -332,32 +336,7 @@ class CalendarPageController extends ContentController
     private function performSearch()
     {
         $query = $this->SearchQuery();
-
-        // @todo This is case sensitive with Postgresql, not so with MySQL
-        //$query = strlower(addslashes($query));
-        $query = (addslashes($query));
-        //Debug::dump($query);
-        $qarr = preg_split('/[ +]/', $query);
-
-        $filter = '';
-        $first = true;
-        foreach ($qarr as $qitem) {
-            if (!$first) {
-                $filter .= " AND ";
-            }
-
-            $filter .= " (
-					\"Title\" LIKE '%$qitem%'
-					OR \"Details\" LIKE '%$qitem%'
-				)";
-            $first = false;
-        }
-
-
-        //Debug::dump($filter);
-        $events = CalendarHelper::all_events()
-            ->where($filter);
-        return $events;
+        return $this->calendarPageHelpler()->performSearch($query);
     }
 
 
@@ -378,15 +357,12 @@ class CalendarPageController extends ContentController
 
     private function UpComingEvents()
     {
-        echo "In UPCCOMING EVENTS";
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
         $currentMonth = $this->CurrentMonth();
-        echo 'CURR MONTH=' . $currentMonth;
 
         $now = $this->RealtimeMonthDay();
 
-        echo "<br>NOW= " . $now;
 
         $nowMonth = substr($now,0,7);
 
@@ -396,15 +372,12 @@ class CalendarPageController extends ContentController
         $finish = null;
 
         if ($currentMonth == $nowMonth) {
-            echo '**** THIS REAL MONTH ****';
             $start = $now;
         } else {
-            echo '**** A DIFFERENT MONTH ****';
             $start = $currentMonth . '-01';
         }
 
         $startCarbon = $this->carbonDateTime($start .' 00:00:00')->timestamp;
-        echo 'SC=' . $startCarbon;
         $next = strtotime('+1 month', $startCarbon);
         $inOneMonth = date('Y-m-d', $next);
 
