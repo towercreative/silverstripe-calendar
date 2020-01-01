@@ -273,13 +273,13 @@ class CalendarPageController extends ContentController
      */
     public function RegistrationsEnabled()
     {
-        return CalendarConfig::subpackage_enabled('registrations');
+        return (bool) $this->config()->get('registrations_enabled');
+
     }
 
     public function SearchEnabled()
     {
-        $s = CalendarConfig::subpackage_settings('pagetypes');
-        return $s['calendarpage']['search'];
+        return (bool) $this->config()->get('search_enabled');
     }
 
     /**

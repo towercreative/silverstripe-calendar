@@ -56,7 +56,6 @@ class CalendarConfig
             'calendarpage' => array(
                 'eventlist' => true,
                 'calendarview' => true, //fullcalendar
-                'search' => true,
                 'index' => 'eventlist',
                 'controllerUrl' => '/fullcalendar/',
                 'fullcalendar_js_settings' => "
@@ -84,9 +83,6 @@ class CalendarConfig
             'enabled' => true,
             //colors not yet implemented:
             //'colors' => true
-        ),
-        'registrations' => array(
-            'enabled' => false,
         ),
         'debug' => array(
             //this should only be enabled for debugging
