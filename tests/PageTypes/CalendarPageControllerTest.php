@@ -8,6 +8,7 @@ use \SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Member;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\CalendarPage;
+use TitleDK\Calendar\PageTypes\CalendarPageController;
 
 class CalendarPageControllerTest extends FunctionalTest
 {
@@ -16,10 +17,15 @@ class CalendarPageControllerTest extends FunctionalTest
     /** @var CalendarPage */
     private $calendarPage;
 
+    /** @var CalendarPageController */
+    private $calendarPageController;
+
     public function setUp()
     {
         parent::setUp();
         $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'calendarpageconference');
+
+        $this->calendarPageController = new CalendarPageController($this->calendarPage);
 
         // this is necessary to publish a page from the fixtures so that it can be seen
         $this->calendarPage->publishRecursive();
@@ -97,12 +103,12 @@ class CalendarPageControllerTest extends FunctionalTest
 
     public function testRegistrationsEnabled()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->calendarPageController->RegistrationsEnabled());
     }
 
-    public function testSearchEnabled()
+    public function test_search_enabled()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertTrue($this->calendarPageController->SearchEnabled());
     }
 
     public function testEvents()
