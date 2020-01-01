@@ -35,20 +35,16 @@ class CalendarPageControllerTest extends FunctionalTest
         $this->markTestSkipped('TODO');
     }
 
+    /**
+     * Test a load of the index page
+     */
     public function testIndex()
     {
-        $pages = SiteTree::get();
-        foreach ($pages as $page) {
-            error_log($page->ClassName);
-            error_log($page->Link());
-        }
-
         $page = $this->get('/conference-page/');
-
         $this->assertEquals(200, $page->getStatusCode());
-        error_log($page->getBody());
-        $this->markAsRisky(); // @todo Get the correct template rendering
-        //$this->assertExactHTMLMatchBySelector('title', 'wibble');
+        $this->assertExactHTMLMatchBySelector('h1', ['<h1>Conference Page</h1>']);
+        $this->assertExactHTMLMatchBySelector('.options',
+            ['<div class="options">This is a test calendar page about a conference</div>']);
     }
 
     public function testUpcoming()
