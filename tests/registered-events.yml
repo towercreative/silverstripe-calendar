@@ -1153,6 +1153,7 @@ TitleDK\Calendar\Calendars\Calendar:
 TitleDK\Calendar\PageTypes\CalendarPage:
     calendarpageconference:
       Title: Conference Page
+      Content: This is a test calendar page about a conference
       Calendars:
         - =>TitleDK\Calendar\Calendars\Calendar.conferenceCalendar
 
