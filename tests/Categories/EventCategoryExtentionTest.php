@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Categories;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Events\Event;
 
 class EventCategoryExtentionTest extends SapphireTest

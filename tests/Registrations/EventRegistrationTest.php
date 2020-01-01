@@ -3,7 +3,7 @@
 namespace TitleDK\Calendar\Tests\Registrations;
 
 use Faker\Factory;
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Registrations\EventRegistration;
 

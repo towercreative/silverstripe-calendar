@@ -1,27 +1,20 @@
 <?php
 namespace TitleDK\Calendar\Registrations;
 
-use SilverStripe\Control\Controller;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\EmailField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
-use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\MoneyField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\DataList;
-use SilverStripe\ORM\FieldType\DBBoolean;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\HeaderField;
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Control\Email\Email;
-use SilverStripe\Forms\EmailField;
-use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\MoneyField;
-use SilverStripe\Forms\GridField\GridFieldConfig_RelationEditor;
-use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\ORM\FieldType\DBInt;
-use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
 

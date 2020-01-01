@@ -1,11 +1,11 @@
 <?php
 namespace TitleDK\Calendar\Admin\GridField;
 
-use SilverStripe\View\Requirements;
-use SilverStripe\Forms\Form;
 use SilverStripe\Control\Controller;
-use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\Form;
 use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\View\Requirements;
 
 /**
  * extension to the @see GridFieldDetailForm_ItemRequest

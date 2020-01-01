@@ -2,8 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Tags;
 
-use \SilverStripe\Dev\SapphireTest;
-use TitleDK\Calendar\Events\Event;
+use SilverStripe\Dev\SapphireTest;
 
 class EventTagTest extends SapphireTest
 {

@@ -2,11 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\PageTypes;
 
-use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\FunctionalTest;
-use \SilverStripe\Dev\SapphireTest;
-use SilverStripe\Security\Member;
-use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\CalendarPageController;
 
@@ -174,7 +170,11 @@ class CalendarPageControllerTest extends FunctionalTest
 
     public function testSearchQuery()
     {
-        $this->markTestSkipped('TODO');
+        $page = $this->get('/conference-page/search?q=Conference');
+        $this->assertEquals(200, $page->getStatusCode());
+
+        error_log($page->getBody());
+
     }
 
     public function testAllCalendars()

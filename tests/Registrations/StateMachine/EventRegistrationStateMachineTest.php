@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Registrations\StateMachine;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Registrations\StateMachine\EventRegistrationStateMachine;
 

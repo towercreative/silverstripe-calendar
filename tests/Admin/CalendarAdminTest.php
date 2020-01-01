@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Admin;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Admin\CalendarAdmin;
 
 class CalendarAdminTest extends SapphireTest

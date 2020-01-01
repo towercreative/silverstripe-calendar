@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Libs;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ORM\ArrayList;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Libs\ICSExport;

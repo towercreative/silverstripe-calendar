@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Widgets;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 
 class CalendarTagsWidgetTest extends SapphireTest
 {

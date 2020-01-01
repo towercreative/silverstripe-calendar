@@ -1,9 +1,9 @@
 <?php
 namespace TitleDK\Calendar\Core;
 
-use SilverStripe\Security\Member;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
+use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Events\Event;
 

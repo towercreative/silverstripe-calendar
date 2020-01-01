@@ -1,9 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Categories;
 
-use SilverStripe\Forms\TextField;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\ORM\DataList;
+use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
 
 /**

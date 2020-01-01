@@ -3,7 +3,7 @@
 namespace TitleDK\Calendar\Tests\DateTime;
 
 use Carbon\Carbon;
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 
 class DateTimeHelperTraitTest extends SapphireTest

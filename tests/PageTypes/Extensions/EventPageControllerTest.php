@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\PageTypes\Extensions;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 
 class EventPageControllerTest extends SapphireTest
 {

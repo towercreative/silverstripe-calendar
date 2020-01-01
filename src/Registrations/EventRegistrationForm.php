@@ -1,12 +1,12 @@
 <?php
 namespace TitleDK\Calendar\Registrations;
 
-use SilverStripe\Forms\FormAction;
-use SilverStripe\Forms\FieldList;
 use SilverStripe\Control\Email\Email;
-use SilverStripe\Forms\RequiredFields;
-use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
+use SilverStripe\Forms\FormAction;
+use SilverStripe\Forms\LiteralField;
+use SilverStripe\Forms\RequiredFields;
 
 /**
  * Event Registration Form

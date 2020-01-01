@@ -2,9 +2,9 @@
 namespace TitleDK\Calendar\PageTypes;
 
 use Carbon\Carbon;
+use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridField;
 use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
 
 /**

@@ -1,8 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Calendars;
 
-use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\FieldType\DBBoolean;
 
 /**
  * Shaded Calendar Extension

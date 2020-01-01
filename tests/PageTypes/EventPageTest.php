@@ -3,7 +3,7 @@
 namespace TitleDK\Calendar\Tests\PageTypes;
 
 use Carbon\Carbon;
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;

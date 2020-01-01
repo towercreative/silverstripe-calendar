@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Core;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;
 

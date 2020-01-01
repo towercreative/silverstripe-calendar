@@ -1,10 +1,9 @@
 <?php
 namespace TitleDK\Calendar\FullCalendar;
 
-use SilverStripe\Security\Member;
-use SilverStripe\Core\Convert;
-use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Core\Convert;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarConfig;

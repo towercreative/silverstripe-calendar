@@ -1,8 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Calendars;
 
-use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
 
 /**

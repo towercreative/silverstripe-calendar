@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Colors;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Colors\ColorpaletteHelper;
 
 class ColorpaletteHelperTest extends SapphireTest

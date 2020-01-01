@@ -2,7 +2,6 @@
 namespace TitleDK\Calendar\DateTime;
 
 use Carbon\Carbon;
-use SilverStripe\ORM\FieldType\DBDatetime;
 
 trait DateTimeHelperTrait
 {

@@ -2,12 +2,11 @@
 
 namespace TitleDK\Calendar\Tests\Registrations;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\CalendarPage;
-use TitleDK\Calendar\PageTypes\EventPage;
 
 class EventRegistrationExtensionTest extends SapphireTest
 {

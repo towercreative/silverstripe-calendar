@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Admin\Forms;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 
 class EventsFormTest extends SapphireTest
 {

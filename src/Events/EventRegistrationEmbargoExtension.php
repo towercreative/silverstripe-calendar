@@ -1,8 +1,6 @@
 <?php
 namespace TitleDK\Calendar\Events;
 
-use SilverStripe\AssetAdmin\Forms\UploadField;
-use SilverStripe\Assets\Image;
 use SilverStripe\Forms\DatetimeField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;

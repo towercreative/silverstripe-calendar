@@ -3,7 +3,6 @@ namespace TitleDK\Calendar\Categories;
 
 use SilverStripe\Forms\CheckboxSetField;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\ListboxField;
 use SilverStripe\ORM\DataExtension;
 
 /**

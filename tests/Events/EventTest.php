@@ -2,15 +2,13 @@
 
 namespace TitleDK\Calendar\Tests\Events;
 
-use SilverStripe\Control\Director;
-use \SilverStripe\Dev\SapphireTest;
-
-
 use Carbon\Carbon;
+use SilverStripe\Control\Director;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Forms\RequiredFields;
-use SilverStripe\ORM\FieldType\DBTime;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
+
 
 class EventTest extends SapphireTest
 {

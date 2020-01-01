@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Registrations\Helper;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 
 class EventRegistrationTicketsHelperTest extends SapphireTest
 {

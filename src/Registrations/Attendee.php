@@ -1,13 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Registrations;
 
-use SilverStripe\AssetAdmin\Forms\UploadField;
-use SilverStripe\Assets\Image;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\TextField;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;
-use TitleDK\Calendar\Registrations\EventRegistration;
 
 /**
  * Add a location to an event

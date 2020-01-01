@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Libs;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Calendars\Calendar;
 
 class DoURLSegmentExtensionTest extends SapphireTest

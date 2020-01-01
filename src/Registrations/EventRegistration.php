@@ -1,10 +1,9 @@
 <?php
 namespace TitleDK\Calendar\Registrations;
 
-use SilverStripe\Forms\TextField;
-use SilverStripe\Control\Email\Email;
-use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\HiddenField;
+use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DataObject;
 
 /**

@@ -1,8 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Registrations;
 
-use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTPResponse;
 use SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension;
 
 /**

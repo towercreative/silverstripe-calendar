@@ -2,11 +2,8 @@
 namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldButtonRow;
-use SilverStripe\Forms\GridField\GridFieldConfig;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\ORM\DataExtension;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 
 /**

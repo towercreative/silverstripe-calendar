@@ -2,14 +2,14 @@
 namespace TitleDK\Calendar\Admin\Forms;
 
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Forms\Form;
-use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
-use SilverStripe\Forms\GridField\GridFieldDetailForm;
-use SilverStripe\Forms\GridField\GridFieldDataColumns;
-use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\TabSet;
+use SilverStripe\Forms\Form;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
+use SilverStripe\Forms\GridField\GridFieldDetailForm;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\TabSet;
 use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;

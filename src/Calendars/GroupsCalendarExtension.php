@@ -1,10 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Calendars;
 
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\DropdownField;
 use SilverStripe\ORM\DataExtension;
-use SilverStripe\ORM\DataList;
 
 /**
  * Event Calendar Extension

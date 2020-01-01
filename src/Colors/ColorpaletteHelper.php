@@ -1,8 +1,8 @@
 <?php
 namespace TitleDK\Calendar\Colors;
 
-use SilverStripe\View\Requirements;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Core\CalendarConfig;
 
 /**

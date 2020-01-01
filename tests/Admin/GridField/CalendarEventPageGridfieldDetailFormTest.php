@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Admin\GridField;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 
 class CalendarEventPageGridfieldDetailFormTest extends SapphireTest
 {

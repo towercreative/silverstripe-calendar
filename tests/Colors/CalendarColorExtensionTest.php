@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Colors;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Forms\Tab;
 use SilverStripe\Forms\TabSet;
 use TitleDK\Calendar\Calendars\Calendar;

@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Events;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 
 class EventImageExtensionTest extends SapphireTest
 {

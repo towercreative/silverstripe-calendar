@@ -1,7 +1,6 @@
 <?php
 namespace TitleDK\Calendar\PageTypes;
 
-use PageController;
 use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
@@ -87,7 +86,7 @@ class CalendarPageController extends ContentController
             ];
             return $this->returnTemplate();
         } elseif ($indexSetting == 'calendarview') {
-            return $this->calendarview()->renderWith(array('CalendarPage_calendarview', 'Page'));
+            return $this->calendarview()->renderWith(['CalendarPage_calendarview', 'Page']);
         }
     }
 

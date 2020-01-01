@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\FullCalendar;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 
 class FullcalendarControllerTest extends SapphireTest
 {

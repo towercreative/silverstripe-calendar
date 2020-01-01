@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Registrations;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Registrations\PaymentRegistrationForm;
 
 class PaymentRegistrationFormTest extends SapphireTest

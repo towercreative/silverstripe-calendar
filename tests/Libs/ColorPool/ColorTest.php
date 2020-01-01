@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Libs\ColorPool;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Libs\ColorPool\Color;
 
 class ColorTest extends SapphireTest

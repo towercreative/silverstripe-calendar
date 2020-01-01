@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Registrations\Controller;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 
 class AttendeesControllerExtensionTest extends SapphireTest
 {

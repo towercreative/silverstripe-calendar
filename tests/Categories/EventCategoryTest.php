@@ -2,7 +2,7 @@
 
 namespace TitleDK\Calendar\Tests\Categories;
 
-use \SilverStripe\Dev\SapphireTest;
+use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Forms\FieldList;
 use TitleDK\Calendar\Categories\EventCategory;
 

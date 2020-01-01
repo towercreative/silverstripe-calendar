@@ -2,22 +2,12 @@
 namespace TitleDK\Calendar\Registrations\Controller;
 
 use SilverStripe\Core\Extension;
-use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
-use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\LiteralField;
-use SilverStripe\Forms\TextField;
-use SilverStripe\ORM\DataExtension;
 use SilverStripe\Security\Security;
-use SilverStripe\TagField\StringTagField;
 use SilverStripe\View\Requirements;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldButtonRow;
-use SilverStripe\Forms\GridField\GridFieldConfig;
-use SilverStripe\TagField\TagField;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
-use TitleDK\Calendar\Registrations\Attendee;
 
 /**
  * Extend event registration controller
