@@ -323,7 +323,7 @@ class CalendarPageController extends ContentController
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
         // This method takes a csv of IDs, not an array.
-        $events = CalendarHelper::events_for_month($this->CurrentMonth(), $calendarIDs);
+        $events = CalendarHelper::events_for_month($this->CurrentContextualMonth(), $calendarIDs);
 
         if ($action == 'eventregistration') {
             $events = $events
@@ -331,6 +331,7 @@ class CalendarPageController extends ContentController
         }
         return $events;
     }
+
 
     private function performSearch()
     {
@@ -343,7 +344,7 @@ class CalendarPageController extends ContentController
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
-        $now = $this->RealtimeMonthDay();
+        $now = $this->calendarPageHelper->realtimeMonthDay();
         $prev = strtotime('-1 month', time());
         $oneMonthAgo = date('Y-m-d', $prev);
 
@@ -357,12 +358,8 @@ class CalendarPageController extends ContentController
     private function UpComingEvents()
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
-
-        $currentMonth = $this->CurrentMonth();
-
-        $now = $this->RealtimeMonthDay();
-
-
+        $currentMonth = $this->calendarPageHelper->currentContextualMonth();
+        $now = $this->calendarPageHelper->realtimeMonthDay();
         $nowMonth = substr($now,0,7);
 
         // if nowMonth is the same as the current month, as in realtime month
@@ -389,7 +386,7 @@ class CalendarPageController extends ContentController
     }
 
     /**
-     * Renders the current calendar, if a calenar link has been supplied via the url
+     * Renders the current calendar, if a calenar link has been supplied via the url.  It is used in CalendarDetails.ss
      */
     public function CurrentCalendar()
     {
@@ -407,7 +404,7 @@ class CalendarPageController extends ContentController
 
         // @todo Do this smarter
         if (isset($_GET['month'])) {
-            return $this->CurrentMonthStr();
+            return $this->calendarPageHelper->currentContextualMonthStr();
         } elseif ($action == 'upcoming') {
             return 'Upcoming';
         } else {
@@ -416,68 +413,18 @@ class CalendarPageController extends ContentController
     }
 
 
-    // @todo this is badly named as it uses the parameterized month, not 'now'
-    public function CurrentMonth()
-    {
-        if (isset($_GET['month'])) {
-            return $_GET['month'];
-        } else {
-            $month = date('Y-m', time());
-            return $month;
-        }
-    }
-
-    public function RealtimeMonthDay()
-    {
-        $r =  date('Y-m-d', time());
-        return $r;
-    }
-
-    public function RealtimeNextMonthDay()
-    {
-        $r =  date('Y-m-d', time());
-        return $r;
-    }
-
-    // @todo This is inconsistent with the JavaScript which uses the full month name
-    public function CurrentMonthStr()
-    {
-        $month = $this->CurrentMonth();
-        $t = strtotime($month);
-        $month = date('M Y', $t);
-
-        return $month;
-    }
-
-    public function NextMonth()
-    {
-        $month = $this->CurrentMonth();
-        $t = strtotime($month);
-        $next = strtotime('+1 month', $t);
-        $month = date('Y-m', $next);
-        return $month;
-    }
-
+    // ---- link generators for templates ----
     public function NextMonthLink()
     {
-        $month = $this->NextMonth();
+        $month = $this->calendarPageHelper->nextContextualMonth();
         $url = $this->Link($this->request->param('Action'));
         $url = HTTP::setGetVar('month', $month, $url);
         return CalendarHelper::add_preview_params($url, $this->data());
     }
 
-    public function PrevMonth()
-    {
-        $month = $this->CurrentMonth();
-        $t = strtotime($month);
-        $prev = strtotime('-1 month', $t);
-        $month = date('Y-m', $prev);
-        return $month;
-    }
-
     public function PrevMonthLink()
     {
-        $month = $this->PrevMonth();
+        $month = $this->calendarPageHelper->previousContextualMonth();
         $url = $this->Link($this->request->param('Action'));
         $url = HTTP::setGetVar('month', $month, $url);
         return CalendarHelper::add_preview_params($url, $this->data());
@@ -507,6 +454,19 @@ class CalendarPageController extends ContentController
         }
     }
 
+
+    public function FeedLink($calendarID)
+    {
+        $calendar = Calendar::get()->byID(intval($calendarID));
+        $url = Controller::join_links($this->Link(), 'calendar', ($calendar) ? $calendar->Link : '');
+        return CalendarHelper::add_preview_params($url, $this->data());
+    }
+
+
+    /**
+     * @return string The search query string entered by the user, or 'Search events'.  This is used in 2 templates,
+     * EventSearch.ss and CalendarPageMenu.ss
+     */
     public function SearchQuery()
     {
         // @todo SQL injection risk here I suspect
@@ -519,16 +479,14 @@ class CalendarPageController extends ContentController
     }
 
 
+    /**
+     * This is used in CalendarKeys.ss
+     *
+     * @return \SilverStripe\ORM\DataList
+     */
     public function AllCalendars()
     {
         $calendars = Calendar::get();
         return $calendars;
-    }
-
-    public function FeedLink($calendarID)
-    {
-        $calendar = Calendar::get()->byID(intval($calendarID));
-        $url = Controller::join_links($this->Link(), 'calendar', ($calendar) ? $calendar->Link : '');
-        return CalendarHelper::add_preview_params($url, $this->data());
     }
 }
