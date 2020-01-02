@@ -30,6 +30,7 @@ class CalendarPageHelper
 
 
         //Debug::dump($filter);
+        // @todo this is incorrect, does not take into context of current calendars
         $events = CalendarHelper::all_events()
             ->where($filter);
         return $events;
