@@ -2,12 +2,20 @@
 
 namespace TitleDK\Calendar\Tests\FullCalendar;
 
+use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\FullCalendar\FullcalendarController;
 
-class FullcalendarControllerTest extends SapphireTest
+class FullcalendarControllerTest extends FunctionalTest
 {
-    public function testInit()
+    protected static $fixture_file = ['tests/events.yml'];
+
+
+    // fullcalendar//$Action/$ID/$OtherID
+    public function test_init()
     {
+
         $this->markTestSkipped('TODO');
     }
 
@@ -21,9 +29,29 @@ class FullcalendarControllerTest extends SapphireTest
         $this->markTestSkipped('TODO');
     }
 
+    /**
+     * Test events over a date range.  This is the call made by the JavaScript calendar code
+     */
     public function testEvents()
     {
-        $this->markTestSkipped('TODO');
+        $params = ['start' => '2019-12-15', 'end' => '2019-12-30'];
+        $page = $this->post('/fullcalendar/events/?calendars=1', $params);
+        $this->assertEquals(200, $page->getStatusCode());
+        $this->assertEquals('application/json', $page->getHeader('Content-Type'));
+        $decoded = json_decode($page->getBody());
+        $titles = [];
+        foreach ($decoded as $event) {
+            $titles[] = $event->title;
+        }
+
+        $this->assertEquals([
+            'Freezing in the Park',
+            'Blink And You Will Miss It',
+            'Blink And You Will Miss It 2',
+            'The Neverending Event',
+            'SilverStripe Booze Up',
+            'SilverStripe Meet Up'
+        ], $titles);
     }
 
     public function testShadedevents()
@@ -36,18 +64,36 @@ class FullcalendarControllerTest extends SapphireTest
         $this->markTestSkipped('TODO');
     }
 
-    public function testHandleJsonResponse()
+    public function test_handle_json_response()
     {
-        $this->markTestSkipped('TODO');
+        // params are arbitrary here
+        $params = ['title' => 'Some Event Title', 'allday' => true];
+        $controller = new FullcalendarController();;
+
+        $response = $controller->handleJsonResponse(true, $params);
+        $this->assertEquals('{"title":"Some Event Title","allday":true,"success":true}', $response->getBody());
     }
 
-    public function testFormat_event_for_fullcalendar()
+    public function test_format_event_for_fullcalendar()
     {
-        $this->markTestSkipped('TODO');
+        $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
+        $formatted = FullcalendarController::format_event_for_fullcalendar($event);
+        $this->assertEquals([
+            'id' => $event->ID,
+            'title' => 'Scottish Cricket Season',
+            'start' => '2020-04-11T12:00:00+00:00',
+            'end' => '2020-09-21T21:30:00+00:00',
+            'allDay' => true,
+            'className' => 'TitleDK\Calendar\Events\Event',
+            'backgroundColor' => '#999',
+            'textColor' => '#FFFFFF',
+            'borderColor' => '#555'
+        ], $formatted);
     }
 
-    public function testFormat_datetime_for_fullcalendar()
+    public function test_format_datetime_for_fullcalendar()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertEquals('2019-12-15T08:30:00+00:00',
+            FullcalendarController::format_datetime_for_fullcalendar('2019-12-15 08:30:00'));
     }
 }
