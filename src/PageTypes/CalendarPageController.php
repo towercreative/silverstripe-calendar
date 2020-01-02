@@ -16,7 +16,6 @@ use TitleDK\Calendar\Helpers\CalendarPageHelper;
 use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Tags\EventTag;
 
-// @todo using page controller, the output for textIndex was likes of a default page controller
 /**
  * Class \TitleDK\Calendar\PageTypes\CalendarPageController
  *
@@ -24,7 +23,7 @@ use TitleDK\Calendar\Tags\EventTag;
  * @method \TitleDK\Calendar\PageTypes\CalendarPage data()
  * @mixin \TitleDK\Calendar\PageTypes\CalendarPage
  */
-class CalendarPageController extends ContentController
+class CalendarPageController extends \PageController
 {
     use DateTimeHelperTrait;
 
@@ -325,7 +324,7 @@ class CalendarPageController extends ContentController
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
         // This method takes a csv of IDs, not an array.
-        $events = CalendarHelper::events_for_month($this->CurrentContextualMonth(), $calendarIDs);
+        $events = CalendarHelper::events_for_month($this->calendarPageHelper->currentContextualMonth(), $calendarIDs);
 
         if ($action == 'eventregistration') {
             $events = $events
@@ -338,22 +337,14 @@ class CalendarPageController extends ContentController
     private function performSearch()
     {
         $query = $this->SearchQuery();
-        return $this->calendarPageHelpler()->performSearch($query);
+        return $this->calendarPageHelper->performSearch($query);
     }
 
 
     private function RecentEvents()
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
-
-        $now = $this->calendarPageHelper->realtimeMonthDay();
-        $prev = strtotime('-1 month', time());
-        $oneMonthAgo = date('Y-m-d', $prev);
-
-        // This method takes a csv of IDs, not an array.
-        $events = CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
-            ->sort('StartDateTime DESC');
-
+        $events = $this->calendarPageHelper->recentEvents($calendarIDs);
         return  new PaginatedList($events, $this->getRequest());
     }
 

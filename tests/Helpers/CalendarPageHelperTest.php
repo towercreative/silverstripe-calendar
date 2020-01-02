@@ -99,6 +99,19 @@ class CalendarPageHelperTest extends SapphireTest
         $this->assertEquals(['SilverStripe Booze Up'], $titles);
     }
 
+    public function test_recent_events()
+    {
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->calendarPage->Calendars());
+        $events = $this->helper->recentEvents($calendarIDs);
+        $titles = $this->convertEventsToTitles($events->toArray());
+        $this->assertEquals([
+            'Freezing in the Park',
+            'Blink And You Will Miss It',
+            'Blink And You Will Miss It 2',
+            'The Neverending Event'
+        ], $titles);
+    }
+
     public function test_upcoming_events()
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->calendarPage->Calendars());

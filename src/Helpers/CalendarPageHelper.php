@@ -62,6 +62,32 @@ class CalendarPageHelper
 
 
     // ---- events related ----
+
+    /**
+     * Recent events are only related to 'now', not any contextual month from a GET param
+     *
+     * @param array $calendarIDs calendar IDs to pull events from
+     * @return \SilverStripe\ORM\DataList recent events
+     */
+    public function recentEvents($calendarIDs)
+    {
+        $now = $this->realtimeMonthDay();
+        $prev = strtotime('-1 month', time());
+        $oneMonthAgo = date('Y-m-d', $prev);
+
+        // This method takes a csv of IDs, not an array.
+        return CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
+            ->sort('StartDateTime DESC');
+    }
+
+
+    /**
+     * Upcoming events are related to the contextual month, this method is called to get the upcoming events from
+     * a given point in time, i.e. a contextual month
+     *
+     * @param array $calendarIDs calendar IDs to pull events from
+     * @return \SilverStripe\ORM\DataList recent events
+     */
     public function upcomingEvents($calendarIDs)
     {
         $currentContextualMonth = $this->currentContextualMonth();
@@ -115,8 +141,6 @@ class CalendarPageHelper
             $first = false;
         }
 
-
-        //Debug::dump($filter);
         // @todo this is incorrect, does not take into context of current calendars
         $events = CalendarHelper::all_events()
             ->where($filter);
