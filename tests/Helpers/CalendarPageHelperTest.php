@@ -4,9 +4,11 @@ namespace TitleDK\Calendar\Tests\Registrations\Helpers;
 
 use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Helpers\CalendarPageHelper;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 
 class CalendarPageHelperTest extends SapphireTest
 {
@@ -17,10 +19,14 @@ class CalendarPageHelperTest extends SapphireTest
     /** @var CalendarPageHelper */
    private $helper;
 
+   /** @var CalendarPage */
+   private $calendarPage;
+
    public function setUp()
    {
         parent::setUp();
         $this->helper = new CalendarPageHelper();
+        $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'testcalendarpage');
 
         // Because Carbon::now() is used instead of time() we can set a fixed time for testing purposes
         $testNow = $this->carbonDateTime('2019-12-15 08:00:00');
@@ -93,16 +99,39 @@ class CalendarPageHelperTest extends SapphireTest
         $this->assertEquals(['SilverStripe Booze Up'], $titles);
     }
 
+    public function test_upcoming_events()
+    {
+        $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->calendarPage->Calendars());
+        $events = $this->helper->upcomingEvents($calendarIDs);
+        $titles = $this->convertEventsToTitles($events->toArray());
+        $this->assertEquals([
+            'Freezing in the Park',
+            'SilverStripe Booze Up',
+            'SilverStripe Meet Up',
+            'Happy New Year!!'
+        ], $titles);
+    }
+
     /**
      * @param $q
      * @return array
      */
     private function getEventTitlesForSearch($q)
     {
-        $searchResults = $this->helper->performSearch($q)->toArray();
+        $events = $this->helper->performSearch($q)->toArray();
+        $titles = $this->convertEventsToTitles($events);
+        return $titles;
+    }
+
+    /**
+     * @param array $events
+     * @return array
+     */
+    private function convertEventsToTitles(array $events)
+    {
         $titles = array_map(function ($event) {
             return $event->Title;
-        }, $searchResults);
+        }, $events);
         return $titles;
     }
 }

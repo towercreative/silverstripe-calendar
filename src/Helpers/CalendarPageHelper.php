@@ -2,11 +2,15 @@
 namespace TitleDK\Calendar\Helpers;
 
 use Carbon\Carbon;
+use SilverStripe\ORM\PaginatedList;
 use TitleDK\Calendar\Core\CalendarHelper;
+use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 
 
 class CalendarPageHelper
 {
+    use DateTimeHelperTrait;
+
     public function realtimeMonthDay()
     {
         return date('Y-m-d', Carbon::now()->timestamp);
@@ -54,6 +58,36 @@ class CalendarPageHelper
         $t = strtotime($month);
         $next = strtotime('+1 month', $t);
         return date('Y-m', $next);
+    }
+
+
+    // ---- events related ----
+    public function upcomingEvents($calendarIDs)
+    {
+        $currentContextualMonth = $this->currentContextualMonth();
+        $now = $this->realtimeMonthDay();
+        $nowMonth = substr($now,0,7);
+
+        // if nowMonth is the same as the current month, as in realtime month
+
+        $start = null;
+        $finish = null;
+
+        if ($currentContextualMonth == $nowMonth) {
+            $start = $now;
+        } else {
+            $start = $currentContextualMonth . '-01';
+        }
+
+        $startCarbon = $this->carbonDateTime($start .' 00:00:00')->timestamp;
+        $next = strtotime('+1 month', $startCarbon);
+        $inOneMonth = date('Y-m-d', $next);
+
+
+        // This method takes a csv of IDs, not an array.
+        $events = CalendarHelper::events_for_date_range($start, $inOneMonth, $calendarIDs)
+            ->sort('"StartDateTime" ASC');
+        return $events;
     }
 
 

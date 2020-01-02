@@ -271,7 +271,6 @@ class CalendarPageController extends ContentController
     /**
      * Returns true if registrations enabled
      *
-     * @todo   Fix to SS4 config
      * @return bool are registrations enabled
      */
     public function RegistrationsEnabled()
@@ -280,6 +279,9 @@ class CalendarPageController extends ContentController
 
     }
 
+    /**
+     * @return bool template method to decide whether to render the search box or not
+     */
     public function SearchEnabled()
     {
         return (bool) $this->config()->get('search_enabled');
@@ -358,30 +360,7 @@ class CalendarPageController extends ContentController
     private function UpComingEvents()
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
-        $currentMonth = $this->calendarPageHelper->currentContextualMonth();
-        $now = $this->calendarPageHelper->realtimeMonthDay();
-        $nowMonth = substr($now,0,7);
-
-        // if nowMonth is the same as the current month, as in realtime month
-
-        $start = null;
-        $finish = null;
-
-        if ($currentMonth == $nowMonth) {
-            $start = $now;
-        } else {
-            $start = $currentMonth . '-01';
-        }
-
-        $startCarbon = $this->carbonDateTime($start .' 00:00:00')->timestamp;
-        $next = strtotime('+1 month', $startCarbon);
-        $inOneMonth = date('Y-m-d', $next);
-
-
-        // This method takes a csv of IDs, not an array.
-        $events = CalendarHelper::events_for_date_range($start, $inOneMonth, $calendarIDs)
-            ->sort('"StartDateTime" ASC');
-
+        $events = $this->calendarPageHelper->upcomingEvents($calendarIDs);
         return  new PaginatedList($events, $this->getRequest());
     }
 
