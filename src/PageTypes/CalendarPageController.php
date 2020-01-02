@@ -200,12 +200,11 @@ class CalendarPageController extends \PageController
     /**
      * Displays details of an event
      *
-     * @param  \HttpRequest $req
      * @return array
      */
-    public function detail($req)
+    public function detail()
     {
-        $session = $req->getSession();
+        $session = $this->getRequest()->getSession();
 
         // @todo extension?
         $successfullyRegistered = $session->get(EventRegistration::EVENT_REGISTRATION_SUCCESS_SESSION_KEY);
@@ -217,7 +216,7 @@ class CalendarPageController extends \PageController
             $registration = EventRegistration::get()->byID($registrationID);
         }
 
-        $event = Event::get()->byID($req->param('ID'));
+        $event = Event::get()->byID($this->getRequest()->param('ID'));
         if (!$event) {
             return $this->httpError(404);
         }
@@ -232,36 +231,33 @@ class CalendarPageController extends \PageController
     /**
      * Display events for all tags - note no filtering currently
      *
-     * @param  $req
      * @return array
      */
-    public function tag($req)
+    public function tag()
     {
+        $req = $this->getRequest();
         $tagName = $req->param('ID');
         $tag = EventTag::get()->filter('URLSegment', $tagName)->first();
         $events = $tag->Events()->sort('StartDateTime DESC');
 
         $pagedEvents = new PaginatedList($events);
-        $grid = $this->owner->createGridLayout($pagedEvents, 2);
 
         return [
             'Events' => $pagedEvents,
-            'TagTitle' => $tag->Title,
-            'GridLayout' => $grid
+            'TagTitle' => $tag->Title
         ];
     }
 
     /**
      * Event registration
      *
-     * @param  $req
      * @return array
      */
-    public function register($req)
+    public function register()
     {
         // @todo config a la SS4
         if (CalendarConfig::subpackage_enabled('registrations')) {
-            return $this->detail($req);
+            return $this->detail();
         } else {
             return $this->httpError(404);
         }
