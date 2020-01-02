@@ -115,3 +115,11 @@ TitleDK\Calendar\Calendars\Calendar:
       - =>TitleDK\Calendar\Events\Event.eventZeroSeconds1
       - =>TitleDK\Calendar\Events\Event.eventZeroSeconds2
       - =>TitleDK\Calendar\Events\Event.eventNoEnd
+
+TitleDK\Calendar\PageTypes\CalendarPage:
+  testcalendarpage:
+    Title: Test Calendar Page
+    Content: This is a test calendar page with several events
+    Calendars:
+      - =>TitleDK\Calendar\Calendars\Calendar.testCalendar
+
