@@ -113,17 +113,14 @@ class CalendarPageController extends \PageController
         ];
     }
 
+
     public function eventlist()
     {
         // @todo This seems to fix the return template issue
         return [];
     }
 
-    public function registered($req)
-    {
-        //This has been taken out for now - should go to an own module
-        //If you need this, contact Anselm (ac@title.dk)
-    }
+
     public function eventregistration()
     {
         // @todo This seems to fix the return template issue
@@ -218,11 +215,11 @@ class CalendarPageController extends \PageController
         if (!$event) {
             return $this->httpError(404);
         }
-        return array(
+        return [
             'Event'    => $event,
             'SuccessfullyRegistered' => $successfullyRegistered,
             'EventRegistration' => $registration
-        );
+        ];
     }
 
 
@@ -372,7 +369,7 @@ class CalendarPageController extends \PageController
         } elseif ($action == 'upcoming') {
             return 'Upcoming';
         } else {
-            $action = 'Recent';
+            return 'Recent';
         }
     }
 

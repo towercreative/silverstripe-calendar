@@ -2,6 +2,7 @@
 namespace TitleDK\Calendar\FullCalendar;
 
 use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Convert;
 use SilverStripe\Security\Security;
@@ -117,8 +118,8 @@ class FullcalendarController extends Controller
     /**
      * Handles returning the JSON events data for a time range.
      *
-     * @param  SS_HTTPRequest $request
-     * @return SS_HTTPResponse
+     * @param  HTTPRequest $request
+     * @return HTTPResponse
      */
     public function events($request, $json = true)
     {
@@ -131,8 +132,6 @@ class FullcalendarController extends Controller
  * @var string $offset days to offset by
 */
         $offset = empty($request->getVar('offset')) ? 30 : $request->getVar('offset');
-
-        $calendarsSupplied = !empty($calendars);
 
         // start a query for events
         $events = Event::get()
@@ -167,7 +166,7 @@ class FullcalendarController extends Controller
         }
 
         $result = array();
-        if ($events) {
+        if ($events->count() > 0) {
             foreach ($events as $event) {
                 $calendar = $event->Calendar();
 
@@ -179,7 +178,6 @@ class FullcalendarController extends Controller
                 // there by default
                 if ($calendar->exists()) {
                     $bgColor = $calendar->getColorWithHash();
-                    $textColor = '#FFF';
                     $borderColor = $calendar->getColorWithHash();
                 }
 
@@ -197,7 +195,7 @@ class FullcalendarController extends Controller
         }
 
         if ($json) {
-            $response = new HTTPResponse(Convert::array2json($result));
+            $response = new HTTPResponse(json_encode($result));
             $response->addHeader('Content-Type', 'application/json');
             return $response;
         } else {
@@ -240,7 +238,7 @@ class FullcalendarController extends Controller
      *
      * @param  array|null $retVars
      * @param  boolean    $success
-     * @return \SS_HTTPResponse
+     * @return HTTPResponse
      */
     public function handleJsonResponse($success = false, $retVars = null)
     {
@@ -267,7 +265,6 @@ class FullcalendarController extends Controller
     public static function format_event_for_fullcalendar($event)
     {
         $bgColor = '#999'; //default
-        $textColor = '#FFF'; //default
         $borderColor = '#555';
 
         $arr = array(
