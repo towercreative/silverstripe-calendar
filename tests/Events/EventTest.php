@@ -101,14 +101,47 @@ class EventTest extends SapphireTest
         $this->markTestSkipped('TODO');
     }
 
-    public function testSetStartEnd()
+    public function test_set_start_end()
     {
-        $this->markTestSkipped('TODO');
+        /** @var Event $event */
+        $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
+        $this->assertEquals('2020-04-11 12:00:00', $event->StartDateTime);
+        $this->assertEquals('2020-09-21 21:30:00', $event->EndDateTime);
+
+        $event->setStartEnd('2019-04-14', '2019-09-20', true);
+
+        $this->assertEquals('2019-04-14', $event->StartDateTime);
+        $this->assertEquals('2019-09-20', $event->EndDateTime);
+
     }
 
-    public function testSetEnd()
+    public function test_set_end_after_start()
     {
-        $this->markTestSkipped('TODO');
+        /** @var Event $event */
+        $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
+        $this->assertEquals('2020-04-11 12:00:00', $event->StartDateTime);
+        $this->assertEquals('2020-09-21 21:30:00', $event->EndDateTime);
+
+        $event->setEnd('2020-09-20', true);
+
+        $this->assertEquals('2020-04-11 12:00:00', $event->StartDateTime);
+        $this->assertEquals('2020-09-20', $event->EndDateTime);
+    }
+
+    /**
+     * If the end time is before the start time, the expected behaviour is to set the end time to the start time
+     */
+    public function test_set_end_before_start()
+    {
+        /** @var Event $event */
+        $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
+        $this->assertEquals('2020-04-11 12:00:00', $event->StartDateTime);
+        $this->assertEquals('2020-09-21 21:30:00', $event->EndDateTime);
+
+        $event->setEnd('2019-09-20', true);
+
+        $this->assertEquals('2020-04-11 12:00:00', $event->StartDateTime);
+        $this->assertEquals('2020-04-11 12:00:00', $event->EndDateTime);
     }
 
     public function test_calc_duration_based_on__end_date_time_less_than_24_hours()
