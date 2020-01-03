@@ -227,7 +227,8 @@ class EventTest extends SapphireTest
             $names[] = $field->Name;
         }
 
-        $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
+        $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear',
+                                'CalendarID'], $names);
     }
 
     public function testGetFrontEndFieldsNoEnd()
@@ -245,7 +246,8 @@ class EventTest extends SapphireTest
             $names[] = $field->Name;
         }
 
-        $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'NoEnd', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
+        $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'NoEnd', 'TimeFrameHeader', 'TimeFrameType', 'Clear',
+                                'CalendarID'], $names);
     }
 
 
@@ -265,7 +267,8 @@ class EventTest extends SapphireTest
         }
 
         // AllDay field is removed as a result of the above config tweak
-        $this->assertEquals(['Title', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
+        $this->assertEquals(['Title', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear',
+                                'CalendarID'], $names);
     }
 
     // @todo figure out a better test here

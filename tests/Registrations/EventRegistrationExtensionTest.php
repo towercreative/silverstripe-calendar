@@ -44,8 +44,8 @@ class EventRegistrationExtensionTest extends SapphireTest
             'RegistrationEmbargoAt',
             'CalendarID',
             'Tags',
-            'FeaturedImage',
-            'Categories'
+            'Categories',
+            'FeaturedImage'
         ], $names);
 
         // now the registrations tab

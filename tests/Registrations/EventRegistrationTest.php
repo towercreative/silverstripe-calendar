@@ -26,7 +26,7 @@ class EventRegistrationTest extends SapphireTest
         $names = array_map(function ($field) {
             return $field->Name;
         }, $fields);
-        $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
+        $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear', 'CalendarID'], $names);
     }
 
     public function test_get_registration_code()
