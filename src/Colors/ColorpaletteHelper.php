@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Colors;
 
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\View\Requirements;
 
@@ -60,42 +61,7 @@ class ColorpaletteHelper
 
         //overwriting with the palette from the calendar settings
         $colors = Config::inst()->get(ColorpaletteHelper::class, 'colors');
-        $arr = $s['basepalette'];
-        return $arr;
-
-        // @todo the following code appears to be unreachable
-        /*
-        if ($type == 'hsv') {
-            $s = 1;
-            $v = 1;
-
-            $arr = array();
-            for ($i = 0; $i <= $numColors; $i++) {
-                $c = new Color();
-                $h = $i / $numColors;
-
-                $hex = $c->fromHSV($h, $s, $v)->toHexString();
-                $arr[$hex] = $hex;
-            }
-
-            return $arr;
-        } elseif ($type == 'websafe') {
-            //websafe colors
-            $cs = array('00', '33', '66', '99', 'CC', 'FF');
-
-            $arr = array();
-
-            for ($i = 0; $i < 6; $i++) {
-                for ($j = 0; $j < 6; $j++) {
-                    for ($k = 0; $k < 6; $k++) {
-                        $c = $cs[$i] . $cs[$j] . $cs[$k];
-                        $arr["$c"] = "#$c";
-                    }
-                }
-            }
-
-            return $arr;
-        }
-        */
+        // @todo this was in the for of an array of x=>x, y=>y etc
+        return $colors;
     }
 }
