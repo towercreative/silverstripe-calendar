@@ -17,7 +17,6 @@ use SilverStripe\ORM\DataExtension;
  */
 class EventCalendarExtension extends DataExtension
 {
-
     private static $has_one = array(
         'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
     );
