@@ -62,6 +62,10 @@ class ColorpaletteHelper
         //overwriting with the palette from the calendar settings
         $colors = Config::inst()->get(ColorpaletteHelper::class, 'colors');
         // @todo this was in the for of an array of x=>x, y=>y etc
-        return $colors;
+        $result = [];
+        foreach ($colors as $color) {
+            $result[$color] = $color;
+        }
+        return $result;
     }
 }
