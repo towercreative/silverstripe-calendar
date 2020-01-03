@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Core;
 
+use Carbon\Carbon;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
 use SilverStripe\Security\Member;
@@ -56,7 +57,10 @@ class CalendarHelper
      */
     public static function coming_events($from = false)
     {
-        $time = ($from ? strtotime($from) : mktime(0, 0, 0, date('m'), date('d'), date('Y')));
+        $time = ($from ? strtotime($from) : Carbon::now()->timestamp);
+
+        error_log('TIME: ' . $time);
+        error_log('CARBON NOW: ' . Carbon::now()->timestamp);
         $sql = "(\"StartDateTime\" >= '".date('Y-m-d', $time)." 00:00:00')";
         $events = Event::get()->where($sql);
 
@@ -80,7 +84,7 @@ class CalendarHelper
         $events = Event::get()
             ->filter(
                 array(
-                    'StartDateTime:LessThan' => date('Y-m-d', time())
+                    'StartDateTime:LessThan' => date('Y-m-d', Carbon::now()->timestamp)
                 )
             );
 
@@ -116,7 +120,7 @@ class CalendarHelper
     {
         // @todo method needs fixed everywhere to pass in an array of IDs, not a CSV
         if (!is_array($calendarIDs)) {
-            $calendarIDs = implode(',', $calendarIDs);
+            $calendarIDs = explode(',', $calendarIDs);
             user_error('events for month called with ID instead of array of calendar IDs');
         }
 
@@ -126,6 +130,7 @@ class CalendarHelper
         $nextMonthStr = date('Y-m-d', $nextMonth);
         return self::events_for_date_range($currMonthStr, $nextMonthStr, $calendarIDs);
     }
+
 
     /**
      * @param  string $startDateStr start date in format 2018-05-15
