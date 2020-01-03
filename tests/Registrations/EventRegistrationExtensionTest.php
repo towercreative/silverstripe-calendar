@@ -30,6 +30,14 @@ class EventRegistrationExtensionTest extends SapphireTest
         /** @var Tab $mainTab */
         $mainTab = $rootTab->fieldByName('Main');
         $fields = $mainTab->FieldList();
+
+        // order of categories and featured image field incosistent over CI, as such tweak the test
+        // assert field exists
+        // remove it
+        $categoriesField = $fields->fieldByName('Categories');
+        $this->assertNotNull($categoriesField);
+        $fields->removeByName('Categories');
+
         $names = array_map(function ($field) {
             return $field->Name;
         }, $fields->toArray());
@@ -44,7 +52,6 @@ class EventRegistrationExtensionTest extends SapphireTest
             'RegistrationEmbargoAt',
             'CalendarID',
             'Tags',
-            'Categories',
             'FeaturedImage'
         ], $names);
 
@@ -78,8 +85,6 @@ class EventRegistrationExtensionTest extends SapphireTest
         $conferencePage = $this->objFromFixture(CalendarPage::class, 'calendarpageconference');
         $expected = '/conference-page/register/' .
             $this->event->ID;
-        error_log('test_get_register_link: ID=' . $this->event->ID);
-        error_log('test_get_register_link: EXPECTED=' . $expected);
         $this->assertEquals($expected, $this->event->getRegisterLink());
     }
 
