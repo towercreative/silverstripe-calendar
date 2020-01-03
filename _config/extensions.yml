@@ -5,3 +5,16 @@ TitleDK\Calendar\Calendars\Calendar:
   extensions:
     - TitleDK\Calendar\Libs\DoURLSegmentExtension
     - TitleDK\Calendar\Colors\CalendarColorExtension
+
+
+TitleDK\Calendar\Events\Event:
+  extensions:
+    - TitleDK\Calendar\Calendars\EventCalendarExtension
+
+      # @todo What is this?
+    - TitleDK\Calendar\Calendars\ShadedCalendarExtension
+
+      # Enable this if you wish events to have optional categories
+    - TitleDK\Calendar\Categories\EventCategoryExtension
+
+    - TitleDK\Calendar\Registrations\EventRegistrationExtension
