@@ -17,7 +17,6 @@ TitleDK\Calendar\Events\Event:
 
 #
   #src/SubSites/EventCategorySubsiteExtension.php
-  #src/Libs/DoURLSegmentExtension.php
   #src/Calendars/ShadedCalendarExtension.php
   #src/Calendars/GroupsCalendarExtension.php
 

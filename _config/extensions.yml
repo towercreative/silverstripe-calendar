@@ -3,12 +3,17 @@ Name: silverstripe-calendar-extensions
 ---
 TitleDK\Calendar\Calendars\Calendar:
   extensions:
-    - TitleDK\Calendar\Libs\DoURLSegmentExtension
+    - Suilven\Sluggable\Extension\Sluggable
     - TitleDK\Calendar\Colors\CalendarColorExtension
-
+  # Slug the calendar title
+  slug: Title
 
 TitleDK\Calendar\Events\Event:
+  # Slug the event title
+  slug: Title
   extensions:
+    - Suilven\Sluggable\Extension\Sluggable
+
     - TitleDK\Calendar\Calendars\EventCalendarExtension
 
       # @todo What is this?
