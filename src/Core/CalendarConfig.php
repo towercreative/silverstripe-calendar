@@ -40,23 +40,16 @@ class CalendarConfig
         'ssversion' => 'default',
         //the events subpackage is needed and cannot be disabled,
         //but it can be configured
-        'events' => array(
-            //allow setting an event as "all day" through a checkbox
-            'enable_allday_events' => true,
-            //by default the calendar enforces end date/time (or duration), and either won't validate if
-            //none is set, or set a default end date/time/duration
-            'force_end' => true
-        ),
+
         //the admin subpackage is enabled by default and is currently
         //not configuratble
         'admin' => array(),
         //the pagetypes subpackage is enabled by default
         'pagetypes' => array(
-            'enable_eventpage' => true,
             'calendarpage' => array(
-                'eventlist' => true,
-                'calendarview' => true, //fullcalendar
-                'index' => 'eventlist',
+                //'eventlist' => true,
+               // 'calendarview' => true, //fullcalendar
+                //'index' => 'eventlist',
                 'controllerUrl' => '/fullcalendar/',
                 'fullcalendar_js_settings' => "
 					header: {
@@ -73,20 +66,16 @@ class CalendarConfig
             )
         ),
         'calendars' => array(
-            'enabled' => true,
-            'colors' => true,
+            //'enabled' => true,
+            //'colors' => true,
             //allowing calendars to be shaded
             //this can be used with calendars containing secondary information
-            'shading' => false
+            //'shading' => false
         ),
         'categories' => array(
-            'enabled' => true,
+            //'enabled' => true,
             //colors not yet implemented:
             //'colors' => true
-        ),
-        'debug' => array(
-            //this should only be enabled for debugging
-            'enabled' => false,
         ),
         'colors' => array(
             'enabled' => true,
@@ -148,40 +137,6 @@ class CalendarConfig
         $s = self::settings();
         if (isset($s[$subpackage])) {
             return $s[$subpackage];
-        }
-    }
-    /**
-     * Getter that checks if a specific subpackage is enabled
-     * A subpackage is seen as being enabled if
-     * 1. it exists in setting
-     * 2. it
-     *   a) either doesn't have an 'enabled' attribute (then it's enabled by default)
-     *   b) or has an 'enabled' attribute that's set to true
-     *
-     * @param  string $subpackage
-     * @return boolean
-     */
-    public static function subpackage_enabled($subpackage)
-    {
-        $s = self::subpackage_settings($subpackage);
-        if ($s) {
-            //settings need to be an array
-            if (is_array($s)) {
-                if (isset($s['enabled'])) {
-                    if ($s['enabled'] == true) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    //if 'enabled' is not defined, the package is enabled - as per definition above
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
         }
     }
 
@@ -250,22 +205,7 @@ class CalendarConfig
                     Event::add_extension('EventCategoryExtension');
                 }
             }
-            //Enabling Event Page
-            if (self::subpackage_setting('pagetypes', 'enable_eventpage')) {
-                if ($ssversion == '3.0') {
-                    Object::add_extension('Event', 'EventHasEventPageExtension');
-                } else {
-                    Event::add_extension('EventHasEventPageExtension');
-                }
-            }
-            //Enabling debug mode
-            if (self::subpackage_enabled('debug')) {
-                if ($ssversion == '3.0') {
-                    Object::add_extension('Event', 'EventDebugExtension');
-                } else {
-                    Event::add_extension('EventDebugExtension');
-                }
-            }
+
             //Enabling registrations
             if (self::subpackage_enabled('registrations')) {
                 if ($ssversion == '3.0') {

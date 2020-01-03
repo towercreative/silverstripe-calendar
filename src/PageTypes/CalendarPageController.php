@@ -4,11 +4,11 @@ namespace TitleDK\Calendar\PageTypes;
 use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\ORM\PaginatedList;
 use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Calendars\Calendar;
-use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
@@ -73,8 +73,7 @@ class CalendarPageController extends \PageController
         parent::index();
 
         // @todo config
-        $s = CalendarConfig::subpackage_settings('pagetypes');
-        $indexSetting = $s['calendarpage']['index'];
+        $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
         if ($indexSetting == 'eventlist') {
 
             // @todo What should be here?
@@ -134,9 +133,7 @@ class CalendarPageController extends \PageController
      */
     public function calendarview()
     {
-        $s = CalendarConfig::subpackage_settings('pagetypes');
-
-        if (isset($s['calendarpage']['calendarview']) && $s['calendarpage']['calendarview']) {
+        if (Config::inst()->get(CalendarPage::class, 'calendarview')) {
             $prefix = 'titledk/silverstripe-calendar:thirdparty/fullcalendar';
             Requirements::javascript($prefix . '/2.9.1/fullcalendar/lib/moment.min.js');
             Requirements::javascript($prefix . '/2.9.1/fullcalendar/fullcalendar.min.js');
@@ -159,8 +156,7 @@ class CalendarPageController extends \PageController
 
             //shaded events
             $shadedEvents = 'false';
-            $sC = CalendarConfig::subpackage_settings('calendars');
-            if ($sC['shading']) {
+            if (Config::inst()->get(Calendar::class, 'shading')) {
                 $shadedEvents = 'true';
             }
 
@@ -290,8 +286,7 @@ class CalendarPageController extends \PageController
         $action = $this->request->param('Action');
 
         //Normal & Registerable events
-        $s = CalendarConfig::subpackage_settings('pagetypes');
-        $indexSetting = $s['calendarpage']['index'];
+        $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
         if ($action == 'eventregistration'
             || $action == 'eventlist'
             || ($action == '' && $indexSetting == 'eventlist')
@@ -394,8 +389,7 @@ class CalendarPageController extends \PageController
 
     public function EventListLink()
     {
-        $s = CalendarConfig::subpackage_settings('pagetypes');
-        $indexSetting = $s['calendarpage']['index'];
+        $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
         if ($indexSetting == 'eventlist') {
             return CalendarHelper::add_preview_params($this->Link(), $this->data());
         } elseif ($indexSetting == 'calendarview') {
@@ -406,8 +400,7 @@ class CalendarPageController extends \PageController
 
     public function CalendarViewLink()
     {
-        $s = CalendarConfig::subpackage_settings('pagetypes');
-        $indexSetting = $s['calendarpage']['index'];
+        $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
         if ($indexSetting == 'eventlist') {
             return CalendarHelper::add_preview_params($this->Link('calendarview'), $this->data());
         } elseif ($indexSetting == 'calendarview') {

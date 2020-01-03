@@ -2,7 +2,9 @@
 namespace TitleDK\Calendar\Helpers;
 
 use Carbon\Carbon;
+use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\PaginatedList;
+use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 
@@ -90,6 +92,15 @@ class CalendarPageHelper
      */
     public function upcomingEvents($calendarIDs)
     {
+        error_log('++++ CPH: upcomingEvents ++++');
+        error_log('CALENDAR IDS: ' . print_r($calendarIDs, 1));
+        $calendar = DataObject::get_by_id(Calendar::class, $calendarIDs[0]);
+        error_log('N EVENTS: ' . $calendar->Events()->count());
+        $events = $calendar->Events();
+        foreach($events as $event) {
+            error_log($event->StartDateTime . ' - '. $event->Title);
+        }
+
         $currentContextualMonth = $this->currentContextualMonth();
         $now = $this->realtimeMonthDay();
         $nowMonth = substr($now,0,7);
@@ -97,13 +108,14 @@ class CalendarPageHelper
         // if nowMonth is the same as the current month, as in realtime month
 
         $start = null;
-        $finish = null;
 
         if ($currentContextualMonth == $nowMonth) {
             $start = $now;
         } else {
             $start = $currentContextualMonth . '-01';
         }
+
+        error_log('START: ' . $start);
 
         $startCarbon = $this->carbonDateTime($start .' 00:00:00')->timestamp;
         $next = strtotime('+1 month', $startCarbon);

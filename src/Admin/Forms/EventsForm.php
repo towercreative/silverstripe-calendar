@@ -14,6 +14,7 @@ use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
 use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\PageTypes\EventPage;
 use TitleDK\Calendar\PageTypes\EventPage_Controller;
 
 /**
@@ -38,8 +39,9 @@ class EventsForm extends Form
         $dataColumns = new GridFieldDataColumns();
 
         $summaryFields = Config::inst()->get(Event::class, 'summary_fields');
+        $eventPageEnabled = Config::inst()->get(EventPage::class, 'enable_eventpage');
         //Show the page if the event is connected to an event page
-        if (CalendarConfig::subpackage_setting('pagetypes', 'enable_eventpage')) {
+        if ($eventPageEnabled) {
             $summaryFields['getEventPageCalendarTitle'] = 'Page';
         }
 

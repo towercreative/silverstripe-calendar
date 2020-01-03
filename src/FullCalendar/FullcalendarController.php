@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\FullCalendar;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Core\Convert;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Calendars\Calendar;
@@ -145,8 +146,10 @@ class FullcalendarController extends Controller
         //If shaded events are enabled we need to filter shaded calendars out
         //note that this only takes effect when no calendars have been supplied
         //if calendars are supplied, this needs to be taken care of from that method
-        $sC = CalendarConfig::subpackage_settings('calendars');
-        if ($sC['shading']) {
+
+        $shading = Config::inst()->get(Calendar::class, 'shading');
+
+        if ($shading) {
             if (!$calendars) {
                 $calendars = Calendar::get();
                 $calendars = $calendars->filter(

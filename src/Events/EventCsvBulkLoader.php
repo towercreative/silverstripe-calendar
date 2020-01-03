@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Events;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\CsvBulkLoader;
 use TitleDK\Calendar\Calendars\Calendar;
+use TitleDK\Calendar\Categories\EventCategory;
 use TitleDK\Calendar\Core\CalendarConfig;
 
 /**
@@ -67,11 +68,11 @@ class EventCsvBulkLoader extends CsvBulkLoader
          * Relations
          */
         $relations = array();
-        if (CalendarConfig::subpackage_enabled('calendars')) {
+        if (Config::inst()->get(Calendar::class, 'enabled')) {
             $relations['Calendar'] =  _t('Event.CalendarTitle', 'Calendar title');
         }
 
-        if (CalendarConfig::subpackage_enabled('categories')) {
+        if (Config::inst()->get(EventCategory::class, 'enabled')) {
             $relations['Categories'] =  _t('Event.CategoryTitles', 'Category titles');
         }
 
@@ -85,8 +86,12 @@ class EventCsvBulkLoader extends CsvBulkLoader
      */
     protected static function importDate($val, $rt = 'string')
     {
-        $dateFormat = Config::inst()->get('EventCsvBulkLoader', 'dateFormat');
-        $dateTime = date_create_from_format($dateFormat . 'H:i', $val . '0:00');
+        $dateFormat = Config::inst()->get(EventCsvBulkLoader::class, 'dateFormat');
+        $dateFormat .= ' ' . 'H:i';
+        //$val = $val . '0:00';
+        error_log('DateFormat: ' . $dateFormat);
+        error_log('VAL:' . $val);
+        $dateTime = date_create_from_format($dateFormat , $val);
 
         if ($rt == 'string') {
             return $dateTime->format('Y-m-d H:i:s');
@@ -149,7 +154,7 @@ class EventCsvBulkLoader extends CsvBulkLoader
         if (!strlen($val)) {
             return;
         }
-        $dt = new DateTime($obj->EndDateTime);
+        $dt = new \DateTime($obj->EndDateTime);
         $date = $dt->format('Y-m-d');
         $obj->EndDateTime = $date . ' ' . $val;
     }

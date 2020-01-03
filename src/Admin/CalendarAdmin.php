@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Admin;
 use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
@@ -14,6 +15,8 @@ use SilverStripe\Forms\GridField\GridFieldImportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
 use SilverStripe\Security\PermissionProvider;
 use SilverStripe\View\Requirements;
+use TitleDK\Calendar\Calendars\Calendar;
+use TitleDK\Calendar\Categories\EventCategory;
 use TitleDK\Calendar\Core\CalendarConfig;
 
 /**
@@ -156,12 +159,12 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
 
     protected function calendarsEnabled()
     {
-        return CalendarConfig::subpackage_enabled('calendars');
+        return Config::inst()->get(Calendar::class, 'enabled');
     }
 
     protected function categoriesEnabled()
     {
-        return CalendarConfig::subpackage_enabled('categories');
+        return Config::inst()->get(EventCategory::class, 'enabled');
     }
 
     public function providePermissions()

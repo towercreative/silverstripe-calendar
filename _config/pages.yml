@@ -1,0 +1,10 @@
+---
+silverstripe-calendar-pages
+---
+TitleDK\Calendar\PageTypes\EventPage:
+  enable_eventpage: true
+
+TitleDK\Calendar\PageTypes\CalendarPage:
+  eventlist: true
+  calendarview: true
+  index: eventlisting

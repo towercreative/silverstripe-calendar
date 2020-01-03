@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Admin\Forms;
 
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\GridField\GridField;
@@ -8,6 +9,7 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use TitleDK\Calendar\Calendars\Calendar;
+use TitleDK\Calendar\Categories\EventCategory;
 use TitleDK\Calendar\Core\CalendarConfig;
 
 /**
@@ -29,7 +31,7 @@ class CalendarsForm extends Form // @todo This was CMSForm
     {
 
         //Administering calendars
-        if (CalendarConfig::subpackage_enabled('calendars')) {
+        if (Config::inst()->get(Calendar::class, 'enabled')) {
             //Configuration for calendar grid field
             $gridCalendarConfig = GridFieldConfig_RecordEditor::create();
             $gridCalendarConfig->removeComponentsByType(GridFieldDataColumns::class);
@@ -38,25 +40,17 @@ class CalendarsForm extends Form // @todo This was CMSForm
             $c = singleton('TitleDK\Calendar\Calendars\Calendar');
             $summaryFields = $c->summaryFields();
 
-            //$summaryFields = array(
-            //  'Title' => 'Title',
-            //  //'SubscriptionOptIn' => 'Opt In',
-            //  //'Shaded' => 'Shaded'
-            //);
-
-
-            $s = CalendarConfig::subpackage_settings('calendars');
-
+            $shading = Config::inst()->get(Calendar::class, 'shading');
 
             //show shading info in the gridfield
-            if ($s['shading']) {
+            if ($shading) {
                 $summaryFields['Shaded'] = 'Shaded';
             }
 
             $dataColumns->setDisplayFields($summaryFields);
 
             //settings for the case that colors are enabled
-            if ($s['colors']) {
+            if (Config::inst()->get(Calendar::class, 'colors')) {
                 $dataColumns->setFieldFormatting(
                     [
                     "Title" => '<div style=\"height:20px;width:20px;display:inline-block;vertical-align:middle;' .

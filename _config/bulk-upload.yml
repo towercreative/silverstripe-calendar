@@ -1,0 +1,6 @@
+---
+Name: silverstripe-calendar-bulk-upload
+---
+
+TitleDK\Calendar\Events\EventCsvBulkLoader:
+  dateFormat: 'Y-m-d'

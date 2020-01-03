@@ -1,0 +1,8 @@
+---
+silverstripe-calendar-calendars
+---
+TitleDK\Calendar\Calendars\Calendar:
+  colors: true
+  # @todo This seems an odd setting
+  enabled: true
+  shading: true
