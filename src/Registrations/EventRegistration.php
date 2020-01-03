@@ -75,8 +75,6 @@ class EventRegistration extends DataObject
      */
     public function getFrontEndFields($param = null)
     {
-        echo 'EVENT REG: getFrontEndFields';
-
         $fields = FieldList::create(
             TextField::create('Name'),
             TextField::create('Email'),
@@ -89,7 +87,6 @@ class EventRegistration extends DataObject
 
     public function getRegistrationCode()
     {
-        error_log('getRegistrationCode: ID=' . $this->ID);
         return strtoupper($this->event()->URLSegment) . '-' . str_pad($this->ID, 4, "0", STR_PAD_LEFT);
     }
 }
