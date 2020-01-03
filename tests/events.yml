@@ -123,3 +123,16 @@ TitleDK\Calendar\PageTypes\CalendarPage:
     Calendars:
       - =>TitleDK\Calendar\Calendars\Calendar.testCalendar
 
+TitleDK\Calendar\PageTypes\EventPage:
+  testEventPage:
+    Title: Test Event Page
+    Content: This is a test event page
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventWithDuration
+      - =>TitleDK\Calendar\Events\Event.eventAllDay
+      - =>TitleDK\Calendar\Events\Event.eventCricketSeason
+      - =>TitleDK\Calendar\Events\Event.eventWeekend
+      - =>TitleDK\Calendar\Events\Event.eventFuture
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds1
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds2
+      - =>TitleDK\Calendar\Events\Event.eventNoEnd

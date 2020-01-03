@@ -3,11 +3,15 @@
 namespace TitleDK\Calendar\Tests\Events;
 
 use Carbon\Carbon;
+use SilverStripe\Config\Collections\MutableConfigCollectionInterface;
 use SilverStripe\Control\Director;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Forms\RequiredFields;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\PageTypes\CalendarPage;
+use TitleDK\Calendar\PageTypes\EventPage;
 
 
 class EventTest extends SapphireTest
@@ -41,6 +45,9 @@ class EventTest extends SapphireTest
     /** @var Event */
     private $noEndEvent;
 
+    /** @var CalendarPage */
+    private $calendarPage;
+
     use DateTimeHelperTrait;
 
     public function setUp()
@@ -56,6 +63,7 @@ class EventTest extends SapphireTest
         $this->zeroSecondsEvent1 = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventZeroSeconds1');
         $this->zeroSecondsEvent2 = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventZeroSeconds2');
         $this->noEndEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventNoEnd');
+        $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'testcalendarpage');
     }
 
     public function test_summary_fields()
@@ -80,7 +88,8 @@ class EventTest extends SapphireTest
 
     public function testGetEventPageCalendarTitle()
     {
-        $this->markTestSkipped('TODO');
+        $eventPage = $this->objFromFixture(EventPage::class, 'testEventPage');
+        $this->assertEquals('Test Event Page', $eventPage->getCalendarTitle());
     }
 
     public function test_event_page_title_no_calendar_page()
@@ -99,6 +108,36 @@ class EventTest extends SapphireTest
     public function testOnBeforeWrite()
     {
         $this->markTestSkipped('TODO');
+    }
+
+    public function test_set_start_end_duration_same_day()
+    {
+        /** @var Event $event */
+        $event = $this->objFromFixture(Event::class, 'eventWithDuration');
+        $this->assertEquals('2019-10-12 18:00:00', $event->StartDateTime);
+        $this->assertEquals('2019-10-12 22:05:24', $event->EndDateTime);
+
+        $event->setEnd('2019-10-12 23:30:00');
+
+        $this->assertEquals('2019-10-12 18:00:00', $event->StartDateTime);
+        $this->assertEquals('2019-10-12 23:30:00', $event->EndDateTime);
+        $this->assertEquals('Duration', $event->TimeFrameType);
+    }
+
+    public function test_set_start_end_duration_more_than_day()
+    {
+        /** @var Event $event */
+        $event = $this->objFromFixture(Event::class, 'eventWithDuration');
+        $this->assertEquals('2019-10-12 18:00:00', $event->StartDateTime);
+        $this->assertEquals('2019-10-12 22:05:24', $event->EndDateTime);
+
+        $event->setEnd('2019-10-15 23:30:00');
+
+        $this->assertEquals('2019-10-12 18:00:00', $event->StartDateTime);
+        $this->assertEquals('2019-10-15 23:30:00', $event->EndDateTime);
+
+        // the event is converted to a DateTime event as it is more than 24 hours, 24 being the maximum duration
+        $this->assertEquals('DateTime', $event->TimeFrameType);
     }
 
     public function test_set_start_end()
@@ -191,6 +230,44 @@ class EventTest extends SapphireTest
         $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
     }
 
+    public function testGetFrontEndFieldsNoEnd()
+    {
+        $fields = Config::withConfig(function(MutableConfigCollectionInterface $config)  {
+            // update your config
+            $config->set(Event::class, 'force_end', false);
+
+            // your test code goes here and it runs with your changed config
+            return $this->weekendEvent->getAddNewFields();
+        });
+
+        $names = [];
+        foreach ($fields as $field) {
+            $names[] = $field->Name;
+        }
+
+        $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'NoEnd', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
+    }
+
+
+    public function testGetFrontEndFieldsNoAllDay()
+    {
+        $fields = Config::withConfig(function(MutableConfigCollectionInterface $config)  {
+            // update your config
+            $config->set(Event::class, 'enable_allday_events', false);
+
+            // your test code goes here and it runs with your changed config
+            return $this->weekendEvent->getAddNewFields();
+        });
+
+        $names = [];
+        foreach ($fields as $field) {
+            $names[] = $field->Name;
+        }
+
+        // AllDay field is removed as a result of the above config tweak
+        $this->assertEquals(['Title', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear'], $names);
+    }
+
     // @todo figure out a better test here
     public function testGetCMSFields()
     {
@@ -229,19 +306,27 @@ class EventTest extends SapphireTest
         $this->assertFalse($this->futureEvent->getIsPastEvent());
     }
 
-    public function testRegistrationEmbargoDate()
+    /**
+     * By default the embargo time is the moment the event starts
+     */
+    public function test_registration_embargo_date()
     {
-        $this->markTestSkipped('TODO');
+        $this->assertEquals('2019-12-13 19:00:00', $this->weekendEvent->getRegistrationEmbargoDate(true));
+        $this->assertEquals('2019-12-13 19:00:00', $this->weekendEvent->RegistrationEmbargoDate());
     }
 
-    public function testGetRegistrationEmbargoDate()
+    public function test_get_is_not_past_registration_closing()
     {
-        $this->markTestSkipped('TODO');
+        $now = $this->carbonDateTime('2019-12-10 04:00:00');
+        Carbon::setTestNow($now);
+        $this->assertFalse($this->weekendEvent->getIsPastRegistrationClosing());
     }
 
-    public function testGetIsPastRegistrationClosing()
+    public function test_get_is_past_registration_closing()
     {
-        $this->markTestSkipped('TODO');
+        $now = $this->carbonDateTime('2019-12-14 04:00:00');
+        Carbon::setTestNow($now);
+        $this->assertTrue($this->weekendEvent->getIsPastRegistrationClosing());
     }
 
     public function testGetFormattedStartDate()
@@ -336,9 +421,11 @@ class EventTest extends SapphireTest
         $this->assertEquals('Apr 11th - Sep 21st', $this->cricketSeasonEvent->getDatesAndTimeframe());
     }
 
-    public function testGetInternalLink()
+    public function test_get_internal_link()
     {
-        $this->markTestSkipped('TODO');
+        $link = $this->durationEvent->getInternalLink();
+        $expected = '/' . $this->calendarPage->URLSegment . '/detail/' . $this->durationEvent->ID;
+        $this->assertEquals($expected, $link);
     }
 
     public function testGetRelativeLink()

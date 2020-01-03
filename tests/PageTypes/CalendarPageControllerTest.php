@@ -2,13 +2,18 @@
 
 namespace TitleDK\Calendar\Tests\PageTypes;
 
+use Carbon\Carbon;
 use SilverStripe\Dev\FunctionalTest;
+use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\CalendarPageController;
 
 class CalendarPageControllerTest extends FunctionalTest
 {
-    protected static $fixture_file = ['tests/registered-events.yml'];
+    use DateTimeHelperTrait;
+
+    protected static $fixture_file = ['tests/events.yml'];
 
     /** @var CalendarPage */
     private $calendarPage;
@@ -19,12 +24,16 @@ class CalendarPageControllerTest extends FunctionalTest
     public function setUp()
     {
         parent::setUp();
-        $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'calendarpageconference');
+        $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'testcalendarpage');
 
         $this->calendarPageController = new CalendarPageController($this->calendarPage);
 
         // this is necessary to publish a page from the fixtures so that it can be seen
         $this->calendarPage->publishRecursive();
+
+        // Because Carbon::now() is used instead of time() we can set a fixed time for testing purposes
+        $testNow = $this->carbonDateTime('2019-12-15 08:00:00');
+        Carbon::setTestNow($testNow);
     }
     public function testInit()
     {
@@ -36,16 +45,19 @@ class CalendarPageControllerTest extends FunctionalTest
      */
     public function testIndex()
     {
-        $page = $this->get('/conference-page/');
+        $page = $this->get('/test-calendar-page/');
+        error_log($page->getBody());
         $this->assertEquals(200, $page->getStatusCode());
-        $this->assertExactHTMLMatchBySelector('h1', ['<h1>Conference Page</h1>']);
+        $this->assertExactHTMLMatchBySelector('h1', ['<h1>Test Calendar Page</h1>']);
         $this->assertExactHTMLMatchBySelector('.options',
-            ['<div class="options">This is a test calendar page about a conference</div>']);
+            ['<div class="options">This is a test calendar page with several events</div>']);
     }
 
-    public function testUpcoming()
+    public function test_upcoming()
     {
-        $this->markTestSkipped('TODO');
+        $page = $this->get('/test-calendar-page/eventlist?month=2019-12');
+        error_log($page->getBody());
+        $this->assertEquals(200, $page->getStatusCode());
     }
 
     public function testRecent()
@@ -53,9 +65,11 @@ class CalendarPageControllerTest extends FunctionalTest
         $this->markTestSkipped('TODO');
     }
 
-    public function testEventlist()
+    public function test_event_list()
     {
-        $this->markTestSkipped('TODO');
+        $page = $this->get('/test-calendar-page/eventlist?month=2019-12');
+        error_log($page->getBody());
+        $this->assertEquals(200, $page->getStatusCode());
     }
 
     public function testRegistered()
@@ -78,9 +92,12 @@ class CalendarPageControllerTest extends FunctionalTest
         $this->markTestSkipped('TODO');
     }
 
-    public function testDetail()
+    public function test_detail()
     {
-        $this->markTestSkipped('TODO');
+        $event = $this->objFromFixture(Event::class, 'eventAllDay');
+        $page = $this->get('/test-calendar-page/detail/' . $event->ID);
+        error_log($page->getBody());
+        $this->assertEquals(200, $page->getStatusCode());
     }
 
     public function testTag()
@@ -170,7 +187,7 @@ class CalendarPageControllerTest extends FunctionalTest
 
     public function testSearchQuery()
     {
-        $page = $this->get('/conference-page/search?q=Conference');
+        $page = $this->get('/test-calendar-page/search?q=SilverStripe');
         $this->assertEquals(200, $page->getStatusCode());
 
         error_log($page->getBody());

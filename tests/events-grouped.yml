@@ -1,0 +1,22 @@
+
+TitleDK\Calendar\Calendars\Calendar:
+  groupedCalendar:
+    Title: Grouped Calendar
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventWithDuration
+      - =>TitleDK\Calendar\Events\Event.eventSameDay
+      - =>TitleDK\Calendar\Events\Event.eventAllDay
+      - =>TitleDK\Calendar\Events\Event.eventCricketSeason
+      - =>TitleDK\Calendar\Events\Event.eventWeekend
+      - =>TitleDK\Calendar\Events\Event.eventFuture
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds1
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds2
+      - =>TitleDK\Calendar\Events\Event.eventNoEnd
+
+TitleDK\Calendar\PageTypes\CalendarPage:
+  groupedCalendarPage:
+    Title: Test Grouped Calendar Page
+    Content: This is a test calendar page with several events
+    Calendars:
+      - =>TitleDK\Calendar\Calendars\Calendar.groupedCalendar
+

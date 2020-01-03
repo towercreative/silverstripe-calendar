@@ -176,7 +176,7 @@ class Event extends DataObject
         //(i.e. this field has been left blank)
         //This only happens if allday events are enabled
         //NOTE: Currently it seems to me as if there should be no need to disable allday events
-        if (CalendarConfig::subpackage_setting('events', 'enable_allday_events')) {
+        if ($this->config()->get( 'enable_allday_events')) {
             //This only happens on first save to correct for the rare cases that someone might
             //actually want to add an event like this
             if (!$this->ID) {
@@ -208,7 +208,7 @@ class Event extends DataObject
         //This won't happen if leaving end date/time empty is allowed through the config
         //This should not happen to single day allday events as these are supposed to have start and end date
         //set to the same date via the js in the edit form
-        if (CalendarConfig::subpackage_setting('events', 'force_end')) {
+        if ($this->config()->get('force_end')) {
             if (!$this->EndDateTime) {
                 $this->EndDateTime = date("Y-m-d H:i:s", strtotime($this->StartDateTime) + 3600);
             }
@@ -227,7 +227,7 @@ class Event extends DataObject
 
         //3. If end dates are not enforced, and no end date has been set, set the NoEnd attribute
         //Equally, if the Noend attribute has been set  via a checkbox, we reset EndDateTime and Duration
-        if (!CalendarConfig::subpackage_setting('events', 'force_end')) {
+        if (!$this->config()->get('force_end')) {
             if (isset($this->EndDateTime)) {
                 if ($this->NoEnd) {
                     $this->Duration = null;
@@ -377,7 +377,7 @@ class Event extends DataObject
         //parent::getFrontEndFields($params);
 
         $timeFrameHeaderText = 'Time Frame';
-        if (!CalendarConfig::subpackage_setting('events', 'force_end')) {
+        if (!$this->config()->get('force_end')) {
             $timeFrameHeaderText = 'End Date / Time (optional)';
         }
 
@@ -440,11 +440,11 @@ class Event extends DataObject
             ->setAttribute('placeholder', 'Enter time');
 
         //removing AllDay checkbox if allday events are disabled
-        if (!CalendarConfig::subpackage_setting('events', 'enable_allday_events')) {
+        if (!$this->config()->get( 'enable_allday_events')) {
             $fields->removeByName('AllDay');
         }
         //removing NoEnd checkbox if end dates are enforced
-        if (CalendarConfig::subpackage_setting('events', 'force_end')) {
+        if ($this->config()->get('force_end')) {
             $fields->removeByName('NoEnd');
         } else {
             //we don't want the NoEnd checkbox when creating new events

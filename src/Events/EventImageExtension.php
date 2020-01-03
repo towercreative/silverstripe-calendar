@@ -33,7 +33,9 @@ class EventImageExtension extends DataExtension
 
     public function getThumbnail()
     {
-        if ($image = $this->owner->FeaturedImage()) {
+        error_log('FEATURED IMAGE: ' . $this->owner->FeaturedImage()->ID);
+        $image = $this->owner->FeaturedImage();
+        if ($image->ID > 0) {
             return $image->Fit(80, 80);
         } else {
             return '(No Image)';
