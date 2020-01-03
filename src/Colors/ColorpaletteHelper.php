@@ -1,4 +1,5 @@
 <?php
+
 namespace TitleDK\Calendar\Colors;
 
 use SilverStripe\Core\Config\Config;
@@ -17,23 +18,18 @@ use SilverStripe\View\Requirements;
 class ColorpaletteHelper
 {
 
-    public static function requirements($dev = false)
+    public static function requirements()
     {
-        // @todo This looks icky
-        //      if ($dev) {
-            //Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.js');
-            Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.mod.js');
-        //      } else {
-        //          Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.min.js');
-        //      }
+        Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.mod.js');
         Requirements::css('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.css');
     }
+
 
     public static function palette_dropdown($name)
     {
         $dropdown = DropdownField::create($name)
-            ->setSource(self::get_palette());
-            //->setEmptyString('select color');
+            ->setSource(self::get_palette())
+            ->setEmptyString('-- select color --');
         return $dropdown;
     }
 
@@ -53,10 +49,9 @@ class ColorpaletteHelper
      * Color variation:
      * http://stackoverflow.com/questions/1177826/simple-color-variation
      *
-     * @param  int $numColors Number of colors - default: 30
-     * @return null
+     * @return array Colors mapped as #color -> #color
      */
-    public static function get_palette($numColors = 50, $type = 'hsv')
+    public static function get_palette()
     {
         //overwriting with the palette from the calendar settings
         $colors = Config::inst()->get(ColorpaletteHelper::class, 'base_palette');
