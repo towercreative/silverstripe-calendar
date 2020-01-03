@@ -1,5 +1,5 @@
 ---
-silverstripe-calendar-calendars
+Name: silverstripe-calendar-calendars
 ---
 TitleDK\Calendar\Calendars\Calendar:
   colors: true

@@ -1,5 +1,5 @@
 ---
-Name: calendaroutes
+Name: silverstripe-calendar-routes
 ---
 SilverStripe\Control\Director:
   rules:

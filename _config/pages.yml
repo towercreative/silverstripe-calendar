@@ -1,5 +1,5 @@
 ---
-silverstripe-calendar-pages
+Name: silverstripe-calendar-pages
 ---
 TitleDK\Calendar\PageTypes\EventPage:
   enable_eventpage: true

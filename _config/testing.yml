@@ -16,16 +16,10 @@ TitleDK\Calendar\Events\Event:
     - TitleDK\Calendar\Events\EventRegistrationEmbargoExtension
 
 #
-#  src/Widgets/CalendarPageWidgetExtension.php
-#  src/SubSites/AbstractSubsiteExtension.php
-#  src/SubSites/CalendarSubsiteExtension.php
- # src/SubSites/EventSubsiteExtension.php
   #src/SubSites/EventCategorySubsiteExtension.php
-  #src/PageTypes/Extensions/EventPageController.php
   #src/Libs/DoURLSegmentExtension.php
   #src/Calendars/ShadedCalendarExtension.php
   #src/Calendars/GroupsCalendarExtension.php
-  #src/Calendars/EventCalendarExtension.php
 
 TitleDK\Calendar\Registrations\EventRegistration:
   extensions:
