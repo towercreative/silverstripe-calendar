@@ -5,10 +5,8 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Core\Convert;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Calendars\Calendar;
-use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Events\Event;
 
 /**

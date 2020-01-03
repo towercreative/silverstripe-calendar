@@ -1,7 +1,6 @@
 <?php
 namespace TitleDK\Calendar\PageTypes;
 
-use SilverStripe\CMS\Controllers\ContentController;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
 use SilverStripe\Core\Config\Config;
@@ -246,8 +245,7 @@ class CalendarPageController extends \PageController
      */
     public function register()
     {
-        // @todo config a la SS4
-        if (CalendarConfig::subpackage_enabled('registrations')) {
+        if (Config::inst()->get(EventRegistration::class, 'enabled')) {
             return $this->detail();
         } else {
             return $this->httpError(404);

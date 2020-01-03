@@ -9,8 +9,6 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use TitleDK\Calendar\Calendars\Calendar;
-use TitleDK\Calendar\Categories\EventCategory;
-use TitleDK\Calendar\Core\CalendarConfig;
 
 /**
  * CalendarsForm

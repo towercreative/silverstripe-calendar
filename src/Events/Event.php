@@ -23,7 +23,6 @@ use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\Calendars\Calendar;
-use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\PageTypes\CalendarPage;

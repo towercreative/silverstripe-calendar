@@ -3,7 +3,6 @@ namespace TitleDK\Calendar\Helpers;
 
 use Carbon\Carbon;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\ORM\PaginatedList;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;

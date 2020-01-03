@@ -11,7 +11,6 @@ use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\TabSet;
 use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
-use TitleDK\Calendar\Core\CalendarConfig;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\EventPage;

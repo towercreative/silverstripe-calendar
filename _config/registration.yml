@@ -2,7 +2,10 @@
 Name: silverstripe-calendar-registration
 ---
 TitleDK\Calendar\PageTypes\CalendarPageController:
-  registration_enabled: false
+  registration_enabled: true
+
+TitleDK\Calendar\Registrations\EventRegistration:
+  enabled: true
 
 TitleDK\Calendar\Events\Event:
   # Embargo registration relative to end date or calculated end date.  Negative values are before the end datetime, so

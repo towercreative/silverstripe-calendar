@@ -5,7 +5,6 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\CsvBulkLoader;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Categories\EventCategory;
-use TitleDK\Calendar\Core\CalendarConfig;
 
 /**
  * PlayerCsvBulkLoader

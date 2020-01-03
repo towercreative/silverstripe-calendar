@@ -17,7 +17,6 @@ use SilverStripe\Security\PermissionProvider;
 use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Categories\EventCategory;
-use TitleDK\Calendar\Core\CalendarConfig;
 
 /**
  * Calendar Admin
