@@ -58,10 +58,9 @@ class ColorpaletteHelper
      */
     public static function get_palette($numColors = 50, $type = 'hsv')
     {
-
         //overwriting with the palette from the calendar settings
-        $colors = Config::inst()->get(ColorpaletteHelper::class, 'colors');
-        // @todo this was in the for of an array of x=>x, y=>y etc
+        $colors = Config::inst()->get(ColorpaletteHelper::class, 'base_palette');
+
         $result = [];
         foreach ($colors as $color) {
             $result[$color] = $color;
