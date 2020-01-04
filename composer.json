@@ -28,7 +28,9 @@
         "weboftalent/gridrows": "^2",
         "silverstripe/recipe-cms": "4.x-dev",
         "unclecheese/display-logic": "^2.0",
-        "suilven/sluggable": "^1.0"
+        "suilven/sluggable": "^1.0",
+        "jsvrcek/ics": "^0.6.0",
+        "ramsey/uuid": "^3.9"
     },
     "autoload": {
         "psr-4": {
