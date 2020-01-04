@@ -56,7 +56,7 @@ class CalendarColorExtensionTest extends SapphireTest
 
             // @todo fix this test
         $this->assertEquals([
-            'URLSegment',
+            'Slug',
             'Title',
             'Color',
             'Groups'
