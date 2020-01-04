@@ -14,13 +14,12 @@ use TitleDK\Calendar\PageTypes\CalendarPage;
  *
  * @package calendar
  * @subpackage calendars
- * @property string $URLSegment
+ * @property string $Slug
  * @property string $Color
  * @property string $Title
  * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Events\Event[] Events()
  * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\PageTypes\CalendarPage[] CalendarPages()
  * @method \SilverStripe\ORM\ManyManyList|\SilverStripe\Security\Group[] Groups()
- * @mixin \TitleDK\Calendar\Libs\DoURLSegmentExtension
  * @mixin \TitleDK\Calendar\Colors\CalendarColorExtension
  */
 class Calendar extends DataObject
