@@ -237,13 +237,8 @@ class EventTest extends SapphireTest
 
     public function testGetFrontEndFieldsNoEnd()
     {
-        $fields = Config::withConfig(function(MutableConfigCollectionInterface $config)  {
-            // update your config
-            $config->set(Event::class, 'force_end', false);
-
-            // your test code goes here and it runs with your changed config
-            return $this->weekendEvent->getAddNewFields();
-        });
+        Config::inst()->set(Event::class, 'force_end', false);
+        $fields = $this->weekendEvent->getAddNewFields();
 
         $names = [];
         foreach ($fields as $field) {
@@ -257,13 +252,9 @@ class EventTest extends SapphireTest
 
     public function testGetFrontEndFieldsNoAllDay()
     {
-        $fields = Config::withConfig(function(MutableConfigCollectionInterface $config)  {
-            // update your config
-            $config->set(Event::class, 'enable_allday_events', false);
-
-            // your test code goes here and it runs with your changed config
-            return $this->weekendEvent->getAddNewFields();
-        });
+     //   Config::inst()->update('ClassName', 'var_name', 'new_var_value');
+        Config::inst()->set(Event::class, 'enable_allday_events', false);
+        $fields = $this->weekendEvent->getAddNewFields();
 
         $names = [];
         foreach ($fields as $field) {

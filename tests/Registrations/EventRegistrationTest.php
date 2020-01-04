@@ -91,7 +91,5 @@ class EventRegistrationTest extends SapphireTest
             $registrations .= $template;
             $registrations .= "\n\n";
         }
-
-        error_log($registrations);
     }
 }

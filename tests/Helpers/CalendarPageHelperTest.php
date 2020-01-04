@@ -118,7 +118,6 @@ class CalendarPageHelperTest extends SapphireTest
         $member = $this->objFromFixture(Member::class, 'member1');
         $this->logInAs('member1');
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->calendarPage->Calendars());
-        error_log('CAL IDS: ' . print_r($calendarIDs, 1));
         $events = $this->helper->upcomingEvents($calendarIDs);
         $titles = $this->convertEventsToTitles($events->toArray());
         $this->assertEquals([
