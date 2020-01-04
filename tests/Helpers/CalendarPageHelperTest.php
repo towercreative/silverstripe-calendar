@@ -1,6 +1,6 @@
 <?php
 
-namespace TitleDK\Calendar\Tests\Registrations\Helpers;
+namespace TitleDK\Calendar\Helpers;
 
 use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
