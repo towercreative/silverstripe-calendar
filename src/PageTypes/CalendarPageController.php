@@ -227,7 +227,7 @@ class CalendarPageController extends \PageController
     {
         $req = $this->getRequest();
         $tagName = $req->param('ID');
-        $tag = EventTag::get()->filter('URLSegment', $tagName)->first();
+        $tag = EventTag::get()->filter('Slug', $tagName)->first();
         $events = $tag->Events()->sort('StartDateTime DESC');
 
         $pagedEvents = new PaginatedList($events);
@@ -347,7 +347,7 @@ class CalendarPageController extends \PageController
         $url = Convert::raw2url($this->request->param('ID'));
 
         $cal = Calendar::get()
-            ->filter('URLSegment', $url)
+            ->filter('Slug', $url)
             ->First();
         return $cal;
     }
