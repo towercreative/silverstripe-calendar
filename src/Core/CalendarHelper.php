@@ -58,12 +58,8 @@ class CalendarHelper
     public static function coming_events($from = false)
     {
         $time = ($from ? strtotime($from) : Carbon::now()->timestamp);
-
-        error_log('TIME: ' . $time);
-        error_log('CARBON NOW: ' . Carbon::now()->timestamp);
         $sql = "(\"StartDateTime\" >= '".date('Y-m-d', $time)." 00:00:00')";
         $events = Event::get()->where($sql);
-
         return $events;
     }
 

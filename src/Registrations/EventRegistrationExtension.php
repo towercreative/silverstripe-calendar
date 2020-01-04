@@ -194,14 +194,10 @@ class EventRegistrationExtension extends DataExtension
         $form = $eventRegistrationController->paymentregisterform();
 
         // if we use $this->extend we need to add the extension on Event, using the controller makes more sense
-        error_log('---- updating event registration form ----');
         if ($form) {
             $form->setFormField('EventID', $this->owner->ID);
         }
         $eventRegistrationController->extend('updateEventRegistrationForm', $form);
-        error_log('---- /updating event registration form ----');
-
-
 
         // @todo This is loading old data
         // $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");

@@ -45,6 +45,9 @@ class EventTest extends SapphireTest
     /** @var Event */
     private $noEndEvent;
 
+    /** @var Event */
+    private $newYearEvent;
+
     /** @var CalendarPage */
     private $calendarPage;
 
@@ -63,6 +66,7 @@ class EventTest extends SapphireTest
         $this->zeroSecondsEvent1 = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventZeroSeconds1');
         $this->zeroSecondsEvent2 = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventZeroSeconds2');
         $this->noEndEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventNoEnd');
+        $this->newYearEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventNewYear');
         $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'testcalendarpage');
     }
 
@@ -377,6 +381,12 @@ class EventTest extends SapphireTest
         $this->assertNull($this->weekendEvent->getFormattedTimeframe());
     }
 
+    public function test_get_formatted_time_same_time()
+    {
+        $this->weekendEvent->StartDateTime = $this->weekendEvent->EndDateTime;
+        $this->assertNull($this->weekendEvent->getFormattedTimeframe());
+    }
+
     public function test_get_formatted_time_frame_multi_month()
     {
         $this->assertNull($this->cricketSeasonEvent->getFormattedTimeframe());
@@ -409,6 +419,45 @@ class EventTest extends SapphireTest
         );
     }
 
+    public function test_get_start_and_end_dates_same_date_time()
+    {
+        $this->cricketSeasonEvent->EndDateTime = $this->cricketSeasonEvent->StartDateTime;
+        $this->assertFalse(
+            $this->cricketSeasonEvent->getStartAndEndDates()
+        );
+    }
+
+    /**
+     * This is to test that the time is not shown in the summary if the event starts at midnight
+     */
+    public function test_get_start_and_end_dates_starts_at_midnight()
+    {
+        $this->weekendEvent->StartDateTime = '2019-12-13 00:00';
+        $this->assertEquals('Dec 13 December, 2019 &ndash; Dec 15, 2019  (69 hrs)',
+            $this->weekendEvent->getStartAndEndDates()
+        );
+    }
+
+    /**
+     * No duration is shown if the event ends at midnight
+     * @todo Is this desired functionality?
+     */
+    public function test_get_start_and_end_dates_ends_at_midnight()
+    {
+        $this->weekendEvent->EndDateTime = '2019-12-16 00:00';
+        $this->assertEquals('Dec 13, 2019 (7:00pm) &ndash; Dec 16, 2019',
+            $this->weekendEvent->getStartAndEndDates()
+        );
+    }
+
+    public function test_get_start_and_end_dates_straddles_year()
+    {
+        $this->assertEquals(
+            'Dec 31, 2019 (7:00pm) &ndash; Jan 1, 2020  (12 hrs)',
+            $this->newYearEvent->getStartAndEndDates()
+        );
+    }
+
     public function test_get_dates_and_time_frame_same_day()
     {
         $this->assertEquals('Dec 16th @ 8:00pm - 9:30pm', $this->eveningMeetUpEvent->getDatesAndTimeframe());
@@ -431,7 +480,7 @@ class EventTest extends SapphireTest
         $this->assertEquals($expected, $link);
     }
 
-    public function testGetRelativeLink()
+    public function test_get_relative_link()
     {
         $id = $this->eveningMeetUpEvent->ID;
         $link = 'detail/' . $id;
@@ -482,7 +531,6 @@ class EventTest extends SapphireTest
         if (Director::isLive()) {
             error_log('**** LIVE MODE ****');
         }
-        error_log('TICKETS: ' .  $this->cricketSeasonEvent->TicketsRemaining());
         $this->assertEquals(0, $this->cricketSeasonEvent->TicketsRemaining());
     }
 }

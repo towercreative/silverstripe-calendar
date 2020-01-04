@@ -80,7 +80,7 @@ class EventHelper
     {
         $startDate = date(self::YMD_DATE_FORMAT, strtotime($startObj->value));
         $endDate = date(self::YMD_DATE_FORMAT, strtotime($endObj->value));
-        
+
         if ($startDate === $endDate) {
             return false;
         }
@@ -105,7 +105,7 @@ class EventHelper
             // This is the straddling midnight case
             // time zones do not matter here, it is the delta in hours that is required
             $startDateCarbon = Carbon::createFromFormat('Y-m-d H:i:s', $startObj->value);
-            $endDateCarbon = Carbon::createFromFormat('Y-m-d H:i:s', '2020-09-21 21:30:00');
+            $endDateCarbon = Carbon::createFromFormat('Y-m-d H:i:s', $endObj->value);
 
             $durationHrs = $endDateCarbon->diffInHours($startDateCarbon);
             $endDate = date('M j, Y', $endTime) . '  (' . $durationHrs . ' hrs)';

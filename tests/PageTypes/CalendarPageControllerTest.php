@@ -46,7 +46,6 @@ class CalendarPageControllerTest extends FunctionalTest
     public function testIndex()
     {
         $page = $this->get('/test-calendar-page/');
-        error_log($page->getBody());
         $this->assertEquals(200, $page->getStatusCode());
         $this->assertExactHTMLMatchBySelector('h1', ['<h1>Test Calendar Page</h1>']);
         $this->assertExactHTMLMatchBySelector('.options',
@@ -56,7 +55,6 @@ class CalendarPageControllerTest extends FunctionalTest
     public function test_upcoming()
     {
         $page = $this->get('/test-calendar-page/eventlist?month=2019-12');
-        error_log($page->getBody());
         $this->assertEquals(200, $page->getStatusCode());
     }
 
@@ -68,7 +66,6 @@ class CalendarPageControllerTest extends FunctionalTest
     public function test_event_list()
     {
         $page = $this->get('/test-calendar-page/eventlist?month=2019-12');
-        error_log($page->getBody());
         $this->assertEquals(200, $page->getStatusCode());
     }
 
@@ -96,7 +93,6 @@ class CalendarPageControllerTest extends FunctionalTest
     {
         $event = $this->objFromFixture(Event::class, 'eventAllDay');
         $page = $this->get('/test-calendar-page/detail/' . $event->ID);
-        error_log($page->getBody());
         $this->assertEquals(200, $page->getStatusCode());
     }
 
@@ -189,9 +185,6 @@ class CalendarPageControllerTest extends FunctionalTest
     {
         $page = $this->get('/test-calendar-page/search?q=SilverStripe');
         $this->assertEquals(200, $page->getStatusCode());
-
-        error_log($page->getBody());
-
     }
 
     public function testAllCalendars()

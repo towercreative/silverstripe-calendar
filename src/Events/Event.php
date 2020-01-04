@@ -380,17 +380,14 @@ class Event extends DataObject
             $timeFrameHeaderText = 'End Date / Time (optional)';
         }
 
-
         /**
- * @var DatetimeField $startDateTime
-*/
+        * @var DatetimeField $startDateTime
+        */
         $startDateTime = DatetimeField::create('StartDateTime', 'Start');
 
-
-
         /**
- * @var DatetimeField $endDateTime
-*/
+        * @var DatetimeField $endDateTime
+        */
         $endDateTime = DatetimeField::create('EndDateTime', '');
 
         $fields = FieldList::create(
@@ -567,17 +564,13 @@ class Event extends DataObject
         $result = null;
         if (empty($this->RegistrationEmbargoAt)) {
             $mins = $this->config()->get('embargo_registration_relative_to_end_datetime_mins');
-            error_log('MINS: ' . $mins);
-            error_log('SDT: ' . $this->StartDateTime);
             $result = $this->carbonDateTime($this->StartDateTime)->addMinutes($mins);
         } else {
             $result = $this->carbonDateTime($this->RegistrationEmbargoAt);
         }
 
         if ($returnAsDateTime) {
-            error_log('++++ from template ++++ ');
             $result = $this->getSSDateTimeFromCarbon($result);
-            error_log(print_r($result, 1));
         }
         return $result;
     }
@@ -585,7 +578,6 @@ class Event extends DataObject
     public function getIsPastRegistrationClosing()
     {
         $expiryDate = $this->getRegistrationEmbargoDate();
-        error_log('ED: ' . $expiryDate);
         return  $expiryDate->lte(Carbon::now());
     }
 

@@ -32,10 +32,7 @@ class ICSExportTest extends SapphireTest
     public function testGetString()
     {
         $eventsArr = $this->createEventsArray();
-
         $ics = new ICSExport($eventsArr);
-        error_log($ics->getString());
-
 
         // @todo check the output - note there is a timestamp issue which changes each time the tests are run
         $this->markAsRisky();
@@ -68,7 +65,6 @@ class ICSExportTest extends SapphireTest
     private function createEventsArray()
     {
         $calendars = Calendar::get();
-        error_log('N CALENDARS: ' . $calendars->count());
         $events = new ArrayList();
         foreach ($calendars as $cal) {
             $events->merge($cal->Events());

@@ -91,14 +91,8 @@ class CalendarPageHelper
      */
     public function upcomingEvents($calendarIDs)
     {
-        error_log('++++ CPH: upcomingEvents ++++');
-        error_log('CALENDAR IDS: ' . print_r($calendarIDs, 1));
         $calendar = DataObject::get_by_id(Calendar::class, $calendarIDs[0]);
-        error_log('N EVENTS: ' . $calendar->Events()->count());
         $events = $calendar->Events();
-        foreach($events as $event) {
-            error_log($event->StartDateTime . ' - '. $event->Title);
-        }
 
         $currentContextualMonth = $this->currentContextualMonth();
         $now = $this->realtimeMonthDay();
@@ -113,8 +107,6 @@ class CalendarPageHelper
         } else {
             $start = $currentContextualMonth . '-01';
         }
-
-        error_log('START: ' . $start);
 
         $startCarbon = $this->carbonDateTime($start .' 00:00:00')->timestamp;
         $next = strtotime('+1 month', $startCarbon);

@@ -65,12 +65,6 @@ class EventRegistrationController extends Controller
         }
 
         return $form;
-
-        // DATA NOT LOADED HERE
-        // $data = Controller::curr()->getRequest()->getSession()->get("FormData.{$form->getName()}.data");
-        error_log('++++ DATA ++++');
-        //error_log(print_r($data, 1));
-        //return $data ? $form->loadDataFrom($data) : $form;
     }
 
 

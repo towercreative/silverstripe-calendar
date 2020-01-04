@@ -74,7 +74,6 @@ class EventRegistrationForm extends Form
      */
     public function doRegister($data, $form)
     {
-        error_log('EVENT REGISTRATION: doRegister');
         $r = new EventRegistration();
         $form->saveInto($r);
 

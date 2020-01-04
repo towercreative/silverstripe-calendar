@@ -74,6 +74,7 @@ class ICSExport_Controller extends Controller
             //echo 'request is a string';
             $url = Convert::raw2url($idOrURL);
 
+            // @todo This needs changed to slug
             $cal = Calendar::get()
                 ->filter('URLSegment', $url)
                 ->First();

@@ -88,8 +88,6 @@ class EventCsvBulkLoader extends CsvBulkLoader
         $dateFormat = Config::inst()->get(EventCsvBulkLoader::class, 'dateFormat');
         $dateFormat .= ' ' . 'H:i';
         //$val = $val . '0:00';
-        error_log('DateFormat: ' . $dateFormat);
-        error_log('VAL:' . $val);
         $dateTime = date_create_from_format($dateFormat , $val);
 
         if ($rt == 'string') {
@@ -106,11 +104,7 @@ class EventCsvBulkLoader extends CsvBulkLoader
      */
     public static function importStartDate(&$obj, $val, $record)
     {
-        error_log('isd: val=' . $val);
-
         $dateTime = self::importDate($val);
-        error_log('isd: date=' . $dateTime);
-
         $obj->TimeFrameType = 'DateTime';
         $obj->StartDateTime = $dateTime;
         $obj->AllDay = true;
@@ -166,14 +160,10 @@ class EventCsvBulkLoader extends CsvBulkLoader
      */
     public static function findOrCreateCalendarByTitle(&$obj, $val, $record)
     {
-        echo 'Find or create calendar:  ' . $val;
-
         $c = Calendar::get()->filter('Title', $val)->First();
         if ($c && $c->exists()) {
-            error_log('FOUND!');
             return $c;
         } else {
-            error_log('CREATE');
             $c = new Calendar();
             $c->Title = $val;
             $c->write();
