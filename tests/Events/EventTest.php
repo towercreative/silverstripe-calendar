@@ -397,6 +397,12 @@ class EventTest extends SapphireTest
         $this->assertNull($this->zeroSecondsEvent1->getFormattedTimeframe());
     }
 
+    public function test_get_formatted_time_frame_explicit_no_end()
+    {
+        $this->noEndEvent->EndDateTime = null;
+        $this->assertEquals('7:00pm', $this->noEndEvent->getFormattedTimeframe());
+    }
+
     public function test_get_formatted_time_frame_zero_seconds_after_parsing()
     {
         $this->assertNull($this->zeroSecondsEvent2->getFormattedTimeframe());

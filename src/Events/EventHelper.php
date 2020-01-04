@@ -119,26 +119,28 @@ class EventHelper
      * Returns either a string or null
      * Time frame is only applicable if both start and end time is on the same day
      *
-     * @param  string $startStr
-     * @param  string $endStr
+     * @param  DBDatetime $startDBDateTime
+     * @param  DBDatetime $endDBDateTime
      * @return string|null
      */
-    public static function formatted_timeframe($startStr, $endStr)
+    public static function formatted_timeframe($startDBDateTime, $endDBDateTime)
     {
         $str = null;
 
-        if ($startStr == $endStr) {
+        $startTime = strtotime($startDBDateTime->value);
+        $endTime = strtotime($endDBDateTime->value);
+
+        if ($startTime === $endTime) {
             return null;
         }
 
-        $startTime = strtotime($startStr->value);
-        $endTime = strtotime($endStr->value);
+        error_log('START TIME: ' . $startTime);
+        error_log('END TIME: ' . $endTime);
+        error_log($startDBDateTime->value);
+        error_log($endDBDateTime->value);
 
-        if ($startTime == $endTime) {
-            return null;
-        }
 
-        if ($endStr) {
+        if ($endTime) {
             //time frame is only applicable if both start and end time is on the same day
             if (date('Y-m-d', $startTime) == date('Y-m-d', $endTime)) {
                 $str = date('g:ia', $startTime) . ' - ' . date('g:ia', $endTime);

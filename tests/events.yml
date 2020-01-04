@@ -99,6 +99,7 @@ TitleDK\Calendar\Events\Event:
   eventNoEnd:
     Title: The Neverending Event
     StartDateTime: 2019-12-13 19:00
+    EndDateTime: null
     TimeFrameType: DateTime
     Details: Event with no end time
 
