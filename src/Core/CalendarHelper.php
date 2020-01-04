@@ -117,6 +117,7 @@ class CalendarHelper
         // @todo method needs fixed everywhere to pass in an array of IDs, not a CSV
         if (!is_array($calendarIDs)) {
             $calendarIDs = explode(',', $calendarIDs);
+            error_log('IDS: ' . print_r($calendarIDs, 1));
             user_error('events for month called with ID instead of array of calendar IDs');
         }
 
@@ -142,7 +143,7 @@ class CalendarHelper
 
         $events = Event::get()
             ->where($sql);
-        
+
         // optional filter by calendar id
         if (!empty($calendarIDs)) {
             $events = $events->filter('CalendarID', $calendarIDs);
@@ -166,6 +167,7 @@ class CalendarHelper
         }
         $modifiedLink = '';
         $request = Controller::curr()->getRequest();
+        error_log('REQ:' . print_r($request, 1));
         if ($request && $request->getVar('CMSPreview')) {
             // Preserve the preview param for further links
             $modifiedLink = HTTP::setGetVar('CMSPreview', 1, $link);

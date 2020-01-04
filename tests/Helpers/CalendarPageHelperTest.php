@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Tests\Registrations\Helpers;
 
 use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
+use SilverStripe\Security\Member;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
@@ -114,14 +115,16 @@ class CalendarPageHelperTest extends SapphireTest
 
     public function test_upcoming_events()
     {
+        $member = $this->objFromFixture(Member::class, 'member1');
+        $this->logInAs('member1');
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->calendarPage->Calendars());
+        error_log('CAL IDS: ' . print_r($calendarIDs, 1));
         $events = $this->helper->upcomingEvents($calendarIDs);
         $titles = $this->convertEventsToTitles($events->toArray());
         $this->assertEquals([
             'Freezing in the Park',
             'SilverStripe Booze Up',
             'SilverStripe Meet Up',
-            'Happy New Year!!'
         ], $titles);
     }
 

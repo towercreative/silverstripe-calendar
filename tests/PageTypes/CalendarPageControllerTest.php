@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Tests\PageTypes;
 
 use Carbon\Carbon;
 use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\Security\Member;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\CalendarPage;
@@ -21,6 +22,9 @@ class CalendarPageControllerTest extends FunctionalTest
     /** @var CalendarPageController */
     private $calendarPageController;
 
+    /** @var Member */
+    private $member;
+
     public function setUp()
     {
         parent::setUp();
@@ -34,6 +38,8 @@ class CalendarPageControllerTest extends FunctionalTest
         // Because Carbon::now() is used instead of time() we can set a fixed time for testing purposes
         $testNow = $this->carbonDateTime('2019-12-15 08:00:00');
         Carbon::setTestNow($testNow);
+
+        $this->member = $this->objFromFixture(Member::class, 'member1');
     }
     public function testInit()
     {
@@ -43,8 +49,9 @@ class CalendarPageControllerTest extends FunctionalTest
     /**
      * Test a load of the index page
      */
-    public function testIndex()
+    public function test_index()
     {
+        $this->logInAs($this->member);
         $page = $this->get('/test-calendar-page/');
         $this->assertEquals(200, $page->getStatusCode());
         $this->assertExactHTMLMatchBySelector('h1', ['<h1>Test Calendar Page</h1>']);

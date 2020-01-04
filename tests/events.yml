@@ -1,3 +1,23 @@
+SilverStripe\Security\Member:
+  member1:
+    FirstName: Gordon
+    Surname: Anderson
+  member2:
+    FirstName: Fred
+    Surname: Bloggs
+
+
+SilverStripe\Security\Group:
+  group1:
+    Title: Test Calendar Group 1
+    Members:
+      - =>SilverStripe\Security\Member.member1
+
+  group2:
+    Title: Test Calendar Group 2
+    Members:
+      - =>SilverStripe\Security\Member.member2
+
 TitleDK\Calendar\Tags\EventTag:
   tag1:
     Title: Cumberland Sausages
@@ -103,9 +123,16 @@ TitleDK\Calendar\Events\Event:
     TimeFrameType: DateTime
     Details: Event with no end time
 
+  eventForPublicCalendar:
+    Title: An Event for Public Calendar
+    StartDateTime: 2019-08-22 19:00
+    EndDateTime: 2019-08-22 21:00
+    TimeFrameType: DateTime
+    Details: Event for Public Calendar
+
 TitleDK\Calendar\Calendars\Calendar:
-  testCalendar:
-    Title: Test Calendar
+  testCalendar1:
+    Title: Test Calendar 1
     Events:
       - =>TitleDK\Calendar\Events\Event.eventWithDuration
       - =>TitleDK\Calendar\Events\Event.eventSameDay
@@ -117,12 +144,31 @@ TitleDK\Calendar\Calendars\Calendar:
       - =>TitleDK\Calendar\Events\Event.eventZeroSeconds2
       - =>TitleDK\Calendar\Events\Event.eventNoEnd
 
+    Groups:
+      - =>SilverStripe\Security\Group.group1
+
+
+  testCalendar2:
+    Title: Test Calendar 2
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventNewYear
+    Groups:
+      - =>SilverStripe\Security\Group.group2
+
+  # No groups here, so the calendar is public
+  testPublicCalendar:
+    Title: Public Calendar
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventForPublicCalendar
+
+
+
 TitleDK\Calendar\PageTypes\CalendarPage:
   testcalendarpage:
     Title: Test Calendar Page
     Content: This is a test calendar page with several events
     Calendars:
-      - =>TitleDK\Calendar\Calendars\Calendar.testCalendar
+      - =>TitleDK\Calendar\Calendars\Calendar.testCalendar1
 
 TitleDK\Calendar\PageTypes\EventPage:
   testEventPage:
