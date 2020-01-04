@@ -27,7 +27,8 @@
         "silverstripe/tagfield": "^2",
         "weboftalent/gridrows": "^2",
         "silverstripe/recipe-cms": "4.x-dev",
-        "unclecheese/display-logic": "^2.0"
+        "unclecheese/display-logic": "^2.0",
+        "suilven/sluggable": "^1.0"
     },
     "autoload": {
         "psr-4": {
