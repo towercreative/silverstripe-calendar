@@ -76,12 +76,15 @@ class ICSExportHelper
      * getFile
      *
      * @param string $strFilename the names of the file
+     * @param boolean $headers True to return headers, false for testing
      */
-    public function getFile($strFilename)
+    public function getFile($strFilename, $headers = true)
     {
         ob_start();
-        header("Content-type: text/calendar");
-        header('Content-Disposition: attachment; filename="' .  $strFilename . '"');
+        if ($headers) {
+            header("Content-type: text/calendar");
+            header('Content-Disposition: attachment; filename="' .  $strFilename . '"');
+        }
         echo $this->strics;
         ob_flush();
         die();

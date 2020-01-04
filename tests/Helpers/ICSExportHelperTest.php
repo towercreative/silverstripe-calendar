@@ -45,7 +45,10 @@ class ICSExportHelperTest extends SapphireTest
 
     public function test_get_file()
     {
-        $this->markTestSkipped('TODO');
+        $this->logInAs($this->member);
+        $ics = $this->helper->processCalendar($this->calendar);
+        $file = $this->helper->getFile('test.ics', false);
+        $this->markAsRisky();
     }
 
 
