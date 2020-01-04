@@ -48,10 +48,10 @@ use TitleDK\Calendar\Tags\EventTag;
  * @property string $Title
  * @property boolean $AllDay
  * @property boolean $NoEnd
- * @property string $StartDateTime
+ * @property DBDatetime $StartDateTime
  * @property string $TimeFrameType
  * @property string $Duration
- * @property string $EndDateTime
+ * @property DBDatetime $EndDateTime
  * @property string $Details
  * @property int $FeaturedImageID
  * @property int $EventPageID
