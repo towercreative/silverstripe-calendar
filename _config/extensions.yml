@@ -23,3 +23,8 @@ TitleDK\Calendar\Events\Event:
     - TitleDK\Calendar\Categories\EventCategoryExtension
 
     - TitleDK\Calendar\Registrations\EventRegistrationExtension
+
+TitleDK\Calendar\Tags\EventTag:
+  slug: Title
+  extensions:
+    - Suilven\Sluggable\Extension\Sluggable

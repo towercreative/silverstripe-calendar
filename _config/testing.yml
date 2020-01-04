@@ -28,7 +28,6 @@ TitleDK\Calendar\Registrations\EventRegistration:
 TitleDK\Calendar\Calendars\Calendar:
   extensions:
     - TitleDK\Calendar\Colors\CalendarColorExtension
-    - TitleDK\Calendar\Libs\DoURLSegmentExtension
 
 TitleDK\Calendar\Registrations\EventRegistrationController:
   extensions:
