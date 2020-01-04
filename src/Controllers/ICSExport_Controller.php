@@ -49,8 +49,6 @@ class ICSExport_Controller extends Controller
      */
     public function cal()
     {
-        //echo 'test';
-
         $call = null;
         $request = $this->getRequest();
 
@@ -76,7 +74,7 @@ class ICSExport_Controller extends Controller
 
             // @todo This needs changed to slug
             $cal = Calendar::get()
-                ->filter('URLSegment', $url)
+                ->filter('Slug', $url)
                 ->First();
         }
 
