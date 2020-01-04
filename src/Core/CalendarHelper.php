@@ -134,7 +134,7 @@ class CalendarHelper
      * @param  array $calendarIDS  list of calendar IDs visible
      * @return \SilverStripe\ORM\DataList
      */
-    public static function events_for_date_range($startDateStr, $endDateStr, $calendarIDS = [])
+    public static function events_for_date_range($startDateStr, $endDateStr, $calendarIDs = [])
     {
         $endDateStr .= ' 23:59:59';
         $sql = "((\"StartDateTime\" BETWEEN '$startDateStr' AND '$endDateStr') OR (\"EndDateTime\" BETWEEN
@@ -142,7 +142,7 @@ class CalendarHelper
 
         $events = Event::get()
             ->where($sql);
-
+        
         // optional filter by calendar id
         if (!empty($calendarIDs)) {
             $events = $events->filter('CalendarID', $calendarIDs);
