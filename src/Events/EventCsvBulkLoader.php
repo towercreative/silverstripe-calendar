@@ -120,7 +120,7 @@ class EventCsvBulkLoader extends CsvBulkLoader
         if (!strlen($val)) {
             return;
         }
-        $dt = new DateTime($obj->StartDateTime);
+        $dt = new \DateTime($obj->StartDateTime);
         $date = $dt->format('Y-m-d');
         $obj->StartDateTime = $date . ' ' . $val;
         $obj->AllDay = false;

@@ -2,12 +2,16 @@
 
 namespace TitleDK\Calendar\Tests\Events;
 
+use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Events\EventCsvBulkLoader;
 
 class EventCsvBulkLoaderTest extends SapphireTest
 {
+    protected static $fixture_file = 'tests/events.yml';
+
     /** @var EventCsvBulkLoader */
     private $bulkLoader;
 
@@ -48,31 +52,57 @@ class EventCsvBulkLoaderTest extends SapphireTest
         $this->assertTrue( $this->event->AllDay);
     }
 
-    function testImportStartTime()
+    function test_import_start_time()
     {
-        $this->markTestSkipped('TODO');
+        EventCsvBulkLoader::importStartDate($this->event, '2019-12-15 21:30', null);
+        $this->assertEquals('2019-12-15 21:30:00', $this->event->StartDateTime);
+
+        EventCsvBulkLoader::importStartTime($this->event, '08:30', null);
+
+        // @todo Minor inconsistency here
+        $this->assertEquals('2019-12-15 08:30', $this->event->StartDateTime);
+
     }
 
-    public function testImportEndDate()
+    function test_empty_import_start_time()
     {
-        $this->markTestSkipped();
-        /*
-        EventCsvBulkLoader::importStartDate($this->event, '2019-12-15 07:30', null);
-        EventCsvBulkLoader::importEndTime($this->event, '2019-12-15 08:30', null);
-        $this->assertEquals('2019-12-15 07:30:00', $this->event->StartDateTime);
+        $this->assertNull(EventCsvBulkLoader::importStartTime($this->event, '', null));
+    }
+
+    public function test_import_end_date()
+    {
+        EventCsvBulkLoader::importEndDate($this->event, '2019-12-15 08:30', null);
         $this->assertEquals('2019-12-15 08:30:00', $this->event->EndDateTime);
-        $this->assertEquals('DateTime', $this->event->TimeFrameType);
+        $this->assertNull( $this->event->TimeFrameType);
         $this->assertTrue( $this->event->AllDay);
-        */
     }
 
-    public function testImportEndTime()
+    public function test_import_end_time()
     {
-        $this->markTestSkipped('TODO');
+        EventCsvBulkLoader::importStartDate($this->event, '2019-12-15 21:30', null);
+        EventCsvBulkLoader::importEndDate($this->event, '2019-12-15 23:30', null);
+        $this->assertEquals('2019-12-15 21:30:00', $this->event->StartDateTime);
+        $this->assertEquals('2019-12-15 23:30:00', $this->event->EndDateTime);
+
+        EventCsvBulkLoader::importEndTime($this->event, '22:45', null);
+
+        // @todo Minor inconsistency here
+        $this->assertEquals('2019-12-15 22:45', $this->event->EndDateTime);
+    }
+
+    function test_empty_import_end_time()
+    {
+        $this->assertNull(EventCsvBulkLoader::importEndTime($this->event, '', null));
     }
 
     public function testFindOrCreateCalendarByTitle()
     {
-        $this->markTestSkipped('TODO');
+        $calendar1 = EventCsvBulkLoader::findOrCreateCalendarByTitle($this->event, 'Duty Roster', null);
+        $this->assertNotNull($calendar1);
+        $this->assertEquals('TitleDK\Calendar\Calendars\Calendar', get_class($calendar1));
+        $calendar2 = EventCsvBulkLoader::findOrCreateCalendarByTitle($this->event, 'Duty Roster', null);
+        $this->assertNotNull($calendar2);
+        $this->assertEquals('TitleDK\Calendar\Calendars\Calendar', get_class($calendar2));
+        $this->assertEquals($calendar1->ID, $calendar2->ID);
     }
 }
