@@ -87,6 +87,6 @@ class EventRegistration extends DataObject
 
     public function getRegistrationCode()
     {
-        return strtoupper($this->event()->URLSegment) . '-' . str_pad($this->ID, 4, "0", STR_PAD_LEFT);
+        return strtoupper($this->event()->Slug) . '-' . str_pad($this->ID, 4, "0", STR_PAD_LEFT);
     }
 }
