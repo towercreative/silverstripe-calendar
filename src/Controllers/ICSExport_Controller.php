@@ -1,11 +1,12 @@
 <?php
-namespace TitleDK\Calendar\Libs;
+namespace TitleDK\Calendar\Controllers;
 
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Core\Convert;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\Security\Member;
+use TitleDK\Calendar\Helpers\ICSExportHelper;
 
 //by Anselm
 /**
@@ -95,7 +96,8 @@ class ICSExport_Controller extends Controller
         if ($cal && $cal->exists()) {
             //everybody can access public calendars
             if ($cal->ClassName == 'Calendar') {
-                $ics = ICSExport::ics_from_sscal($cal);
+                $helper = new ICSExportHelper();
+                $ics = $helper->processCalendar($cal);
                 $calName = $cal->Title;
             }
             return $this->output($ics, $calName);
@@ -114,7 +116,6 @@ class ICSExport_Controller extends Controller
         foreach ($calendars as $cal) {
             $events->merge($cal->Events());
         }
-
 
         $eventsArr = $events->toNestedArray();
 
@@ -149,11 +150,7 @@ class ICSExport_Controller extends Controller
                 )
             );
 
-
         $eventsArr = $events->toNestedArray();
-
-        //Debug::dump($eventsArr);
-        //return false;
 
         $ics = new ICSExport($eventsArr);
         return $this->output($ics, strtolower($member->FirstName));
