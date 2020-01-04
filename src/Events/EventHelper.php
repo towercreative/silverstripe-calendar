@@ -134,12 +134,6 @@ class EventHelper
             return null;
         }
 
-        error_log('START TIME: ' . $startTime);
-        error_log('END TIME: ' . $endTime);
-        error_log($startDBDateTime->value);
-        error_log($endDBDateTime->value);
-
-
         if ($endTime) {
             //time frame is only applicable if both start and end time is on the same day
             if (date('Y-m-d', $startTime) == date('Y-m-d', $endTime)) {
