@@ -8,3 +8,12 @@ TitleDK\Calendar\PageTypes\CalendarPage:
   eventlist: true
   calendarview: true
   index: eventlist
+
+  controllerUrl: "/fullcalendar/"
+  fullcalendar_js_settings:
+    header:
+      left: ''
+      centre: 'title'
+      right: 'prev,next,today'
+    # add more space for events
+    height: 'auto'
