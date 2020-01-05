@@ -50,7 +50,7 @@ class ICSExport_Controller extends Controller
      */
     public function cal()
     {
-        $call = null;
+        $cal = null;
         $request = $this->getRequest();
 
         $ics = null;

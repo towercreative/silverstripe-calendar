@@ -28,7 +28,6 @@ class ICSExportHelperTest extends SapphireTest
         $this->helper = new ICSExportHelper();
     }
 
-
     public function test_process_calendar()
     {
         $this->logInAs($this->member);
@@ -47,13 +46,9 @@ class ICSExportHelperTest extends SapphireTest
     {
         $this->logInAs($this->member);
         $ics = $this->helper->processCalendar($this->calendar);
-        $file = $this->helper->getFile('test.ics', false);
+       // $file = $this->helper->getFile('test.ics', false);
         $this->markAsRisky();
     }
-
-
-
-
 
     /**
      * @return array

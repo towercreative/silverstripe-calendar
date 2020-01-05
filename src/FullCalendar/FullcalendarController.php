@@ -5,6 +5,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Events\Event;
@@ -45,6 +46,8 @@ class FullcalendarController extends Controller
         //We could add some sanity check herre
         $this->start = $request->getVar('start');
         $this->end = $request->getVar('end');
+
+        // @todo This does not appear to be used
         if ($request->getVar('allDay') == 'true') {
             $this->allDay = true;
         }
@@ -54,14 +57,7 @@ class FullcalendarController extends Controller
             $event = Event::get()
                 ->byID($eventID);
             if ($event && $event->exists()) {
-                if ($event->ClassName == 'PrivateEvent') {
-                    //Only show private events to their owners
-                    if ($event->OwnerID == $member->ID) {
-                        $this->event = $event;
-                    }
-                } else {
-                    $this->event = $event;
-                }
+                $this->event = $event;
             }
         }
     }
@@ -82,7 +78,7 @@ class FullcalendarController extends Controller
 
     /**
      * Calculate start/end date for event list
-     * TODO this should go in a helper class
+     * @todo this should go in a helper class
      *
      * @param string  $type
      * @param integer $timestamp
@@ -172,7 +168,6 @@ class FullcalendarController extends Controller
                 $calendar = $event->Calendar();
 
                 $bgColor = '#999'; //default
-                $textColor = '#FFF'; //default
                 $borderColor = '#555';
 
                 // @todo This is an error in that it enforces use of the color extension.  May as well just have it
@@ -203,6 +198,7 @@ class FullcalendarController extends Controller
             return $result;
         }
     }
+
     /**
      * Shaded events controller
      * Shaded events for the calendar are called once on calendar initialization,
@@ -226,12 +222,15 @@ class FullcalendarController extends Controller
     /**
      * Rendering event in popup
      */
+    // @todo This does not appear to be used
+    /**
     public function eventpopup()
     {
         if ($e = $this->event) {
             return $e->renderWith('EventPopup');
         }
     }
+     * */
 
 
     /**
@@ -261,6 +260,8 @@ class FullcalendarController extends Controller
     /**
      * Format an event to comply with the fullcalendar format
      *
+     * @todo Move to a helper
+     *
      * @param Event $event
      */
     public static function format_event_for_fullcalendar($event)
@@ -286,7 +287,9 @@ class FullcalendarController extends Controller
     /**
      * Format SS_Datime to fullcalendar format
      *
-     * @param SS_Datetime $datetime
+     * @todo Move to a helper
+     *
+     * @param string $datetime
      */
     public static function format_datetime_for_fullcalendar($datetime)
     {

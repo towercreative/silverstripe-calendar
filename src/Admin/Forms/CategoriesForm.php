@@ -1,6 +1,7 @@
 <?php
 namespace TitleDK\Calendar\Admin\Forms;
 
+use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
@@ -19,10 +20,9 @@ class CategoriesForm extends Form
 {
 
     /**
-     * Contructor
-     *
-     * @param type $controller
-     * @param type $name
+     * CategoriesForm constructor.
+     * @param Controller $controller
+     * @param string $name
      */
     public function __construct($controller, $name)
     {
