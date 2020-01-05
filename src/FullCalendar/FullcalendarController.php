@@ -5,6 +5,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Calendars\Calendar;
@@ -128,13 +129,18 @@ class FullcalendarController extends Controller
 */
         $offset = empty($request->getVar('offset')) ? 30 : $request->getVar('offset');
 
+        $filter = array(
+            'StartDateTime:GreaterThan' => $this->eventlistOffsetDate('start', $request->postVar('start'), $offset),
+            'EndDateTime:LessThan' => $this->eventlistOffsetDate('end', $request->postVar('end'), $offset),
+        );
+
+        /*
+         * Array ( [StartDateTime:GreaterThan] => 2019-12-06 [EndDateTime:LessThan] => 2020-02-04 )
+         */
         // start a query for events
         $events = Event::get()
             ->filter(
-                array(
-                'StartDateTime:GreaterThan' => $this->eventlistOffsetDate('start', $request->postVar('start'), $offset),
-                'EndDateTime:LessThan' => $this->eventlistOffsetDate('end', $request->postVar('end'), $offset),
-                )
+                $filter
             );
 
         //If shaded events are enabled we need to filter shaded calendars out
@@ -156,11 +162,23 @@ class FullcalendarController extends Controller
 
 
         if ($calendars) {
-            $calIDList = explode(',', $calendars);
+            // this is icky as the $calendars var can be either a CSV passed in as a parameter or a DataList of calendars
+            // obtained by searching for non shaded events when a calendar parameter is not passed through
+            $calIDList = [];
+            if ($calendars instanceof DataList) {
+                foreach ($calendars as $calendar) {
+                    echo 'Adding ID ' . $calendar->ID;
+                    $calIDList[]= $calendar->ID;
+                }
+            } else {
+                $calIDList = explode(',', $calendars);
+            }
 
+            
             //Debug::dump($calIDList);
             $events = $events->filter('CalendarID', $calIDList);
         }
+
 
         $result = array();
         if ($events->count() > 0) {
@@ -211,7 +229,7 @@ class FullcalendarController extends Controller
         }
         $calendars = $calendars->filter(
             array(
-            'shaded' => true
+            'shaded' => false
             )
         );
 
