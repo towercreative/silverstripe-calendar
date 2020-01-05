@@ -40,10 +40,9 @@ class FullcalendarController extends Controller
         $this->member = Security::getCurrentUser();
 
         $request = $this->getRequest();
-        //echo $request->getVar('test');
 
         //Setting dates based on request variables
-        //We could add some sanity check herre
+        //We could add some sanity check here
         $this->start = $request->getVar('start');
         $this->end = $request->getVar('end');
 
@@ -108,8 +107,6 @@ class FullcalendarController extends Controller
         return $str;
     }
 
-
-
     /**
      * Handles returning the JSON events data for a time range.
      *
@@ -133,34 +130,17 @@ class FullcalendarController extends Controller
             'EndDateTime:LessThan' => $this->eventlistOffsetDate('end', $request->postVar('end'), $offset),
         );
 
-        /*
-         * Array ( [StartDateTime:GreaterThan] => 2019-12-06 [EndDateTime:LessThan] => 2020-02-04 )
-         */
         // start a query for events
         $events = Event::get()
             ->filter(
                 $filter
             );
 
-
+        // filter by calendar ids if they have been provided
         if ($calendars) {
-            // this is icky as the $calendars var can be either a CSV passed in as a parameter or a DataList of calendars
-            // obtained by searching for non shaded events when a calendar parameter is not passed through
-            $calIDList = [];
-            if ($calendars instanceof DataList) {
-                foreach ($calendars as $calendar) {
-                    //echo 'Adding ID ' . $calendar->ID;
-                    $calIDList[]= $calendar->ID;
-                }
-            } else {
-                $calIDList = explode(',', $calendars);
-            }
-
-
-            //Debug::dump($calIDList);
+            $calIDList = explode(',', $calendars);
             $events = $events->filter('CalendarID', $calIDList);
         }
-
 
         $result = array();
         if ($events->count() > 0) {
@@ -198,20 +178,6 @@ class FullcalendarController extends Controller
             return $result;
         }
     }
-
-
-    /**
-     * Rendering event in popup
-     */
-    // @todo This does not appear to be used
-    /**
-    public function eventpopup()
-    {
-        if ($e = $this->event) {
-            return $e->renderWith('EventPopup');
-        }
-    }
-     * */
 
 
     /**
