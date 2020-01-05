@@ -14,13 +14,11 @@ class CalendarAdminTest extends SapphireTest
     {
         $this->admin = new CalendarAdmin();
         $this->admin->modelClass = 'TitleDK\Calendar\Events\Event';
+        $this->admin->init();
+
         return parent::setUp();
     }
 
-    public function testInit()
-    {
-        $this->markTestSkipped('TODO');
-    }
 
     public function testGetModelClass()
     {
@@ -39,10 +37,6 @@ class CalendarAdminTest extends SapphireTest
             $managedModels
         );
     }
-
-
-
-
 
     public function test_get_edit_form_events()
     {
