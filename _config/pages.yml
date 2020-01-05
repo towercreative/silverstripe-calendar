@@ -7,4 +7,4 @@ TitleDK\Calendar\PageTypes\EventPage:
 TitleDK\Calendar\PageTypes\CalendarPage:
   eventlist: true
   calendarview: true
-  index: eventlisting
+  index: eventlist
