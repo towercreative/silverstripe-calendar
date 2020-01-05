@@ -113,7 +113,7 @@ class FullcalendarController extends Controller
      * @param  HTTPRequest $request
      * @return HTTPResponse
      */
-    public function events($request, $json = true)
+    public function events($request)
     {
         /**
  * @var string $calendars comma separated list of calendar IDs to show events for
@@ -170,13 +170,9 @@ class FullcalendarController extends Controller
             }
         }
 
-        if ($json) {
-            $response = new HTTPResponse(json_encode($result));
-            $response->addHeader('Content-Type', 'application/json');
-            return $response;
-        } else {
-            return $result;
-        }
+        $response = new HTTPResponse(json_encode($result));
+        $response->addHeader('Content-Type', 'application/json');
+        return $response;
     }
 
 

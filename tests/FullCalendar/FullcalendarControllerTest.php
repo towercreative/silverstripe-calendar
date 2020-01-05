@@ -11,24 +11,6 @@ class FullcalendarControllerTest extends FunctionalTest
 {
     protected static $fixture_file = ['tests/events.yml'];
 
-
-    // fullcalendar//$Action/$ID/$OtherID
-    public function test_init()
-    {
-
-        $this->markTestSkipped('TODO');
-    }
-
-    public function testEventlistOffsetDate()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
-    public function testOffset_date()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
     /**
      * Test events over a date range.  This is the call made by the JavaScript calendar code
      */
@@ -89,9 +71,7 @@ class FullcalendarControllerTest extends FunctionalTest
         $page = $this->post('/fullcalendar/events/?calendars=1&eventID=1', $params);
         $this->assertEquals(200, $page->getStatusCode());
         $this->assertEquals('application/json', $page->getHeader('Content-Type'));
-
     }
-
 
     public function test_offset_date_null_timestring()
     {
@@ -101,13 +81,6 @@ class FullcalendarControllerTest extends FunctionalTest
         // @tired, need to revisit
         $this->markAsRisky();
     }
-
-
-        public function testShadedevents()
-    {
-        $this->markTestSkipped('TODO');
-    }
-
 
     public function test_handle_json_response()
     {
