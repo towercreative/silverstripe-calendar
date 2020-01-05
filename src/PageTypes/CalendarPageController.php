@@ -149,9 +149,11 @@ class CalendarPageController extends \PageController
             $url = CalendarHelper::add_preview_params($this->Link(), $this->data());
 
             // @todo SS4 config
-            $fullcalendarjs = $s['calendarpage']['fullcalendar_js_settings'];
+            $fullcalendarjs = Config::inst()->get(CalendarPage::class, 'fullcalendar_js_settings');
+            $fullcalendarjs = json_encode($fullcalendarjs);
 
-            $controllerUrl = CalendarHelper::add_preview_params($s['calendarpage']['controllerUrl'], $this->data());
+            $configuredURL = Config::inst()->get(CalendarPage::class, 'controllerUrl');
+            $controllerUrl = CalendarHelper::add_preview_params($configuredURL, $this->data());
 
             //shaded events
             $shadedEvents = 'false';
@@ -168,10 +170,8 @@ class CalendarPageController extends \PageController
 					$(function () {
 						//Initializing fullcalendar
 						var cal = new PublicFullcalendarView($('#calendar'), '$url', {
-							controllerUrl: '$controllerUrl',
-							fullcalendar: {
-								$fullcalendarjs
-							},
+							controllerUrl: \"$controllerUrl\",
+							fullcalendar:$fullcalendarjs,
 							shadedevents: $shadedEvents,
 							calendars: \"{$calendarIDs}\"
 						});
