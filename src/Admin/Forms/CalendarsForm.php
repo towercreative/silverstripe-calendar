@@ -38,13 +38,6 @@ class CalendarsForm extends Form // @todo This was CMSForm
             $c = singleton('TitleDK\Calendar\Calendars\Calendar');
             $summaryFields = $c->summaryFields();
 
-            $shading = Config::inst()->get(Calendar::class, 'shading');
-
-            //show shading info in the gridfield
-            if ($shading) {
-                $summaryFields['Shaded'] = 'Shaded';
-            }
-
             $dataColumns->setDisplayFields($summaryFields);
 
             //settings for the case that colors are enabled
@@ -57,16 +50,12 @@ class CalendarsForm extends Form // @todo This was CMSForm
                 );
             }
 
-
-
             $GridFieldCalendars = new GridField(
                 'Calendars',
                 '',
                 Calendar::get(),
                 $gridCalendarConfig
             );
-
-
 
             $fields = new FieldList(
                 $GridFieldCalendars

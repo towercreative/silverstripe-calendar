@@ -29,7 +29,6 @@ class FullcalendarController extends Controller
 
 
     private static $allowed_actions = array(
-        'shadedevents',
         'events',
     );
 
@@ -143,23 +142,6 @@ class FullcalendarController extends Controller
                 $filter
             );
 
-        //If shaded events are enabled we need to filter shaded calendars out
-        //note that this only takes effect when no calendars have been supplied
-        //if calendars are supplied, this needs to be taken care of from that method
-
-        $shading = Config::inst()->get(Calendar::class, 'shading');
-
-        if ($shading) {
-            if (!$calendars) {
-                $calendars = Calendar::get();
-                $calendars = $calendars->filter(
-                    array(
-                    'shaded' => false
-                    )
-                );
-            }
-        }
-
 
         if ($calendars) {
             // this is icky as the $calendars var can be either a CSV passed in as a parameter or a DataList of calendars
@@ -167,14 +149,14 @@ class FullcalendarController extends Controller
             $calIDList = [];
             if ($calendars instanceof DataList) {
                 foreach ($calendars as $calendar) {
-                    echo 'Adding ID ' . $calendar->ID;
+                    //echo 'Adding ID ' . $calendar->ID;
                     $calIDList[]= $calendar->ID;
                 }
             } else {
                 $calIDList = explode(',', $calendars);
             }
 
-            
+
             //Debug::dump($calIDList);
             $events = $events->filter('CalendarID', $calIDList);
         }
@@ -215,25 +197,6 @@ class FullcalendarController extends Controller
         } else {
             return $result;
         }
-    }
-
-    /**
-     * Shaded events controller
-     * Shaded events for the calendar are called once on calendar initialization,
-     * hence the offset of 3000 days
-     */
-    public function shadedevents($request, $json = true, $calendars = null, $offset = 3000)
-    {
-        if (!$calendars) {
-            $calendars = Calendar::get();
-        }
-        $calendars = $calendars->filter(
-            array(
-            'shaded' => false
-            )
-        );
-
-        return $this->events($request, $json, $calendars, $offset);
     }
 
 

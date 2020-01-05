@@ -3,6 +3,5 @@ Name: silverstripe-calendar-calendars
 ---
 TitleDK\Calendar\Calendars\Calendar:
   colors: true
-  # @todo This seems an odd setting
+  # @todo This seems an odd setting, but is most likely historical
   enabled: true
-  shading: false

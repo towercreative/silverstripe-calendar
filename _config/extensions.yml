@@ -16,9 +16,6 @@ TitleDK\Calendar\Events\Event:
 
     - TitleDK\Calendar\Calendars\EventCalendarExtension
 
-      # @todo What is this?
-    - TitleDK\Calendar\Calendars\ShadedCalendarExtension
-
       # Enable this if you wish events to have optional categories
     - TitleDK\Calendar\Categories\EventCategoryExtension
 

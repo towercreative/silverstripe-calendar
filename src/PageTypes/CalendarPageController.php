@@ -155,12 +155,6 @@ class CalendarPageController extends \PageController
             $configuredURL = Config::inst()->get(CalendarPage::class, 'controllerUrl');
             $controllerUrl = CalendarHelper::add_preview_params($configuredURL, $this->data());
 
-            //shaded events
-            $shadedEvents = 'false';
-            if (Config::inst()->get(Calendar::class, 'shading')) {
-                $shadedEvents = 'true';
-            }
-
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars(), true);
 
             //Calendar initialization (and possibility for later configuration options)
@@ -172,7 +166,7 @@ class CalendarPageController extends \PageController
 						var cal = new PublicFullcalendarView($('#calendar'), '$url', {
 							controllerUrl: \"$controllerUrl\",
 							fullcalendar:$fullcalendarjs,
-							shadedevents: $shadedEvents,
+							shadedevents: false,
 							calendars: \"{$calendarIDs}\"
 						});
 					});
