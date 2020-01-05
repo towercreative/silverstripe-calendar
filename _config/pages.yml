@@ -12,8 +12,8 @@ TitleDK\Calendar\PageTypes\CalendarPage:
   controllerUrl: "/fullcalendar/"
   fullcalendar_js_settings:
     header:
-      left: 'title'
-      centre: ''
+      left: ''
+      center: 'title'
       right: 'prev,next,today'
     # add more space for events
     height: 'auto'
