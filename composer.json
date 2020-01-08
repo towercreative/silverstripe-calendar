@@ -26,7 +26,7 @@
         "nesbot/carbon": "^1",
         "silverstripe/tagfield": "^2",
         "weboftalent/gridrows": "^2",
-        "silverstripe/recipe-cms": "4@dev",
+        "silverstripe/recipe-cms": "^4",
         "unclecheese/display-logic": "^2.0",
         "suilven/sluggable": "^1.0",
         "jsvrcek/ics": "^0.6.0",
