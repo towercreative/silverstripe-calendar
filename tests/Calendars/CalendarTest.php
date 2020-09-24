@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tests\Calendars;
 
@@ -10,15 +10,15 @@ class CalendarTest extends SapphireTest
 {
     protected static $fixture_file = ['tests/events.yml'];
 
-    /** @var Calendar */
+    /** @var \TitleDK\Calendar\Calendars\Calendar */
     private $calendar;
 
-    /** @var Member */
+    /** @var \SilverStripe\Security\Member */
     private $member;
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -27,42 +27,44 @@ class CalendarTest extends SapphireTest
         $this->logInAs($this->member);
     }
 
-    public function test_get_cms_fields()
+
+    public function test_get_cms_fields(): void
     {
         // this will contain the root tab
         $fields = $this->calendar->getCMSFields();
 
-        /** @var TabSet $rootTab */
+        /** @var \TitleDK\Calendar\Tests\Calendars\TabSet $rootTab */
         $rootTab = $fields->fieldByName('Root');
 
-        /** @var Tab $mainTab */
+        /** @var \TitleDK\Calendar\Tests\Calendars\Tab $mainTab */
         $mainTab = $rootTab->fieldByName('Main');
         $fields = $mainTab->FieldList()->toArray();
 
-        $titles = array_map(function($field) {
-            return $field->Name;
-        }, $fields);
+        $titles = \array_map(static fn ($field) => $field->Name, $fields);
 
         $this->assertEquals(['Slug', 'Title', 'Color', 'Groups'], $titles);
     }
 
 
-    public function testCanView()
+    public function testCanView(): void
     {
         $this->assertTrue($this->calendar->canView());
     }
 
-    public function testCanCreate()
+
+    public function testCanCreate(): void
     {
         $this->assertFalse($this->calendar->canCreate());
     }
 
-    public function testCanEdit()
+
+    public function testCanEdit(): void
     {
         $this->assertFalse($this->calendar->canEdit());
     }
 
-    public function testCanDelete()
+
+    public function testCanDelete(): void
     {
         $this->assertFalse($this->calendar->canDelete());
     }

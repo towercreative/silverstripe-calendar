@@ -1,35 +1,35 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tests\Registrations;
 
 use Faker\Factory;
 use SilverStripe\Dev\SapphireTest;
-use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Registrations\EventRegistration;
 
 class EventRegistrationTest extends SapphireTest
 {
     protected static $fixture_file = 'tests/registered-events.yml';
 
-    /** @var Event */
+    /** @var \TitleDK\Calendar\Events\Event */
     private $conference;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
+
         $this->conference = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'conference');
     }
 
-    public function testGetFrontEndFields()
+
+    public function testGetFrontEndFields(): void
     {
         $fields = $this->conference->getFrontEndFields()->toArray();
-        $names = array_map(function ($field) {
-            return $field->Name;
-        }, $fields);
+        $names = \array_map(static fn ($field) => $field->Name, $fields);
         $this->assertEquals(['Title', 'AllDay', 'StartDateTime', 'TimeFrameHeader', 'TimeFrameType', 'Clear', 'CalendarID'], $names);
     }
 
-    public function test_get_registration_code()
+
+    public function test_get_registration_code(): void
     {
        // $this->generateFixtures();
         $registration = $this->objFromFixture(EventRegistration::class, 'registration10');
@@ -37,17 +37,18 @@ class EventRegistrationTest extends SapphireTest
         $this->assertEquals('EXAMPLE-CONFERENCE-1-00' . $id, $registration->getRegistrationCode());
     }
 
-    private function generateFixtures()
+
+    private function generateFixtures(): void
     {
         $attendees = '';
-        /** @var Factory $faker */
+        /** @var \Faker\Factory $faker */
         $faker = Factory::create();
         for ($i=1; $i<=100; $i++) {
             $firstName = $faker->firstNameMale;
             $lastName = $faker->lastName;
             $email = $faker->email;
-            $parts = explode('@', $email);
-            $email = strtolower($firstName . '.' . $lastName . '@' . $parts[1]);
+            $parts = \explode('@', $email);
+            $email = \strtolower($firstName . '.' . $lastName . '@' . $parts[1]);
             $company = $faker->company;
             $phone = $faker->phoneNumber;
             $template = "
@@ -68,8 +69,8 @@ class EventRegistrationTest extends SapphireTest
             $firstName = $faker->firstNameMale;
             $lastName = $faker->lastName;
             $email = $faker->email;
-            $parts = explode('@', $email);
-            $email = strtolower($firstName . '.' . $lastName . '@' . $parts[1]);
+            $parts = \explode('@', $email);
+            $email = \strtolower($firstName . '.' . $lastName . '@' . $parts[1]);
             $company = $faker->company;
 
             $template = "  registration{$i}:

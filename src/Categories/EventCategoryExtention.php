@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Categories;
 
 use SilverStripe\Forms\CheckboxSetField;
@@ -11,28 +12,25 @@ use SilverStripe\ORM\DataExtension;
  * @package calendar
  * @subpackage categories
  * @property \TitleDK\Calendar\Events\Event|\TitleDK\Calendar\Categories\EventCategoryExtension $owner
- * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Categories\EventCategory[] Categories()
+ * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Categories\EventCategory> Categories()
  */
 class EventCategoryExtension extends DataExtension
 {
 
     private static $belongs_many_many = [
-        'Categories' => EventCategory::class
+        'Categories' => EventCategory::class,
     ];
 
 
-    public function updateCMSFields(FieldList $fields)
+    public function updateCMSFields(FieldList $fields): void
     {
-        $categories = function () {
-            //TODO: This should only be the case for public events
-            return PublicEventCategory::get()->map()->toArray();
-        };
+        $categories = static fn () => PublicEventCategory::get()->map()->toArray();
         $categoriesField = CheckboxSetField::create('Categories', 'Categories')
             ->setSource($categories());
 
         //If the quickaddnew module is installed, use it to allow
         //for easy adding of categories
-        if (class_exists('QuickAddNewExtension')) {
+        if (\class_exists('QuickAddNewExtension')) {
             $categoriesField->useAddNew('PublicEventCategory', $categories);
         }
 

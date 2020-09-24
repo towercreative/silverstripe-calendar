@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\PageTypes;
 
 use Carbon\Carbon;
@@ -15,7 +16,7 @@ use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
  *
  * @package calendar
  * @subpackage pagetypes
- * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Events\Event[] Events()
+ * @method \SilverStripe\ORM\DataList|array<\TitleDK\Calendar\Events\Event> Events()
  */
 class EventPage extends \Page
 {
@@ -25,35 +26,36 @@ class EventPage extends \Page
         'shopping, events etc.';
 
     private static $has_many = array(
-        'Events' => 'TitleDK\Calendar\Events\Event',
-    );
+        'Events' => 'TitleDK\Calendar\Events\Event';
+    private );
 
     public function ComingEvents()
     {
         $timestamp = Carbon::now()->timestamp;
+
         //Coming events
-        $comingEvents = $this->Events()
+        return $this->Events()
             ->filter(
                 array(
-                    'StartDateTime:GreaterThan' => date('Y-m-d', $timestamp - 24*60*60)
-                )
+                    'StartDateTime:GreaterThan' => \date('Y-m-d', $timestamp - 24*60*60)
+                ),
             );
-        return $comingEvents;
     }
+
 
     public function PastEvents()
     {
         $timestamp = Carbon::now()->timestamp;
 
         //Past events
-        $pastEvents = $this->Events()
+        return $this->Events()
             ->filter(
                 array(
-                    'StartDateTime:LessThan' => date('Y-m-d', $timestamp)
-                )
+                    'StartDateTime:LessThan' => \date('Y-m-d', $timestamp)
+                ),
             );
-        return $pastEvents;
     }
+
 
     public function getCMSFields()
     {
@@ -61,7 +63,7 @@ class EventPage extends \Page
 
         $gridEventConfig = GridFieldConfig_RecordEditor::create();
         $gridEventConfig->removeComponentsByType(GridFieldDetailForm::class);
-        $gridEventConfig->addComponent(new   CalendarEventGridFieldDetailForm());
+        $gridEventConfig->addComponent(new CalendarEventGridFieldDetailForm());
 
         //Coming events
         $comingEvents = $this->ComingEvents();
@@ -70,13 +72,13 @@ class EventPage extends \Page
             'ComingEvents',
             '',
             $comingEvents,
-            $gridEventConfig
+            $gridEventConfig,
         );
         $GridFieldComing->setModelClass('TitleDK\Calendar\Events\Event');
 
         $fields->addFieldToTab(
             'Root.ComingEvents',
-            $GridFieldComing
+            $GridFieldComing,
         );
 
         //Past events
@@ -85,26 +87,23 @@ class EventPage extends \Page
             'PastEvents',
             '',
             $pastEvents,
-            $gridEventConfig
+            $gridEventConfig,
         );
         $GridFieldPast->setModelClass('TitleDK\Calendar\Events\Event');
 
         $fields->addFieldToTab(
             'Root.PastEvents',
-            $GridFieldPast
+            $GridFieldPast,
         );
 
         return $fields;
     }
 
 
-
     /**
      * Title shown in the calendar administration
-     *
-     * @return string
      */
-    public function getCalendarTitle()
+    public function getCalendarTitle(): string
     {
         return $this->Title;
     }

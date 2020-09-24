@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Calendars;
 
 use SilverStripe\ORM\DataExtension;
@@ -10,7 +11,7 @@ use SilverStripe\ORM\DataExtension;
  * @package calendar
  * @subpackage calendars
  * @property \TitleDK\Calendar\Calendars\GroupsCalendarExtension $owner
- * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Calendars\Calendar[] Calendar()
+ * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Calendars\Calendar> Calendar()
  */
 class GroupsCalendarExtension extends DataExtension
 {

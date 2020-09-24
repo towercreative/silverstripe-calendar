@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\PageTypes;
 
 use SilverStripe\Control\Controller;
@@ -24,45 +25,46 @@ use TitleDK\Calendar\Tags\EventTag;
  */
 class CalendarPageController extends \PageController
 {
+
     use DateTimeHelperTrait;
 
-    private static $allowed_actions = array(
-        'past', // displaying past events
-        'from', // displaying events from a specific date
-        'detail', // details of a specific event
-        'register', // event registration (only active if "registrations" is activated)
-        'calendarview', // calendar view (only active if enabled under "pagetypes")
-        'eventlist',
-        'eventregistration',
-        'search',
-        'calendar',
-        'registered',
-        'noregistrations',
-        'tag',
-
-        // event listings contextual to current time
-        'recent',
-        'upcoming'
-    );
-
-    /** @var CalendarPageHelper */
+    /** @var \TitleDK\Calendar\Helpers\CalendarPageHelper */
     private $calendarPageHelper;
+
+    private static $allowed_actions = array(
+        'past';
+    private 'from';
+    private 'detail';
+    private 'register';
+    private 'calendarview';
+    private 'eventlist';
+    private 'eventregistration';
+    private 'search';
+    private 'calendar';
+    private 'registered';
+    private 'noregistrations';
+    private 'tag';
+    private 'recent';
+    private 'upcoming'
+    );
 
     private static $url_handlers = [
         '' => 'upcoming',
-        'recent' => 'recent'
+        'recent' => 'recent',
     ];
 
 
-    public function init()
+    public function init(): void
     {
         parent::init();
+
         Requirements::javascript('//code.jquery.com/jquery-3.3.1.min.js');
         Requirements::javascript('titledk/silverstripe-calendar:javascript/pagetypes/CalendarPage.js');
         Requirements::css('titledk/silverstripe-calendar:css/pagetypes/CalendarPage.css');
         Requirements::css('titledk/silverstripe-calendar:css/modules.css');
         $this->calendarPageHelper = new CalendarPageHelper();
     }
+
 
     /**
      * Coming events
@@ -73,18 +75,21 @@ class CalendarPageController extends \PageController
 
         // @todo config
         $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
-        if ($indexSetting == 'eventlist') {
-
+        if ($indexSetting === 'eventlist') {
             // @todo What should be here?
-            $events = $this->Events(); // already paged
+            // already paged
+            $events = $this->Events();
 
             return [
-                'Events' => $events
+                'Events' => $events,
             ];
-        } elseif ($indexSetting == 'calendarview') {
+        }
+
+        if ($indexSetting === 'calendarview') {
             return $this->calendarview()->renderWith(['CalendarPage_calendarview', 'Page']);
         }
     }
+
 
     /**
      * Show upcoming events
@@ -94,20 +99,20 @@ class CalendarPageController extends \PageController
         $events = $this->UpComingEvents() ;
 
         return [
-            'Events' => new PaginatedList($events, $this->getRequest())
+            'Events' => new PaginatedList($events, $this->getRequest()),
         ];
     }
 
+
     /**
      * Show recent events
-     *
      */
     public function recent()
     {
         $events = $this->RecentEvents();
 
         return [
-            'Events' => new PaginatedList($events, $this->getRequest())
+            'Events' => new PaginatedList($events, $this->getRequest()),
         ];
     }
 
@@ -143,14 +148,14 @@ class CalendarPageController extends \PageController
             Requirements::javascript('titledk/silverstripe-calendar:thirdparty/xdate/xdate.js');
 
             Requirements::javascript(
-                'titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js'
+                'titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js',
             );
 
             $url = CalendarHelper::add_preview_params($this->Link(), $this->data());
 
             // @todo SS4 config
             $fullcalendarjs = Config::inst()->get(CalendarPage::class, 'fullcalendar_js_settings');
-            $fullcalendarjs = json_encode($fullcalendarjs);
+            $fullcalendarjs = \json_encode($fullcalendarjs);
 
             $configuredURL = Config::inst()->get(CalendarPage::class, 'controllerUrl');
             $controllerUrl = CalendarHelper::add_preview_params($configuredURL, $this->data());
@@ -171,13 +176,13 @@ class CalendarPageController extends \PageController
 						});
 					});
 				})(jQuery);
-			"
+			",
             );
 
             return $this;
-        } else {
-            return $this->httpError(404);
         }
+
+        return $this->httpError(404);
     }
 
 
@@ -186,7 +191,7 @@ class CalendarPageController extends \PageController
      *
      * @return array
      */
-    public function detail()
+    public function detail(): array
     {
         $session = $this->getRequest()->getSession();
 
@@ -204,10 +209,11 @@ class CalendarPageController extends \PageController
         if (!$event) {
             return $this->httpError(404);
         }
+
         return [
-            'Event'    => $event,
+            'Event' => $event,
             'SuccessfullyRegistered' => $successfullyRegistered,
-            'EventRegistration' => $registration
+            'EventRegistration' => $registration,
         ];
     }
 
@@ -217,7 +223,7 @@ class CalendarPageController extends \PageController
      *
      * @return array
      */
-    public function tag()
+    public function tag(): array
     {
         $req = $this->getRequest();
         $tagName = $req->param('ID');
@@ -228,72 +234,180 @@ class CalendarPageController extends \PageController
 
         return [
             'Events' => $pagedEvents,
-            'TagTitle' => $tag->Title
+            'TagTitle' => $tag->Title,
         ];
     }
+
 
     /**
      * Event registration
      *
      * @return array
      */
-    public function register()
+    public function register(): array
     {
-        if (Config::inst()->get(EventRegistration::class, 'enabled')) {
-            return $this->detail();
-        } else {
-            return $this->httpError(404);
-        }
+        return Config::inst()->get(EventRegistration::class, 'enabled')
+            ? $this->detail()
+            : $this->httpError(404);
     }
+
 
     /**
      * Returns true if registrations enabled
      *
      * @return bool are registrations enabled
      */
-    public function RegistrationsEnabled()
+    public function RegistrationsEnabled(): bool
     {
         return (bool) $this->config()->get('registrations_enabled');
-
     }
 
-    /**
-     * @return bool template method to decide whether to render the search box or not
-     */
-    public function SearchEnabled()
+
+    /** @return bool template method to decide whether to render the search box or not */
+    public function SearchEnabled(): bool
     {
         return (bool) $this->config()->get('search_enabled');
     }
 
+
     /**
-     * Paginated event list for "eventlist" mode.  This will only show events for the current calendar page calendars,
+     * Paginated event list for "eventlist" mode. This will only show events for the current calendar page calendars,
      * and will also take account of calendars restricted by Group
      *
      * @param $paged true to paginate the list
-     *
-     * @return PaginatedList
      */
-    public function Events()
+    public function Events(): PaginatedList
     {
         $action = $this->request->param('Action');
 
         //Normal & Registerable events
         $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
-        if ($action == 'eventregistration'
-            || $action == 'eventlist'
-            || ($action == '' && $indexSetting == 'eventlist')
+        if ($action === 'eventregistration'
+            || $action === 'eventlist'
+            || ($action === '' && $indexSetting === 'eventlist')
 
         ) {
             $events = $this->getRegisterableEvents($action);
-            return  new PaginatedList($events, $this->getRequest());
-        }
 
-        //Search
-        if ($action == 'search') {
-            $events = $this->performSearch();
             return new PaginatedList($events, $this->getRequest());
         }
 
+        //Search
+        if ($action === 'search') {
+            $events = $this->performSearch();
+
+            return new PaginatedList($events, $this->getRequest());
+        }
+    }
+
+
+    /**
+     * Renders the current calendar, if a calenar link has been supplied via the url. It is used in CalendarDetails.ss
+     */
+    public function CurrentCalendar()
+    {
+        $url = Convert::raw2url($this->request->param('ID'));
+
+        return Calendar::get()
+            ->filter('Slug', $url)
+            ->First();
+    }
+
+
+    public function EventPageTitle()
+    {
+        $action = $this->getRequest()->param('Action');
+
+        // @todo Do this smarter
+        if (isset($_GET['month'])) {
+            return $this->calendarPageHelper->currentContextualMonthStr();
+        }
+
+        if ($action === 'upcoming') {
+            return 'Upcoming';
+        }
+
+        return 'Recent';
+    }
+
+
+    // ---- link generators for templates ----
+    public function NextMonthLink()
+    {
+        $month = $this->calendarPageHelper->nextContextualMonth();
+        $url = $this->Link($this->request->param('Action'));
+        $url = HTTP::setGetVar('month', $month, $url);
+
+        return CalendarHelper::add_preview_params($url, $this->data());
+    }
+
+
+    public function PrevMonthLink()
+    {
+        $month = $this->calendarPageHelper->previousContextualMonth();
+        $url = $this->Link($this->request->param('Action'));
+        $url = HTTP::setGetVar('month', $month, $url);
+
+        return CalendarHelper::add_preview_params($url, $this->data());
+    }
+
+
+    public function EventListLink()
+    {
+        $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
+        if ($indexSetting === 'eventlist') {
+            return CalendarHelper::add_preview_params($this->Link(), $this->data());
+        }
+
+        if ($indexSetting === 'calendarview') {
+            return CalendarHelper::add_preview_params($this->Link('eventlist'), $this->data());
+        }
+    }
+
+
+    public function CalendarViewLink()
+    {
+        $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
+        if ($indexSetting === 'eventlist') {
+            return CalendarHelper::add_preview_params($this->Link('calendarview'), $this->data());
+        }
+
+        if ($indexSetting === 'calendarview') {
+            return CalendarHelper::add_preview_params($this->Link(), $this->data());
+        }
+    }
+
+
+    public function FeedLink($calendarID)
+    {
+        $calendar = Calendar::get()->byID(\intval($calendarID));
+        $url = Controller::join_links($this->Link(), 'calendar', ($calendar) ? $calendar->Link : '');
+
+        return CalendarHelper::add_preview_params($url, $this->data());
+    }
+
+
+    /**
+     * @return string The search query string entered by the user, or 'Search events'. This is used in 2 templates,
+     * EventSearch.ss and CalendarPageMenu.ss
+     */
+    public function SearchQuery(): string
+    {
+        // @todo SQL injection risk here I suspect
+        if (isset($_GET['q'])) {
+            return $_GET['q'];
+        }
+
+        return 'Search events';
+    }
+
+
+    /**
+     * This is used in CalendarKeys.ss
+     */
+    public function AllCalendars(): \SilverStripe\ORM\DataList
+    {
+        return Calendar::get();
     }
 
 
@@ -304,10 +418,11 @@ class CalendarPageController extends \PageController
         // This method takes a csv of IDs, not an array.
         $events = CalendarHelper::events_for_month($this->calendarPageHelper->currentContextualMonth(), $calendarIDs);
 
-        if ($action == 'eventregistration') {
+        if ($action === 'eventregistration') {
             $events = $events
                 ->filter('Registerable', 1);
         }
+
         return $events;
     }
 
@@ -315,6 +430,7 @@ class CalendarPageController extends \PageController
     private function performSearch()
     {
         $query = $this->SearchQuery();
+
         return $this->calendarPageHelper->performSearch($query);
     }
 
@@ -323,116 +439,16 @@ class CalendarPageController extends \PageController
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
         $events = $this->calendarPageHelper->recentEvents($calendarIDs);
-        return  new PaginatedList($events, $this->getRequest());
+
+        return new PaginatedList($events, $this->getRequest());
     }
+
 
     private function UpComingEvents()
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
         $events = $this->calendarPageHelper->upcomingEvents($calendarIDs);
-        return  new PaginatedList($events, $this->getRequest());
-    }
 
-    /**
-     * Renders the current calendar, if a calenar link has been supplied via the url.  It is used in CalendarDetails.ss
-     */
-    public function CurrentCalendar()
-    {
-        $url = Convert::raw2url($this->request->param('ID'));
-
-        $cal = Calendar::get()
-            ->filter('Slug', $url)
-            ->First();
-        return $cal;
-    }
-
-    public function EventPageTitle()
-    {
-        $action = $this->getRequest()->param('Action');
-
-        // @todo Do this smarter
-        if (isset($_GET['month'])) {
-            return $this->calendarPageHelper->currentContextualMonthStr();
-        } elseif ($action == 'upcoming') {
-            return 'Upcoming';
-        } else {
-            return 'Recent';
-        }
-    }
-
-
-    // ---- link generators for templates ----
-    public function NextMonthLink()
-    {
-        $month = $this->calendarPageHelper->nextContextualMonth();
-        $url = $this->Link($this->request->param('Action'));
-        $url = HTTP::setGetVar('month', $month, $url);
-        return CalendarHelper::add_preview_params($url, $this->data());
-    }
-
-    public function PrevMonthLink()
-    {
-        $month = $this->calendarPageHelper->previousContextualMonth();
-        $url = $this->Link($this->request->param('Action'));
-        $url = HTTP::setGetVar('month', $month, $url);
-        return CalendarHelper::add_preview_params($url, $this->data());
-    }
-
-
-    public function EventListLink()
-    {
-        $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
-        if ($indexSetting == 'eventlist') {
-            return CalendarHelper::add_preview_params($this->Link(), $this->data());
-        } elseif ($indexSetting == 'calendarview') {
-            return CalendarHelper::add_preview_params($this->Link('eventlist'), $this->data());
-        }
-    }
-
-
-    public function CalendarViewLink()
-    {
-        $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
-        if ($indexSetting == 'eventlist') {
-            return CalendarHelper::add_preview_params($this->Link('calendarview'), $this->data());
-        } elseif ($indexSetting == 'calendarview') {
-            return CalendarHelper::add_preview_params($this->Link(), $this->data());
-        }
-    }
-
-
-    public function FeedLink($calendarID)
-    {
-        $calendar = Calendar::get()->byID(intval($calendarID));
-        $url = Controller::join_links($this->Link(), 'calendar', ($calendar) ? $calendar->Link : '');
-        return CalendarHelper::add_preview_params($url, $this->data());
-    }
-
-
-    /**
-     * @return string The search query string entered by the user, or 'Search events'.  This is used in 2 templates,
-     * EventSearch.ss and CalendarPageMenu.ss
-     */
-    public function SearchQuery()
-    {
-        // @todo SQL injection risk here I suspect
-        if (isset($_GET['q'])) {
-            $q = $_GET['q'];
-            return $q;
-        } else {
-            return 'Search events';
-        }
-    }
-
-
-    /**
-     * This is used in CalendarKeys.ss
-     *
-     * @return \SilverStripe\ORM\DataList
-     */
-    public function AllCalendars()
-    {
-        $calendars = Calendar::get();
-        return $calendars;
+        return new PaginatedList($events, $this->getRequest());
     }
 }

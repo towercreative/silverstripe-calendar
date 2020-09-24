@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tags;
 
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\View\Parsers\URLSegmentFilter;
 use TitleDK\Calendar\Events\Event;
 
 /**
@@ -12,7 +11,7 @@ use TitleDK\Calendar\Events\Event;
  *
  * @property string $Title
  * @property string $Slug
- * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Events\Event[] Events()
+ * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Events\Event> Events()
  */
 class EventTag extends DataObject
 {
@@ -34,11 +33,9 @@ class EventTag extends DataObject
      */
     private static $table_name = 'EventTag';
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private static $db = [
-        'Title'      => 'Varchar(255)'
+        'Title' => 'Varchar(255)',
     ];
 
     /**
@@ -49,11 +46,9 @@ class EventTag extends DataObject
     ];
      */
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private static $many_many = [
-        'Events' => Event::class
+        'Events' => Event::class,
     ];
 
     /**
@@ -66,28 +61,28 @@ class EventTag extends DataObject
         return 'tag';
     }
 
+
     /**
      * {@inheritdoc}
      */
     protected function getDuplicateError()
     {
-        return _t(__CLASS__ . '.Duplicate', 'A blog tag already exists with that name.');
+        return \_t(self::class . '.Duplicate', 'A blog tag already exists with that name.');
     }
 
 
     /**
      * Looks for objects o the same type and the same value by the given Field
      *
-     * @param  string $field E.g. URLSegment or Title
-     * @return DataList
+     * @param string $field E.g. URLSegment or Title
      */
-    protected function getDuplicatesByField($field)
+    protected function getDuplicatesByField(string $field): DataList
     {
         $duplicates = DataList::create(self::class)
             ->filter(
                 [
-                    $field   => $this->$field
-                ]
+                    $field => $this->$field,
+                ],
             );
 
         if ($this->ID) {
@@ -96,5 +91,4 @@ class EventTag extends DataObject
 
         return $duplicates;
     }
-
 }

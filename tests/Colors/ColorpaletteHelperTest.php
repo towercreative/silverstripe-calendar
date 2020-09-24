@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tests\Colors;
 
@@ -7,12 +7,13 @@ use TitleDK\Calendar\Colors\ColorpaletteHelper;
 
 class ColorpaletteHelperTest extends SapphireTest
 {
-    public function testRequirements()
+    public function testRequirements(): void
     {
         //$this->markTestSkipped('TODO');
     }
 
-    public function test_palette_dropdown()
+
+    public function test_palette_dropdown(): void
     {
         $dropdown = ColorpaletteHelper::palette_dropdown('Colors');
         $this->assertEquals([
@@ -24,11 +25,12 @@ class ColorpaletteHelperTest extends SapphireTest
             '#006400',
             '#40E0D0',
             '#0000CD',
-            '#800080'
+            '#800080',
         ], $dropdown->getValidValues());
     }
 
-    public function testGet_palette()
+
+    public function testGet_palette(): void
     {
         $this->markTestSkipped('TODO');
     }

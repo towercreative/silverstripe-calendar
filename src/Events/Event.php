@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Events;
 
 use Carbon\Carbon;
@@ -19,7 +20,6 @@ use SilverStripe\Forms\TimeField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\ORM\FieldType\DBDatetime;
-use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\Calendars\Calendar;
@@ -37,21 +37,21 @@ use TitleDK\Calendar\Tags\EventTag;
  *
  * @package calendar
  * @property string $RegistrationEmbargoAt
- * @property boolean $Registerable
+ * @property bool $Registerable
  * @property string $Cost
- * @property boolean $TicketsRequired
+ * @property bool $TicketsRequired
  * @property int $NumberOfAvailableTickets
- * @property boolean $PaymentRequired
+ * @property bool $PaymentRequired
  * @property string $RSVPEmail
  * @property string $LocationName
  * @property string $MapURL
  * @property string $Title
- * @property boolean $AllDay
- * @property boolean $NoEnd
- * @property DBDatetime $StartDateTime
+ * @property bool $AllDay
+ * @property bool $NoEnd
+ * @property \SilverStripe\ORM\FieldType\DBDatetime $StartDateTime
  * @property string $TimeFrameType
  * @property string $Duration
- * @property DBDatetime $EndDateTime
+ * @property \SilverStripe\ORM\FieldType\DBDatetime $EndDateTime
  * @property string $Details
  * @property int $FeaturedImageID
  * @property int $EventPageID
@@ -59,9 +59,9 @@ use TitleDK\Calendar\Tags\EventTag;
  * @method \SilverStripe\Assets\Image FeaturedImage()
  * @method \TitleDK\Calendar\PageTypes\EventPage EventPage()
  * @method \TitleDK\Calendar\Calendars\Calendar Calendar()
- * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Registrations\EventRegistration[] Registrations()
- * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Categories\EventCategory[] Categories()
- * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Tags\EventTag[] Tags()
+ * @method \SilverStripe\ORM\DataList|array<\TitleDK\Calendar\Registrations\EventRegistration> Registrations()
+ * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Categories\EventCategory> Categories()
+ * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Tags\EventTag> Tags()
  * @mixin \TitleDK\Calendar\Events\EventImageExtension
  * @mixin \TitleDK\Calendar\Events\EventLocationExtension
  * @mixin \TitleDK\Calendar\Registrations\EventRegistrationExtension
@@ -70,7 +70,10 @@ use TitleDK\Calendar\Tags\EventTag;
  */
 class Event extends DataObject
 {
+
     use DateTimeHelperTrait;
+
+    protected $hasWritten = false;
 
     private static $table_name = 'Event';
 
@@ -78,10 +81,9 @@ class Event extends DataObject
     private static $singular_name = 'Event';
     private static $plural_name = 'Events';
 
-
     private static $has_one = array(
-        'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage',
-        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
+        'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage';
+    private 'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
     );
 
     private static $belongs_many_many = array(
@@ -89,28 +91,26 @@ class Event extends DataObject
     );
 
     private static $db = array(
-        'Title' => 'Varchar(200)',
-        'AllDay' => DBBoolean::class,
-        //When no end date/time is set, neither directly nor through duration, this should appear as a checkbox
-        //This should only apply when not enforcing end dates
-        //Furthermore, events with no EndDateTime should be treated as if they end on the day that they occur,
-        //with the exception that this is not being displayed
-        'NoEnd' => DBBoolean::class,
-        'StartDateTime' => DBDatetime::class,
-        'TimeFrameType' => "Enum('Duration,DateTime','Duration')", //The type of time frame that has been entered
-        'Duration' => 'Time', //Only applicable for TimeFrameType "Duration"
-        'EndDateTime' => DBDatetime::class, //Only applicable for TimeFrameType "DateTime"
-        'Details' => 'HTMLText',
-    );
+        'Title' => 'Varchar(200)';
+    private 'AllDay' => DBBoolean::class;
+    private 'NoEnd' => DBBoolean::class;
+    private 'StartDateTime' => DBDatetime::class;
+    private 'TimeFrameType' => "Enum('Duration,DateTime','Duration')";
+    private 'Duration' => 'Time';
+    private 'EndDateTime' => DBDatetime::class ;
+    private 'Details' => 'HTMLText';
+    private );
 
     private static $summary_fields = array(
-        'Title' => 'Title',
-        'StartDateTime' => 'Date and Time',
-        'DatesAndTimeframe' => 'Presentation String',
-        'TimeFrameType' => 'Time Frame Type',
-        'Duration' => 'Duration',
-        'Calendar.Title' => 'Calendar'
+        'Title' => 'Title';
+    private 'StartDateTime' => 'Date and Time';
+    private 'DatesAndTimeframe' => 'Presentation String';
+    private 'TimeFrameType' => 'Time Frame Type';
+    private 'Duration' => 'Duration';
+    private 'Calendar.Title' => 'Calendar'
     );
+
+    private static $default_sort = 'StartDateTime';
 
     public function summaryFields()
     {
@@ -118,14 +118,12 @@ class Event extends DataObject
 
         // Add Calendar Title field if calendars are enabled
         $fields['Calendar.Title'] = 'Calendar';
+
         return $fields;
     }
-
-    private static $default_sort = 'StartDateTime';
-
     //Countering problem with onbefore write being called more than once
-    //See http://www.silverstripe.org/data-model-questions/show/6805
-    protected $hasWritten = false;
+//See http://www.silverstripe.org/data-model-questions/show/6805
+
 
 
 
@@ -136,23 +134,21 @@ class Event extends DataObject
     public function getEventPageCalendarTitle()
     {
         $owner = $this->owner;
-        if ($owner->EventPage()->exists()) {
-            return $owner->EventPage()->getCalendarTitle();
-        } else {
-            return '-';
-        }
-    }
 
+        return $owner->EventPage()->exists()
+            ? $owner->EventPage()->getCalendarTitle()
+            : '-';
+    }
 
 
     public function DetailsSummary()
     {
-        $ModifiedContent = implode(' ', array_slice(explode(
+        return \implode(' ', \array_slice(\explode(
             ' ',
-            strip_tags($this->Details, "<a>")
+            \strip_tags($this->Details, "<a>"),
         ), 0, 25));
-        return $ModifiedContent;
     }
+
 
     /**
      * Sanity checks before write
@@ -175,22 +171,22 @@ class Event extends DataObject
         //(i.e. this field has been left blank)
         //This only happens if allday events are enabled
         //NOTE: Currently it seems to me as if there should be no need to disable allday events
-        if ($this->config()->get( 'enable_allday_events')) {
+        if ($this->config()->get('enable_allday_events')) {
             //This only happens on first save to correct for the rare cases that someone might
             //actually want to add an event like this
             if (!$this->ID) {
-                if (date("H:i", strtotime($this->StartDateTime))  == '00:00') {
+                if (\date("H:i", \strtotime($this->StartDateTime)) === '00:00') {
                     $this->AllDay = true;
                 }
             }
         }
 
         //If the timeframetype is duration - set end date based on duration
-        if ($this->TimeFrameType == 'Duration') {
+        if ($this->TimeFrameType === 'Duration') {
             $formatDate = $this->calcEndDateTimeBasedOnDuration();
             //only write the end date if a duration has actually been entered
             //If not, leave the end date blank for now, and it'll be taken care later in this method
-            if ($this->StartDateTime != $formatDate) {
+            if ($this->StartDateTime !== $formatDate) {
                 $this->EndDateTime = $formatDate;
             } else {
                 //setting the end date/time to null, as it has automatically been set via javascript
@@ -209,7 +205,7 @@ class Event extends DataObject
         //set to the same date via the js in the edit form
         if ($this->config()->get('force_end')) {
             if (!$this->EndDateTime) {
-                $this->EndDateTime = date("Y-m-d H:i:s", strtotime($this->StartDateTime) + 3600);
+                $this->EndDateTime = \date("Y-m-d H:i:s", \strtotime($this->StartDateTime) + 3600);
             }
         }
 
@@ -218,7 +214,7 @@ class Event extends DataObject
         //Should only be triggered, if EndDateTime is set
 
         if (isset($this->EndDateTime)) {
-            if (strtotime($this->EndDateTime) < strtotime($this->StartDateTime)) {
+            if (\strtotime($this->EndDateTime) < \strtotime($this->StartDateTime)) {
                 $this->EndDateTime = $this->StartDateTime;
                 $this->AllDay = true;
             }
@@ -240,42 +236,48 @@ class Event extends DataObject
         //4. All day events can't have open ends
         //so if and event both has the allday attribute and the noend attribute,
         //noend is enforced over allday
-        if ($this->AllDay && $this->NoEnd) {
-            $this->AllDay = false;
+        if (!$this->AllDay || !$this->NoEnd) {
+            return;
         }
+
+        $this->AllDay = false;
     }
+
 
     /**
      * Set new start/end dates
      *
-     * @param string  $start Should be SS_Datetime compatible
-     * @param string  $end   Should be SS_Datetime compatible
-     * @param boolean $write If true, write to the db
+     * @param string $start Should be SS_Datetime compatible
+     * @param string $end Should be SS_Datetime compatible
+     * @param bool $write If true, write to the db
      */
-    public function setStartEnd($start, $end, $write = true)
+    public function setStartEnd(string $start, string $end, bool $write = true): void
     {
         $e = $this;
 
         $e->StartDateTime = $start;
         $e->setEnd($end, false);
-        if ($write) {
-            $e->write();
+        if (!$write) {
+            return;
         }
+
+        $e->write();
     }
+
 
     /**
      * Set new end date
      *
-     * @param string  $end   Should be SS_Datetime compatible
-     * @param boolean $write If true, write to the db
+     * @param string $end Should be SS_Datetime compatible
+     * @param bool $write If true, write to the db
      */
-    public function setEnd($end, $write = true)
+    public function setEnd(string $end, bool $write = true): void
     {
         $e = $this;
 
-        if ($e->TimeFrameType == 'DateTime') {
+        if ($e->TimeFrameType === 'DateTime') {
             $e->EndDateTime = $end;
-        } elseif ($e->TimeFrameType == 'Duration') {
+        } elseif ($e->TimeFrameType === 'Duration') {
             $duration = $this->calcDurationBasedOnEndDateTime($end);
             if ($duration) {
                 $e->Duration = $duration;
@@ -286,45 +288,44 @@ class Event extends DataObject
             }
         }
 
-        if ($write) {
-            $e->write();
+        if (!$write) {
+            return;
         }
+
+        $e->write();
     }
 
 
     /**
      * Calculation of end date based on duration
      * Should only be used in OnBeforeWrite
-     *
-     * @return string
      */
-    public function calcEndDateTimeBasedOnDuration()
+    public function calcEndDateTimeBasedOnDuration(): string
     {
         $duration = $this->Duration;
 
-        $secs = (substr($duration, 0, 2) * 3600) +
-            (substr($duration, 3, 2) * 60) +
-            (substr($duration, 6, 2));
+        $secs = (\substr($duration, 0, 2) * 3600) +
+            (\substr($duration, 3, 2) * 60) +
+            (\substr($duration, 6, 2));
 
-        $startDate = strtotime($this->StartDateTime);
+        $startDate = \strtotime($this->StartDateTime);
 
         $endDate = $startDate + $secs;
-        $formatDate = date("Y-m-d H:i:s", $endDate);
 
-        return $formatDate;
+        return \date("Y-m-d H:i:s", $endDate);
     }
+
 
     /**
      * Calculation of duration based on end datetime
      * Returns false if there's more than 24h between start and end date
      *
-     * @param  string $end
      * @return string|false
      */
-    public function calcDurationBasedOnEndDateTime($end)
+    public function calcDurationBasedOnEndDateTime(string $end)
     {
-        $startDate = strtotime($this->StartDateTime);
-        $endDate = strtotime($end);
+        $startDate = \strtotime($this->StartDateTime);
+        $endDate = \strtotime($end);
 
         $duration = $endDate - $startDate;
         $secsInDay = 60 * 60 * 24;
@@ -335,27 +336,24 @@ class Event extends DataObject
 
         //info on this calculation here:
         //http://stackoverflow.com/questions/3856293/how-to-convert-seconds-to-time-format
-        $formatDate = gmdate("H:i", $duration);
-
-        return $formatDate;
+        return \gmdate("H:i", $duration);
     }
+
 
     /**
      * All Day getter
      * Any events that spans more than 24h will be displayed as allday events
      * Beyond that those events marked as all day events will also be displayed as such
-     *
-     * @return boolean|null
      */
-    public function isAllDay()
+    public function isAllDay(): ?bool
     {
         if ($this->AllDay) {
             return true;
         }
 
         $secsInDay = 60 * 60 * 24;
-        $startTime = strtotime($this->StartDateTime);
-        $endTime = strtotime($this->EndDateTime);
+        $startTime = \strtotime($this->StartDateTime);
+        $endTime = \strtotime($this->EndDateTime);
 
         $durationInSeconds = $endTime - $startTime;
         if ($durationInSeconds > $secsInDay) {
@@ -380,14 +378,10 @@ class Event extends DataObject
             $timeFrameHeaderText = 'End Date / Time (optional)';
         }
 
-        /**
-        * @var DatetimeField $startDateTime
-        */
+        /** @var \SilverStripe\Forms\DatetimeField $startDateTime */
         $startDateTime = DatetimeField::create('StartDateTime', 'Start');
 
-        /**
-        * @var DatetimeField $endDateTime
-        */
+        /** @var \SilverStripe\Forms\DatetimeField $endDateTime */
         $endDateTime = DatetimeField::create('EndDateTime', '');
 
         $fields = FieldList::create(
@@ -403,10 +397,10 @@ class Event extends DataObject
                 [
                 "Duration//Duration" => TimeField::create('Duration', '')->setRightTitle('up to 24h')
                     ->setAttribute('placeholder', 'Enter duration'),
-                "DateTime//Date/Time" => $endDateTime = DatetimeField::create('EndDateTime', '')
-                ]
+                "DateTime//Date/Time" => $endDateTime = DatetimeField::create('EndDateTime', ''),
+                ],
             ),
-            LiteralField::create('Clear', '<div class="clear"></div>')
+            LiteralField::create('Clear', '<div class="clear"></div>'),
         );
 
         // @todo API for show calendar has changed
@@ -415,7 +409,8 @@ class Event extends DataObject
             //->setConfig('showcalendar', 1)
             //->setRightTitle('Date')
             ->setAttribute('placeholder', 'Enter date')
-            ->setAttribute('readonly', 'true'); //we only want input through the datepicker
+            //we only want input through the datepicker
+            ->setAttribute('readonly', 'true');
         $startDateTime
             //->getTimeField()
             //->setRightTitle($timeExpl)
@@ -428,7 +423,8 @@ class Event extends DataObject
             //->setConfig('showcalendar', 1)
             //->setRightTitle('Date')
             ->setAttribute('placeholder', 'Enter date')
-            ->setAttribute('readonly', 'true'); //we only want input through the datepicker
+            //we only want input through the datepicker
+            ->setAttribute('readonly', 'true');
         $endDateTime
             //->getTimeField()
             //->setRightTitle($timeExpl)
@@ -436,7 +432,7 @@ class Event extends DataObject
             ->setAttribute('placeholder', 'Enter time');
 
         //removing AllDay checkbox if allday events are disabled
-        if (!$this->config()->get( 'enable_allday_events')) {
+        if (!$this->config()->get('enable_allday_events')) {
             $fields->removeByName('AllDay');
         }
         //removing NoEnd checkbox if end dates are enforced
@@ -451,9 +447,9 @@ class Event extends DataObject
 
 
         $this->extend('updateFrontEndFields', $fields);
+
         return $fields;
     }
-
 
 
     /**
@@ -474,7 +470,7 @@ class Event extends DataObject
         $fields->addFieldToTab(
             'Root.Main',
             $allDay,
-            'TimeFrameHeader'
+            'TimeFrameHeader',
         );
 
         $fields->addFieldToTab('Root.Details', $details = HTMLEditorField::create('Details', ''));
@@ -485,9 +481,9 @@ class Event extends DataObject
             DropdownField::create(
                 'EventPageID',
                 'EventPage',
-                EventPage::get()->sort('Title')->map('ID', 'Title')
+                EventPage::get()->sort('Title')->map('ID', 'Title'),
             )
-                ->setEmptyString('Choose event page...')
+                ->setEmptyString('Choose event page...'),
         );
 
         $fields->addFieldToTab(
@@ -495,16 +491,16 @@ class Event extends DataObject
             DropdownField::create(
                 'CalendarID',
                 'Calendar',
-                Calendar::get()->sort('Title')->map('ID', 'Title')
+                Calendar::get()->sort('Title')->map('ID', 'Title'),
             )
-                ->setEmptyString('Choose calendar...')
+                ->setEmptyString('Choose calendar...'),
         );
 
         $tagField = TagField::create(
             'Tags',
-            _t(__CLASS__ . '.Tags', 'Tags'),
+            \_t(self::class . '.Tags', 'Tags'),
             EventTag::get(),
-            $this->Tags()
+            $this->Tags(),
         )
             ->setCanCreate($this->canCreateTags())
             ->setShouldLazyLoad(true);
@@ -512,17 +508,17 @@ class Event extends DataObject
         $fields->addFieldToTab('Root.Main', $tagField);
 
         $this->extend('updateCMSFields', $fields);
+
         return $fields;
     }
-
 
 
     public function getCMSValidator()
     {
         return new RequiredFields(
             [
-            'Title', 'CalendarID'
-            ]
+            'Title', 'CalendarID',
+            ],
         );
     }
 
@@ -532,32 +528,31 @@ class Event extends DataObject
         return $this->getFrontEndFields();
     }
 
-    /**
-     * @todo unit test
-     */
+
+    /** @todo unit test */
     public function getIsPastEvent()
     {
-        if (strtotime($this->StartDateTime) < mktime(0, 0, 0, date('m'), date('d'), date('Y'))) {
-            return true;
-        } else {
-            return false;
-        }
+        return \strtotime($this->StartDateTime) < \mktime(0, 0, 0, \date('m'), \date('d'), \date('Y'))
+            ? true
+            : false;
     }
+
 
     /**
      * Template rendering
      *
-     * @return Carbon|DatetimeField
+     * @return \Carbon\Carbon|\SilverStripe\Forms\DatetimeField
      */
     public function RegistrationEmbargoDate()
     {
         return $this->getRegistrationEmbargoDate(true);
     }
 
+
     /**
      * Get the registration embargo date
      *
-     * @return Carbon|DatetimeField the embargo time as a carbon date object
+     * @return \Carbon\Carbon|\SilverStripe\Forms\DatetimeField the embargo time as a carbon date object
      */
     public function getRegistrationEmbargoDate($returnAsDateTime = false)
     {
@@ -572,18 +567,19 @@ class Event extends DataObject
         if ($returnAsDateTime) {
             $result = $this->getSSDateTimeFromCarbon($result);
         }
+
         return $result;
     }
+
 
     public function getIsPastRegistrationClosing()
     {
         $expiryDate = $this->getRegistrationEmbargoDate();
-        return  $expiryDate->lte(Carbon::now());
+
+        return $expiryDate->lte(Carbon::now());
     }
 
-    /**
-     *
-     */
+
     public function getFormattedStartDate()
     {
         return EventHelper::formatted_start_date($this->obj('StartDateTime'));
@@ -601,10 +597,12 @@ class Event extends DataObject
         return EventHelper::formatted_dates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
 
+
     public function getFormattedTimeframe()
     {
         return EventHelper::formatted_timeframe($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
+
 
     /**
      * Render this with $StartAndEndDates.RAW
@@ -616,20 +614,16 @@ class Event extends DataObject
         return EventHelper::formatted_alldates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
 
+
     public function getDatesAndTimeframe()
     {
         $dates = $this->getFormattedDates();
         $timeframe = $this->getFormattedTimeframe();
 
-        if ($timeframe) {
-            $str = "$dates @ $timeframe";
-        } else {
-            $str = $dates;
-        }
-
-        return $str;
+        return $timeframe
+            ? "$dates @ $timeframe"
+            : $dates;
     }
-
 
 
     /**
@@ -643,37 +637,35 @@ class Event extends DataObject
         //NOTE: this could be amended by calling that link via AJAX, and thus could be shown as an overlay
         //everywhere on the site
         $calendarPage = CalendarPage::get()->First();
+
         return CalendarHelper::add_preview_params(
             Controller::join_links($calendarPage->Link('detail'), $this->ID),
-            $this
+            $this,
         );
     }
 
+
     /**
-     * Get a link relative to the current calendar page URL.  This is for rendering in calendar page event listings
+     * Get a link relative to the current calendar page URL. This is for rendering in calendar page event listings
      */
     public function getRelativeLink()
     {
         return 'detail/' . $this->ID;
     }
 
+
     /**
      * Anyone can view public events
      *
-     * @param  Member $member
-     * @return boolean
+     * @param \SilverStripe\Security\Member $member
      */
-    public function canView($member = null)
+    public function canView(?Member $member = null): bool
     {
         return true;
     }
 
-    /**
-     *
-     * @param  Member $member
-     * @return boolean
-     */
-    public function canCreate($member = null, $context = [])
+
+    public function canCreate(?Member $member = null, $context = []): bool
     {
         return $this->canManage($member);
     }
@@ -692,41 +684,30 @@ class Event extends DataObject
         return $this->canManage($member);
     }
 
-    /**
-     *
-     * @param  Member $member
-     * @return boolean
-     */
-    public function canEdit($member = null)
+
+    public function canEdit(?Member $member = null): bool
     {
         return $this->canManage($member);
     }
 
-    /**
-     *
-     * @param  Member $member
-     * @return boolean
-     */
-    public function canDelete($member = null)
+
+    public function canDelete(?Member $member = null): bool
     {
         return $this->canManage($member);
     }
 
-    /**
-     *
-     * @param  Member $member
-     * @return boolean
-     */
-    protected function canManage($member)
-    {
-        return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENT_MANAGE', 'any', $member);
-    }
 
-
-    // ---- ticket count related helper method.  Possibly trait these ----
     public function TicketsRemaining()
     {
         $helper = new EventRegistrationTicketsHelper($this);
+
         return $helper->numberOfTicketsRemaining();
     }
+
+
+    protected function canManage(Member $member): bool
+    {
+        return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENT_MANAGE', 'any', $member);
+    }
+    // ---- ticket count related helper method.  Possibly trait these ----
 }

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\DateTime;
 
 use Carbon\Carbon;
@@ -7,24 +8,18 @@ trait DateTimeHelperTrait
 {
     /**
      * @param string $ssDateTimeString time returned from a SilverStripe DateField or DateTimeField
-     *
      * @todo Timezones
-     *
-     * @return Carbon same time, but in Carbon
+     * @return \Carbon\Carbon same time, but in Carbon
      */
-    public function carbonDateTime($ssDateTimeString)
+    public function carbonDateTime(string $ssDateTimeString): Carbon
     {
         //2018-05-21 13:04:00
-        $result = Carbon::createFromFormat('Y-m-d H:i:s', $ssDateTimeString);
-        return $result;
+        return Carbon::createFromFormat('Y-m-d H:i:s', $ssDateTimeString);
     }
 
-    /**
-     * @param Carbon $carbonDate
-     */
-    public function getSSDateTimeFromCarbon($carbonDate)
+
+    public function getSSDateTimeFromCarbon(Carbon $carbonDate)
     {
-        $dateAsString = $carbonDate->format('Y-m-d H:i:s');
-        return $dateAsString;
+        return $carbonDate->format('Y-m-d H:i:s');
     }
 }

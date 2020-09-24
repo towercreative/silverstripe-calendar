@@ -1,14 +1,10 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\FullCalendar;
 
 use SilverStripe\Control\Controller;
-use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
-use SilverStripe\Core\Config\Config;
-use SilverStripe\ORM\DataList;
-use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\Security\Security;
-use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Events\Event;
 
 /**
@@ -27,13 +23,12 @@ class FullcalendarController extends Controller
     protected $allDay = false;
     protected $member = null;
 
-
     private static $allowed_actions = array(
-        'events',
-    );
+        'events';
+    private );
 
 
-    public function init()
+    public function init(): void
     {
         parent::init();
 
@@ -47,18 +42,22 @@ class FullcalendarController extends Controller
         $this->end = $request->getVar('end');
 
         // @todo This does not appear to be used
-        if ($request->getVar('allDay') == 'true') {
+        if ($request->getVar('allDay') === 'true') {
             $this->allDay = true;
         }
 
         //Setting event based on request vars
-        if (($eventID = (int) $request->getVar('eventID')) && ($eventID > 0)) {
-            $event = Event::get()
-                ->byID($eventID);
-            if ($event && $event->exists()) {
-                $this->event = $event;
-            }
+        if ((!$eventID = (int) $request->getVar('eventID')) || ($eventID <= 0)) {
+            return;
         }
+
+        $event = Event::get()
+            ->byID($eventID);
+        if (!$event || !$event->exists()) {
+            return;
+        }
+
+        $this->event = $event;
     }
 
 
@@ -66,64 +65,30 @@ class FullcalendarController extends Controller
      * Calculate start/end date for event list
      * Currently set to offset of 30 days
      *
-     * @param string $type      ("start"/"end")
-     * @param int    $timestamp
+     * @param string $type ("start"/"end")
+     * @param int $timestamp
      * return \SS_Datetime
      */
-    public function eventlistOffsetDate($type, $timestamp, $offset = 30)
+    public function eventlistOffsetDate(string $type, int $timestamp, $offset = 30)
     {
         return self::offset_date($type, $timestamp, $offset);
     }
 
-    /**
-     * Calculate start/end date for event list
-     * @todo this should go in a helper class
-     *
-     * @param string  $type
-     * @param integer $timestamp
-     */
-    public static function offset_date($type, $timestamp, $offset = 30)
-    {
-        if (!$timestamp) {
-            $timestamp = time();
-        }
-
-        // check whether the timestamp was
-        // given as a date string (2016-09-05)
-        if (strpos($timestamp, "-") > 0) {
-            $timestamp = strtotime($timestamp);
-        }
-
-        $offsetCalc = $offset * 24 * 60 * 60; //days in secs
-
-        $offsetTime = null;
-        if ($type == 'start') {
-            $offsetTime = $timestamp - $offsetCalc;
-        } elseif ($type == 'end') {
-            $offsetTime = $timestamp + $offsetCalc;
-        }
-
-        $str = date('Y-m-d', $offsetTime);
-        return $str;
-    }
 
     /**
      * Handles returning the JSON events data for a time range.
      *
-     * @param  HTTPRequest $request
-     * @return HTTPResponse
+     * @param \SilverStripe\Control\HTTPRequest $request
      */
-    public function events($request)
+    public function events(HTTPRequest $request): HTTPResponse
     {
-        /**
- * @var string $calendars comma separated list of calendar IDs to show events for
-*/
+        /** @var string $calendars comma separated list of calendar IDs to show events for */
         $calendars = $request->getVar('calendars');
 
-        /**
- * @var string $offset days to offset by
-*/
-        $offset = empty($request->getVar('offset')) ? 30 : $request->getVar('offset');
+        /** @var string $offset days to offset by */
+        $offset = empty($request->getVar('offset'))
+            ? 30
+            : $request->getVar('offset');
 
         $filter = array(
             'StartDateTime:GreaterThan' => $this->eventlistOffsetDate('start', $request->postVar('start'), $offset),
@@ -133,12 +98,12 @@ class FullcalendarController extends Controller
         // start a query for events
         $events = Event::get()
             ->filter(
-                $filter
+                $filter,
             );
 
         // filter by calendar ids if they have been provided
         if ($calendars) {
-            $calIDList = explode(',', $calendars);
+            $calIDList = \explode(',', $calendars);
             $events = $events->filter('CalendarID', $calIDList);
         }
 
@@ -147,7 +112,8 @@ class FullcalendarController extends Controller
             foreach ($events as $event) {
                 $calendar = $event->Calendar();
 
-                $bgColor = '#999'; //default
+                //default
+                $bgColor = '#999';
                 $borderColor = '#555';
 
                 // @todo This is an error in that it enforces use of the color extension.  May as well just have it
@@ -158,20 +124,21 @@ class FullcalendarController extends Controller
                 }
 
                 $resultArr = self::format_event_for_fullcalendar($event);
-                $resultArr = array_merge(
+                $resultArr = \array_merge(
                     $resultArr,
                     array(
                     'backgroundColor' => $bgColor,
                     'textColor' => '#FFF',
                     'borderColor' => $borderColor,
-                    )
+                    ),
                 );
                 $result[] = $resultArr;
             }
         }
 
-        $response = new HTTPResponse(json_encode($result));
+        $response = new HTTPResponse(\json_encode($result));
         $response->addHeader('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -179,11 +146,9 @@ class FullcalendarController extends Controller
     /**
      * AJAX Json Response handler
      *
-     * @param  array|null $retVars
-     * @param  boolean    $success
-     * @return HTTPResponse
+     * @param array|null $retVars
      */
-    public function handleJsonResponse($success = false, $retVars = null)
+    public function handleJsonResponse(bool $success = false, ?array $retVars = null): HTTPResponse
     {
         $result = array();
         if ($success) {
@@ -192,53 +157,82 @@ class FullcalendarController extends Controller
             );
         }
         if ($retVars) {
-            $result = array_merge($retVars, $result);
+            $result = \array_merge($retVars, $result);
         }
 
-        $response = new HTTPResponse(json_encode($result));
+        $response = new HTTPResponse(\json_encode($result));
         $response->addHeader('Content-Type', 'application/json');
+
         return $response;
     }
+
+
+    /**
+     * Calculate start/end date for event list
+     *
+     * @todo this should go in a helper class
+     */
+    public static function offset_date(string $type, int $timestamp, $offset = 30)
+    {
+        if (!$timestamp) {
+            $timestamp = \time();
+        }
+
+        // check whether the timestamp was
+        // given as a date string (2016-09-05)
+        if (\strpos($timestamp, "-") > 0) {
+            $timestamp = \strtotime($timestamp);
+        }
+
+        //days in secs
+        $offsetCalc = $offset * 24 * 60 * 60;
+
+        $offsetTime = null;
+        if ($type === 'start') {
+            $offsetTime = $timestamp - $offsetCalc;
+        } elseif ($type === 'end') {
+            $offsetTime = $timestamp + $offsetCalc;
+        }
+
+        return \date('Y-m-d', $offsetTime);
+    }
+
 
     /**
      * Format an event to comply with the fullcalendar format
      *
      * @todo Move to a helper
-     *
-     * @param Event $event
      */
-    public static function format_event_for_fullcalendar($event)
+    public static function format_event_for_fullcalendar(Event $event)
     {
-        $bgColor = '#999'; //default
+        //default
+        $bgColor = '#999';
         $borderColor = '#555';
 
-        $arr = array(
-            'id'        => $event->ID,
-            'title'     => $event->Title,
-            'start'     => self::format_datetime_for_fullcalendar($event->StartDateTime),
-            'end'       => self::format_datetime_for_fullcalendar($event->EndDateTime),
-            'allDay'        => $event->isAllDay(),
+        return array(
+            'id' => $event->ID,
+            'title' => $event->Title,
+            'start' => self::format_datetime_for_fullcalendar($event->StartDateTime),
+            'end' => self::format_datetime_for_fullcalendar($event->EndDateTime),
+            'allDay' => $event->isAllDay(),
             'className' => $event->ClassName,
             //event calendar
             'backgroundColor' => $bgColor,
             'textColor' => '#FFFFFF',
             'borderColor' => $borderColor,
         );
-        return $arr;
     }
+
 
     /**
      * Format SS_Datime to fullcalendar format
      *
      * @todo Move to a helper
-     *
-     * @param string $datetime
      */
-    public static function format_datetime_for_fullcalendar($datetime)
+    public static function format_datetime_for_fullcalendar(string $datetime)
     {
-        $time = strtotime($datetime);
-        $str = date('c', $time);
+        $time = \strtotime($datetime);
 
-        return $str;
+        return \date('c', $time);
     }
 }

@@ -1,7 +1,7 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Categories;
 
-use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 
 /**
@@ -15,62 +15,45 @@ class PublicEventCategory extends EventCategory
 
     public function ComingEvents($from = false)
     {
-        $events = $this->Events()
+        return $this->Events()
             ->filter(
                 array(
-                'StartDateTime:GreaterThan' => date('Y-m-d', $from ? strtotime($from) : time())
-                )
+                'StartDateTime:GreaterThan' => \date('Y-m-d', $from ? \strtotime($from) : \time())
+                ),
             );
-        return $events;
     }
+
 
     /**
      * Anyone can view public event categories
      *
-     * @param  Member $member
-     * @return boolean
+     * @param \SilverStripe\Security\Member $member
      */
-    public function canView($member = null)
+    public function canView(?Member $member = null): bool
     {
         return true;
     }
 
-    /**
-     *
-     * @param  Member $member
-     * @return boolean
-     */
-    public function canCreate($member = null, $context = [])
+
+    public function canCreate(?Member $member = null, $context = []): bool
     {
         return $this->canManage($member);
     }
 
-    /**
-     *
-     * @param  Member $member
-     * @return boolean
-     */
-    public function canEdit($member = null)
+
+    public function canEdit(?Member $member = null): bool
     {
         return $this->canManage($member);
     }
 
-    /**
-     *
-     * @param  Member $member
-     * @return boolean
-     */
-    public function canDelete($member = null)
+
+    public function canDelete(?Member $member = null): bool
     {
         return $this->canManage($member);
     }
 
-    /**
-     *
-     * @param  Member $member
-     * @return boolean
-     */
-    protected function canManage($member)
+
+    protected function canManage(Member $member): bool
     {
         return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENTCATEGORY_MANAGE', 'any', $member);
     }

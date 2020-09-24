@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tests\PageTypes;
 
@@ -12,22 +12,24 @@ use TitleDK\Calendar\PageTypes\CalendarPageController;
 
 class CalendarPageControllerTest extends FunctionalTest
 {
+
     use DateTimeHelperTrait;
 
     protected static $fixture_file = ['tests/events.yml'];
 
-    /** @var CalendarPage */
+    /** @var \TitleDK\Calendar\PageTypes\CalendarPage */
     private $calendarPage;
 
-    /** @var CalendarPageController */
+    /** @var \TitleDK\Calendar\PageTypes\CalendarPageController */
     private $calendarPageController;
 
-    /** @var Member */
+    /** @var \SilverStripe\Security\Member */
     private $member;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
+
         $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'testcalendarpage');
 
         $this->calendarPageController = new CalendarPageController($this->calendarPage);
@@ -41,165 +43,198 @@ class CalendarPageControllerTest extends FunctionalTest
 
         $this->member = $this->objFromFixture(Member::class, 'member1');
     }
-    public function testInit()
+
+
+    public function testInit(): void
     {
         $this->markTestSkipped('TODO');
     }
 
+
     /**
      * Test a load of the index page
      */
-    public function test_index()
+    public function test_index(): void
     {
         $this->logInAs($this->member);
         $page = $this->get('/test-calendar-page/');
         $this->assertEquals(200, $page->getStatusCode());
         $this->assertExactHTMLMatchBySelector('h1', ['<h1>Test Calendar Page</h1>']);
-        $this->assertExactHTMLMatchBySelector('.options',
-            ['<div class="options">This is a test calendar page with several events</div>']);
+        $this->assertExactHTMLMatchBySelector(
+            '.options',
+            ['<div class="options">This is a test calendar page with several events</div>'],
+        );
     }
 
-    public function test_upcoming()
+
+    public function test_upcoming(): void
     {
         $page = $this->get('/test-calendar-page/eventlist?month=2019-12');
         $this->assertEquals(200, $page->getStatusCode());
     }
 
-    public function testRecent()
+
+    public function testRecent(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function test_event_list()
+
+    public function test_event_list(): void
     {
         $page = $this->get('/test-calendar-page/eventlist?month=2019-12');
         $this->assertEquals(200, $page->getStatusCode());
     }
 
-    public function testRegistered()
+
+    public function testRegistered(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testEventregistration()
+
+    public function testEventregistration(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testCalendarview()
+
+    public function testCalendarview(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testFunction()
+
+    public function testFunction(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function test_detail()
+
+    public function test_detail(): void
     {
         $event = $this->objFromFixture(Event::class, 'eventAllDay');
         $page = $this->get('/test-calendar-page/detail/' . $event->ID);
         $this->assertEquals(200, $page->getStatusCode());
     }
 
-    public function testTag()
+
+    public function testTag(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testRegister()
+
+    public function testRegister(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testRegistrationsEnabled()
+
+    public function testRegistrationsEnabled(): void
     {
         $this->assertFalse($this->calendarPageController->RegistrationsEnabled());
     }
 
-    public function test_search_enabled()
+
+    public function test_search_enabled(): void
     {
         $this->assertTrue($this->calendarPageController->SearchEnabled());
     }
 
-    public function testEvents()
+
+    public function testEvents(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testCurrentCalendar()
+
+    public function testCurrentCalendar(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testEventPageTitle()
+
+    public function testEventPageTitle(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testCurrentMonth()
+
+    public function testCurrentMonth(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testCurrentMonthDay()
+
+    public function testCurrentMonthDay(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testNextMonthDay()
+
+    public function testNextMonthDay(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testCurrentMonthStr()
+
+    public function testCurrentMonthStr(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testNextMonth()
+
+    public function testNextMonth(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testNextMonthLink()
+
+    public function testNextMonthLink(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testPrevMonth()
+
+    public function testPrevMonth(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testPrevMonthLink()
+
+    public function testPrevMonthLink(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testEventListLink()
+
+    public function testEventListLink(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testCalendarViewLink()
+
+    public function testCalendarViewLink(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testSearchQuery()
+
+    public function testSearchQuery(): void
     {
         $page = $this->get('/test-calendar-page/search?q=SilverStripe');
         $this->assertEquals(200, $page->getStatusCode());
     }
 
-    public function testAllCalendars()
+
+    public function testAllCalendars(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testFeedLink()
+
+    public function testFeedLink(): void
     {
         $this->markTestSkipped('TODO');
     }

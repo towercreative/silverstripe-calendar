@@ -1,15 +1,14 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tests\Admin\GridField;
 
 use SilverStripe\Dev\SapphireTest;
-use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm_ItemRequest;
 
 class CalendarEventPageGridfieldDetailFormItemRequestTest extends SapphireTest
 {
-    public function test_item_edit_form()
+    public function test_item_edit_form(): void
     {
-        /** @var CalendarEventGridFieldDetailForm_ItemRequest $ir */
+        /** @var \TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm_ItemRequest $ir */
 
         /*
         $ir = new CalendarEventGridFieldDetailForm_ItemRequest(null, null, null, null, null);

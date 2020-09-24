@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Control\Email\Email;
@@ -12,7 +13,7 @@ use SilverStripe\Forms\RequiredFields;
  * Event Registration Form
  * *
  *
- * @package    calendar
+ * @package calendar
  * @subpackage registrations
  */
 class EventRegistrationForm extends Form
@@ -20,19 +21,16 @@ class EventRegistrationForm extends Form
 
     /**
      * Contructor
-     *
-     * @param type $controller
-     * @param type $name
      */
-    public function __construct($controller, $name)
+    public function __construct(type $controller, type $name)
     {
         //Fields
-        $fields = singleton('TitleDK\Calendar\Registrations\EventRegistration')->getFrontEndFields();
+        $fields = \singleton('TitleDK\Calendar\Registrations\EventRegistration')->getFrontEndFields();
 
         //Actions
         $actions = FieldList::create(
             FormAction::create("doRegister")
-                ->setTitle("Register")
+                ->setTitle("Register"),
         );
 
         //Validator
@@ -40,7 +38,7 @@ class EventRegistrationForm extends Form
             array(
                 'Name',
                 Email::class,
-            )
+            ),
         );
         $this->addExtraClass('EventRegistrationForm');
         $this->addExtraClass($name);
@@ -49,30 +47,24 @@ class EventRegistrationForm extends Form
     }
 
 
-
-    public function setDone()
+    public function setDone(): void
     {
         $this->setFields(
             FieldList::create(
                 LiteralField::create(
                     'CompleteMsg',
-                    "We've received your registration."
-                )
-            )
+                    "We've received your registration.",
+                ),
+            ),
         );
         $this->setActions(FieldList::create());
     }
 
 
-
     /**
      * Register action
-     *
-     * @param  type $data
-     * @param  type $form
-     * @return \SS_HTTPResponse
      */
-    public function doRegister($data, $form)
+    public function doRegister(type $data, type $form): \SS_HTTPResponse
     {
         $r = new EventRegistration();
         $form->saveInto($r);
@@ -87,7 +79,7 @@ class EventRegistrationForm extends Form
         $from = Email::getAdminEmail();
         $to = $r->Email;
         $bcc = $EventDetails->RSVPEmail;
-        $subject = "Event Registration - ".$EventDetails->Title." - ".date("d/m/Y H:ia");
+        $subject = "Event Registration - ".$EventDetails->Title." - ".\date("d/m/Y H:ia");
         $body = "";
 
         $email = new Email($from, $to, $subject, $body, null, null, $bcc);
@@ -99,14 +91,15 @@ class EventRegistrationForm extends Form
     }
 
 
-
-    public function setFormField($name, $value)
+    public function setFormField($name, $value): void
     {
         $fields = $this->Fields();
         foreach ($fields as $field) {
-            if ($field->Name == $name) {
-                $field->setValue($value);
+            if ($field->Name !== $name) {
+                continue;
             }
+
+            $field->setValue($value);
         }
     }
 }

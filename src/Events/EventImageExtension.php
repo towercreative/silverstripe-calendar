@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Events;
 
 use SilverStripe\AssetAdmin\Forms\UploadField;
@@ -23,7 +24,7 @@ class EventImageExtension extends DataExtension
 
     private static $summary_fields = ['Thumbnail'];
 
-    public function updateCMSFields(FieldList $fields)
+    public function updateCMSFields(FieldList $fields): void
     {
         $uploadField = new UploadField('FeaturedImage', 'Featured Image');
         $uploadField->setAllowedFileCategories('image');
@@ -31,13 +32,13 @@ class EventImageExtension extends DataExtension
         $fields->addFieldToTab('Root.Main', $uploadField);
     }
 
+
     public function getThumbnail()
     {
         $image = $this->owner->FeaturedImage();
-        if ($image->ID > 0) {
-            return $image->Fit(80, 80);
-        } else {
-            return '(No Image)';
-        }
+
+        return $image->ID > 0
+            ? $image->Fit(80, 80)
+            : '(No Image)';
     }
 }

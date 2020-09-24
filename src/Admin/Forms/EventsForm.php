@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Admin\Forms;
 
 use SilverStripe\Core\Config\Config;
@@ -14,16 +15,58 @@ use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\EventPage;
-use TitleDK\Calendar\PageTypes\EventPage_Controller;
 
 /**
  * Events Form
  *
- * @package    calendar
+ * @package calendar
  * @subpackage admin
  */
 class EventsForm extends Form
 {
+
+    /**
+     * Contructor
+     *
+     * @param \TitleDK\Calendar\PageTypes\EventPage_Controller $controller
+     */
+    public function __construct(EventPage_Controller $controller, string $name)
+    {
+        $fields = FieldList::create();
+        $fields->push(TabSet::create("Root"));
+        $gridConfig = self::eventConfig();
+
+        $comingGridField = GridField::create(
+            'ComingEvents',
+            '',
+            CalendarHelper::coming_events(),
+            $gridConfig,
+        );
+        $fields->addFieldToTab('Root.Coming', $comingGridField);
+
+        // Find all past events, including those with null start time
+        $time = \date('Y-m-d', \time());
+        $pastEvents = Event::get()
+            ->where("\"StartDateTime\" < '$time' OR \"StartDateTime\" IS NULL")
+            ->sort('"StartDateTime" DESC');
+
+        $pastGridField = GridField::create(
+            'PastEvents',
+            '',
+            $pastEvents,
+            $gridConfig,
+        );
+
+        $fields->addFieldToTab('Root.Past', $pastGridField);
+
+        /*
+         * Actions / init
+         */
+        $actions = FieldList::create();
+
+        parent::__construct($controller, $name, $fields, $actions);
+    }
+
 
     public static function eventConfig()
     {
@@ -52,47 +95,5 @@ class EventsForm extends Form
         $gridEventConfig->addComponent($dataColumns, GridFieldEditButton::class);
 
         return $gridEventConfig;
-    }
-
-    /**
-     * Contructor
-     *
-     * @param EventPage_Controller $controller
-     * @param string               $name
-     */
-    public function __construct($controller, $name)
-    {
-        $fields = FieldList::create();
-        $fields->push(TabSet::create("Root"));
-        $gridConfig = self::eventConfig();
-
-        $comingGridField = GridField::create(
-            'ComingEvents',
-            '',
-            CalendarHelper::coming_events(),
-            $gridConfig
-        );
-        $fields->addFieldToTab('Root.Coming', $comingGridField);
-
-        // Find all past events, including those with null start time
-        $time = date('Y-m-d', time());
-        $pastEvents = Event::get()
-            ->where("\"StartDateTime\" < '$time' OR \"StartDateTime\" IS NULL")
-            ->sort('"StartDateTime" DESC');
-
-        $pastGridField = GridField::create(
-            'PastEvents',
-            '',
-            $pastEvents,
-            $gridConfig
-        );
-
-        $fields->addFieldToTab('Root.Past', $pastGridField);
-
-        /*
-         * Actions / init
-         */
-        $actions = FieldList::create();
-        parent::__construct($controller, $name, $fields, $actions);
     }
 }
