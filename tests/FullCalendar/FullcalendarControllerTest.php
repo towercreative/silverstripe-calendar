@@ -13,7 +13,7 @@ class FullcalendarControllerTest extends FunctionalTest
     /**
      * Test events over a date range. This is the call made by the JavaScript calendar code
      */
-    public function test_events(): void
+    public function testEvents(): void
     {
         $params = ['start' => '2019-12-15', 'end' => '2019-12-30'];
         $page = $this->post('/fullcalendar/events/?calendars=1', $params);
@@ -36,7 +36,7 @@ class FullcalendarControllerTest extends FunctionalTest
     }
 
 
-    public function test_events_all_day(): void
+    public function testEventsAllDay(): void
     {
         $params = ['start' => '2019-12-15', 'end' => '2019-12-30'];
         $page = $this->post('/fullcalendar/events/?calendars=1&allDay=true', $params);
@@ -64,7 +64,7 @@ class FullcalendarControllerTest extends FunctionalTest
     }
 
 
-    public function test_single_event(): void
+    public function testSingleEvent(): void
     {
         $params = ['start' => '2019-12-15', 'end' => '2019-12-30'];
         $page = $this->post('/fullcalendar/events/?calendars=1&eventID=1', $params);
@@ -73,7 +73,7 @@ class FullcalendarControllerTest extends FunctionalTest
     }
 
 
-    public function test_offset_date_null_timestring(): void
+    public function testOffsetDateNullTImestamp(): void
     {
         $result = FullcalendarController::offset_date('start', null, 124);
         $this->assertEquals('2019-09-03', $result);
@@ -83,7 +83,7 @@ class FullcalendarControllerTest extends FunctionalTest
     }
 
 
-    public function test_handle_json_response(): void
+    public function testHandleJsonResponse(): void
     {
         // params are arbitrary here
         $params = ['title' => 'Some Event Title', 'allday' => true];
@@ -95,7 +95,7 @@ class FullcalendarControllerTest extends FunctionalTest
     }
 
 
-    public function test_format_event_for_fullcalendar(): void
+    public function testFormatEventForFullCalendar(): void
     {
         $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
         $formatted = FullcalendarController::format_event_for_fullcalendar($event);
@@ -113,7 +113,7 @@ class FullcalendarControllerTest extends FunctionalTest
     }
 
 
-    public function test_format_datetime_for_fullcalendar(): void
+    public function testFormatDateTimeForFullCalendar(): void
     {
         $this->assertEquals(
             '2019-12-15T08:30:00+00:00',

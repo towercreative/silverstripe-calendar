@@ -195,7 +195,7 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_calc_duration_based_on__end_date_time_less_than_24_hours(): void
+    public function testCalcDurationBasedOnEndDateTimeLessThan24Hours(): void
     {
         $this->assertEquals(
             '01:30',
@@ -204,33 +204,33 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_calc_duration_based_on__end_date_time_more_than_24_hours(): void
+    public function testCalcDurationBasedOnEndDateTimeMoreThan24Hours(): void
     {
         $this->assertFalse($this->weekendEvent->calcDurationBasedOnEndDateTime($this->weekendEvent->EndDateTime));
     }
 
 
-    public function test_calc_end_date_time_based_on_duration(): void
+    public function testCalcEndDateTimeBasedOnDuration(): void
     {
         $this->assertEquals('2019-10-12 22:05:24', $this->durationEvent->calcEndDateTimeBasedOnDuration());
     }
 
 
-    public function test_is_not_all_day(): void
+    public function testIsNotAllDay(): void
     {
         // if the AllDay flag is not set and the event does not straddle a day then is not all day
         $this->assertFalse($this->eveningMeetUpEvent->isAllDay());
     }
 
 
-    public function test_long_event_is_all_day(): void
+    public function testLongEventIsAllDay(): void
     {
         // if the time deltas > 24 hours, the event is all day
         $this->assertTrue($this->weekendEvent->isAllDay());
     }
 
 
-    public function test_is_all_day(): void
+    public function testIsAllDay(): void
     {
         $this->assertTrue($this->allDayEvent->isAllDay());
     }
@@ -301,13 +301,13 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_from_past_is_past_event(): void
+    public function testFromPastIsPastEvent(): void
     {
         $this->assertTrue($this->weekendEvent->getIsPastEvent());
     }
 
 
-    public function test_from_past_is_future_event(): void
+    public function testFromPastIsFutureEvent(): void
     {
         // need to massage dates
         $now = Carbon::now();
@@ -325,14 +325,14 @@ class EventTest extends SapphireTest
     /**
      * By default the embargo time is the moment the event starts
      */
-    public function test_registration_embargo_date(): void
+    public function testRegistrationEmbargoDate(): void
     {
         $this->assertEquals('2019-12-13 19:00:00', $this->weekendEvent->getRegistrationEmbargoDate(true));
         $this->assertEquals('2019-12-13 19:00:00', $this->weekendEvent->RegistrationEmbargoDate());
     }
 
 
-    public function test_get_is_not_past_registration_closing(): void
+    public function testGetIsNotPastRegistrationClosing(): void
     {
         $now = $this->carbonDateTime('2019-12-10 04:00:00');
         Carbon::setTestNow($now);
@@ -340,7 +340,7 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_get_is_past_registration_closing(): void
+    public function testGetIsPastRegistrationClosing(): void
     {
         $now = $this->carbonDateTime('2019-12-14 04:00:00');
         Carbon::setTestNow($now);
@@ -354,93 +354,93 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_get_formatted_dates_end_date_set_different_days_in_same_month(): void
+    public function testGetFormattedDatesEndDateSetDifferentDaysInSameMonth(): void
     {
         $this->assertEquals('Dec 13th - 15th', $this->weekendEvent->getFormattedDates());
     }
 
 
-    public function test_get_formatted_dates_end_date_set_different_days_in_different_month(): void
+    public function testGetFormattedDatesEndDateSetDifferentDaysInDifferentMonth(): void
     {
         $this->assertEquals('Apr 11th - Sep 21st', $this->cricketSeasonEvent->getFormattedDates());
     }
 
 
-    public function test_get_formatted_dates_end_date_set_same_day(): void
+    public function testGetFormattedDatesEndDateSetSameDay(): void
     {
         $this->assertEquals('Dec 16th', $this->eveningMeetUpEvent->getFormattedDates());
     }
 
 
-    public function test_get_formatted_dates_no_end_date_set(): void
+    public function testGetFormattedDatesNoEndDateSet(): void
     {
         $this->assertEquals('Oct 12th', $this->durationEvent->getFormattedDates());
     }
 
 
-    public function test_get_formatted_dates_no_end_date_set_non_duration_event(): void
+    public function testGetFormattedDatesNoEndDateSetNonDurationEvent(): void
     {
         $this->assertEquals('Dec 13th', $this->noEndEvent->getFormattedDates());
     }
 
 
-    public function test_get_formatted_dates_start_end_same(): void
+    public function testGetFormattedDatesStartEndSame(): void
     {
         $this->assertEquals('Dec 13th', $this->zeroSecondsEvent1->getFormattedDates());
     }
 
 
-    public function test_get_formatted_time_frame_same_day(): void
+    public function testGetFormattedTimeFrameSameDay(): void
     {
         $this->assertEquals('8:00pm - 9:30pm', $this->eveningMeetUpEvent->getFormattedTimeframe());
     }
 
 
-    public function test_get_formatted_time_frame_same_month(): void
+    public function testGetFormattedTimeFrameSameMonth(): void
     {
         $this->assertNull($this->weekendEvent->getFormattedTimeframe());
     }
 
 
-    public function test_get_formatted_time_same_time(): void
+    public function testGetFormattedTimeFrameSameTime(): void
     {
         $this->weekendEvent->StartDateTime = $this->weekendEvent->EndDateTime;
         $this->assertNull($this->weekendEvent->getFormattedTimeframe());
     }
 
 
-    public function test_get_formatted_time_frame_multi_month(): void
+    public function testGetFormattedTimeFrameMultiMonth(): void
     {
         $this->assertNull($this->cricketSeasonEvent->getFormattedTimeframe());
     }
 
 
-    public function test_get_formatted_time_frame_zero_seconds(): void
+    public function testGetFormattedTimeFrameZeroSeconds(): void
     {
         $this->assertNull($this->zeroSecondsEvent1->getFormattedTimeframe());
     }
 
 
-    public function test_get_formatted_time_frame_explicit_no_end(): void
+    public function testGetFormattedTimeFrameExplicitNoEnd(): void
     {
         $this->noEndEvent->EndDateTime = null;
         $this->assertEquals('7:00pm', $this->noEndEvent->getFormattedTimeframe());
     }
 
 
-    public function test_get_formatted_time_frame_zero_seconds_after_parsing(): void
+    public function testGetFormattedTimeFrameZeroSecondsAfterParsing(): void
     {
         $this->assertNull($this->zeroSecondsEvent2->getFormattedTimeframe());
     }
 
     // @todo Check the behaviour here, the choice of an hour seems arbitrary
-    public function test_get_formatted_time_frame_no_end_date(): void
+    public function testGetFormattedTimeFrameNoEndDate(): void
     {
         $this->assertEquals('7:00pm - 8:00pm', $this->noEndEvent->getFormattedTimeframe());
     }
 
 
-    public function test_get_start_and_end_dates(): void
+    public function testGetStartAndEndDates(): void
     {
         // this currently shows a duration of 9hrs which is incorrect
         // Apr 11, 2020 (12:00pm) &ndash; Sep 21, 2020 (9hrs)
@@ -452,7 +452,7 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_get_start_and_end_dates_same_date_time(): void
+    public function testGetStartAndEndDatesSameDateTime(): void
     {
         $this->cricketSeasonEvent->EndDateTime = $this->cricketSeasonEvent->StartDateTime;
         $this->assertFalse(
@@ -464,7 +464,7 @@ class EventTest extends SapphireTest
     /**
      * This is to test that the time is not shown in the summary if the event starts at midnight
      */
-    public function test_get_start_and_end_dates_starts_at_midnight(): void
+    public function testGetStartAndEndDatesStartsAtMidnight(): void
     {
         $this->weekendEvent->StartDateTime = '2019-12-13 00:00';
         $this->assertEquals(
@@ -479,7 +479,7 @@ class EventTest extends SapphireTest
      *
      * @todo Is this desired functionality?
      */
-    public function test_get_start_and_end_dates_ends_at_midnight(): void
+    public function testGetStartAndEndDatesEndsAtMidnight(): void
     {
         $this->weekendEvent->EndDateTime = '2019-12-16 00:00';
         $this->assertEquals(
@@ -489,7 +489,7 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_get_start_and_end_dates_straddles_year(): void
+    public function testGetStartAndEndDatesStraddlesYear(): void
     {
         $this->assertEquals(
             'Dec 31, 2019 (7:00pm) &ndash; Jan 1, 2020  (12 hrs)',
@@ -498,25 +498,25 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_get_dates_and_time_frame_same_day(): void
+    public function testGetStartAndEndDatesSameDay(): void
     {
         $this->assertEquals('Dec 16th @ 8:00pm - 9:30pm', $this->eveningMeetUpEvent->getDatesAndTimeframe());
     }
 
 
-    public function test_get_dates_and_time_frame_same_month(): void
+    public function testGetStartAndEndDatesSameMonth(): void
     {
         $this->assertEquals('Dec 13th - 15th', $this->weekendEvent->getDatesAndTimeframe());
     }
 
 
-    public function test_get_dates_and_time_frame_same_year(): void
+    public function testGetStartAndEndDatesSameYear(): void
     {
         $this->assertEquals('Apr 11th - Sep 21st', $this->cricketSeasonEvent->getDatesAndTimeframe());
     }
 
 
-    public function test_get_internal_link(): void
+    public function testGetInternalLink(): void
     {
         $link = $this->durationEvent->getInternalLink();
         $expected = '/' . $this->calendarPage->URLSegment . '/detail/' . $this->durationEvent->ID;
@@ -524,7 +524,7 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_get_relative_link(): void
+    public function testGetRelativeLink(): void
     {
         $id = $this->eveningMeetUpEvent->ID;
         $link = 'detail/' . $id;
@@ -538,7 +538,7 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_can_create(): void
+    public function testCanCreate(): void
     {
         // @todo is this correct?
         $this->assertTrue($this->cricketSeasonEvent->canCreate());
@@ -569,7 +569,7 @@ class EventTest extends SapphireTest
     }
 
 
-    public function test_tickets_remaining_no_registrations(): void
+    public function testTicketsRemainingNoRegistrations(): void
     {
         if (Director::isDev()) {
             \error_log('**** DEV MODE ****');

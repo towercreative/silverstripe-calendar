@@ -12,7 +12,7 @@ class EventsFormTest extends SapphireTest
     }
 
 
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->markTestSkipped('TODO');
     }

@@ -4,7 +4,6 @@ namespace TitleDK\Calendar\Helpers;
 
 use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
-use SilverStripe\Security\Member;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 use TitleDK\Calendar\PageTypes\CalendarPage;
@@ -35,64 +34,64 @@ class CalendarPageHelperTest extends SapphireTest
     }
 
 
-    public function test_realtime_month_day(): void
+    public function testRealtimeMonthDay(): void
     {
         $this->assertEquals('2019-12-15', $this->helper->realtimeMonthDay());
     }
 
 
-    public function test_realtime_month(): void
+    public function testRealtimeMonth(): void
     {
         $this->assertEquals('2019-12', $this->helper->realtimeMonth());
     }
 
 
-    public function test_current_contextual_month(): void
+    public function testCurrentContextualMonth(): void
     {
         $this->assertEquals('2019-12', $this->helper->currentContextualMonth());
     }
 
 
-    public function test_current_contextual_month_str(): void
+    public function testCurrentContextualMonthString(): void
     {
         $this->assertEquals('Dec 2019', $this->helper->currentContextualMonthStr());
     }
 
 
-    public function test_previous_contextual_month(): void
+    public function testPreviousContextualMonth(): void
     {
         $this->assertEquals('2019-11', $this->helper->previousContextualMonth());
     }
 
 
-    public function test_next_contextual_month(): void
+    public function textNextContextualMonth(): void
     {
         $this->assertEquals('2020-01', $this->helper->nextContextualMonth());
     }
 
 
-    public function test_perform_search_start_of_title_camel_case(): void
+    public function testPerformSearchStartOfTitleCamelCase(): void
     {
         $titles = $this->getEventTitlesForSearch('SilverSt');
         $this->assertEquals(['SilverStripe Booze Up', 'SilverStripe Meet Up'], $titles);
     }
 
 
-    public function test_perform_search_start_of_title_lower_case(): void
+    public function testPerformSearchStartOfTitleLowerCase(): void
     {
         $titles = $this->getEventTitlesForSearch('silverstr');
         $this->assertEquals(['SilverStripe Booze Up', 'SilverStripe Meet Up'], $titles);
     }
 
 
-    public function test_perform_search_multiple_words_lower_case(): void
+    public function testPerformSearchMultipleWordsLowerCase(): void
     {
         $titles = $this->getEventTitlesForSearch('silverstri booz');
         $this->assertEquals(['SilverStripe Booze Up'], $titles);
     }
 
 
-    public function test_perform_search_middle_of_title_camel_case(): void
+    public function testPerformSearchMiddleOfTitleCamelCase(): void
     {
         $titles = $this->getEventTitlesForSearch('verStr');
         $this->assertEquals(['SilverStripe Booze Up', 'SilverStripe Meet Up'], $titles);
@@ -102,7 +101,7 @@ class CalendarPageHelperTest extends SapphireTest
     }
 
 
-    public function test_perform_search_middle_of_title_lower_case(): void
+    public function testPerformSearchMiddleOfTitleLowerCase(): void
     {
         $titles = $this->getEventTitlesForSearch('verstr');
         $this->assertEquals(['SilverStripe Booze Up', 'SilverStripe Meet Up'], $titles);
@@ -112,7 +111,7 @@ class CalendarPageHelperTest extends SapphireTest
     }
 
 
-    public function test_recent_events(): void
+    public function testRecentEvents(): void
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->calendarPage->Calendars());
         $events = $this->helper->recentEvents($calendarIDs);
@@ -126,9 +125,8 @@ class CalendarPageHelperTest extends SapphireTest
     }
 
 
-    public function test_upcoming_events(): void
+    public function testUpcomingEvents(): void
     {
-        $member = $this->objFromFixture(Member::class, 'member1');
         $this->logInAs('member1');
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->calendarPage->Calendars());
         $events = $this->helper->upcomingEvents($calendarIDs);
@@ -142,10 +140,10 @@ class CalendarPageHelperTest extends SapphireTest
 
 
     /**
-     * @param $q
-     * @return array
+     * @param string $q the search query
+     * @return array<string>
      */
-    private function getEventTitlesForSearch($q): array
+    private function getEventTitlesForSearch(string $q): array
     {
         $events = $this->helper->performSearch($q)->toArray();
 
@@ -154,8 +152,8 @@ class CalendarPageHelperTest extends SapphireTest
 
 
     /**
-     * @param array $events
-     * @return array
+     * @param array<\TitleDK\Calendar\Helpers\Event> $events
+     * @return array<string>
      */
     private function convertEventsToTitles(array $events): array
     {

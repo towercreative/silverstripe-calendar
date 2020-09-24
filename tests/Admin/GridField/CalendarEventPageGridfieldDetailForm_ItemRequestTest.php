@@ -6,7 +6,7 @@ use SilverStripe\Dev\SapphireTest;
 
 class CalendarEventPageGridfieldDetailFormItemRequestTest extends SapphireTest
 {
-    public function test_item_edit_form(): void
+    public function testItemEditForm(): void
     {
 
         $this->markTestSkipped('TODO');

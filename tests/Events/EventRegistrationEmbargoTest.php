@@ -14,14 +14,8 @@ class EventRegistrationEmbargoTest extends SapphireTest
     protected $event;
 
 
-
-    public function setUp(): void
+    public function testDefaultEmbargoTest(): void
     {
-        parent::setUp();
-    }
-
-
-    public function test_default_embargo_date(): void
-    {
+        $this->markTestIncomplete('TODO');
     }
 }

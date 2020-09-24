@@ -6,7 +6,7 @@ use SilverStripe\Dev\SapphireTest;
 
 class CategoriesFormTest extends SapphireTest
 {
-    public function test__construct(): void
+    public function testConstruct(): void
     {
         $this->markTestSkipped('TODO');
     }

@@ -10,13 +10,13 @@ class CalendarAdminTest extends SapphireTest
     /** @var \TitleDK\Calendar\Admin\CalendarAdmin */
     private $admin;
 
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
+
         $this->admin = new CalendarAdmin();
         $this->admin->modelClass = 'TitleDK\Calendar\Events\Event';
         $this->admin->init();
-
-        return parent::setUp();
     }
 
 
@@ -26,7 +26,7 @@ class CalendarAdminTest extends SapphireTest
     }
 
 
-    public function test_get_managed_models(): void
+    public function testGetManagedModels(): void
     {
         $managedModels = $this->admin->getManagedModels();
         $this->assertEquals(
@@ -40,29 +40,32 @@ class CalendarAdminTest extends SapphireTest
     }
 
 
-    public function test_get_edit_form_events(): void
+    public function testGetEditFormEvents(): void
     {
         $this->admin->modelClass = 'TitleDK\Calendar\Events\Event';
-        $form = $this->admin->getEditForm();
-        // @todo What to test here?
+        //$form = $this->admin->getEditForm();
+        $this->markTestIncomplete('No assertions');
     }
 
 
-    public function test_get_edit_form_categories(): void
+    public function testGetEditFormCategories(): void
     {
         $this->admin->modelClass = 'TitleDK\Calendar\Categories\PublicEventCategory';
-        $form = $this->admin->getEditForm();
+        //$form = $this->admin->getEditForm();
+        $this->markTestIncomplete('No assertions');
     }
 
 
-    public function test_get_edit_form_calendar(): void
+    public function testGetEditFormCalendar(): void
     {
         $this->admin->modelClass = 'TitleDK\Calendar\Calendars\Calendar';
-        $form = $this->admin->getEditForm();
+       // @todo What to test here?
+        // $form = $this->admin->getEditForm();
+        $this->markTestIncomplete('No assertions');
     }
 
 
-    public function test_provide_permissions(): void
+    public function testProvidePermissions(): void
     {
         $permissions = $this->admin->providePermissions();
         $this->assertEquals(4, \sizeof($permissions));

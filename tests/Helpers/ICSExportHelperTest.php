@@ -30,15 +30,15 @@ class ICSExportHelperTest extends SapphireTest
     }
 
 
-    public function test_process_calendar(): void
+    public function testProcessCalendar(): void
     {
         $this->logInAs($this->member);
-        $ics = $this->helper->processCalendar($this->calendar);
+        $this->helper->processCalendar($this->calendar);
         // @todo How best to test this - manually it imports into Lightning on Thunderbird
     }
 
 
-    public function test_get_string(): void
+    public function testGetString(): void
     {
         $this->logInAs($this->member);
         $ics = $this->helper->processCalendar($this->calendar);
@@ -46,16 +46,16 @@ class ICSExportHelperTest extends SapphireTest
     }
 
 
-    public function test_get_file(): void
+    public function testGetFile(): void
     {
         $this->logInAs($this->member);
-        $ics = $this->helper->processCalendar($this->calendar);
+        $this->helper->processCalendar($this->calendar);
        // $file = $this->helper->getFile('test.ics', false);
         $this->markAsRisky();
     }
 
 
-    /** @return array */
+    /** @return array<\TitleDK\Calendar\Events\Event> */
     private function createEventsArray(): array
     {
         $calendars = Calendar::get();
