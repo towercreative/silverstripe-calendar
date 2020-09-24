@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Registrations\Controller;
 
 use SilverStripe\Core\Extension;
@@ -8,6 +7,7 @@ use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
+use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 
 /**
  * Extend event registration controller
@@ -20,7 +20,7 @@ use SilverStripe\View\Requirements;
 class AttendeesControllerExtension extends Extension
 {
 
-    public function updateEventRegistrationForm(Form $form): void
+    public function updateEventRegistrationForm(Form $form)
     {
         //Requirements::javascript('silverstripe/admin:thirdparty/jquery-entwine/dist/jquery.entwine-dist.js');
         Requirements::javascript('titledk/silverstripe-calendar:thirdparty/parsley/parsley.min.js');
@@ -43,14 +43,14 @@ class AttendeesControllerExtension extends Extension
                     [
                         'first_name' => $member->FirstName,
                         'surname' => $member->Surname,
-                        'phone' => empty($member->Phone) ? '' : $member->Phone,
+                        'phone' => empty($member->Phone)  ? '' : $member->Phone,
                         'email' => $member->Email,
                         'company' => empty($member->Company) ? '' : $member->CompanyName,
-                        'title' => empty($member->Title) ? '' : $member->Title,
-                    ],
+                        'title' => empty($member->Title) ? '' : $member->Title
+                    ]
                 ];
 
-                $jsonField->setValue(\json_encode($details));
+                $jsonField->setValue(json_encode($details));
             } else {
                 $jsonField->setValue('[]');
             }

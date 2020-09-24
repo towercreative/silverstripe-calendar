@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Registrations;
 
@@ -6,25 +6,22 @@ use SilverStripe\Dev\SapphireTest;
 
 class EventRegistrationControllerTest extends SapphireTest
 {
-    public function testInit(): void
+    public function testInit()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testRegisterform(): void
+    public function testRegisterform()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testPaymentregisterform(): void
+    public function testPaymentregisterform()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testHandleJsonResponse(): void
+    public function testHandleJsonResponse()
     {
         $this->markTestSkipped('TODO');
     }

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Admin\Forms;
 
@@ -6,7 +6,7 @@ use SilverStripe\Dev\SapphireTest;
 
 class CategoriesFormTest extends SapphireTest
 {
-    public function test__construct(): void
+    public function test__construct()
     {
         $this->markTestSkipped('TODO');
     }

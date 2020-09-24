@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Events;
 
 use SilverStripe\Forms\DatetimeField;
@@ -18,29 +17,28 @@ class EventRegistrationEmbargoExtension extends DataExtension
 {
 
     private static $db = array(
-        'RegistrationEmbargoAt' => DBDatetime::class;
-    private );
+        'RegistrationEmbargoAt' => DBDatetime::class, //When registration closes
+    );
+
 
     private static $summary_fields = [
-        'RegistrationEmbargoAt' => 'Embargo Registration At',
+        'RegistrationEmbargoAt' => 'Embargo Registration At'
     ];
 
-    public function updateCMSFields(FieldList $fields): void
+    public function updateCMSFields(FieldList $fields)
     {
         $relativeTimeEmbargo = $this->owner->config()->get('embargo_registration_relative_to_end_datetime_mins');
 
         $embargoField = new DatetimeField('RegistrationEmbargoAt');
 
         $rightTitle = 'If this field is left blank, registration will be embargoed ';
-        $rightTitle .= $relativeTimeEmbargo < 0
-            ? 'before'
-            : 'after';
+        $rightTitle .= $relativeTimeEmbargo < 0 ? 'before' : 'after';
         $rightTitle .= $relativeTimeEmbargo . ' minutes relative to the end datetime of the event';
         $embargoField->setRightTitle($rightTitle);
         $fields->addFieldToTab(
             'Root.Main',
             $embargoField,
-            'CalendarID',
+            'CalendarID'
         );
     }
 }

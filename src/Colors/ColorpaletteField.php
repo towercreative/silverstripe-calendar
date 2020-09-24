@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Colors;
 
 use SilverStripe\Forms\DropdownField;
@@ -8,15 +7,17 @@ use SilverStripe\View\Requirements;
 class ColorpaletteField extends DropdownField
 {
 
-    public function __construct(string $name, ?string $title = null, $source = null, $value = "", $form = null)
+    /**
+     * @param string $name
+     * @param string $title
+     */
+    public function __construct($name, $title = null, $source = null, $value = "", $form = null)
     {
-        if (!\is_array($source)) {
+        if (!is_array($source)) {
             $source = ColorpaletteHelper::get_palette();
         }
-
         parent::__construct($name, ($title===null) ? $name : $title, $source, $value, $form);
     }
-
 
     public function Field($properties = [])
     {
@@ -46,9 +47,10 @@ class ColorpaletteField extends DropdownField
     public function getColorWithHash()
     {
         $color = $this->value;
-
-        return \strpos($color, '#') === false
-            ? '#' . $color
-            : $color;
+        if (strpos($color, '#') === false) {
+            return '#' . $color;
+        } else {
+            return $color;
+        }
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Colors;
 
@@ -8,15 +8,14 @@ use TitleDK\Calendar\Colors\ColorpaletteField;
 class ColorpaletteFieldTest extends SapphireTest
 {
 
-    public function testFieldColorWithHash(): void
+    public function testFieldColorWithHash()
     {
         $paletteField = new ColorpaletteField('ColorField', 'Chooose a color', null, '#48E');
         $field = $paletteField->Field([]);
         $this->assertEquals('#48E', $paletteField->value);
     }
 
-
-    public function testFieldColorWithNoHash(): void
+    public function testFieldColorWithNoHash()
     {
         $paletteField = new ColorpaletteField('ColorField', 'Chooose a color', null, '48E');
         $field = $paletteField->Field([]);

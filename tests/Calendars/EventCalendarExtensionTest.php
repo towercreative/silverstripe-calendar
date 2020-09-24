@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Calendars;
 
@@ -8,7 +8,7 @@ class EventCalendarExtensionTest extends SapphireTest
 {
     protected static $fixture_file = 'tests/events.yml';
 
-    public function testUpdateFrontEndFields(): void
+    public function testUpdateFrontEndFields()
     {
         $this->markTestSkipped('TODO');
     }

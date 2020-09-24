@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\PageTypes;
 
 use SilverStripe\Forms\ListboxField;
@@ -11,7 +10,7 @@ use TitleDK\Calendar\Calendars\Calendar;
  *
  * @package calendar
  * @subpackage pagetypes
- * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Calendars\Calendar> Calendars()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Calendars\Calendar[] Calendars()
  */
 class CalendarPage extends \Page
 {
@@ -21,14 +20,13 @@ class CalendarPage extends \Page
 
     // for applying group restrictions
     private static $belongs_many_many = array(
-        'Calendars' => Calendar::class;
-    private );
+        'Calendars' => Calendar::class,
+    );
 
     public function IsCalendar()
     {
         return true;
     }
-
 
     public function getCMSFields()
     {
@@ -39,7 +37,7 @@ class CalendarPage extends \Page
             // Listboxfield values are escaped, use ASCII char instead of &raquo;
             $calendarsMap[$calendar->ID] = $calendar->Title;
         }
-        \asort($calendarsMap);
+        asort($calendarsMap);
 
         $fields->addFieldToTab(
             'Root.Main',
@@ -47,10 +45,10 @@ class CalendarPage extends \Page
                 ->setSource($calendarsMap)
                 ->setAttribute(
                     'data-placeholder',
-                    'Select a calendar',
+                    'Select a calendar'
                 )
                     ->setRightTitle('Only events from these calendars will shown on this page.'),
-            'Content',
+            'Content'
         );
 
         return $fields;

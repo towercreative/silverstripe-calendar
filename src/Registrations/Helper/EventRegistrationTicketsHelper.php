@@ -1,10 +1,13 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Registrations\Helper;
+
+use TitleDK\Calendar\Events\Event;
 
 class EventRegistrationTicketsHelper
 {
-    /** @var \TitleDK\Calendar\Registrations\Helper\Event */
+    /**
+     * @var Event
+     */
     protected $event;
 
     /**
@@ -19,7 +22,6 @@ class EventRegistrationTicketsHelper
         // e NumberOfAvailableTickets
     }
 
-
     /**
      * Ascertain the number of tickets remaining
      */
@@ -27,28 +29,25 @@ class EventRegistrationTicketsHelper
     {
         //$sql = "SELECT SUM('NumberOfTickets')";
         $used = $this->numberOfTicketsNotAvailable();
-
-        return $this->event->NumberOfAvailableTickets - $used;
+        $free = $this->event->NumberOfAvailableTickets - $used;
+        return $free;
     }
-
 
     /**
      * Get the number of tickets freely available (ie not being processed)
      *
-     * @param $registrations
+     * @param  $registrations
+     * @return int
      */
-    public function numberOfTicketsNotAvailable(): int
+    public function numberOfTicketsNotAvailable()
     {
         $nTickets = 0;
         $registrations = $this->event->Registrations();
         foreach ($registrations as $reg) {
-            if ($reg->Status === 'Available') {
-                continue;
+            if ($reg->Status != 'Available') {
+                $nTickets += $reg->NumberOfTickets;
             }
-
-            $nTickets += $reg->NumberOfTickets;
         }
-
         return $nTickets;
     }
 }

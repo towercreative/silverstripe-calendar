@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Helpers;
 
@@ -7,92 +7,82 @@ use SilverStripe\Dev\SapphireTest;
 use SilverStripe\Security\Member;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\Helpers\CalendarPageHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
 class CalendarPageHelperTest extends SapphireTest
 {
-
     use DateTimeHelperTrait;
 
     protected static $fixture_file = ['tests/events.yml'];
 
-    /** @var \TitleDK\Calendar\Helpers\CalendarPageHelper */
-    private $helper;
+    /** @var CalendarPageHelper */
+   private $helper;
 
-   /** @var \TitleDK\Calendar\PageTypes\CalendarPage */
-    private $calendarPage;
+   /** @var CalendarPage */
+   private $calendarPage;
 
-    public function setUp(): void
-    {
+   public function setUp()
+   {
         parent::setUp();
-
         $this->helper = new CalendarPageHelper();
         $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'testcalendarpage');
 
         // Because Carbon::now() is used instead of time() we can set a fixed time for testing purposes
         $testNow = $this->carbonDateTime('2019-12-15 08:00:00');
         Carbon::setTestNow($testNow);
-    }
+   }
 
-
-    public function test_realtime_month_day(): void
+    public function test_realtime_month_day()
     {
         $this->assertEquals('2019-12-15', $this->helper->realtimeMonthDay());
     }
 
-
-    public function test_realtime_month(): void
+    public function test_realtime_month()
     {
         $this->assertEquals('2019-12', $this->helper->realtimeMonth());
     }
 
-
-    public function test_current_contextual_month(): void
+    public function test_current_contextual_month()
     {
         $this->assertEquals('2019-12', $this->helper->currentContextualMonth());
     }
 
-
-    public function test_current_contextual_month_str(): void
+    public function test_current_contextual_month_str()
     {
         $this->assertEquals('Dec 2019', $this->helper->currentContextualMonthStr());
     }
 
-
-    public function test_previous_contextual_month(): void
+    public function test_previous_contextual_month()
     {
         $this->assertEquals('2019-11', $this->helper->previousContextualMonth());
     }
 
-
-    public function test_next_contextual_month(): void
+    public function test_next_contextual_month()
     {
         $this->assertEquals('2020-01', $this->helper->nextContextualMonth());
     }
 
-
-    public function test_perform_search_start_of_title_camel_case(): void
+    public function test_perform_search_start_of_title_camel_case()
     {
         $titles = $this->getEventTitlesForSearch('SilverSt');
         $this->assertEquals(['SilverStripe Booze Up', 'SilverStripe Meet Up'], $titles);
     }
 
-
-    public function test_perform_search_start_of_title_lower_case(): void
+    public function test_perform_search_start_of_title_lower_case()
     {
         $titles = $this->getEventTitlesForSearch('silverstr');
         $this->assertEquals(['SilverStripe Booze Up', 'SilverStripe Meet Up'], $titles);
     }
 
-
-    public function test_perform_search_multiple_words_lower_case(): void
+    public function test_perform_search_multiple_words_lower_case()
     {
         $titles = $this->getEventTitlesForSearch('silverstri booz');
         $this->assertEquals(['SilverStripe Booze Up'], $titles);
     }
 
-
-    public function test_perform_search_middle_of_title_camel_case(): void
+    public function test_perform_search_middle_of_title_camel_case()
     {
         $titles = $this->getEventTitlesForSearch('verStr');
         $this->assertEquals(['SilverStripe Booze Up', 'SilverStripe Meet Up'], $titles);
@@ -101,8 +91,7 @@ class CalendarPageHelperTest extends SapphireTest
         $this->assertEquals(['SilverStripe Booze Up'], $titles);
     }
 
-
-    public function test_perform_search_middle_of_title_lower_case(): void
+    public function test_perform_search_middle_of_title_lower_case()
     {
         $titles = $this->getEventTitlesForSearch('verstr');
         $this->assertEquals(['SilverStripe Booze Up', 'SilverStripe Meet Up'], $titles);
@@ -111,8 +100,7 @@ class CalendarPageHelperTest extends SapphireTest
         $this->assertEquals(['SilverStripe Booze Up'], $titles);
     }
 
-
-    public function test_recent_events(): void
+    public function test_recent_events()
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->calendarPage->Calendars());
         $events = $this->helper->recentEvents($calendarIDs);
@@ -121,12 +109,11 @@ class CalendarPageHelperTest extends SapphireTest
             'Freezing in the Park',
             'Blink And You Will Miss It',
             'Blink And You Will Miss It 2',
-            'The Neverending Event',
+            'The Neverending Event'
         ], $titles);
     }
 
-
-    public function test_upcoming_events(): void
+    public function test_upcoming_events()
     {
         $member = $this->objFromFixture(Member::class, 'member1');
         $this->logInAs('member1');
@@ -140,27 +127,26 @@ class CalendarPageHelperTest extends SapphireTest
         ], $titles);
     }
 
-
     /**
      * @param $q
      * @return array
      */
-    private function getEventTitlesForSearch($q): array
+    private function getEventTitlesForSearch($q)
     {
         $events = $this->helper->performSearch($q)->toArray();
-
-        return $this->convertEventsToTitles($events);
+        $titles = $this->convertEventsToTitles($events);
+        return $titles;
     }
-
 
     /**
      * @param array $events
      * @return array
      */
-    private function convertEventsToTitles(array $events): array
+    private function convertEventsToTitles(array $events)
     {
-        $titles = \array_map(static fn ($event) => $event->Title, $events);
-
+        $titles = array_map(function ($event) {
+            return $event->Title;
+        }, $events);
         return $titles;
     }
 }

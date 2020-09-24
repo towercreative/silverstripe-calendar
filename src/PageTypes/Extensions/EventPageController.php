@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\PageTypes;
 
 /**
@@ -14,19 +13,19 @@ class EventPage_Controller extends \PageController
 
     public function ComingOrPastEvents()
     {
-        return isset($_GET['past'])
-            ? 'past'
-            : 'coming';
+        if (isset($_GET['past'])) {
+            return 'past';
+        } else {
+            return 'coming';
+        }
     }
-
-
     public function Events()
     {
-        if ($this->ComingOrPastEvents() === 'past') {
+        if ($this->ComingOrPastEvents() == 'past') {
             //return $this->model->PastEvents();
             return $this->PastEvents();
+        } else {
+            return $this->ComingEvents();
         }
-
-        return $this->ComingEvents();
     }
 }

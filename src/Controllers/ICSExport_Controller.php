@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Controllers;
 
 use SilverStripe\Control\Controller;
@@ -20,27 +19,27 @@ use TitleDK\Calendar\Helpers\ICSExportHelper;
  *
  * More explaination:
  * https://github.com/colinburns/daypack.com.au/issues/48
+ *
  */
 class ICSExport_Controller extends Controller
 {
 
-    private static $allowed_actions = array(
-        'cal';
-    private 'all';
-    private 'my';
-    private );
-
-    public function init(): void
+    public function init()
     {
         parent::init();
     }
+
+    private static $allowed_actions = array(
+        'cal',
+        'all',
+        'my',
+    );
 
 
     public function index()
     {
         return false;
     }
-
 
     /**
      * Single calendar
@@ -61,7 +60,7 @@ class ICSExport_Controller extends Controller
         //echo $idOrURL;
 
         //Public calendar via id
-        if (\is_numeric($idOrURL)) {
+        if (is_numeric($idOrURL)) {
             //calendar id is requested
             //echo 'request is numeric';
             $cal = Calendar::get()->ByID((int) $request->param('ID'));
@@ -96,18 +95,16 @@ class ICSExport_Controller extends Controller
 
         if ($cal && $cal->exists()) {
             //everybody can access public calendars
-            if ($cal->ClassName === 'Calendar') {
+            if ($cal->ClassName == 'Calendar') {
                 $helper = new ICSExportHelper();
                 $ics = $helper->processCalendar($cal);
                 $calName = $cal->Title;
             }
-
             return $this->output($ics, $calName);
         } else {
             echo "calendar can't be found";
         }
     }
-
 
     /**
      * All public calendars
@@ -123,10 +120,8 @@ class ICSExport_Controller extends Controller
         $eventsArr = $events->toNestedArray();
 
         $ics = new ICSExport($eventsArr);
-
         return $this->output($ics, 'all');
     }
-
 
     /**
      * The currently logged in user's calendar
@@ -137,10 +132,8 @@ class ICSExport_Controller extends Controller
         if (!$member) {
             return 'please log in';
         }
-
         return $this->memberCalendar($member);
     }
-
 
     protected function memberCalendar($member)
     {
@@ -148,37 +141,38 @@ class ICSExport_Controller extends Controller
             ->filter(
                 array(
                 'OwnerID' => $member->ID
-                ),
+                )
             )
             ->filter(
                 array(
                 'StartDateTime:GreaterThan' => PrivateCalendarController::offset_date('start', null, 300),
                 'EndDateTime:LessThan' => PrivateCalendarController::offset_date('end', null, 300),
-                ),
+                )
             );
 
         $eventsArr = $events->toNestedArray();
 
         $ics = new ICSExport($eventsArr);
-
-        return $this->output($ics, \strtolower($member->FirstName));
+        return $this->output($ics, strtolower($member->FirstName));
     }
 
 
-    protected function output(?ICSExport $ics, $name): void
+    /**
+     * @param ICSExport|null $ics
+     */
+    protected function output($ics, $name)
     {
-        if (!$ics) {
-            return;
+        if ($ics) {
+            if (isset($_GET['dump'])) {
+                //dump/debug mode
+                echo "<pre>";
+                echo $ics->getString();
+                echo "</pre>";
+            } else {
+                //normal mode
+                return $ics->getFile("$name.ics");
+            }
         }
-
-        if (!isset($_GET['dump'])) {
-            //normal mode
-            return $ics->getFile("$name.ics");
-        }
-
-        //dump/debug mode
-        echo "<pre>";
-        echo $ics->getString();
-        echo "</pre>";
     }
+
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Core;
 
@@ -6,37 +6,32 @@ use SilverStripe\Dev\SapphireTest;
 
 class CalendarConfigTest extends SapphireTest
 {
-    public function testSettings(): void
+    public function testSettings()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testMergeSettings(): void
+    public function testMergeSettings()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testSubpackage_settings(): void
+    public function testSubpackage_settings()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testSubpackage_enabled(): void
+    public function testSubpackage_enabled()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testSubpackage_setting(): void
+    public function testSubpackage_setting()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testInit(): void
+    public function testInit()
     {
         $this->markTestSkipped('TODO');
     }

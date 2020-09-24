@@ -1,10 +1,10 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Calendars;
 
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Group;
+use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
@@ -17,9 +17,9 @@ use TitleDK\Calendar\PageTypes\CalendarPage;
  * @property string $Slug
  * @property string $Color
  * @property string $Title
- * @method \SilverStripe\ORM\DataList|array<\TitleDK\Calendar\Events\Event> Events()
- * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\PageTypes\CalendarPage> CalendarPages()
- * @method \SilverStripe\ORM\ManyManyList|array<\SilverStripe\Security\Group> Groups()
+ * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Events\Event[] Events()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\PageTypes\CalendarPage[] CalendarPages()
+ * @method \SilverStripe\ORM\ManyManyList|\SilverStripe\Security\Group[] Groups()
  * @mixin \TitleDK\Calendar\Colors\CalendarColorExtension
  */
 class Calendar extends DataObject
@@ -31,7 +31,7 @@ class Calendar extends DataObject
     ];
 
     private static $has_many = [
-        'Events' => 'TitleDK\Calendar\Events\Event',
+        'Events' => 'TitleDK\Calendar\Events\Event'
     ];
 
     private static $default_sort = 'Title';
@@ -40,14 +40,15 @@ class Calendar extends DataObject
         'Title' => 'Title',
     ];
 
+
     //Public calendars are simply called 'Calendar'
     private static $singular_name = 'Calendar';
     private static $plural_name = 'Calendars';
 
     // for applying group restrictions
     private static $belongs_many_many = array(
-        'Groups' => Group::class;
-    private );
+        'Groups' => Group::class,
+    );
 
     private static $many_many = array(
         'CalendarPages' => CalendarPage::class
@@ -63,7 +64,7 @@ class Calendar extends DataObject
             // Listboxfield values are escaped, use ASCII char instead of &raquo;
             $groupsMap[$group->ID] = $group->getBreadcrumbs(' > ');
         }
-        \asort($groupsMap);
+        asort($groupsMap);
 
         $fields->addFieldToTab(
             'Root.Main',
@@ -71,49 +72,64 @@ class Calendar extends DataObject
                 ->setSource($groupsMap)
                 ->setAttribute(
                     'data-placeholder',
-                    \_t(self::class . '.ADDGROUP', 'Add group restriction', 'Placeholder text for a dropdown'),
+                    _t(__CLASS__ . '.ADDGROUP', 'Add group restriction', 'Placeholder text for a dropdown')
                 )->setRightTitle(
-                    'Only these groups will be able to see this calendar and events, leave empty for public',
-                ),
+                    'Only these groups will be able to see this calendar and events, leave empty for public'
+                )
         );
 
         //Events shouldn't be editable from here by default
         $fields->removeByName('Events');
-
         return $fields;
     }
-
 
     /**
      * Anyone can view public calendar
      *
-     * @param \SilverStripe\Security\Member $member
+     * @param  Member $member
+     * @return boolean
      */
-    public function canView(?Member $member = null): bool
+    public function canView($member = null)
     {
         return true;
     }
 
-
-    public function canCreate(?Member $member = null, $context = []): bool
+    /**
+     *
+     * @param  Member $member
+     * @return boolean
+     */
+    public function canCreate($member = null, $context = [])
     {
         return $this->canManage($member);
     }
 
-
-    public function canEdit(?Member $member = null): bool
+    /**
+     *
+     * @param  Member $member
+     * @return boolean
+     */
+    public function canEdit($member = null)
     {
         return $this->canManage($member);
     }
 
-
-    public function canDelete(?Member $member = null): bool
+    /**
+     *
+     * @param  Member $member
+     * @return boolean
+     */
+    public function canDelete($member = null)
     {
         return $this->canManage($member);
     }
 
-
-    protected function canManage(Member $member): bool
+    /**
+     *
+     * @param  Member $member
+     * @return boolean
+     */
+    protected function canManage($member)
     {
         return Permission::check('ADMIN', 'any', $member) || Permission::check('CALENDAR_MANAGE', 'any', $member);
     }

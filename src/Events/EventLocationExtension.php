@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Events;
 
 use SilverStripe\AssetAdmin\Forms\UploadField;
@@ -21,10 +20,10 @@ class EventLocationExtension extends DataExtension
 
     private static $db = [
         'LocationName' => 'Varchar(255)',
-        'MapURL' => 'Varchar(255)',
+        'MapURL' => 'Varchar(255)'
     ];
 
-    public function updateCMSFields(FieldList $fields): void
+    public function updateCMSFields(FieldList $fields)
     {
         $uploadField = new UploadField('FeaturedImage', 'Featured Image');
         $uploadField->setAllowedFileCategories('image');

@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Admin\GridField;
 
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
@@ -14,7 +13,7 @@ use SilverStripe\Forms\GridField\GridFieldDetailForm;
  * Draws on, and inspired by
  * https://github.com/webbuilders-group/GridFieldDetailFormAddNew/blob/master/gridfield/GridFieldDetailFormAddNew.php
  *
- * @package calendar
+ * @package    calendar
  * @subpackage admin
  */
 class CalendarEventGridFieldDetailForm extends GridFieldDetailForm

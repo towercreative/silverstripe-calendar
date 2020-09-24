@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Registrations\StateMachine;
 
 /**
@@ -11,6 +10,11 @@ namespace TitleDK\Calendar\Registrations\StateMachine;
  */
 class EventRegistrationStateMachine
 {
+
+    /**
+     * @var EventRegistration
+     */
+    protected $registration;
 
     const AWAITING_PAYMENT = 'AwaitingPayment';
 
@@ -24,93 +28,82 @@ class EventRegistrationStateMachine
 
     const BOOKED = 'Booked';
 
-    /** @var \TitleDK\Calendar\Registrations\StateMachine\EventRegistration */
-    protected $registration;
-
     public function __construct($registration)
     {
         $this->registration = $registration;
     }
-
 
     public function getStatus()
     {
         return $this->registration->Status;
     }
 
-
     /**
      * Registration has moved from available to awaiting payment
      */
-    public function awaitingPayment(): void
+    public function awaitingPayment()
     {
         $this->transitionState(self::AVAILABLE, self::AWAITING_PAYMENT);
     }
 
-
     /**
-     * Mark a payment as expired. This should happen from cron normally, after say 20 mins
+     * Mark a payment as expired.  This should happen from cron normally, after say 20 mins
      */
-    public function paymentExpired(): void
+    public function paymentExpired()
     {
         $this->transitionState(self::AWAITING_PAYMENT, self::PAYMENT_EXPIRED);
     }
 
-
     /**
      * Mark payment failed
      */
-    public function paymentFailed(): void
+    public function paymentFailed()
     {
         $this->transitionState(self::AWAITING_PAYMENT, self::UNPAID);
     }
 
-
     /**
      * Mark payment failed
      */
-    public function tryAgainAfterPaymentFailed(): void
+    public function tryAgainAfterPaymentFailed()
     {
         $this->transitionState(self::UNPAID, self::AWAITING_PAYMENT);
     }
 
-
     /**
      * Mark payment failed
      */
-    public function makeTicketAvailableAfterPaymentTimedOut(): void
+    public function makeTicketAvailableAfterPaymentTimedOut()
     {
         $this->transitionState(self::AWAITING_PAYMENT, self::AVAILABLE);
     }
 
-
     /**
      * Mark a payment as succeeded
      */
-    public function paymentSucceeded(): void
+    public function paymentSucceeded()
     {
         $this->transitionState(self::AWAITING_PAYMENT, self::PAID);
     }
 
-
     /**
      * Tickets are booked
      */
-    public function booked(): void
+    public function booked()
     {
         $this->transitionState(self::PAID, self::BOOKED);
     }
 
     // @todo Cancel
-    private function transitionState($from, $to): void
+    private function transitionState($from, $to)
     {
         // @todo Check validity of from and to
         // @todo Can events be thrown?
         $currentState = $this->registration->Status;
-        if ($currentState !== $from) {
+        if ($currentState != $from) {
             throw new \InvalidArgumentException(
                 "Registration {$this->registration->ID} was in state "
-                . "{$currentState}, was expecting {$from}",
+                . "{$currentState}, was expecting {$from}"
             );
         }
 

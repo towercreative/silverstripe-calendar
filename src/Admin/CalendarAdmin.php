@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Admin;
 
 use SilverStripe\Admin\LeftAndMain;
@@ -32,45 +31,47 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     private static $url_segment = "calendar";
 
     private static $allowed_actions = array(
-        'CalendarsForm';
-    private 'CategoriesForm';
-    private 'EventsForm'
+        'CalendarsForm',
+        'CategoriesForm',
+        'EventsForm'
     );
 
     private static $managed_models = array(
-        'TitleDK\Calendar\Events\Event';
-    private 'TitleDK\Calendar\Categories\PublicEventCategory';
-    private 'TitleDK\Calendar\Calendars\Calendar'
+        'TitleDK\Calendar\Events\Event',
+        'TitleDK\Calendar\Categories\PublicEventCategory',
+        'TitleDK\Calendar\Calendars\Calendar'
     );
 
     private static $model_importers = array(
-        'TitleDK\Calendar\Events\Event' => 'TitleDK\Calendar\Events\EventCsvBulkLoader';
-    private 'TitleDK\Calendar\Categories\PublicEventCategory' => 'SilverStripe\Dev\CsvBulkLoader';
-    private 'TitleDK\Calendar\Calendars\Calendar' => 'SilverStripe\Dev\CsvBulkLoader'
+        'TitleDK\Calendar\Events\Event' => 'TitleDK\Calendar\Events\EventCsvBulkLoader',
+        'TitleDK\Calendar\Categories\PublicEventCategory' => 'SilverStripe\Dev\CsvBulkLoader',
+        'TitleDK\Calendar\Calendars\Calendar' => 'SilverStripe\Dev\CsvBulkLoader'
     );
+
 
     private static $menu_icon = "titledk/silverstripe-calendar:images/icons/calendar.png";
 
-    public function init(): void
+    public function init()
     {
         parent::init();
+
 
         //CSS/JS Dependencies - currently not much there
         Requirements::css("titledk/silverstripe-calendar:css/admin/CalendarAdmin.css");
         Requirements::javascript("titledk/silverstripe-calendar:javascript/admin/CalendarAdmin.js");
     }
 
-
     public function getModelClass()
     {
         return $this->sanitiseClassName($this->modelClass);
     }
 
-
     public function getManagedModels()
     {
         // Unset managed models according to config
-        /** @todo change to use config API */
+        /**
+ * @todo change to use config API
+*/
         $models = parent::getManagedModels();
         if (!$this->calendarsEnabled()
             && isset($models['Calendar'])
@@ -82,10 +83,28 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
         ) {
             unset($models['PublicEventCategory']);
         }
-
         return $models;
     }
 
+    protected function determineFormClass()
+    {
+        switch ($this->modelClass) {
+            case 'TitleDK\Calendar\Calendars\Calendar':
+                $class = 'TitleDK\Calendar\Admin\Forms\CalendarsForm';
+                break;
+            case 'TitleDK\Calendar\Categories\PublicEventCategory':
+                $class = 'TitleDK\Calendar\Admin\Forms\CategoriesForm';
+                break;
+            case 'TitleDK\Calendar\Events\Event':
+                $class = 'TitleDK\Calendar\Admin\Forms\EventsForm';
+                break;
+            default:
+                $class = 'SilverStripe\Forms\Form'; // @todo was CMSForm
+                break;
+        }
+
+        return $class;
+    }
 
     public function getEditForm($id = null, $fields = null)
     {
@@ -99,12 +118,12 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
             $fieldConfig = GridFieldConfig_RecordEditor::create($this->stat('page_length'))
                 ->addComponent($exportButton)
                 ->removeComponentsByType(GridFieldFilterHeader::class)
-                ->addComponents(new GridFieldPrintButton('buttons-before-left')),
+                ->addComponents(new GridFieldPrintButton('buttons-before-left'))
         );
 
         // Validation
-        if (\singleton($this->modelClass)->hasMethod('getCMSValidator')) {
-            $detailValidator = \singleton($this->modelClass)->getCMSValidator();
+        if (singleton($this->modelClass)->hasMethod('getCMSValidator')) {
+            $detailValidator = singleton($this->modelClass)->getCMSValidator();
             $listField->getConfig()->getComponentByType(GridFieldDetailForm::class)->setValidator($detailValidator);
         }
 
@@ -112,7 +131,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
             $fieldConfig->addComponent(
                 GridFieldImportButton::create('buttons-before-left')
                     ->setImportForm($this->ImportForm())
-                    ->setModalTitle(\_t('SilverStripe\\Admin\\ModelAdmin.IMPORT', 'Import from CSV')),
+                    ->setModalTitle(_t('SilverStripe\\Admin\\ModelAdmin.IMPORT', 'Import from CSV'))
             );
         }
 
@@ -122,7 +141,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
             $this,
             'EditForm',
             new FieldList($listField),
-            new FieldList(),
+            new FieldList()
         )->setHTMLID('Form_EditForm');
 
         // @todo This method does not exist $form->setResponseNegotiator($this->getResponseNegotiator());
@@ -137,70 +156,40 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
         return $form;
     }
 
-
-    public function providePermissions()
-    {
-        $title = LeftAndMain::menu_title($this->class);
-
-        return array(
-            "CMS_ACCESS_CalendarAdmin" => array(
-                'name' => \_t('CMSMain.ACCESS', "Access to '{title}' section", array('title' => $title)),
-                'category' => \_t('Permission.CMS_ACCESS_CATEGORY', 'CMS Access'),
-                'help' => 'Allow access to calendar management module.'
-            ),
-            "CALENDAR_MANAGE" => array(
-                'name' => \_t('CalendarAdmin.CALENDAR_MANAGE', 'Manage calendars'),
-                'category' => \_t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-                'help' => 'Allow creating, editing, and deleting calendars.'
-            ),
-            "EVENTCATEGORY_MANAGE" => array(
-                'name' => \_t('CalendarAdmin.EVENTCATEGORY_MANAGE', 'Manage event categories'),
-                'category' => \_t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-                'help' => 'Allow creating, editing, and deleting event categories.'
-            ),
-            "EVENT_MANAGE" => array(
-                'name' => \_t('CalendarAdmin.EVENT_MANAGE', 'Manage events'),
-                'category' => \_t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-                'help' => 'Allow creating, editing, and deleting events.'
-            )
-        );
-    }
-
-
-    protected function determineFormClass()
-    {
-        switch ($this->modelClass) {
-            case 'TitleDK\Calendar\Calendars\Calendar':
-                $class = 'TitleDK\Calendar\Admin\Forms\CalendarsForm';
-
-                break;
-            case 'TitleDK\Calendar\Categories\PublicEventCategory':
-                $class = 'TitleDK\Calendar\Admin\Forms\CategoriesForm';
-
-                break;
-            case 'TitleDK\Calendar\Events\Event':
-                $class = 'TitleDK\Calendar\Admin\Forms\EventsForm';
-
-                break;
-            default:
-                // @todo was CMSForm
-                $class = 'SilverStripe\Forms\Form';
-
-                break;
-        }
-
-        return $class;
-    }
-
-
     protected function calendarsEnabled()
     {
         return Config::inst()->get(Calendar::class, 'enabled');
     }
 
-
     protected function categoriesEnabled()
     {
         return Config::inst()->get(EventCategory::class, 'enabled');
+    }
+
+    public function providePermissions()
+    {
+        $title = LeftAndMain::menu_title($this->class);
+        return array(
+            "CMS_ACCESS_CalendarAdmin" => array(
+                'name' => _t('CMSMain.ACCESS', "Access to '{title}' section", array('title' => $title)),
+                'category' => _t('Permission.CMS_ACCESS_CATEGORY', 'CMS Access'),
+                'help' => 'Allow access to calendar management module.'
+            ),
+            "CALENDAR_MANAGE" => array(
+                'name' => _t('CalendarAdmin.CALENDAR_MANAGE', 'Manage calendars'),
+                'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
+                'help' => 'Allow creating, editing, and deleting calendars.'
+            ),
+            "EVENTCATEGORY_MANAGE" => array(
+                'name' => _t('CalendarAdmin.EVENTCATEGORY_MANAGE', 'Manage event categories'),
+                'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
+                'help' => 'Allow creating, editing, and deleting event categories.'
+            ),
+            "EVENT_MANAGE" => array(
+                'name' => _t('CalendarAdmin.EVENT_MANAGE', 'Manage events'),
+                'category' => _t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
+                'help' => 'Allow creating, editing, and deleting events.'
+            )
+        );
     }
 }

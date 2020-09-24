@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Helpers;
 
@@ -11,42 +11,38 @@ class ICSExportHelperTest extends SapphireTest
 {
     protected static $fixture_file = ['tests/events.yml', 'tests/eventpages.yml'];
 
-    /** @var \TitleDK\Calendar\Calendars\Calendar */
+    /** @var Calendar */
     private $calendar;
 
-    /** @var \SilverStripe\Security\Member */
+    /** @var Member */
     private $member;
 
-    /** @var \TitleDK\Calendar\Helpers\ICSExportHelper */
+    /** @var ICSExportHelper */
     private $helper;
 
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
-
         $this->member = $this->objFromFixture(Member::class, 'member1');
         $this->calendar = $this->objFromFixture(Calendar::class, 'testCalendar1');
         $this->helper = new ICSExportHelper();
     }
 
-
-    public function test_process_calendar(): void
+    public function test_process_calendar()
     {
         $this->logInAs($this->member);
         $ics = $this->helper->processCalendar($this->calendar);
         // @todo How best to test this - manually it imports into Lightning on Thunderbird
     }
 
-
-    public function test_get_string(): void
+    public function test_get_string()
     {
         $this->logInAs($this->member);
         $ics = $this->helper->processCalendar($this->calendar);
         $this->assertEquals($ics, $this->helper->getString());
     }
 
-
-    public function test_get_file(): void
+    public function test_get_file()
     {
         $this->logInAs($this->member);
         $ics = $this->helper->processCalendar($this->calendar);
@@ -54,9 +50,10 @@ class ICSExportHelperTest extends SapphireTest
         $this->markAsRisky();
     }
 
-
-    /** @return array */
-    private function createEventsArray(): array
+    /**
+     * @return array
+     */
+    private function createEventsArray()
     {
         $calendars = Calendar::get();
         $events = new ArrayList();
@@ -64,6 +61,7 @@ class ICSExportHelperTest extends SapphireTest
             $events->merge($cal->Events());
         }
 
-        return $events->toNestedArray();
+        $eventsArr = $events->toNestedArray();
+        return $eventsArr;
     }
 }

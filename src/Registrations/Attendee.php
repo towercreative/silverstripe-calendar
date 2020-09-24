@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\ORM\DataObject;
@@ -15,7 +14,7 @@ use SilverStripe\ORM\DataObject;
  * @property string $Company
  * @property string $Phone
  * @property string $Email
- * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Registrations\EventRegistration> Registrations()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Registrations\EventRegistration[] Registrations()
  */
 class Attendee extends DataObject
 {
@@ -27,15 +26,17 @@ class Attendee extends DataObject
         'Surname' => 'Varchar(255)',
         'Company' => 'Varchar(255)',
         'Phone' => 'Varchar(255)',
-        'Email' => 'Varchar(255)',
+        'Email' => 'Varchar(255)'
     ];
 
     private static $summary_fields = [
-      'Title', 'FirstName', 'Surname', 'Company', 'Phone', 'Email',
+      'Title', 'FirstName', 'Surname', 'Company', 'Phone', 'Email'
     ];
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private static $many_many = [
-        'Registrations' => EventRegistration::class,
+        'Registrations' => EventRegistration::class
     ];
 }

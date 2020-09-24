@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Forms\FieldList;
@@ -22,12 +21,15 @@ use SilverStripe\ORM\DataObject;
  * @property string $Notes
  * @property int $EventID
  * @method \TitleDK\Calendar\Events\Event Event()
- * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Registrations\Attendee> Attendees()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Registrations\Attendee[] Attendees()
  * @mixin \TitleDK\Calendar\Registrations\AttendeesExtension
  * @mixin \TitleDK\Calendar\Events\EventRegistrationEmbargoExtension
  */
 class EventRegistration extends DataObject
 {
+    /**
+ * @var string constant for the key used for successful event registration
+*/
     const EVENT_REGISTRATION_SUCCESS_SESSION_KEY = 'event_registration_successful';
 
     const EVENT_REGISTRATION_KEY = 'event_registration_id';
@@ -37,14 +39,16 @@ class EventRegistration extends DataObject
     private static $plural_name = 'Registrations';
 
     private static $db = array(
-        'Name' => 'Varchar';
-    private 'PayersName' => 'Varchar';
-    private 'Email' => 'Varchar';
-    private 'Status' => "Enum('Available,Unpaid,AwaitingPayment,PaymentExpired,Paid,Cancelled,Booked','Available')";
-    private 'NumberOfTickets' => 'Int';
-    private 'AmountPaid' => 'Money';
-    private 'Notes' => 'HTMLText';
-    private );
+        'Name' => 'Varchar',
+        'PayersName' => 'Varchar',
+        'Email' => 'Varchar',
+
+        // this is effectively a finite state machine of the event registration
+        'Status' => "Enum('Available,Unpaid,AwaitingPayment,PaymentExpired,Paid,Cancelled,Booked','Available')",
+        'NumberOfTickets' => 'Int',
+        'AmountPaid' => 'Money',
+        'Notes' => 'HTMLText',
+    );
 
     private static $has_one = array(
         'Event' => 'TitleDK\Calendar\Events\Event'
@@ -53,17 +57,17 @@ class EventRegistration extends DataObject
     private static $default_sort = 'Created DESC';
 
     private static $defaults = [
-        'Status' => 'Available',
+        'Status' => 'Available'
     ];
 
     private static $summary_fields = array(
-        'Created' => 'Created DESC';
-    private 'PayersName' => 'Name (Payer)';
-    private 'AttendeeName' => 'Name (Attendee)';
-    private 'Status' => 'Payment Status';
-    private 'NumberOfTickets' => 'Tickets';
-    private 'AmountPaid' => 'Amount Paid';
-    private 'RegistrationCode' => 'Registration Code'
+        'Created' => 'Created DESC',
+        'PayersName' => 'Name (Payer)',
+        'AttendeeName' => 'Name (Attendee)',
+        'Status' => 'Payment Status',
+        'NumberOfTickets' => 'Tickets',
+        'AmountPaid' => 'Amount Paid',
+        'RegistrationCode' => 'Registration Code'
     );
 
     /**
@@ -74,17 +78,15 @@ class EventRegistration extends DataObject
         $fields = FieldList::create(
             TextField::create('Name'),
             TextField::create('Email'),
-            HiddenField::create('EventID'),
+            HiddenField::create('EventID')
         );
 
         $this->extend('updateFrontEndFields', $fields);
-
         return $fields;
     }
 
-
     public function getRegistrationCode()
     {
-        return \strtoupper($this->event()->Slug) . '-' . \str_pad($this->ID, 4, "0", \STR_PAD_LEFT);
+        return strtoupper($this->event()->Slug) . '-' . str_pad($this->ID, 4, "0", STR_PAD_LEFT);
     }
 }

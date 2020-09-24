@@ -1,23 +1,32 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Helpers;
 
+use Carbon\Carbon;
 use Jsvrcek\ICS\CalendarExport;
 use Jsvrcek\ICS\CalendarStream;
 use Jsvrcek\ICS\Model\CalendarEvent;
 use Jsvrcek\ICS\Utility\Formatter;
 use Ramsey\Uuid\Uuid;
+use SilverStripe\ORM\DataObject;
+use TitleDK\Calendar\Calendars\Calendar;
+use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\Libs\ICSExport;
+
 
 class ICSExportHelper
 {
-
     use DateTimeHelperTrait;
 
-    /** @var \TitleDK\Calendar\Helpers\Calendar The SS Calendar object */
+    /**
+     * @var Calendar The SS Calendar object
+     */
     protected $ssCalendar;
 
-    /** @var string The ICS output */
+    /**
+     * @var string The ICS output
+     */
     protected $strics = '';
 
     /**
@@ -34,7 +43,7 @@ class ICSExportHelper
         $icsCalendar->setProdId('-//My Company//Cool CalNendar App//EN');
 
         // @todo Check ordering
-        /** @var \TitleDK\Calendar\Events\Event $ssEvent */
+        /** @var Event $ssEvent */
         foreach ($ssCalendar->Events() as $ssEvent) {
             $icsEvent = new CalendarEvent();
 
@@ -60,37 +69,35 @@ class ICSExportHelper
         $exporter->addCalendar($icsCalendar);
 
         $this->strics = $exporter->getStream();
-
         return $this->strics;
     }
-
 
     /**
      * getFile
      *
      * @param string $strFilename the names of the file
-     * @param bool $headers True to return headers, false for testing
+     * @param boolean $headers True to return headers, false for testing
      */
-    public function getFile(string $strFilename, bool $headers = true): void
+    public function getFile($strFilename, $headers = true)
     {
-        \ob_start();
+        ob_start();
         if ($headers) {
-            \header("Content-type: text/calendar");
-            \header('Content-Disposition: attachment; filename="' . $strFilename . '"');
+            header("Content-type: text/calendar");
+            header('Content-Disposition: attachment; filename="' .  $strFilename . '"');
         }
         echo $this->strics;
-        \ob_flush();
-        die;
+        ob_flush();
+        die();
     }
-
 
     /**
      * getString
      *
      * @return string ics string
      */
-    public function getString(): string
+    public function getString()
     {
         return $this->strics;
     }
+
 }

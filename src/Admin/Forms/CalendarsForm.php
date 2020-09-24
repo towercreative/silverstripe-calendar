@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Admin\Forms;
 
 use SilverStripe\Core\Config\Config;
@@ -14,57 +13,56 @@ use TitleDK\Calendar\Calendars\Calendar;
 /**
  * CalendarsForm
  *
- * @package calendar
+ * @package    calendar
  * @subpackage admin
  */
-// @todo This was CMSForm
-class CalendarsForm extends Form
+class CalendarsForm extends Form // @todo This was CMSForm
 {
 
     /**
      * Contructor
+     *
+     * @param type $controller
+     * @param type $name
      */
-    public function __construct(type $controller, type $name)
+    public function __construct($controller, $name)
     {
 
         //Administering calendars
-        if (!Config::inst()->get(Calendar::class, 'enabled')) {
-            return;
-        }
+        if (Config::inst()->get(Calendar::class, 'enabled')) {
+            //Configuration for calendar grid field
+            $gridCalendarConfig = GridFieldConfig_RecordEditor::create();
+            $gridCalendarConfig->removeComponentsByType(GridFieldDataColumns::class);
+            $gridCalendarConfig->addComponent($dataColumns = new GridFieldDataColumns(), GridFieldEditButton::class);
 
-        //Configuration for calendar grid field
-        $gridCalendarConfig = GridFieldConfig_RecordEditor::create();
-        $gridCalendarConfig->removeComponentsByType(GridFieldDataColumns::class);
-        $gridCalendarConfig->addComponent($dataColumns = new GridFieldDataColumns(), GridFieldEditButton::class);
+            $c = singleton('TitleDK\Calendar\Calendars\Calendar');
+            $summaryFields = $c->summaryFields();
 
-        $c = \singleton('TitleDK\Calendar\Calendars\Calendar');
-        $summaryFields = $c->summaryFields();
+            $dataColumns->setDisplayFields($summaryFields);
 
-        $dataColumns->setDisplayFields($summaryFields);
+            //settings for the case that colors are enabled
+            if (Config::inst()->get(Calendar::class, 'colors')) {
+                $dataColumns->setFieldFormatting(
+                    [
+                    "Title" => '<div style=\"height:20px;width:20px;display:inline-block;vertical-align:middle;' .
+                        'margin-right:6px;background:$Color\"></div> $Title'
+                    ]
+                );
+            }
 
-        //settings for the case that colors are enabled
-        if (Config::inst()->get(Calendar::class, 'colors')) {
-            $dataColumns->setFieldFormatting(
-                [
-                "Title" => '<div style=\"height:20px;width:20px;display:inline-block;vertical-align:middle;' .
-                    'margin-right:6px;background:$Color\"></div> $Title',
-                ],
+            $GridFieldCalendars = new GridField(
+                'Calendars',
+                '',
+                Calendar::get(),
+                $gridCalendarConfig
             );
+
+            $fields = new FieldList(
+                $GridFieldCalendars
+            );
+            $actions = new FieldList();
+            $this->addExtraClass('CalendarsForm');
+            parent::__construct($controller, $name, $fields, $actions);
         }
-
-        $GridFieldCalendars = new GridField(
-            'Calendars',
-            '',
-            Calendar::get(),
-            $gridCalendarConfig,
-        );
-
-        $fields = new FieldList(
-            $GridFieldCalendars,
-        );
-        $actions = new FieldList();
-        $this->addExtraClass('CalendarsForm');
-
-        parent::__construct($controller, $name, $fields, $actions);
     }
 }

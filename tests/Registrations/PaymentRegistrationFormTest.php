@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Registrations;
 
@@ -7,11 +7,13 @@ use TitleDK\Calendar\Registrations\PaymentRegistrationForm;
 
 class PaymentRegistrationFormTest extends SapphireTest
 {
-    public function test__construct(): void
+    public function test__construct()
     {
         $form = new PaymentRegistrationForm(null, 'paymentFormTest');
         $fields = $form->Fields()->toArray();
-        $names = \array_map(static fn ($field) => $field->Name, $fields);
+        $names = array_map(function ($field) {
+            return $field->Name;
+        }, $fields);
         $this->assertEquals([
             'Name',
             'PayersName',
@@ -19,36 +21,35 @@ class PaymentRegistrationFormTest extends SapphireTest
             'NumberOfTickets',
             'Notes',
             'EventID',
-            'SecurityID',
+            'SecurityID'
         ], $names);
     }
 
-
-    public function testSetDone(): void
+    public function testSetDone()
     {
         $form = new PaymentRegistrationForm(null, 'paymentFormTest');
         $form->setDone();
         $fields = $form->Fields()->toArray();
-        $names = \array_map(static fn ($field) => $field->Name, $fields);
+        $names = array_map(function ($field) {
+            return $field->Name;
+        }, $fields);
         $this->assertEquals([
             'CompleteMsg',
-            'SecurityID',
+            'SecurityID'
         ], $names);
     }
 
-
-    public function testDoRegister(): void
+    public function testDoRegister()
     {
         $this->markTestSkipped('TODO');
     }
 
-
-    public function testSetFormField(): void
+    public function testSetFormField()
     {
         $form = new PaymentRegistrationForm(null, 'eventFormTest');
         $form->setFormField('Email', 'fred@fred.com');
 
-        /** @var \TitleDK\Calendar\Tests\Registrations\FieldList $fields */
+        /** @var FieldList $fields */
         $fields = $form->Fields();
         $emailField = $fields->fieldByName('Email');
         $this->assertEquals('fred@fred.com', $emailField->Value());

@@ -1,10 +1,10 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\ORM\DataExtension;
+use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 
 /**
  * Extend event registration
@@ -16,28 +16,27 @@ use SilverStripe\ORM\DataExtension;
  *
  * @package TitleDK\Calendar\Attendee
  * @property \TitleDK\Calendar\Registrations\EventRegistration|\TitleDK\Calendar\Registrations\AttendeesExtension $owner
- * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Registrations\Attendee> Attendees()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Registrations\Attendee[] Attendees()
  */
 class AttendeesExtension extends DataExtension
 {
     private static $belongs_many_many = [
-        'Attendees' => Attendee::class,
+        'Attendees' => Attendee::class
     ];
 
     // @todo This will need fixed
     private static $summary_fields = ['Title', 'AttendeeName', 'FirstName', 'Surname', 'Phone', 'Email'];
 
 
-    public function updateCMSFields(FieldList $fields): void
+    public function updateCMSFields(FieldList $fields)
     {
 
         $gridField = GridField::create(
             'Attendees',
             'Attendees',
-            $this->owner->Attendees(),
+            $this->owner->Attendees()
         );
 
-        //, 'NumberOfTickets' );
-        $fields->addFieldToTab('Root.Attendees', $gridField);
+        $fields->addFieldToTab('Root.Attendees', $gridField);//, 'NumberOfTickets' );
     }
 }

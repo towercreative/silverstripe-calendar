@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Events;
 
@@ -13,20 +13,19 @@ class EventImageExtensionTest extends SapphireTest
     /**
      * Assert there is a field called FeaturedImage, which is what the extension adds
      */
-    public function testUpdateCMSFields(): void
+    public function testUpdateCMSFields()
     {
         $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
         $fields = $event->getCMSFields();
         $rootTab = $fields->fieldByName('Root');
-        /** @var \TitleDK\Calendar\Tests\Events\Tab $mainTab */
+        /** @var Tab $mainTab */
         $mainTab = $rootTab->fieldByName('Main');
         $fields = $mainTab->FieldList();
         $imageField = $fields->fieldByName('FeaturedImage');
         $this->assertNotNull($imageField);
     }
 
-
-    public function test_get_thumbnail_no_image(): void
+    public function test_get_thumbnail_no_image()
     {
         $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
         $event->setField('FeaturedImage', null);
@@ -35,16 +34,16 @@ class EventImageExtensionTest extends SapphireTest
 
     // @todo Not sure how to write a unit test involving asset Files
 
-    public function test_get_thumbnail_an_empty_file_image(): void
+    public function test_get_thumbnail_an_empty_file_image()
     {
         $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
 
-        /** @var \SilverStripe\Assets\Image $image */
+        /** @var Image $image */
         $image = new Image();
         $image->write();
         $event->FeaturedImageID = $image->ID;
 
         // there is no file associated with the image, as such the rendering will be null
-        $this->assertNull($event->getThumbnail());
+        $this->assertNull( $event->getThumbnail());
     }
 }

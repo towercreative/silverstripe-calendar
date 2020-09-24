@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Categories;
 
 use SilverStripe\Forms\FieldList;
@@ -12,7 +11,7 @@ use SilverStripe\ORM\DataObject;
  * @package calendar
  * @subpackage categories
  * @property string $Title
- * @method \SilverStripe\ORM\ManyManyList|array<\TitleDK\Calendar\Events\Event> Events()
+ * @method \SilverStripe\ORM\ManyManyList|\TitleDK\Calendar\Events\Event[] Events()
  */
 class EventCategory extends DataObject
 {
@@ -23,8 +22,8 @@ class EventCategory extends DataObject
     private static $plural_name = 'Categories';
 
     private static $db = array(
-        'Title' => 'Varchar';
-    private );
+        'Title' => 'Varchar',
+    );
 
     private static $many_many = array(
         'Events' => 'TitleDK\Calendar\Events\Event'
@@ -36,14 +35,12 @@ class EventCategory extends DataObject
     public function getAddNewFields()
     {
         $fields = FieldList::create(
-            TextField::create('Title'),
+            TextField::create('Title')
         );
 
         $this->extend('updateAddNewFields', $fields);
-
         return $fields;
     }
-
 
     public function getCMSFields()
     {
@@ -51,7 +48,6 @@ class EventCategory extends DataObject
 
         //Events shouldn't be editable from here by default
         $fields->removeByName('Events');
-
         return $fields;
     }
 }

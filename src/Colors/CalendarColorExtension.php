@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Colors;
 
 use SilverStripe\Forms\FieldList;
@@ -23,29 +22,31 @@ class CalendarColorExtension extends DataExtension
     public function TextColor()
     {
         $colorWithHash = $this->owner->getColorWithHash();
-
         return $this->owner->calculateTextColor($colorWithHash);
     }
-
 
     /**
      * Text Color calculation
      * From http://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
      * Here is a discussion on that topic:
      * http://stackoverflow.com/questions/1331591/given-a-background-color-black-or-white-text
+     *
+     * @param  string $color
+     * @return string
      */
-    public function calculateTextColor(string $color): string
+    public function calculateTextColor($color)
     {
-        $c = \str_replace('#', '', $color);
-        $rgb[0] = \hexdec(\substr($c, 0, 2));
-        $rgb[1] = \hexdec(\substr($c, 2, 2));
-        $rgb[2] = \hexdec(\substr($c, 4, 2));
+        $c = str_replace('#', '', $color);
+        $rgb[0] = hexdec(substr($c, 0, 2));
+        $rgb[1] = hexdec(substr($c, 2, 2));
+        $rgb[2] = hexdec(substr($c, 4, 2));
 
-        return $rgb[0]+$rgb[1]+$rgb[2]<382
-            ? '#fff'
-            : '#000';
+        if ($rgb[0]+$rgb[1]+$rgb[2]<382) {
+            return '#fff';
+        } else {
+            return '#000';
+        }
     }
-
 
     /**
      * Getter that always returns the color with a hash
@@ -56,21 +57,22 @@ class CalendarColorExtension extends DataExtension
     public function getColorWithHash()
     {
         $color = $this->owner->Color;
-
-        return \strpos($color, '#') === false
-            ? '#' . $color
-            : $color;
+        if (strpos($color, '#') === false) {
+            return '#' . $color;
+        } else {
+            return $color;
+        }
     }
 
 
-    public function updateCMSFields(FieldList $fields): void
+    public function updateCMSFields(FieldList $fields)
     {
         $colors = ColorpaletteHelper::get_palette();
 
         $fields->removeByName('Color');
         $fields->addFieldToTab(
             'Root.Main',
-            new ColorpaletteField('Color', 'Colour', $colors),
+            new ColorpaletteField('Color', 'Colour', $colors)
         );
     }
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\DateTime;
 
@@ -8,10 +8,9 @@ use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 
 class DateTimeHelperTraitTest extends SapphireTest
 {
-
     use DateTimeHelperTrait;
 
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -21,7 +20,7 @@ class DateTimeHelperTraitTest extends SapphireTest
     }
 
 
-    public function testCarbonDateTime(): void
+    public function testCarbonDateTime()
     {
         $carbon = $this->carbonDateTime('2018-05-21 13:04:00');
         $this->assertEquals('2018', $carbon->year);
@@ -32,8 +31,7 @@ class DateTimeHelperTraitTest extends SapphireTest
         $this->assertEquals('00', $carbon->second);
     }
 
-
-    public function testGetSSDateTimeFromCarbon(): void
+    public function testGetSSDateTimeFromCarbon()
     {
         $this->assertEquals('2018-05-16 08:20:00', $this->getSSDateTimeFromCarbon($this->now));
     }

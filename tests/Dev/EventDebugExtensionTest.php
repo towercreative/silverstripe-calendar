@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Dev;
 
@@ -6,7 +6,7 @@ use SilverStripe\Dev\SapphireTest;
 
 class EventDebugExtensionTest extends SapphireTest
 {
-    public function testDebugLog(): void
+    public function testDebugLog()
     {
         $this->markTestSkipped('TODO');
     }

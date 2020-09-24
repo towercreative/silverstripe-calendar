@@ -1,5 +1,4 @@
-<?php declare(strict_types = 1);
-
+<?php
 namespace TitleDK\Calendar\Calendars;
 
 use SilverStripe\Forms\DropdownField;
@@ -19,15 +18,15 @@ use SilverStripe\ORM\DataExtension;
 class EventCalendarExtension extends DataExtension
 {
     private static $has_one = array(
-        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar';
-    private );
+        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
+    );
 
-    public function updateFrontEndFields(FieldList $fields): void
+    public function updateFrontEndFields(FieldList $fields)
     {
         $calendarDropdown = DropdownField::create(
             'CalendarID',
             'Calendar',
-            Calendar::get()->map('ID', 'Title'),
+            Calendar::get()->map('ID', 'Title')
         )
                 ->setEmptyString('Choose calendar...');
 

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php
 
 namespace TitleDK\Calendar\Tests\Events;
 
@@ -6,7 +6,7 @@ use SilverStripe\Dev\SapphireTest;
 
 class EventRegistrationEmbargoExtensionTest extends SapphireTest
 {
-    public function testUpdateCMSFields(): void
+    public function testUpdateCMSFields()
     {
         $this->markTestSkipped('TODO');
     }
