@@ -39,7 +39,7 @@
     },
     "autoload-dev": {
         "classmap": [
-            "src\/DateTime\/DateTimeHelperTrait.php"
+            "src\/DateTime\/DateTimeHelper.php"
         ]
     },
     "extra": {
