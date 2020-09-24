@@ -83,7 +83,7 @@ class CalendarHelper
         return Event::get()
             ->filter(
                 [
-                    'StartDateTime:LessThan' => \date('Y-m-d', Carbon::now()->timestamp)
+                    'StartDateTime:LessThan' => \date('Y-m-d', Carbon::now()->timestamp),
                 ],
             );
     }

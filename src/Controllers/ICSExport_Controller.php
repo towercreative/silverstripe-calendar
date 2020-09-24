@@ -147,7 +147,7 @@ class ICSExport_Controller extends Controller
         $events = PrivateEvent::get()
             ->filter(
                 [
-                'OwnerID' => $member->ID
+                'OwnerID' => $member->ID,
                 ],
             )
             ->filter(

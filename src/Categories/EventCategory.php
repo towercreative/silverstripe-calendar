@@ -27,7 +27,7 @@ class EventCategory extends DataObject
     private ];
 
     private static $many_many = [
-        'Events' => 'TitleDK\Calendar\Events\Event'
+        'Events' => 'TitleDK\Calendar\Events\Event',
     ];
 
     private static $default_sort = 'Title';

@@ -16,6 +16,6 @@ use SilverStripe\ORM\DataExtension;
 class GroupsCalendarExtension extends DataExtension
 {
     private static $many_many = [
-        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
+        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
     ];
 }

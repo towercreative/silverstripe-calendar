@@ -44,11 +44,11 @@ class EventRegistrationExtension extends DataExtension
     private 'TicketsRequired' => DBBoolean::class;
     private 'NumberOfAvailableTickets' => DBInt::class;
     private 'PaymentRequired' => DBBoolean::class ;
-    private 'RSVPEmail' => 'Varchar(255)'
+    private 'RSVPEmail' => 'Varchar(255)',
     ];
 
     private static $has_many = [
-        'Registrations' => 'TitleDK\Calendar\Registrations\EventRegistration'
+        'Registrations' => 'TitleDK\Calendar\Registrations\EventRegistration',
     ];
 
 

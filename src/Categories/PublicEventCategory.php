@@ -18,7 +18,7 @@ class PublicEventCategory extends EventCategory
         return $this->Events()
             ->filter(
                 [
-                'StartDateTime:GreaterThan' => \date('Y-m-d', $from ? \strtotime($from) : \time())
+                'StartDateTime:GreaterThan' => \date('Y-m-d', $from ? \strtotime($from) : \time()),
                 ],
             );
     }

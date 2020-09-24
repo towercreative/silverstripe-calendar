@@ -83,11 +83,11 @@ class Event extends DataObject
 
     private static $has_one = [
         'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage';
-    private 'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
+    private 'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
     ];
 
     private static $belongs_many_many = [
-        'Tags' => EventTag::class
+        'Tags' => EventTag::class,
     ];
 
     private static $db = [
@@ -107,7 +107,7 @@ class Event extends DataObject
     private 'DatesAndTimeframe' => 'Presentation String';
     private 'TimeFrameType' => 'Time Frame Type';
     private 'Duration' => 'Duration';
-    private 'Calendar.Title' => 'Calendar'
+    private 'Calendar.Title' => 'Calendar',
     ];
 
     private static $default_sort = 'StartDateTime';

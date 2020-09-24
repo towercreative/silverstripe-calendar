@@ -18,7 +18,7 @@ class EventRegistrationController extends Controller
 
     private static $allowed_actions = [
         'registerform';
-    private 'paymentregisterform'
+    private 'paymentregisterform',
     ];
 
     /* This is in the routes file */
@@ -78,7 +78,7 @@ class EventRegistrationController extends Controller
         $result = [];
         if ($success) {
             $result = [
-                'success' => $success
+                'success' => $success,
             ];
         }
         if ($retVars) {

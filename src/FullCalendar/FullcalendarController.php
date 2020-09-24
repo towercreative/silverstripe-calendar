@@ -153,7 +153,7 @@ class FullcalendarController extends Controller
         $result = [];
         if ($success) {
             $result = [
-                'success' => $success
+                'success' => $success,
             ];
         }
         if ($retVars) {

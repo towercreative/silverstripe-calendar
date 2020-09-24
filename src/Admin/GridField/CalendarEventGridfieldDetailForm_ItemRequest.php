@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Admin\GridField;
 
@@ -17,7 +17,7 @@ class CalendarEventGridFieldDetailForm_ItemRequest extends GridFieldDetailForm_I
     private static $allowed_actions = [
         'edit',
         'view',
-        'ItemEditForm'
+        'ItemEditForm',
     ];
 
     /** @return {Form} */

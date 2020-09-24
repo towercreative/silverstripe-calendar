@@ -34,19 +34,19 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     private static $allowed_actions = [
         'CalendarsForm';
     private 'CategoriesForm';
-    private 'EventsForm'
+    private 'EventsForm',
     ];
 
     private static $managed_models = [
         'TitleDK\Calendar\Events\Event';
     private 'TitleDK\Calendar\Categories\PublicEventCategory';
-    private 'TitleDK\Calendar\Calendars\Calendar'
+    private 'TitleDK\Calendar\Calendars\Calendar',
     ];
 
     private static $model_importers = [
         'TitleDK\Calendar\Events\Event' => 'TitleDK\Calendar\Events\EventCsvBulkLoader';
     private 'TitleDK\Calendar\Categories\PublicEventCategory' => 'SilverStripe\Dev\CsvBulkLoader';
-    private 'TitleDK\Calendar\Calendars\Calendar' => 'SilverStripe\Dev\CsvBulkLoader'
+    private 'TitleDK\Calendar\Calendars\Calendar' => 'SilverStripe\Dev\CsvBulkLoader',
     ];
 
     private static $menu_icon = "titledk/silverstripe-calendar:images/icons/calendar.png";
@@ -146,23 +146,23 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
             "CMS_ACCESS_CalendarAdmin" => [
                 'name' => \_t('CMSMain.ACCESS', "Access to '{title}' section", ['title' => $title]),
                 'category' => \_t('Permission.CMS_ACCESS_CATEGORY', 'CMS Access'),
-                'help' => 'Allow access to calendar management module.'
+                'help' => 'Allow access to calendar management module.',
             ],
             "CALENDAR_MANAGE" => [
                 'name' => \_t('CalendarAdmin.CALENDAR_MANAGE', 'Manage calendars'),
                 'category' => \_t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-                'help' => 'Allow creating, editing, and deleting calendars.'
+                'help' => 'Allow creating, editing, and deleting calendars.',
             ],
             "EVENTCATEGORY_MANAGE" => [
                 'name' => \_t('CalendarAdmin.EVENTCATEGORY_MANAGE', 'Manage event categories'),
                 'category' => \_t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-                'help' => 'Allow creating, editing, and deleting event categories.'
+                'help' => 'Allow creating, editing, and deleting event categories.',
             ],
             "EVENT_MANAGE" => [
                 'name' => \_t('CalendarAdmin.EVENT_MANAGE', 'Manage events'),
                 'category' => \_t('CalendarAdmin.CALENDAR_PERMISSION_CATEGORY', 'Calender'),
-                'help' => 'Allow creating, editing, and deleting events.'
-            ]
+                'help' => 'Allow creating, editing, and deleting events.',
+            ],
         ];
     }
 

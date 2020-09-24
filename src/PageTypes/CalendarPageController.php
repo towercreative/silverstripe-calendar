@@ -45,7 +45,7 @@ class CalendarPageController extends \PageController
     private 'noregistrations';
     private 'tag';
     private 'recent';
-    private 'upcoming'
+    private 'upcoming',
     ];
 
     private static $url_handlers = [

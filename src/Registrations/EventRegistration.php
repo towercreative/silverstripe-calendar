@@ -47,7 +47,7 @@ class EventRegistration extends DataObject
     private ];
 
     private static $has_one = [
-        'Event' => 'TitleDK\Calendar\Events\Event'
+        'Event' => 'TitleDK\Calendar\Events\Event',
     ];
 
     private static $default_sort = 'Created DESC';
@@ -63,7 +63,7 @@ class EventRegistration extends DataObject
     private 'Status' => 'Payment Status';
     private 'NumberOfTickets' => 'Tickets';
     private 'AmountPaid' => 'Amount Paid';
-    private 'RegistrationCode' => 'Registration Code'
+    private 'RegistrationCode' => 'Registration Code',
     ];
 
     /**

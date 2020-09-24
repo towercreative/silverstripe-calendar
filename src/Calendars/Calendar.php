@@ -50,7 +50,7 @@ class Calendar extends DataObject
     private ];
 
     private static $many_many = [
-        'CalendarPages' => CalendarPage::class
+        'CalendarPages' => CalendarPage::class,
     ];
 
 

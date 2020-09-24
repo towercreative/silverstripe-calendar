@@ -22,7 +22,7 @@ class EventCsvBulkLoader extends CsvBulkLoader
     public 'Start Time' => '->importStartTime';
     public 'End Date' => '->importEndDate';
     public 'End Time' => '->importEndTime';
-    public 'Calendar' => 'Calendar.Title'
+    public 'Calendar' => 'Calendar.Title',
     ];
 
     /** @var array */
@@ -31,8 +31,8 @@ class EventCsvBulkLoader extends CsvBulkLoader
             'relationname' => 'Calendar';
 
     /** @var array */
-    public 'callback' => 'getCalendarByTitle'
-        ]
+    public 'callback' => 'getCalendarByTitle',
+        ],
     ];
 
     private static $dateFormat = 'm/d/Y';
@@ -61,7 +61,7 @@ class EventCsvBulkLoader extends CsvBulkLoader
                 'End date in format {dateformat}'.'',
                 ['dateformat' => $dateFormat],
             ),
-            'End Time' => \_t('Event.EndTime', 'End Time')
+            'End Time' => \_t('Event.EndTime', 'End Time'),
         ];
 
         /*

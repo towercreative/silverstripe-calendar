@@ -37,7 +37,7 @@ class EventPage extends \Page
         return $this->Events()
             ->filter(
                 [
-                    'StartDateTime:GreaterThan' => \date('Y-m-d', $timestamp - 24*60*60)
+                    'StartDateTime:GreaterThan' => \date('Y-m-d', $timestamp - 24*60*60),
                 ],
             );
     }
@@ -51,7 +51,7 @@ class EventPage extends \Page
         return $this->Events()
             ->filter(
                 [
-                    'StartDateTime:LessThan' => \date('Y-m-d', $timestamp)
+                    'StartDateTime:LessThan' => \date('Y-m-d', $timestamp),
                 ],
             );
     }
