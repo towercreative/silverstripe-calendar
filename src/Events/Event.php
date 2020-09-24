@@ -638,7 +638,7 @@ class Event extends DataObject
         //everywhere on the site
         $calendarPage = CalendarPage::get()->First();
 
-        return CalendarHelper::add_preview_params(
+        return CalendarHelper::addPreviewParams(
             Controller::join_links($calendarPage->Link('detail'), $this->ID),
             $this,
         );

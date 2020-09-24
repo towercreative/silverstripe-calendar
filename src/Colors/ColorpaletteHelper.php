@@ -25,10 +25,10 @@ class ColorpaletteHelper
     }
 
 
-    public static function palette_dropdown($name)
+    public static function paletteDropdown(string $name): DropdownField
     {
         return DropdownField::create($name)
-            ->setSource(self::get_palette())
+            ->setSource(self::getPalette())
             ->setEmptyString('-- select color --');
     }
 
@@ -48,9 +48,9 @@ class ColorpaletteHelper
      * Color variation:
      * http://stackoverflow.com/questions/1177826/simple-color-variation
      *
-     * @return array Colors mapped as #color -> #color
+     * @return array<string,string> Colors mapped as #color -> #color
      */
-    public static function get_palette(): array
+    public static function getPalette(): array
     {
         //overwriting with the palette from the calendar settings
         $colors = Config::inst()->get(ColorpaletteHelper::class, 'base_palette');

@@ -28,7 +28,7 @@ class EventsForm extends Form
     /**
      * Contructor
      *
-     * @param \TitleDK\Calendar\PageTypes\EventPage_Controller $controller
+     * @param \TitleDK\Calendar\PageTypes\EventPageController $controller
      */
     public function __construct(EventPage_Controller $controller, string $name)
     {
@@ -39,8 +39,8 @@ class EventsForm extends Form
         $comingGridField = GridField::create(
             'ComingEvents',
             '',
-            CalendarHelper::coming_events(),
-            $gridConfig,
+            CalendarHelper::comingEvents(),
+            $gridConfig
         );
         $fields->addFieldToTab('Root.Coming', $comingGridField);
 
@@ -54,7 +54,7 @@ class EventsForm extends Form
             'PastEvents',
             '',
             $pastEvents,
-            $gridConfig,
+            $gridConfig
         );
 
         $fields->addFieldToTab('Root.Past', $pastGridField);
@@ -68,7 +68,7 @@ class EventsForm extends Form
     }
 
 
-    public static function eventConfig()
+    public static function eventConfig(): GridFieldConfig_RecordEditor
     {
         $gridEventConfig = GridFieldConfig_RecordEditor::create();
 

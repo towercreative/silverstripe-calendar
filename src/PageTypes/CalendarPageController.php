@@ -168,14 +168,14 @@ class CalendarPageController extends \PageController
                 'titledk/silverstripe-calendar:javascript/fullcalendar/PublicFullcalendarView.js',
             );
 
-            $url = CalendarHelper::add_preview_params($this->Link(), $this->data());
+            $url = CalendarHelper::addPreviewParams($this->Link(), $this->data());
 
             // @todo SS4 config
             $fullcalendarjs = Config::inst()->get(CalendarPage::class, 'fullcalendar_js_settings');
             $fullcalendarjs = \json_encode($fullcalendarjs);
 
             $configuredURL = Config::inst()->get(CalendarPage::class, 'controllerUrl');
-            $controllerUrl = CalendarHelper::add_preview_params($configuredURL, $this->data());
+            $controllerUrl = CalendarHelper::addPreviewParams($configuredURL, $this->data());
 
             $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars(), true);
 
@@ -356,7 +356,7 @@ class CalendarPageController extends \PageController
         $url = $this->Link($this->request->param('Action'));
         $url = HTTP::setGetVar('month', $month, $url);
 
-        return CalendarHelper::add_preview_params($url, $this->data());
+        return CalendarHelper::addPreviewParams($url, $this->data());
     }
 
 
@@ -366,7 +366,7 @@ class CalendarPageController extends \PageController
         $url = $this->Link($this->request->param('Action'));
         $url = HTTP::setGetVar('month', $month, $url);
 
-        return CalendarHelper::add_preview_params($url, $this->data());
+        return CalendarHelper::addPreviewParams($url, $this->data());
     }
 
 
@@ -374,11 +374,11 @@ class CalendarPageController extends \PageController
     {
         $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
         if ($indexSetting === 'eventlist') {
-            return CalendarHelper::add_preview_params($this->Link(), $this->data());
+            return CalendarHelper::addPreviewParams($this->Link(), $this->data());
         }
 
         if ($indexSetting === 'calendarview') {
-            return CalendarHelper::add_preview_params($this->Link('eventlist'), $this->data());
+            return CalendarHelper::addPreviewParams($this->Link('eventlist'), $this->data());
         }
     }
 
@@ -388,11 +388,11 @@ class CalendarPageController extends \PageController
     {
         $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
         if ($indexSetting === 'eventlist') {
-            return CalendarHelper::add_preview_params($this->Link('calendarview'), $this->data());
+            return CalendarHelper::addPreviewParams($this->Link('calendarview'), $this->data());
         }
 
         if ($indexSetting === 'calendarview') {
-            return CalendarHelper::add_preview_params($this->Link(), $this->data());
+            return CalendarHelper::addPreviewParams($this->Link(), $this->data());
         }
     }
 
@@ -403,7 +403,7 @@ class CalendarPageController extends \PageController
         $calendar = Calendar::get()->byID(\intval($calendarID));
         $url = Controller::join_links($this->Link(), 'calendar', ($calendar) ? $calendar->Link : '');
 
-        return CalendarHelper::add_preview_params($url, $this->data());
+        return CalendarHelper::addPreviewParams($url, $this->data());
     }
 
 
@@ -439,7 +439,7 @@ class CalendarPageController extends \PageController
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
         // This method takes a csv of IDs, not an array.
-        $events = CalendarHelper::events_for_month($this->calendarPageHelper->currentContextualMonth(), $calendarIDs);
+        $events = CalendarHelper::eventsForMonth($this->calendarPageHelper->currentContextualMonth(), $calendarIDs);
 
         if ($action === 'eventregistration') {
             $events = $events

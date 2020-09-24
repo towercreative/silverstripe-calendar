@@ -15,7 +15,7 @@ class ColorpaletteHelperTest extends SapphireTest
 
     public function testPaletteDropDown(): void
     {
-        $dropdown = ColorpaletteHelper::palette_dropdown('Colors');
+        $dropdown = ColorpaletteHelper::paletteDropdown('Colors');
         $this->assertEquals([
             '#4B0082',
             '#696969',

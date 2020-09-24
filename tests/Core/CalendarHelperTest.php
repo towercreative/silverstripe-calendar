@@ -59,28 +59,28 @@ class CalendarHelperTest extends FunctionalTest
 
     public function testComingEventsDateSpecified(): void
     {
-        $events = CalendarHelper::coming_events('2019-12-30 20:00:00');
+        $events = CalendarHelper::comingEvents('2019-12-30 20:00:00');
         $this->assertEquals(3, $events->count());
     }
 
 
     public function testComingEventsDateSpecifiedUseCarbonNow(): void
     {
-        $events = CalendarHelper::coming_events();
+        $events = CalendarHelper::comingEvents();
         $this->assertEquals(3, $events->count());
     }
 
 
     public function testComingEventsLimited(): void
     {
-        $events = CalendarHelper::coming_events_limited(false, 1);
+        $events = CalendarHelper::comingEventsLimited(false, 1);
         $this->assertEquals(1, $events->count());
     }
 
 
     public function testPastEvents(): void
     {
-        $events = CalendarHelper::past_events();
+        $events = CalendarHelper::pastEvents();
         $this->assertEquals(8, $events->count());
     }
 
@@ -88,21 +88,21 @@ class CalendarHelperTest extends FunctionalTest
     public function testAllEvents(): void
     {
         $events = Event::get();
-        $allEvents = CalendarHelper::all_events();
+        $allEvents = CalendarHelper::allEvents();
         $this->assertEquals($events->count(), $allEvents->count());
     }
 
 
     public function testAllEventsLimited(): void
     {
-        $allEvents = CalendarHelper::all_events_limited(4);
+        $allEvents = CalendarHelper::allEventsLimited(4);
         $this->assertEquals(4, $allEvents->count());
     }
 
 
     public function testEventsForMonthDecember(): void
     {
-        $events = CalendarHelper::events_for_month('2019-12');
+        $events = CalendarHelper::eventsForMonth('2019-12');
         $this->assertEquals(7, $events->count());
     }
 
@@ -110,7 +110,7 @@ class CalendarHelperTest extends FunctionalTest
     public function testEventsForMonthDecemberWithCalendarIDs(): void
     {
         $calendar = $this->objFromFixture(Calendar::class, 'testCalendar1');
-        $events = CalendarHelper::events_for_month('2019-12', [$calendar->ID]);
+        $events = CalendarHelper::eventsForMonth('2019-12', [$calendar->ID]);
 
         // the new year event is not associated with this calendar
         $this->assertEquals(6, $events->count());
@@ -121,7 +121,7 @@ class CalendarHelperTest extends FunctionalTest
     {
         try {
             $calendar = $this->objFromFixture(Calendar::class, 'testCalendar1');
-            CalendarHelper::events_for_month('2019-12', "{$calendar->ID}");
+            CalendarHelper::eventsForMonth('2019-12', "{$calendar->ID}");
             $this->fail('String calendar IDs should fail as expected');
         } catch (\Throwable $ex) {
             // @todo Can one add a success method here?
@@ -134,7 +134,7 @@ class CalendarHelperTest extends FunctionalTest
     public function testEventsForMonthInLongEvent(): void
     {
         // during the cricket season event
-        $events = CalendarHelper::events_for_month('2020-06');
+        $events = CalendarHelper::eventsForMonth('2020-06');
         $this->assertEquals(0, $events->count());
     }
 
@@ -142,7 +142,7 @@ class CalendarHelperTest extends FunctionalTest
     public function testEventsForDateRange(): void
     {
         $calendar = $this->objFromFixture(Calendar::class, 'testCalendar1');
-        $events = CalendarHelper::events_for_date_range(
+        $events = CalendarHelper::eventsForDateRange(
             '2019-10-01',
             '2019-11-01',
             [$calendar->ID],
@@ -155,7 +155,7 @@ class CalendarHelperTest extends FunctionalTest
     {
         $this->logout();
         $link = 'http://localhost/calendar/';
-        $this->assertEquals($link, CalendarHelper::add_preview_params($link, null));
+        $this->assertEquals($link, CalendarHelper::addPreviewParams($link, null));
     }
 
 

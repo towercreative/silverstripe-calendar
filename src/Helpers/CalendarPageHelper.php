@@ -82,7 +82,7 @@ class CalendarPageHelper
         $oneMonthAgo = \date('Y-m-d', $prev);
 
         // This method takes a csv of IDs, not an array.
-        return CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
+        return CalendarHelper::eventsForDateRange($oneMonthAgo, $now, $calendarIDs)
             ->sort('StartDateTime DESC');
     }
 
@@ -116,7 +116,7 @@ class CalendarPageHelper
         $inOneMonth = \date('Y-m-d', $next);
 
         // This method takes a csv of IDs, not an array.
-        return CalendarHelper::events_for_date_range($start, $inOneMonth, $calendarIDs)
+        return CalendarHelper::eventsForDateRange($start, $inOneMonth, $calendarIDs)
             ->sort('"StartDateTime" ASC');
     }
 
@@ -144,7 +144,7 @@ class CalendarPageHelper
         }
 
         // @todo this is incorrect, does not take into context of current calendars
-        return CalendarHelper::all_events()
+        return CalendarHelper::allEvents()
             ->where($filter);
     }
 }

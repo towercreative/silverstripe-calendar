@@ -5,6 +5,8 @@ namespace TitleDK\Calendar\Colors;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\ORM\DataExtension;
 
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
 /**
  * Color Extension
  * Allows calendars or categories to have colors
@@ -16,11 +18,12 @@ use SilverStripe\ORM\DataExtension;
  */
 class CalendarColorExtension extends DataExtension
 {
+    /** @var array<string,string> */
     private static $db = [
         'Color' => 'Varchar',
     ];
 
-    public function TextColor()
+    public function TextColor(): string
     {
         $colorWithHash = $this->owner->getColorWithHash();
 
@@ -37,9 +40,10 @@ class CalendarColorExtension extends DataExtension
     public function calculateTextColor(string $color): string
     {
         $c = \str_replace('#', '', $color);
-        $rgb[0] = \hexdec(\substr($c, 0, 2));
-        $rgb[1] = \hexdec(\substr($c, 2, 2));
-        $rgb[2] = \hexdec(\substr($c, 4, 2));
+        $rgb = [];
+        $rgb[] = \hexdec(\substr($c, 0, 2));
+        $rgb[] = \hexdec(\substr($c, 2, 2));
+        $rgb[] = \hexdec(\substr($c, 4, 2));
 
         return $rgb[0]+$rgb[1]+$rgb[2]<382
             ? '#fff'
@@ -53,7 +57,7 @@ class CalendarColorExtension extends DataExtension
      * this just makes sure that colors are always returned with a hash - whether they've been
      * saved with or without one
      */
-    public function getColorWithHash()
+    public function getColorWithHash(): string
     {
         $color = $this->owner->Color;
 
@@ -65,7 +69,7 @@ class CalendarColorExtension extends DataExtension
 
     public function updateCMSFields(FieldList $fields): void
     {
-        $colors = ColorpaletteHelper::get_palette();
+        $colors = ColorpaletteHelper::getPalette();
 
         $fields->removeByName('Color');
         $fields->addFieldToTab(

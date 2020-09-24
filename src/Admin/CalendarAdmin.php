@@ -28,27 +28,34 @@ use TitleDK\Calendar\Categories\EventCategory;
 class CalendarAdmin extends ModelAdmin implements PermissionProvider
 {
 
+    /** @var string */
     private static $menu_title = "Calendar";
+
+    /** @var string */
     private static $url_segment = "calendar";
 
+    /** @var array<string> */
     private static $allowed_actions = [
-        'CalendarsForm';
-    private 'CategoriesForm';
-    private 'EventsForm',
+        'CalendarsForm',
+        'CategoriesForm',
+        'EventsForm',
     ];
 
+    /** @var array<string> */
     private static $managed_models = [
-        'TitleDK\Calendar\Events\Event';
-    private 'TitleDK\Calendar\Categories\PublicEventCategory';
-    private 'TitleDK\Calendar\Calendars\Calendar',
+        'TitleDK\Calendar\Events\Event',
+        'TitleDK\Calendar\Categories\PublicEventCategory',
+        'TitleDK\Calendar\Calendars\Calendar',
     ];
 
+    /** @var array<string,string> */
     private static $model_importers = [
-        'TitleDK\Calendar\Events\Event' => 'TitleDK\Calendar\Events\EventCsvBulkLoader';
-    private 'TitleDK\Calendar\Categories\PublicEventCategory' => 'SilverStripe\Dev\CsvBulkLoader';
-    private 'TitleDK\Calendar\Calendars\Calendar' => 'SilverStripe\Dev\CsvBulkLoader',
+        'TitleDK\Calendar\Events\Event' => 'TitleDK\Calendar\Events\EventCsvBulkLoader',
+        'TitleDK\Calendar\Categories\PublicEventCategory' => 'SilverStripe\Dev\CsvBulkLoader',
+        'TitleDK\Calendar\Calendars\Calendar' => 'SilverStripe\Dev\CsvBulkLoader',
     ];
 
+    /** @var string */
     private static $menu_icon = "titledk/silverstripe-calendar:images/icons/calendar.png";
 
     public function init(): void
@@ -61,13 +68,14 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     }
 
 
-    public function getModelClass()
+    public function getModelClass(): string
     {
         return $this->sanitiseClassName($this->modelClass);
     }
 
 
-    public function getManagedModels()
+    /** @return array<\TitleDK\Calendar\Admin\DataObject> */
+    public function getManagedModels(): array
     {
         // Unset managed models according to config
         /** @todo change to use config API */
@@ -87,7 +95,8 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     }
 
 
-    public function getEditForm($id = null, $fields = null)
+    //public function getEditForm(?int $id, ?FieldList $fields): \SilverStripe\Forms\Form
+    public function getEditForm(): \SilverStripe\Forms\Form
     {
         $list = $this->getList();
         $exportButton = new GridFieldExportButton('buttons-before-left');
@@ -112,7 +121,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
             $fieldConfig->addComponent(
                 GridFieldImportButton::create('buttons-before-left')
                     ->setImportForm($this->ImportForm())
-                    ->setModalTitle(\_t('SilverStripe\\Admin\\ModelAdmin.IMPORT', 'Import from CSV')),
+                    ->setModalTitle(\_t('SilverStripe\\Admin\\ModelAdmin.IMPORT', 'Import from CSV'))
             );
         }
 
@@ -122,7 +131,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
             $this,
             'EditForm',
             new FieldList($listField),
-            new FieldList(),
+            new FieldList()
         )->setHTMLID('Form_EditForm');
 
         // @todo This method does not exist $form->setResponseNegotiator($this->getResponseNegotiator());
@@ -138,7 +147,8 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     }
 
 
-    public function providePermissions()
+    /** @return array<string,array<string,string>> */
+    public function providePermissions(): array
     {
         $title = LeftAndMain::menu_title($this->class);
 
@@ -167,8 +177,11 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     }
 
 
-    protected function determineFormClass()
+    protected function determineFormClass(): string
     {
+        /** @var string $class */
+        $class = 'undefined';
+
         switch ($this->modelClass) {
             case 'TitleDK\Calendar\Calendars\Calendar':
                 $class = 'TitleDK\Calendar\Admin\Forms\CalendarsForm';
@@ -193,13 +206,15 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     }
 
 
-    protected function calendarsEnabled()
+    /** @return bool true if calendars enabled in the config */
+    protected function calendarsEnabled(): bool
     {
-        return Config::inst()->get(Calendar::class, 'enabled');
+        return (bool) Config::inst()->get(Calendar::class, 'enabled');
     }
 
 
-    protected function categoriesEnabled()
+    /** @return bool true if categories enabled in the config */
+    protected function categoriesEnabled(): bool
     {
         return Config::inst()->get(EventCategory::class, 'enabled');
     }

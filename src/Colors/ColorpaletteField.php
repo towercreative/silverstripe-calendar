@@ -29,7 +29,7 @@ class ColorpaletteField extends DropdownField
         ?Form $form = null
     ) {
         if (!\is_array($source)) {
-            $source = ColorpaletteHelper::get_palette();
+            $source = ColorpaletteHelper::getPalette();
         }
 
         parent::__construct($name, ($title===null) ? $name : $title, $source, $value, $form);
