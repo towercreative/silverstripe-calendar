@@ -9,6 +9,8 @@ use SilverStripe\Forms\LiteralField;
 use SilverStripe\Security\Security;
 use SilverStripe\View\Requirements;
 
+// @phpcs:disable Generic.Files.LineLength.TooLong
+// @phpcs:disable SlevomatCodingStandard.Files.LineLength.LineTooLong
 /**
  * Extend event registration controller
  *
@@ -27,7 +29,10 @@ class AttendeesControllerExtension extends Extension
         Requirements::javascript('titledk/silverstripe-calendar:javascript/registration/Attendees.js');
         $fields = $form->Fields();
 
-        $attendeesField = LiteralField::create('AttendeesHTML', '<div id="attendees-list">Attendees will appear here</div>');
+        $attendeesField = LiteralField::create(
+            'AttendeesHTML',
+            '<div id="attendees-list">Attendees will appear here</div>'
+        );
         $fields->insertBefore('NumberOfTickets', $attendeesField);
 
         $addAttendeeButtonHTML = '<a href="#" id="add-attendee-button">Add Attendee</a>';
@@ -38,15 +43,16 @@ class AttendeesControllerExtension extends Extension
         $jsonField = HiddenField::create('AttendeesJSON');
         $data = $form->getData();
         if (!isset($data['AttendeesJSON'])) {
-            if ($member = Security::getCurrentUser()) {
+            $member = Security::getCurrentUser();
+            if ($member) {
                 $details = [
                     [
                         'first_name' => $member->FirstName,
                         'surname' => $member->Surname,
-                        'phone' => empty($member->Phone) ? '' : $member->Phone,
+                        'phone' => !isset($member->Phone) ? '' : $member->Phone,
                         'email' => $member->Email,
-                        'company' => empty($member->Company) ? '' : $member->CompanyName,
-                        'title' => empty($member->Title) ? '' : $member->Title,
+                        'company' => !isset($member->Company) ? '' : $member->CompanyName,
+                        'title' => !isset($member->Title) ? '' : $member->Title,
                     ],
                 ];
 

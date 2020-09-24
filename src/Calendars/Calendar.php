@@ -8,6 +8,8 @@ use SilverStripe\Security\Group;
 use SilverStripe\Security\Permission;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
+// @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+
 /**
  * Calendar Model
  * The calendar serves as a holder for events, but events can exist as instances on their own.
@@ -54,7 +56,7 @@ class Calendar extends DataObject
     ];
 
 
-    public function getCMSFields()
+    public function getCMSFields(): \SilverStripe\Forms\FieldList
     {
         $fields = parent::getCMSFields();
 
@@ -95,7 +97,10 @@ class Calendar extends DataObject
     }
 
 
-    public function canCreate(?Member $member = null, $context = []): bool
+    // @todo Check context iterative type
+    
+    /** @param array<string> $context */
+    public function canCreate(?Member $member = null, array $context = []): bool
     {
         return $this->canManage($member);
     }

@@ -19,6 +19,8 @@ use SilverStripe\ORM\FieldType\DBInt;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
 
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
 /**
  * Allowing events to have registrations
  *
@@ -39,12 +41,12 @@ class EventRegistrationExtension extends DataExtension
 {
 
     private static $db = [
-        'Registerable' => DBBoolean::class;
-    private 'Cost' => 'Money';
-    private 'TicketsRequired' => DBBoolean::class;
-    private 'NumberOfAvailableTickets' => DBInt::class;
-    private 'PaymentRequired' => DBBoolean::class ;
-    private 'RSVPEmail' => 'Varchar(255)',
+        'Registerable' => DBBoolean::class,
+        'Cost' => 'Money',
+        'TicketsRequired' => DBBoolean::class,
+        'NumberOfAvailableTickets' => DBInt::class,
+        'PaymentRequired' => DBBoolean::class,
+        'RSVPEmail' => 'Varchar(255)',
     ];
 
     private static $has_many = [
@@ -147,10 +149,9 @@ class EventRegistrationExtension extends DataExtension
 
         $helper = new EventRegistrationTicketsHelper($this->owner);
 
-        $title = "Registrations (Unticketed)";
         if ($this->owner->TicketsRequired) {
             $ticketsRemaining = $helper->numberOfTicketsRemaining();
-            $title = "Registrations (" . $ticketsRemaining . ' tickets remaining)';
+            "Registrations (" . $ticketsRemaining . ' tickets remaining)';
         }
 
         $fields->addFieldToTab('Root.Registrations', $listField);
@@ -159,8 +160,10 @@ class EventRegistrationExtension extends DataExtension
 
     /**
      * Getter for registration link
+     *
+     * @return string the registation link for the calendar
      */
-    public function getRegisterLink()
+    public function getRegisterLink(): string
     {
         //$link = $o->getInternalLink() . "/register";
         //return $link;
@@ -173,7 +176,7 @@ class EventRegistrationExtension extends DataExtension
     }
 
 
-    public function RegistrationForm()
+    public function RegistrationForm(): EventRegistrationForm
     {
         $eventRegistrationController = new EventRegistrationController();
 
@@ -189,7 +192,7 @@ class EventRegistrationExtension extends DataExtension
     }
 
 
-    public function RegistrationPaymentForm()
+    public function RegistrationPaymentForm(): PaymentRegistrationForm
     {
         $eventRegistrationController = new EventRegistrationController();
 
@@ -212,11 +215,8 @@ class EventRegistrationExtension extends DataExtension
     /**
      * Due to attendees being one to many, the list needs manipulated in memory (for now) to allow for the excel
      * export
-     *
-     * @todo individual tickets?
-     * @return mixed
      */
-    public function getExportableRegistrationsList()
+    public function getExportableRegistrationsList(): ArrayList
     {
         $registrations = $this->owner->Registrations()->sort('Created');
         $updatedRecords = new ArrayList();
@@ -244,7 +244,8 @@ class EventRegistrationExtension extends DataExtension
     }
 
 
-    public function getExportFields()
+    /** @return array<string> */
+    public function getExportFields(): array
     {
         return ['RegistrationCode', 'Status', 'PayersName', 'FirstName', 'Surname', 'AttendeeName', 'CompanyName',
             'Phone', 'Email'];

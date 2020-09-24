@@ -2,8 +2,6 @@
 
 namespace TitleDK\Calendar\Registrations\Helper;
 
-use TitleDK\Calendar\Events\Event;
-
 class EventRegistrationTicketsHelper
 {
     /** @var \TitleDK\Calendar\Registrations\Helper\Event */
@@ -12,9 +10,9 @@ class EventRegistrationTicketsHelper
     /**
      * EventRegistrationTicketsHelper constructor.
      *
-     * @param Event $event
+     * @param \TitleDK\Calendar\Events\Event $event
      */
-    public function __construct($event)
+    public function __construct(Event $event)
     {
         $this->event = $event;
     }
@@ -22,9 +20,10 @@ class EventRegistrationTicketsHelper
 
     /**
      * Ascertain the number of tickets remaining
+     *
      * @return int the number of tickets remaining
      */
-    public function numberOfTicketsRemaining()
+    public function numberOfTicketsRemaining(): int
     {
         //$sql = "SELECT SUM('NumberOfTickets')";
         $used = $this->numberOfTicketsNotAvailable();

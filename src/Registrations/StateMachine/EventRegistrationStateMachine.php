@@ -12,28 +12,31 @@ namespace TitleDK\Calendar\Registrations\StateMachine;
 class EventRegistrationStateMachine
 {
 
-    const AWAITING_PAYMENT = 'AwaitingPayment';
+    public const AWAITING_PAYMENT = 'AwaitingPayment';
 
-    const AVAILABLE = 'Available';
+    public const AVAILABLE = 'Available';
 
-    const PAYMENT_EXPIRED = 'PaymentExpired';
+    public const PAYMENT_EXPIRED = 'PaymentExpired';
 
-    const UNPAID = 'Unpaid';
+    public const UNPAID = 'Unpaid';
 
-    const PAID = 'Paid';
+    public const PAID = 'Paid';
 
-    const BOOKED = 'Booked';
+    public const BOOKED = 'Booked';
 
-    /** @var \TitleDK\Calendar\Registrations\StateMachine\EventRegistration */
+    /** @var \TitleDK\Calendar\Registrations\EventRegistration */
     protected $registration;
 
-    public function __construct($registration)
+    /**
+     * EventRegistrationStateMachine constructor.
+     */
+    public function __construct(EventRegistration $registration)
     {
         $this->registration = $registration;
     }
 
 
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->registration->Status;
     }
@@ -101,8 +104,8 @@ class EventRegistrationStateMachine
         $this->transitionState(self::PAID, self::BOOKED);
     }
 
-    // @todo Cancel
-    private function transitionState($from, $to): void
+
+    private function transitionState(string $from, string $to): void
     {
         // @todo Check validity of from and to
         // @todo Can events be thrown?
