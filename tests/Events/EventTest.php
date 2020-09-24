@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\SapphireTest;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\EventPage;
@@ -14,7 +14,7 @@ use TitleDK\Calendar\PageTypes\EventPage;
 class EventTest extends SapphireTest
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     protected static $fixture_file = 'tests/events.yml';
 

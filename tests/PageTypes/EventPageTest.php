@@ -4,13 +4,13 @@ namespace TitleDK\Calendar\Tests\PageTypes;
 
 use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 use TitleDK\Calendar\PageTypes\EventPage;
 
 class EventPageTest extends SapphireTest
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     protected static $fixture_file = ['tests/events.yml', 'tests/eventpages.yml'];
 

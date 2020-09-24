@@ -7,12 +7,12 @@ use Jsvrcek\ICS\CalendarStream;
 use Jsvrcek\ICS\Model\CalendarEvent;
 use Jsvrcek\ICS\Utility\Formatter;
 use Ramsey\Uuid\Uuid;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 
 class ICSExportHelper
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     /** @var \TitleDK\Calendar\Helpers\Calendar The SS Calendar object */
     protected $ssCalendar;

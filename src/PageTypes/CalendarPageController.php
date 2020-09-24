@@ -10,11 +10,14 @@ use SilverStripe\ORM\PaginatedList;
 use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarHelper;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Helpers\CalendarPageHelper;
 use TitleDK\Calendar\Registrations\EventRegistration;
 use TitleDK\Calendar\Tags\EventTag;
+
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+// @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
 
 /**
  * Class \TitleDK\Calendar\PageTypes\CalendarPageController
@@ -26,26 +29,24 @@ use TitleDK\Calendar\Tags\EventTag;
 class CalendarPageController extends \PageController
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     /** @var \TitleDK\Calendar\Helpers\CalendarPageHelper */
     private $calendarPageHelper;
 
     private static $allowed_actions = [
-        'past';
-    private 'from';
-    private 'detail';
-    private 'register';
-    private 'calendarview';
-    private 'eventlist';
-    private 'eventregistration';
-    private 'search';
-    private 'calendar';
-    private 'registered';
-    private 'noregistrations';
-    private 'tag';
-    private 'recent';
-    private 'upcoming',
+        'past',
+        'from',
+        'calendarview',
+        'eventlist',
+        'eventregistration',
+        'search',
+        'calendar',
+        'registered',
+        'noregistrations',
+        'tag',
+        'recent',
+        'upcoming',
     ];
 
     private static $url_handlers = [
@@ -67,7 +68,9 @@ class CalendarPageController extends \PageController
 
 
     /**
-     * Coming events
+     * Show the upcoming events
+     *
+     * @return \SilverStripe\ORM\FieldType\DBHTMLText|array<\SilverStripe\ORM\PaginatedList>
      */
     public function index()
     {
@@ -93,10 +96,12 @@ class CalendarPageController extends \PageController
 
     /**
      * Show upcoming events
+     *
+     * @return array<string, \SilverStripe\ORM\PaginatedList>
      */
-    public function upcoming()
+    public function upcoming(): array
     {
-        $events = $this->UpComingEvents() ;
+        $events = $this->UpComingEvents();
 
         return [
             'Events' => new PaginatedList($events, $this->getRequest()),
@@ -106,8 +111,10 @@ class CalendarPageController extends \PageController
 
     /**
      * Show recent events
+     *
+     * @return array<string, \SilverStripe\ORM\PaginatedList>
      */
-    public function recent()
+    public function recent(): array
     {
         $events = $this->RecentEvents();
 
@@ -117,14 +124,22 @@ class CalendarPageController extends \PageController
     }
 
 
-    public function eventlist()
+    /**
+     * @return array<string,string>
+     * @todo what is the correct phpdoc type here
+     */
+    public function eventlist(): array
     {
         // @todo This seems to fix the return template issue
         return [];
     }
 
 
-    public function eventregistration()
+    /**
+     * @return array<string,string>
+     * @todo what is the correct phpdoc type here
+     */
+    public function eventregistration(): array
     {
         // @todo This seems to fix the return template issue
         return [];
@@ -134,8 +149,10 @@ class CalendarPageController extends \PageController
     /**
      * Calendar View
      * Renders the fullcalendar
+     *
+     * @todo is this correct?
      */
-    public function calendarview()
+    public function calendarview(): Calendar
     {
         if (Config::inst()->get(CalendarPage::class, 'calendarview')) {
             $prefix = 'titledk/silverstripe-calendar:thirdparty/fullcalendar';
@@ -189,7 +206,7 @@ class CalendarPageController extends \PageController
     /**
      * Displays details of an event
      *
-     * @return array
+     * @return array<mixed>
      */
     public function detail(): array
     {
@@ -201,7 +218,7 @@ class CalendarPageController extends \PageController
 
         $registration = null;
         $registrationID = $session->get(EventRegistration::EVENT_REGISTRATION_KEY);
-        if (!empty($registrationID)) {
+        if (isset($registrationID)) {
             $registration = EventRegistration::get()->byID($registrationID);
         }
 
@@ -221,7 +238,7 @@ class CalendarPageController extends \PageController
     /**
      * Display events for all tags - note no filtering currently
      *
-     * @return array
+     * @return array<string,mixed>
      */
     public function tag(): array
     {
@@ -242,7 +259,7 @@ class CalendarPageController extends \PageController
     /**
      * Event registration
      *
-     * @return array
+     * @return array<mixed>
      */
     public function register(): array
     {
@@ -259,14 +276,14 @@ class CalendarPageController extends \PageController
      */
     public function RegistrationsEnabled(): bool
     {
-        return (bool) $this->config()->get('registrations_enabled');
+        return (bool)$this->config()->get('registrations_enabled');
     }
 
 
     /** @return bool template method to decide whether to render the search box or not */
     public function SearchEnabled(): bool
     {
-        return (bool) $this->config()->get('search_enabled');
+        return (bool)$this->config()->get('search_enabled');
     }
 
 
@@ -304,7 +321,7 @@ class CalendarPageController extends \PageController
     /**
      * Renders the current calendar, if a calenar link has been supplied via the url. It is used in CalendarDetails.ss
      */
-    public function CurrentCalendar()
+    public function CurrentCalendar(): Calendar
     {
         $url = Convert::raw2url($this->request->param('ID'));
 
@@ -314,12 +331,12 @@ class CalendarPageController extends \PageController
     }
 
 
-    public function EventPageTitle()
+    public function EventPageTitle(): string
     {
         $action = $this->getRequest()->param('Action');
+        $month = $this->getRequest()->getVar('month');
 
-        // @todo Do this smarter
-        if (isset($_GET['month'])) {
+        if (isset($month)) {
             return $this->calendarPageHelper->currentContextualMonthStr();
         }
 
@@ -332,7 +349,8 @@ class CalendarPageController extends \PageController
 
 
     // ---- link generators for templates ----
-    public function NextMonthLink()
+
+    public function NextMonthLink(): string
     {
         $month = $this->calendarPageHelper->nextContextualMonth();
         $url = $this->Link($this->request->param('Action'));
@@ -342,7 +360,7 @@ class CalendarPageController extends \PageController
     }
 
 
-    public function PrevMonthLink()
+    public function PrevMonthLink(): string
     {
         $month = $this->calendarPageHelper->previousContextualMonth();
         $url = $this->Link($this->request->param('Action'));
@@ -352,7 +370,7 @@ class CalendarPageController extends \PageController
     }
 
 
-    public function EventListLink()
+    public function EventListLink(): string
     {
         $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
         if ($indexSetting === 'eventlist') {
@@ -365,7 +383,8 @@ class CalendarPageController extends \PageController
     }
 
 
-    public function CalendarViewLink()
+    /** @return string relevant link for the calendar given the index setting */
+    public function CalendarViewLink(): string
     {
         $indexSetting = Config::inst()->get(CalendarPage::class, 'index');
         if ($indexSetting === 'eventlist') {
@@ -378,7 +397,8 @@ class CalendarPageController extends \PageController
     }
 
 
-    public function FeedLink($calendarID)
+    /** @return string link to feed */
+    public function FeedLink(int $calendarID): string
     {
         $calendar = Calendar::get()->byID(\intval($calendarID));
         $url = Controller::join_links($this->Link(), 'calendar', ($calendar) ? $calendar->Link : '');
@@ -393,11 +413,14 @@ class CalendarPageController extends \PageController
      */
     public function SearchQuery(): string
     {
+        /** @var string $query */
+        $query = $this->getRequest()->getVar('q');
         // @todo SQL injection risk here I suspect
-        if (isset($_GET['q'])) {
-            return $_GET['q'];
+        if (isset($query)) {
+            return $query;
         }
 
+        // @TODO is this valid?
         return 'Search events';
     }
 
@@ -411,7 +434,7 @@ class CalendarPageController extends \PageController
     }
 
 
-    private function getRegisterableEvents($action)
+    private function getRegisterableEvents(string $action): \SilverStripe\ORM\DataList
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
 
@@ -427,7 +450,7 @@ class CalendarPageController extends \PageController
     }
 
 
-    private function performSearch()
+    private function performSearch(): \SilverStripe\ORM\DataList
     {
         $query = $this->SearchQuery();
 
@@ -435,7 +458,8 @@ class CalendarPageController extends \PageController
     }
 
 
-    private function RecentEvents()
+    /** @throws \Exception */
+    private function RecentEvents(): PaginatedList
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
         $events = $this->calendarPageHelper->recentEvents($calendarIDs);
@@ -444,7 +468,8 @@ class CalendarPageController extends \PageController
     }
 
 
-    private function UpComingEvents()
+    /** @throws \Exception */
+    private function UpComingEvents(): PaginatedList
     {
         $calendarIDs = CalendarHelper::getValidCalendarIDsForCurrentUser($this->Calendars());
         $events = $this->calendarPageHelper->upcomingEvents($calendarIDs);

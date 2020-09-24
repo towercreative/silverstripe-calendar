@@ -11,7 +11,7 @@ class ColorHelper
      * Here is a discussion on that topic:
      * http://stackoverflow.com/questions/1331591/given-a-background-color-black-or-white-text
      */
-    public static function calculate_textcolor(type $color): string
+    public static function calculateTextcolor(type $color): string
     {
         $rgb=[];
         $c = \str_replace('#', '', $color);

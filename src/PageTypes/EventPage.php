@@ -8,6 +8,8 @@ use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
 use SilverStripe\Forms\GridField\GridFieldDetailForm;
 use TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm;
 
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
 /**
  * Event Page
  * A page that can serve as a permanent url for recurring events like festivals, monthly shopping events etc.
@@ -26,10 +28,11 @@ class EventPage extends \Page
         'shopping, events etc.';
 
     private static $has_many = [
-        'Events' => 'TitleDK\Calendar\Events\Event';
-    private ];
+        'Events' => 'TitleDK\Calendar\Events\Event',
+     ];
 
-    public function ComingEvents()
+
+    public function ComingEvents(): DataList
     {
         $timestamp = Carbon::now()->timestamp;
 
@@ -43,7 +46,7 @@ class EventPage extends \Page
     }
 
 
-    public function PastEvents()
+    public function PastEvents(): DataList
     {
         $timestamp = Carbon::now()->timestamp;
 
@@ -52,12 +55,12 @@ class EventPage extends \Page
             ->filter(
                 [
                     'StartDateTime:LessThan' => \date('Y-m-d', $timestamp),
-                ],
+                ]
             );
     }
 
 
-    public function getCMSFields()
+    public function getCMSFields(): \SilverStripe\Forms\FieldList
     {
         $fields = parent::getCMSFields();
 

@@ -5,13 +5,13 @@ namespace TitleDK\Calendar\Helpers;
 use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Core\CalendarHelper;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 
 class CalendarPageHelperTest extends SapphireTest
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     protected static $fixture_file = ['tests/events.yml'];
 

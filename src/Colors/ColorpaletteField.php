@@ -5,11 +5,29 @@ namespace TitleDK\Calendar\Colors;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\View\Requirements;
 
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
+/**
+ * Class ColorpaletteField
+ *
+ * @package TitleDK\Calendar\Colors
+ */
 class ColorpaletteField extends DropdownField
 {
 
-    public function __construct(string $name, ?string $title = null, $source = null, $value = "", $form = null)
-    {
+    /**
+     * ColorpaletteField constructor.
+     *
+     * @param string|array<string> $source
+     * @param \SilverStripe\Forms\Form $form
+     */
+    public function __construct(
+        string $name,
+        ?string $title = null,
+        $source = null,
+        string $value = "",
+        ?Form $form = null
+    ) {
         if (!\is_array($source)) {
             $source = ColorpaletteHelper::get_palette();
         }
@@ -18,7 +36,7 @@ class ColorpaletteField extends DropdownField
     }
 
 
-    public function Field($properties = [])
+    public function Field(): string
     {
         $this->addExtraClass('ColorpaletteInput');
         ColorpaletteHelper::requirements();
@@ -43,7 +61,7 @@ class ColorpaletteField extends DropdownField
      * this just makes sure that colors are always returned with a hash - whether they've been
      * saved with or without one
      */
-    public function getColorWithHash()
+    public function getColorWithHash(): string
     {
         $color = $this->value;
 

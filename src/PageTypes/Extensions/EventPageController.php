@@ -2,6 +2,8 @@
 
 namespace TitleDK\Calendar\PageTypes;
 
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
 /**
  * Class \TitleDK\Calendar\PageTypes\EventPage_Controller
  *
@@ -9,21 +11,23 @@ namespace TitleDK\Calendar\PageTypes;
  * @method \TitleDK\Calendar\PageTypes\EventPage data()
  * @mixin \TitleDK\Calendar\PageTypes\EventPage
  */
-class EventPage_Controller extends \PageController
+class EventPageController extends \PageController
 {
 
-    public function ComingOrPastEvents()
+    /** @return string past if the parameter is 'past', otherwise 'coming' */
+    public function ComingOrPastEvents(): string
     {
-        return isset($_GET['past'])
+        $past = $this->getRequest()->getVar('past');
+
+        return isset($past)
             ? 'past'
             : 'coming';
     }
 
 
-    public function Events()
+    public function Events(): DataList
     {
         if ($this->ComingOrPastEvents() === 'past') {
-            //return $this->model->PastEvents();
             return $this->PastEvents();
         }
 

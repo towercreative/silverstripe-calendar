@@ -4,12 +4,12 @@ namespace TitleDK\Calendar\Tests\DateTime;
 
 use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 
 class DateTimeHelperTraitTest extends SapphireTest
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     public function setUp(): void
     {

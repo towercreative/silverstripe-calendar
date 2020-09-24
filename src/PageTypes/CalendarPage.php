@@ -2,6 +2,8 @@
 
 namespace TitleDK\Calendar\PageTypes;
 
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
 use SilverStripe\Forms\ListboxField;
 use TitleDK\Calendar\Calendars\Calendar;
 
@@ -16,21 +18,24 @@ use TitleDK\Calendar\Calendars\Calendar;
 class CalendarPage extends \Page
 {
 
+    /** @var string */
     private static $singular_name = 'Calendar Page';
+
+    /** @var string */
     private static $description = 'Listing of events';
 
     // for applying group restrictions
     private static $belongs_many_many = [
-        'Calendars' => Calendar::class;
-    private ];
+        'Calendars' => Calendar::class,
+     ];
 
-    public function IsCalendar()
+    public function IsCalendar(): bool
     {
         return true;
     }
 
 
-    public function getCMSFields()
+    public function getCMSFields(): \SilverStripe\Forms\FieldList
     {
         $fields = parent::getCMSFields();
 

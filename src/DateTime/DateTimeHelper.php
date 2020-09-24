@@ -4,7 +4,7 @@ namespace TitleDK\Calendar\DateTime;
 
 use Carbon\Carbon;
 
-trait DateTimeHelperTrait
+trait DateTimeHelper
 {
     /**
      * @param string $ssDateTimeString time returned from a SilverStripe DateField or DateTimeField
@@ -18,7 +18,8 @@ trait DateTimeHelperTrait
     }
 
 
-    public function getSSDateTimeFromCarbon(Carbon $carbonDate)
+    /** @return string the date formatted in year month day hour min sec */
+    public function getSSDateTimeFromCarbon(Carbon $carbonDate): string
     {
         return $carbonDate->format('Y-m-d H:i:s');
     }

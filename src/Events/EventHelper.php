@@ -3,7 +3,7 @@
 namespace TitleDK\Calendar\Events;
 
 use Carbon\Carbon;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 
 /**
  * Event Helper
@@ -14,7 +14,7 @@ use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 class EventHelper
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     /**
      * Date format for YMD

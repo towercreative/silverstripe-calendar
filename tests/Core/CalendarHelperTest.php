@@ -7,13 +7,13 @@ use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Security\Member;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarHelper;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 use TitleDK\Calendar\Events\Event;
 
 class CalendarHelperTest extends FunctionalTest
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     protected static $fixture_file = 'tests/events.yml';
 

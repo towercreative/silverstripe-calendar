@@ -20,16 +20,16 @@ class ColorHelperTest extends SapphireTest
 
     public function testLightBackgroundsForTextColor(): void
     {
-        $this->assertEquals('#000', $this->helper->calculate_textcolor('#AABBCC'));
-        $this->assertEquals('#000', $this->helper->calculate_textcolor('#FFFFFF'));
-        $this->assertEquals('#000', $this->helper->calculate_textcolor('#808080'));
+        $this->assertEquals('#000', $this->helper->calculateTextcolor('#AABBCC'));
+        $this->assertEquals('#000', $this->helper->calculateTextcolor('#FFFFFF'));
+        $this->assertEquals('#000', $this->helper->calculateTextcolor('#808080'));
     }
 
 
     public function testDarkBackgroundsForTextColor(): void
     {
-        $this->assertEquals('#fff', $this->helper->calculate_textcolor('#000000'));
-        $this->assertEquals('#fff', $this->helper->calculate_textcolor('#444444'));
-        $this->assertEquals('#fff', $this->helper->calculate_textcolor('#7F7F7F'));
+        $this->assertEquals('#fff', $this->helper->calculateTextcolor('#000000'));
+        $this->assertEquals('#fff', $this->helper->calculateTextcolor('#444444'));
+        $this->assertEquals('#fff', $this->helper->calculateTextcolor('#7F7F7F'));
     }
 }

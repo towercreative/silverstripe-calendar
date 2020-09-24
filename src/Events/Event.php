@@ -24,7 +24,7 @@ use SilverStripe\Security\Permission;
 use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarHelper;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\EventPage;
 use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
@@ -71,7 +71,7 @@ use TitleDK\Calendar\Tags\EventTag;
 class Event extends DataObject
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     protected $hasWritten = false;
 

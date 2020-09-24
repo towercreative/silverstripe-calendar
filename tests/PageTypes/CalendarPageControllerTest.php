@@ -5,7 +5,7 @@ namespace TitleDK\Calendar\Tests\PageTypes;
 use Carbon\Carbon;
 use SilverStripe\Dev\FunctionalTest;
 use SilverStripe\Security\Member;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use TitleDK\Calendar\PageTypes\CalendarPageController;
@@ -13,7 +13,7 @@ use TitleDK\Calendar\PageTypes\CalendarPageController;
 class CalendarPageControllerTest extends FunctionalTest
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     protected static $fixture_file = ['tests/events.yml'];
 

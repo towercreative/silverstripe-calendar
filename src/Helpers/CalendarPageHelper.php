@@ -6,12 +6,12 @@ use Carbon\Carbon;
 use SilverStripe\ORM\DataObject;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarHelper;
-use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
+use TitleDK\Calendar\DateTime\DateTimeHelper;
 
 class CalendarPageHelper
 {
 
-    use DateTimeHelperTrait;
+    use DateTimeHelper;
 
     public function realtimeMonthDay()
     {
