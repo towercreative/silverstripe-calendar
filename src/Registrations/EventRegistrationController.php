@@ -17,8 +17,8 @@ class EventRegistrationController extends Controller
 {
 
     private static $allowed_actions = [
-        'registerform';
-    private 'paymentregisterform',
+        'registerform',
+        'paymentregisterform',
     ];
 
     /* This is in the routes file */
@@ -31,16 +31,18 @@ class EventRegistrationController extends Controller
     }
 
 
-    public function registerform()
+    public function registerform(): EventRegistrationForm
     {
         $form = EventRegistrationForm::create(
             $this,
-            'registerform',
+            'registerform'
         );
 
-        if (isset($_GET['complete'])) {
+        $completeGetVar = $this->request->getVar('complete');
+        if (isset($completeGetVar)) {
             $form->setDone();
         }
+
 
         if ($form->hasExtension(FormSpamProtectionExtension::class)) {
             $form->enableSpamProtection();
@@ -57,7 +59,7 @@ class EventRegistrationController extends Controller
     {
         $form = PaymentRegistrationForm::create(
             $this,
-            'paymentregisterform',
+            'paymentregisterform'
         );
 
         if ($form->hasExtension(FormSpamProtectionExtension::class)) {
@@ -68,11 +70,7 @@ class EventRegistrationController extends Controller
     }
 
 
-    /**
-     * AJAX Json Response handler
-     *
-     * @param array|null $retVars
-     */
+    /** @param array<string, string|int|float|bool>|null $retVars */
     public function handleJsonResponse(bool $success = false, ?array $retVars = null): \SS_HTTPResponse
     {
         $result = [];
@@ -81,7 +79,7 @@ class EventRegistrationController extends Controller
                 'success' => $success,
             ];
         }
-        if ($retVars) {
+        if (!\is_null($retVars)) {
             $result = \array_merge($retVars, $result);
         }
 

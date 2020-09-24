@@ -27,7 +27,7 @@ class EventCsvBulkLoaderTest extends SapphireTest
     }
 
 
-    public function test_get_import_spec(): void
+    public function testGetImportSpec(): void
     {
         $spec = $this->bulkLoader->getImportSpec();
         $this->assertEquals([
@@ -45,7 +45,7 @@ class EventCsvBulkLoaderTest extends SapphireTest
     }
 
 
-    public function test_import_start_date(): void
+    public function testImportStartDate(): void
     {
         EventCsvBulkLoader::importStartDate($this->event, '2019-12-15 08:30', null);
         $this->assertEquals('2019-12-15 08:30:00', $this->event->StartDateTime);
@@ -54,7 +54,7 @@ class EventCsvBulkLoaderTest extends SapphireTest
     }
 
 
-    function test_import_start_time(): void
+    public function testImportStartTime(): void
     {
         EventCsvBulkLoader::importStartDate($this->event, '2019-12-15 21:30', null);
         $this->assertEquals('2019-12-15 21:30:00', $this->event->StartDateTime);
@@ -66,13 +66,13 @@ class EventCsvBulkLoaderTest extends SapphireTest
     }
 
 
-    function test_empty_import_start_time(): void
+    public function testEmptyImportStartTime(): void
     {
         $this->assertNull(EventCsvBulkLoader::importStartTime($this->event, '', null));
     }
 
 
-    public function test_import_end_date(): void
+    public function testImportEndDate(): void
     {
         EventCsvBulkLoader::importEndDate($this->event, '2019-12-15 08:30', null);
         $this->assertEquals('2019-12-15 08:30:00', $this->event->EndDateTime);
@@ -81,7 +81,7 @@ class EventCsvBulkLoaderTest extends SapphireTest
     }
 
 
-    public function test_import_end_time(): void
+    public function testImportEndTime(): void
     {
         EventCsvBulkLoader::importStartDate($this->event, '2019-12-15 21:30', null);
         EventCsvBulkLoader::importEndDate($this->event, '2019-12-15 23:30', null);
@@ -95,7 +95,7 @@ class EventCsvBulkLoaderTest extends SapphireTest
     }
 
 
-    function test_empty_import_end_time(): void
+    public function testEmptyImportEndTime(): void
     {
         $this->assertNull(EventCsvBulkLoader::importEndTime($this->event, '', null));
     }

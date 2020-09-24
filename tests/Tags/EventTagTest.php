@@ -8,7 +8,7 @@ class EventTagTest extends SapphireTest
 {
     protected static $fixture_file = 'tests/event-tags.yml';
 
-    public function test_get_tag_url_segment(): void
+    public function testGetTagUrlSegment(): void
     {
         $tag = $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag1');
 
@@ -18,20 +18,20 @@ class EventTagTest extends SapphireTest
     }
 
 
-    public function test_get_tag_url_segment_duplicate_title(): void
+    public function testGetTagUrlSegmentDuplicateTitle(): void
     {
         # Duplicate titles are saved with a segment of -1, -2 etc
         $this->assertEquals(
             'beans-1',
-            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag3')->Slug,
+            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag3')->Slug
         );
         $this->assertEquals(
             'beans-2',
-            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag4')->Slug,
+            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag4')->Slug
         );
         $this->assertEquals(
             'beans-3',
-            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag5')->Slug,
+            $this->objFromFixture('TitleDK\Calendar\Tags\EventTag', 'tag5')->Slug
         );
     }
 }

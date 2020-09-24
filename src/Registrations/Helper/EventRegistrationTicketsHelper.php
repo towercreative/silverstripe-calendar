@@ -2,6 +2,8 @@
 
 namespace TitleDK\Calendar\Registrations\Helper;
 
+use TitleDK\Calendar\Events\Event;
+
 class EventRegistrationTicketsHelper
 {
     /** @var \TitleDK\Calendar\Registrations\Helper\Event */
@@ -10,18 +12,17 @@ class EventRegistrationTicketsHelper
     /**
      * EventRegistrationTicketsHelper constructor.
      *
-     * @param $registration
+     * @param Event $event
      */
     public function __construct($event)
     {
         $this->event = $event;
-
-        // e NumberOfAvailableTickets
     }
 
 
     /**
      * Ascertain the number of tickets remaining
+     * @return int the number of tickets remaining
      */
     public function numberOfTicketsRemaining()
     {

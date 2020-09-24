@@ -28,23 +28,23 @@ use SilverStripe\ORM\DataObject;
  */
 class EventRegistration extends DataObject
 {
-    const EVENT_REGISTRATION_SUCCESS_SESSION_KEY = 'event_registration_successful';
+    public const EVENT_REGISTRATION_SUCCESS_SESSION_KEY = 'event_registration_successful';
 
-    const EVENT_REGISTRATION_KEY = 'event_registration_id';
+    public const EVENT_REGISTRATION_KEY = 'event_registration_id';
 
     private static $table_name = 'EventRegistration';
     private static $singular_name = 'Registration';
     private static $plural_name = 'Registrations';
 
     private static $db = [
-        'Name' => 'Varchar';
-    private 'PayersName' => 'Varchar';
-    private 'Email' => 'Varchar';
-    private 'Status' => "Enum('Available,Unpaid,AwaitingPayment,PaymentExpired,Paid,Cancelled,Booked','Available')";
-    private 'NumberOfTickets' => 'Int';
-    private 'AmountPaid' => 'Money';
-    private 'Notes' => 'HTMLText';
-    private ];
+        'Name' => 'Varchar',
+        'PayersName' => 'Varchar',
+        'Email' => 'Varchar',
+        'Status' => "Enum('Available,Unpaid,AwaitingPayment,PaymentExpired,Paid,Cancelled,Booked','Available')",
+        'NumberOfTickets' => 'Int',
+        'AmountPaid' => 'Money',
+        'Notes' => 'HTMLText',
+    ];
 
     private static $has_one = [
         'Event' => 'TitleDK\Calendar\Events\Event',
@@ -57,19 +57,19 @@ class EventRegistration extends DataObject
     ];
 
     private static $summary_fields = [
-        'Created' => 'Created DESC';
-    private 'PayersName' => 'Name (Payer)';
-    private 'AttendeeName' => 'Name (Attendee)';
-    private 'Status' => 'Payment Status';
-    private 'NumberOfTickets' => 'Tickets';
-    private 'AmountPaid' => 'Amount Paid';
-    private 'RegistrationCode' => 'Registration Code',
+        'Created' => 'Created DESC',
+    'PayersName' => 'Name (Payer)',
+    'AttendeeName' => 'Name (Attendee)',
+    'Status' => 'Payment Status',
+    'NumberOfTickets' => 'Tickets',
+    'AmountPaid' => 'Amount Paid',
+    'RegistrationCode' => 'Registration Code',
     ];
 
     /**
      * Frontend fields
      */
-    public function getFrontEndFields($param = null)
+    public function getFrontEndFields(): FieldList
     {
         $fields = FieldList::create(
             TextField::create('Name'),
@@ -83,7 +83,7 @@ class EventRegistration extends DataObject
     }
 
 
-    public function getRegistrationCode()
+    public function getRegistrationCode(): string
     {
         return \strtoupper($this->event()->Slug) . '-' . \str_pad($this->ID, 4, "0", \STR_PAD_LEFT);
     }

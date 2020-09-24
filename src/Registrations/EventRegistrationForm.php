@@ -9,6 +9,8 @@ use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\RequiredFields;
 
+// @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+
 /**
  * Event Registration Form
  * *
@@ -30,7 +32,7 @@ class EventRegistrationForm extends Form
         //Actions
         $actions = FieldList::create(
             FormAction::create("doRegister")
-                ->setTitle("Register"),
+                ->setTitle("Register")
         );
 
         //Validator
@@ -91,7 +93,8 @@ class EventRegistrationForm extends Form
     }
 
 
-    public function setFormField($name, $value): void
+    /** @param string|int|float|bool $value */
+    public function setFormField(string $name, $value): void
     {
         $fields = $this->Fields();
         foreach ($fields as $field) {
