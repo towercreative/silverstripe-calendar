@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Helpers;
 
 use Carbon\Carbon;
@@ -7,33 +8,32 @@ use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelperTrait;
 
-
 class CalendarPageHelper
 {
+
     use DateTimeHelperTrait;
 
     public function realtimeMonthDay()
     {
-        return date('Y-m-d', Carbon::now()->timestamp);
+        return \date('Y-m-d', Carbon::now()->timestamp);
     }
+
 
     public function realtimeMonth()
     {
-        return date('Y-m', Carbon::now()->timestamp);
+        return \date('Y-m', Carbon::now()->timestamp);
     }
+
 
     /**
      * If a month paramater is set, such as 2020-01 use that, otherwise use Carbon::now(), the current time, as the
      * basis for forming an equivalent string
-     * @return string
      */
-    public function currentContextualMonth()
+    public function currentContextualMonth(): string
     {
-        if (isset($_GET['month'])) {
-            return $_GET['month'];
-        } else {
-            return $this->realtimeMonth();
-        }
+        return isset($_GET['month'])
+            ? $_GET['month']
+            : $this->realtimeMonth();
     }
 
 
@@ -41,24 +41,29 @@ class CalendarPageHelper
     public function currentContextualMonthStr()
     {
         $month = $this->currentContextualMonth();
-        $t = strtotime($month);
-        return date('M Y', $t);
+        $t = \strtotime($month);
+
+        return \date('M Y', $t);
     }
+
 
     public function previousContextualMonth()
     {
         $month = $this->currentContextualMonth();
-        $t = strtotime($month);
-        $prev = strtotime('-1 month', $t);
-        return date('Y-m', $prev);
+        $t = \strtotime($month);
+        $prev = \strtotime('-1 month', $t);
+
+        return \date('Y-m', $prev);
     }
+
 
     public function nextContextualMonth()
     {
         $month = $this->currentContextualMonth();
-        $t = strtotime($month);
-        $next = strtotime('+1 month', $t);
-        return date('Y-m', $next);
+        $t = \strtotime($month);
+        $next = \strtotime('+1 month', $t);
+
+        return \date('Y-m', $next);
     }
 
 
@@ -70,11 +75,11 @@ class CalendarPageHelper
      * @param array $calendarIDs calendar IDs to pull events from
      * @return \SilverStripe\ORM\DataList recent events
      */
-    public function recentEvents($calendarIDs)
+    public function recentEvents(array $calendarIDs): \SilverStripe\ORM\DataList
     {
         $now = $this->realtimeMonthDay();
-        $prev = strtotime('-1 month', time());
-        $oneMonthAgo = date('Y-m-d', $prev);
+        $prev = \strtotime('-1 month', \time());
+        $oneMonthAgo = \date('Y-m-d', $prev);
 
         // This method takes a csv of IDs, not an array.
         return CalendarHelper::events_for_date_range($oneMonthAgo, $now, $calendarIDs)
@@ -89,46 +94,40 @@ class CalendarPageHelper
      * @param array $calendarIDs calendar IDs to pull events from
      * @return \SilverStripe\ORM\DataList recent events
      */
-    public function upcomingEvents($calendarIDs)
+    public function upcomingEvents(array $calendarIDs): \SilverStripe\ORM\DataList
     {
         $calendar = DataObject::get_by_id(Calendar::class, $calendarIDs[0]);
         $events = $calendar->Events();
 
         $currentContextualMonth = $this->currentContextualMonth();
         $now = $this->realtimeMonthDay();
-        $nowMonth = substr($now,0,7);
+        $nowMonth = \substr($now, 0, 7);
 
         // if nowMonth is the same as the current month, as in realtime month
 
         $start = null;
 
-        if ($currentContextualMonth == $nowMonth) {
-            $start = $now;
-        } else {
-            $start = $currentContextualMonth . '-01';
-        }
+        $start = $currentContextualMonth === $nowMonth
+            ? $now
+            : $currentContextualMonth . '-01';
 
         $startCarbon = $this->carbonDateTime($start .' 00:00:00')->timestamp;
-        $next = strtotime('+1 month', $startCarbon);
-        $inOneMonth = date('Y-m-d', $next);
-
+        $next = \strtotime('+1 month', $startCarbon);
+        $inOneMonth = \date('Y-m-d', $next);
 
         // This method takes a csv of IDs, not an array.
-        $events = CalendarHelper::events_for_date_range($start, $inOneMonth, $calendarIDs)
+        return CalendarHelper::events_for_date_range($start, $inOneMonth, $calendarIDs)
             ->sort('"StartDateTime" ASC');
-        return $events;
     }
-
-
 
 
     public function performSearch($query)
     {
         // @todo This is case sensitive with Postgresql, not so with MySQL
         //$query = strlower(addslashes($query));
-        $query = (addslashes($query));
+        $query = (\addslashes($query));
         //Debug::dump($query);
-        $qarr = preg_split('/[ +]/', $query);
+        $qarr = \preg_split('/[ +]/', $query);
 
         $filter = '';
         $first = true;
@@ -145,8 +144,7 @@ class CalendarPageHelper
         }
 
         // @todo this is incorrect, does not take into context of current calendars
-        $events = CalendarHelper::all_events()
+        return CalendarHelper::all_events()
             ->where($filter);
-        return $events;
     }
 }

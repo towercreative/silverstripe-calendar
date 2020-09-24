@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tests\Registrations;
 
@@ -7,11 +7,11 @@ use TitleDK\Calendar\Registrations\PaymentRegistrationForm;
 
 class PaymentRegistrationFormTest extends SapphireTest
 {
-    public function test__construct()
+    public function testConstruct(): void
     {
         $form = new PaymentRegistrationForm(null, 'paymentFormTest');
         $fields = $form->Fields()->toArray();
-        $names = array_map(function ($field) {
+        $names = \array_map(static function ($field) {
             return $field->Name;
         }, $fields);
         $this->assertEquals([
@@ -21,35 +21,38 @@ class PaymentRegistrationFormTest extends SapphireTest
             'NumberOfTickets',
             'Notes',
             'EventID',
-            'SecurityID'
+            'SecurityID',
         ], $names);
     }
 
-    public function testSetDone()
+
+    public function testSetDone(): void
     {
         $form = new PaymentRegistrationForm(null, 'paymentFormTest');
         $form->setDone();
         $fields = $form->Fields()->toArray();
-        $names = array_map(function ($field) {
+        $names = \array_map(static function ($field) {
             return $field->Name;
         }, $fields);
         $this->assertEquals([
             'CompleteMsg',
-            'SecurityID'
+            'SecurityID',
         ], $names);
     }
 
-    public function testDoRegister()
+
+    public function testDoRegister(): void
     {
         $this->markTestSkipped('TODO');
     }
 
-    public function testSetFormField()
+
+    public function testSetFormField(): void
     {
         $form = new PaymentRegistrationForm(null, 'eventFormTest');
         $form->setFormField('Email', 'fred@fred.com');
 
-        /** @var FieldList $fields */
+        /** @var \TitleDK\Calendar\Tests\Registrations\FieldList $fields */
         $fields = $form->Fields();
         $emailField = $fields->fieldByName('Email');
         $this->assertEquals('fred@fred.com', $emailField->Value());

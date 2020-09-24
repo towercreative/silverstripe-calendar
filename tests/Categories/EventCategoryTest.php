@@ -1,28 +1,28 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tests\Categories;
 
 use SilverStripe\Dev\SapphireTest;
-use SilverStripe\Forms\FieldList;
 use TitleDK\Calendar\Categories\EventCategory;
 
 class EventCategoryTest extends SapphireTest
 {
-    public function testGetAddNewFields()
+    public function testGetAddNewFields(): void
     {
         $ec = new EventCategory();
 
-        /** @var FieldList $fields */
+        /** @var \SilverStripe\Forms\FieldList $fields */
         $fields = $ec->getAddNewFields();
         $this->assertNull($fields->fieldByName('Events'));
         $this->assertNotNull($fields->fieldByName('Title'));
     }
 
-    public function testGetCMSFields()
+
+    public function testGetCMSFields(): void
     {
         $ec = new EventCategory();
 
-        /** @var FieldList $fields */
+        /** @var \SilverStripe\Forms\FieldList $fields */
         $fields = $ec->getCMSFields();
         $this->assertNull($fields->fieldByName('Events'));
     }

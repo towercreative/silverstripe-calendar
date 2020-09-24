@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Colors;
 
@@ -18,7 +18,7 @@ use SilverStripe\View\Requirements;
 class ColorpaletteHelper
 {
 
-    public static function requirements()
+    public static function requirements(): void
     {
         Requirements::javascript('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.mod.js');
         Requirements::css('titledk/silverstripe-calendar:thirdparty/colorpicker/jquery.colourPicker.css');
@@ -27,10 +27,9 @@ class ColorpaletteHelper
 
     public static function palette_dropdown($name)
     {
-        $dropdown = DropdownField::create($name)
+        return DropdownField::create($name)
             ->setSource(self::get_palette())
             ->setEmptyString('-- select color --');
-        return $dropdown;
     }
 
 
@@ -51,7 +50,7 @@ class ColorpaletteHelper
      *
      * @return array Colors mapped as #color -> #color
      */
-    public static function get_palette()
+    public static function get_palette(): array
     {
         //overwriting with the palette from the calendar settings
         $colors = Config::inst()->get(ColorpaletteHelper::class, 'base_palette');
@@ -60,6 +59,7 @@ class ColorpaletteHelper
         foreach ($colors as $color) {
             $result[$color] = $color;
         }
+
         return $result;
     }
 }

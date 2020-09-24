@@ -1,27 +1,27 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Tests\Events;
 
-use Carbon\Carbon;
 use SilverStripe\Dev\SapphireTest;
-use TitleDK\Calendar\Events\Event;
 
 class EventRegistrationEmbargoTest extends SapphireTest
 {
 
-    /** @var Carbon */
+    /** @var \Carbon\Carbon */
     protected $now;
 
-    /** @var Event */
+    /** @var \TitleDK\Calendar\Events\Event */
     protected $event;
 
 
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }
 
-    public function test_default_embargo_date()
+
+    public function test_default_embargo_date(): void
     {
     }
 }

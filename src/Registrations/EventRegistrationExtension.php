@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Forms\CheckboxField;
@@ -26,24 +27,24 @@ use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
  * @package calendar
  * @subpackage registrations
  * @property \TitleDK\Calendar\Events\Event|\TitleDK\Calendar\Registrations\EventRegistrationExtension $owner
- * @property boolean $Registerable
+ * @property bool $Registerable
  * @property string $Cost
- * @property boolean $TicketsRequired
+ * @property bool $TicketsRequired
  * @property int $NumberOfAvailableTickets
- * @property boolean $PaymentRequired
+ * @property bool $PaymentRequired
  * @property string $RSVPEmail
- * @method \SilverStripe\ORM\DataList|\TitleDK\Calendar\Registrations\EventRegistration[] Registrations()
+ * @method \SilverStripe\ORM\DataList|array<\TitleDK\Calendar\Registrations\EventRegistration> Registrations()
  */
 class EventRegistrationExtension extends DataExtension
 {
 
     private static $db = array(
-        'Registerable' => DBBoolean::class,
-        'Cost' => 'Money',
-        'TicketsRequired' => DBBoolean::class,
-        'NumberOfAvailableTickets' => DBInt::class,
-        'PaymentRequired' => DBBoolean::class,
-        'RSVPEmail' => 'Varchar(255)'
+        'Registerable' => DBBoolean::class;
+    private 'Cost' => 'Money';
+    private 'TicketsRequired' => DBBoolean::class;
+    private 'NumberOfAvailableTickets' => DBInt::class;
+    private 'PaymentRequired' => DBBoolean::class ;
+    private 'RSVPEmail' => 'Varchar(255)'
     );
 
     private static $has_many = array(
@@ -53,10 +54,8 @@ class EventRegistrationExtension extends DataExtension
 
     /**
      * Add CMS editing fields
-     *
-     * @param FieldList $fields
      */
-    public function updateCMSFields(FieldList $fields)
+    public function updateCMSFields(FieldList $fields): void
     {
         $list = $this->getExportableRegistrationsList();
         $numberOfRegistrations = $this->owner->Registrations()->count();
@@ -68,66 +67,66 @@ class EventRegistrationExtension extends DataExtension
             ->addComponent($exportButton)
             ->removeComponentsByType(GridFieldFilterHeader::class)
             ->addComponents(
-                new GridFieldPrintButton('buttons-before-left')
+                new GridFieldPrintButton('buttons-before-left'),
             );
 
         $listField = GridField::create(
             'Registrations',
             'Registrations',
             $list,
-            $fieldConfig
+            $fieldConfig,
         );
 
         $listField->setModelClass(EventRegistration::class);
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            new HeaderField('Header1', 'Event Registration', 2)
+            new HeaderField('Header1', 'Event Registration', 2),
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            new CheckboxField('Registerable', 'Event Registration Required')
+            new CheckboxField('Registerable', 'Event Registration Required'),
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            new HeaderField('Header2', 'Who should the website send registration notifications to?', 4)
+            new HeaderField('Header2', 'Who should the website send registration notifications to?', 4),
         );
         $fields->addFieldToTab(
             'Root.Registrations',
-            new EmailField('RSVPEmail', 'RSVP Email')
-        );
-
-        $fields->addFieldToTab(
-            'Root.Registrations',
-            new HeaderField('Header3', 'Event Details', 2)
+            new EmailField('RSVPEmail', 'RSVP Email'),
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            $ticketsRequiredField = new CheckboxField('TicketsRequired', 'Tickets Required')
+            new HeaderField('Header3', 'Event Details', 2),
+        );
+
+        $fields->addFieldToTab(
+            'Root.Registrations',
+            $ticketsRequiredField = new CheckboxField('TicketsRequired', 'Tickets Required'),
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
             $nTicketsAvailableField = new NumericField(
                 'NumberOfAvailableTickets',
-                'Total Number of Available Tickets prior to Sale'
-            )
+                'Total Number of Available Tickets prior to Sale',
+            ),
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
             $paymentRequiredField = new CheckboxField(
                 'PaymentRequired',
-                'Payment Required (must also check "Tickets Required" for this to work)'
-            )
+                'Payment Required (must also check "Tickets Required" for this to work)',
+            ),
         );
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            $eventCostsHeader = new HeaderField('Header4', 'Event Costs (if payment required)', 2)
+            $eventCostsHeader = new HeaderField('Header4', 'Event Costs (if payment required)', 2),
         );
 
         $mf = new MoneyField('Cost');
@@ -137,7 +136,7 @@ class EventRegistrationExtension extends DataExtension
 
         $fields->addFieldToTab(
             'Root.Registrations',
-            $mf
+            $mf,
         );
 
         // show hide logic
@@ -157,6 +156,7 @@ class EventRegistrationExtension extends DataExtension
         $fields->addFieldToTab('Root.Registrations', $listField);
     }
 
+
     /**
      * Getter for registration link
      */
@@ -168,7 +168,8 @@ class EventRegistrationExtension extends DataExtension
         $detailStr = 'register/' . $this->owner->ID;
 
         $calendarPage = CalendarPage::get()->First();
-        return $calendarPage->Link() .  $detailStr;
+
+        return $calendarPage->Link() . $detailStr;
     }
 
 
@@ -186,6 +187,7 @@ class EventRegistrationExtension extends DataExtension
 
         return $form;
     }
+
 
     public function RegistrationPaymentForm()
     {
@@ -206,12 +208,12 @@ class EventRegistrationExtension extends DataExtension
         return $form;
     }
 
+
     /**
      * Due to attendees being one to many, the list needs manipulated in memory (for now) to allow for the excel
      * export
      *
      * @todo individual tickets?
-     *
      * @return mixed
      */
     public function getExportableRegistrationsList()
@@ -223,7 +225,8 @@ class EventRegistrationExtension extends DataExtension
             // these are many many
             foreach ($attendees as $attendee) {
                 $clonedRecord = clone $record;
-                $clonedRecord->Title = 'TITLE'; //$attendee->Title;
+                //$attendee->Title;
+                $clonedRecord->Title = 'TITLE';
                 $clonedRecord->FirstName = $attendee->FirstName;
                 $clonedRecord->Surname = $attendee->Surname;
                 $clonedRecord->AttendeeName = $attendee->FirstName . ' ' . $attendee->Surname;
@@ -241,20 +244,18 @@ class EventRegistrationExtension extends DataExtension
     }
 
 
-    /**
-     * Sanitise a model class' name for inclusion in a link
-     *
-     * @param  string $class
-     * @return string
-     */
-    protected function sanitiseClassName($class)
-    {
-        return str_replace('\\', '-', $class);
-    }
-
     public function getExportFields()
     {
         return ['RegistrationCode', 'Status', 'PayersName', 'FirstName', 'Surname', 'AttendeeName', 'CompanyName',
             'Phone', 'Email'];
+    }
+
+
+    /**
+     * Sanitise a model class' name for inclusion in a link
+     */
+    protected function sanitiseClassName(string $class): string
+    {
+        return \str_replace('\\', '-', $class);
     }
 }

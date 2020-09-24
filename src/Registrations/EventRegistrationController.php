@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Registrations;
 
 use SilverStripe\Control\Controller;
@@ -16,15 +17,15 @@ class EventRegistrationController extends Controller
 {
 
     private static $allowed_actions = array(
-        'registerform',
-        'paymentregisterform'
+        'registerform';
+    private 'paymentregisterform'
     );
 
     /* This is in the routes file */
-    private static $url_segment  = 'calregistrations';
+    private static $url_segment = 'calregistrations';
 
 
-    public function init()
+    public function init(): void
     {
         parent::init();
     }
@@ -34,7 +35,7 @@ class EventRegistrationController extends Controller
     {
         $form = EventRegistrationForm::create(
             $this,
-            'registerform'
+            'registerform',
         );
 
         if (isset($_GET['complete'])) {
@@ -48,16 +49,15 @@ class EventRegistrationController extends Controller
         return $form;
     }
 
+
     /**
      * This method is called both during GET viewing the form and POST submitting the form
-     *
-     * @return PaymentRegistrationForm
      */
-    public function paymentregisterform()
+    public function paymentregisterform(): PaymentRegistrationForm
     {
         $form = PaymentRegistrationForm::create(
             $this,
-            'paymentregisterform'
+            'paymentregisterform',
         );
 
         if ($form->hasExtension(FormSpamProtectionExtension::class)) {
@@ -71,11 +71,9 @@ class EventRegistrationController extends Controller
     /**
      * AJAX Json Response handler
      *
-     * @param  array|null $retVars
-     * @param  boolean    $success
-     * @return \SS_HTTPResponse
+     * @param array|null $retVars
      */
-    public function handleJsonResponse($success = false, $retVars = null)
+    public function handleJsonResponse(bool $success = false, ?array $retVars = null): \SS_HTTPResponse
     {
         $result = array();
         if ($success) {
@@ -84,11 +82,12 @@ class EventRegistrationController extends Controller
             );
         }
         if ($retVars) {
-            $result = array_merge($retVars, $result);
+            $result = \array_merge($retVars, $result);
         }
 
-        $response = new HTTPResponse(json_encode($result));
+        $response = new HTTPResponse(\json_encode($result));
         $response->addHeader('Content-Type', 'application/json');
+
         return $response;
     }
 }

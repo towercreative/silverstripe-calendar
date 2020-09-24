@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Tests\Categories;
 
@@ -7,11 +7,11 @@ use TitleDK\Calendar\Events\Event;
 
 class EventCategoryExtentionTest extends SapphireTest
 {
-    public function testUpdateCMSFields()
+    public function testUpdateCMSFields(): void
     {
         $event = new Event();
         $fields = $event->getCMSFields()->toArray();
-        $names = array_map(function ($field) {
+        $names = \array_map(static function ($field) {
             return $field->Name;
         }, $fields);
 

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace TitleDK\Calendar\Core;
 
 use Carbon\Carbon;
@@ -12,15 +13,13 @@ use TitleDK\Calendar\Events\Event;
  * Calendar Helper
  * Helper class for calendar related calculations
  *
- * @package    calendar
+ * @package calendar
  * @subpackage core
  */
 class CalendarHelper
 {
-    /**
-     * @return array valid calend IDs for the current page, taking int account group restrictions
-     */
-    public static function getValidCalendarIDsForCurrentUser($calendars, $returnCSV = false)
+    /** @return array valid calend IDs for the current page, taking int account group restrictions */
+    public static function getValidCalendarIDsForCurrentUser($calendars, $returnCSV = false): array
     {
         $member = Security::getCurrentUser();
         $memberGroups = [];
@@ -36,9 +35,11 @@ class CalendarHelper
             $groups = $calendar->Groups();
             if ($groups->Count() > 0) {
                 foreach ($groups as $group) {
-                    if (in_array($group->ID, $memberGroups)) {
-                        $calendarIDs[] = $calendar->ID;
+                    if (!\in_array($group->ID, $memberGroups)) {
+                        continue;
                     }
+
+                    $calendarIDs[] = $calendar->ID;
                 }
             } else {
                 $calendarIDs[] = $calendar->ID;
@@ -46,8 +47,9 @@ class CalendarHelper
         }
 
         if ($returnCSV) {
-            $calendarIDs = implode(',', $calendarIDs);
+            $calendarIDs = \implode(',', $calendarIDs);
         }
+
         return $calendarIDs;
     }
 
@@ -57,85 +59,87 @@ class CalendarHelper
      */
     public static function coming_events($from = false)
     {
-        $time = ($from ? strtotime($from) : Carbon::now()->timestamp);
-        $sql = "(\"StartDateTime\" >= '".date('Y-m-d', $time)." 00:00:00')";
-        $events = Event::get()->where($sql);
-        return $events;
+        $time = ($from ? \strtotime($from) : Carbon::now()->timestamp);
+        $sql = "(\"StartDateTime\" >= '".\date('Y-m-d', $time)." 00:00:00')";
+
+        return Event::get()->where($sql);
     }
+
 
     /**
      * Get all coming public events - with optional limit
      */
     public static function coming_events_limited($from = false, $limit = 30)
     {
-        $events = self::coming_events($from)->limit($limit);
-        return $events;
+        return self::coming_events($from)->limit($limit);
     }
+
 
     /**
      * Get all past public events
      */
     public static function past_events()
     {
-        $events = Event::get()
+        return Event::get()
             ->filter(
                 array(
-                    'StartDateTime:LessThan' => date('Y-m-d', Carbon::now()->timestamp)
-                )
+                    'StartDateTime:LessThan' => \date('Y-m-d', Carbon::now()->timestamp)
+                ),
             );
-
-        return $events;
     }
+
 
     /**
      * Get all events
      */
     public static function all_events()
     {
-        $events = Event::get();
-        return $events;
+        return Event::get();
     }
+
 
     /**
      * Get all events - with an optional limit
      */
     public static function all_events_limited($limit = 30)
     {
-        $events = self::all_events()->limit($limit);
-        return $events;
+        return self::all_events()->limit($limit);
     }
+
 
     /***
      * Get events for a specific month
      * Format: 2013-07
      *
-     * @param string $month
      * @param array|string $calendarIDs optional CSV or array of calendar ID to filter by
      */
-    public static function events_for_month($month, $calendarIDs = [])
+    public static function events_for_month(string $month, $calendarIDs = [])
     {
         // @todo method needs fixed everywhere to pass in an array of IDs, not a CSV
-        if (!is_array($calendarIDs)) {
-            $calendarIDs = explode(',', $calendarIDs);
-            user_error('events for month called with ID instead of array of calendar IDs');
+        if (!\is_array($calendarIDs)) {
+            $calendarIDs = \explode(',', $calendarIDs);
+            \user_error('events for month called with ID instead of array of calendar IDs');
         }
 
-        $nextMonth = strtotime('last day of this month', strtotime($month));
+        $nextMonth = \strtotime('last day of this month', \strtotime($month));
 
-        $currMonthStr = date('Y-m-d', strtotime($month));
-        $nextMonthStr = date('Y-m-d', $nextMonth);
+        $currMonthStr = \date('Y-m-d', \strtotime($month));
+        $nextMonthStr = \date('Y-m-d', $nextMonth);
+
         return self::events_for_date_range($currMonthStr, $nextMonthStr, $calendarIDs);
     }
 
 
     /**
-     * @param  string $startDateStr start date in format 2018-05-15
-     * @param  string $endDateStr   ditto end date
-     * @param  array $calendarIDS  list of calendar IDs visible
-     * @return \SilverStripe\ORM\DataList
+     * @param string $startDateStr start date in format 2018-05-15
+     * @param string $endDateStr ditto end date
+     * @param array $calendarIDS list of calendar IDs visible
      */
-    public static function events_for_date_range($startDateStr, $endDateStr, $calendarIDs = [])
-    {
+    public static function events_for_date_range(
+        string $startDateStr,
+        string $endDateStr,
+        $calendarIDs = []
+    ): \SilverStripe\ORM\DataList {
         $endDateStr .= ' 23:59:59';
         $sql = "((\"StartDateTime\" BETWEEN '$startDateStr' AND '$endDateStr') OR (\"EndDateTime\" BETWEEN
         '$startDateStr' AND '$endDateStr'))";
@@ -154,11 +158,8 @@ class CalendarHelper
 
     /**
      * If applicable, adds preview parameters. ie. CMSPreview and SubsiteID.
-     *
-     * @param  string $link
-     * @return string
      */
-    public static function add_preview_params($link, $object)
+    public static function add_preview_params(string $link, $object): string
     {
         // Pass through if not logged in
         if (!Member::currentUserID()) {
@@ -170,15 +171,17 @@ class CalendarHelper
             // Preserve the preview param for further links
             $modifiedLink = HTTP::setGetVar('CMSPreview', 1, $link);
             // Quick fix - multiple uses of setGetVar method double escape the ampersands
-            $modifiedLink = str_replace('&amp;', '&', $modifiedLink);
+            $modifiedLink = \str_replace('&amp;', '&', $modifiedLink);
             // Add SubsiteID, if applicable
             if (!empty($object->SubsiteID)) {
                 $modifiedLink = HTTP::setGetVar('SubsiteID', $object->SubsiteID, $modifiedLink);
                 // Quick fix - multiple uses of setGetVar method double escape the ampersands
-                $modifiedLink = str_replace('&amp;', '&', $modifiedLink);
+                $modifiedLink = \str_replace('&amp;', '&', $modifiedLink);
             }
         }
 
-        return ($modifiedLink) ? $modifiedLink : $link;
+        return ($modifiedLink)
+            ? $modifiedLink
+            : $link;
     }
 }
