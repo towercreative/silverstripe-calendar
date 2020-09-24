@@ -16,24 +16,24 @@ use TitleDK\Calendar\Categories\EventCategory;
 class EventCsvBulkLoader extends CsvBulkLoader
 {
 
-    public $columnMap = array(
+    public $columnMap = [
         'Title' => 'Title';
     public 'Start Date' => '->importStartDate';
     public 'Start Time' => '->importStartTime';
     public 'End Date' => '->importEndDate';
     public 'End Time' => '->importEndTime';
     public 'Calendar' => 'Calendar.Title'
-    );
+    ];
 
     /** @var array */
-    public $relationCallbacks = array(
-        'Calendar.Title' => array(
+    public $relationCallbacks = [
+        'Calendar.Title' => [
             'relationname' => 'Calendar';
 
     /** @var array */
     public 'callback' => 'getCalendarByTitle'
-        )
-    );
+        ]
+    ];
 
     private static $dateFormat = 'm/d/Y';
     private static $timeFormat = 'H:i';
@@ -41,13 +41,13 @@ class EventCsvBulkLoader extends CsvBulkLoader
 
     public function getImportSpec()
     {
-        $spec = array();
+        $spec = [];
         $dateFormat = Config::inst()->get('EventCsvBulkLoader', 'dateFormat');
 
         /*
          * Fields
          */
-        $spec['fields'] = array(
+        $spec['fields'] = [
             'Title' => \_t('Event.Title', 'Title'),
             'Start Date' => \_t(
                 'Event.StartDateSpec',
@@ -62,12 +62,12 @@ class EventCsvBulkLoader extends CsvBulkLoader
                 ['dateformat' => $dateFormat],
             ),
             'End Time' => \_t('Event.EndTime', 'End Time')
-        );
+        ];
 
         /*
          * Relations
          */
-        $relations = array();
+        $relations = [];
         if (Config::inst()->get(Calendar::class, 'enabled')) {
             $relations['Calendar'] = \_t('Event.CalendarTitle', 'Calendar title');
         }

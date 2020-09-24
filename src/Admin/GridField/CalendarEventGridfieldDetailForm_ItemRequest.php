@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace TitleDK\Calendar\Admin\GridField;
 
@@ -14,11 +14,11 @@ use SilverStripe\View\Requirements;
 class CalendarEventGridFieldDetailForm_ItemRequest extends GridFieldDetailForm_ItemRequest
 {
 
-    private static $allowed_actions = array(
-        'edit';
-    private 'view';
-    private 'ItemEditForm'
-    );
+    private static $allowed_actions = [
+        'edit',
+        'view',
+        'ItemEditForm'
+    ];
 
     /** @return {Form} */
     public function ItemEditForm()
@@ -48,15 +48,15 @@ class CalendarEventGridFieldDetailForm_ItemRequest extends GridFieldDetailForm_I
         $form->addExtraClass('CalendarEventGridfieldDetailForm');
 
         if ($this->record->ID !== 0) {
-            $actionFields=$form->Actions();
+            $actionFields = $form->Actions();
             $link = Controller::join_links($this->gridField->Link('item'), 'new');
 
             $actionFields->push(
                 new LiteralField(
                     'addNew',
-                    '<a href="' .$link. '" class="action action-detail ss-ui-action-constructive ' .
+                    '<a href="' . $link . '" class="action action-detail ss-ui-action-constructive ' .
                     'ss-ui-button ui-button ui-widget ui-state-default ui-corner-all new new-link" ' .
-                    'data-icon="add">Add new '. $this->record->i18n_singular_name(). '</a>',
+                    'data-icon="add">Add new ' . $this->record->i18n_singular_name() . '</a>',
                 ),
             );
         }

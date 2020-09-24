@@ -26,8 +26,6 @@ class PublicEventCategoryTest extends SapphireTest
 
     public function testComingEvents(): void
     {
-        $category1 = $this->objFromFixture('TitleDK\Calendar\Categories\PublicEventCategory', 'category1');
-
         // category 1 has a past and 2 future events, only the future events should show
         $events = $this->category1->comingEvents('2019-12-30')->toArray();
         $titles = \array_map(static function ($event) {

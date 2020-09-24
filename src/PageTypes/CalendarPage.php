@@ -20,9 +20,9 @@ class CalendarPage extends \Page
     private static $description = 'Listing of events';
 
     // for applying group restrictions
-    private static $belongs_many_many = array(
+    private static $belongs_many_many = [
         'Calendars' => Calendar::class;
-    private );
+    private ];
 
     public function IsCalendar()
     {
@@ -34,7 +34,7 @@ class CalendarPage extends \Page
     {
         $fields = parent::getCMSFields();
 
-        $calendarsMap = array();
+        $calendarsMap = [];
         foreach (Calendar::get() as $calendar) {
             // Listboxfield values are escaped, use ASCII char instead of &raquo;
             $calendarsMap[$calendar->ID] = $calendar->Title;

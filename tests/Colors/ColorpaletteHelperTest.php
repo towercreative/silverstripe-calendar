@@ -13,7 +13,7 @@ class ColorpaletteHelperTest extends SapphireTest
     }
 
 
-    public function test_palette_dropdown(): void
+    public function testPaletteDropDown(): void
     {
         $dropdown = ColorpaletteHelper::palette_dropdown('Colors');
         $this->assertEquals([
@@ -30,7 +30,7 @@ class ColorpaletteHelperTest extends SapphireTest
     }
 
 
-    public function testGet_palette(): void
+    public function testGetPalette(): void
     {
         $this->markTestSkipped('TODO');
     }

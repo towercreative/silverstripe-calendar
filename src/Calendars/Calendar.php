@@ -45,20 +45,20 @@ class Calendar extends DataObject
     private static $plural_name = 'Calendars';
 
     // for applying group restrictions
-    private static $belongs_many_many = array(
+    private static $belongs_many_many = [
         'Groups' => Group::class;
-    private );
+    private ];
 
-    private static $many_many = array(
+    private static $many_many = [
         'CalendarPages' => CalendarPage::class
-    );
+    ];
 
 
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
 
-        $groupsMap = array();
+        $groupsMap = [];
         foreach (Group::get() as $group) {
             // Listboxfield values are escaped, use ASCII char instead of &raquo;
             $groupsMap[$group->ID] = $group->getBreadcrumbs(' > ');

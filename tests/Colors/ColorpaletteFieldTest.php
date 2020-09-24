@@ -11,7 +11,6 @@ class ColorpaletteFieldTest extends SapphireTest
     public function testFieldColorWithHash(): void
     {
         $paletteField = new ColorpaletteField('ColorField', 'Chooose a color', null, '#48E');
-        $field = $paletteField->Field([]);
         $this->assertEquals('#48E', $paletteField->value);
     }
 
@@ -19,7 +18,6 @@ class ColorpaletteFieldTest extends SapphireTest
     public function testFieldColorWithNoHash(): void
     {
         $paletteField = new ColorpaletteField('ColorField', 'Chooose a color', null, '48E');
-        $field = $paletteField->Field([]);
         $this->assertEquals('#48E', $paletteField->value);
     }
 }

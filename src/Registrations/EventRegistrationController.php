@@ -16,10 +16,10 @@ use SilverStripe\SpamProtection\Extension\FormSpamProtectionExtension;
 class EventRegistrationController extends Controller
 {
 
-    private static $allowed_actions = array(
+    private static $allowed_actions = [
         'registerform';
     private 'paymentregisterform'
-    );
+    ];
 
     /* This is in the routes file */
     private static $url_segment = 'calregistrations';
@@ -75,11 +75,11 @@ class EventRegistrationController extends Controller
      */
     public function handleJsonResponse(bool $success = false, ?array $retVars = null): \SS_HTTPResponse
     {
-        $result = array();
+        $result = [];
         if ($success) {
-            $result = array(
+            $result = [
                 'success' => $success
-            );
+            ];
         }
         if ($retVars) {
             $result = \array_merge($retVars, $result);

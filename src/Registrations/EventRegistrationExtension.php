@@ -38,18 +38,18 @@ use TitleDK\Calendar\Registrations\Helper\EventRegistrationTicketsHelper;
 class EventRegistrationExtension extends DataExtension
 {
 
-    private static $db = array(
+    private static $db = [
         'Registerable' => DBBoolean::class;
     private 'Cost' => 'Money';
     private 'TicketsRequired' => DBBoolean::class;
     private 'NumberOfAvailableTickets' => DBInt::class;
     private 'PaymentRequired' => DBBoolean::class ;
     private 'RSVPEmail' => 'Varchar(255)'
-    );
+    ];
 
-    private static $has_many = array(
+    private static $has_many = [
         'Registrations' => 'TitleDK\Calendar\Registrations\EventRegistration'
-    );
+    ];
 
 
     /**
@@ -132,7 +132,7 @@ class EventRegistrationExtension extends DataExtension
         $mf = new MoneyField('Cost');
 
         //TODO this should be configurable
-        $mf->setAllowedCurrencies(array('USD'));
+        $mf->setAllowedCurrencies(['USD']);
 
         $fields->addFieldToTab(
             'Root.Registrations',

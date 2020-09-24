@@ -16,9 +16,9 @@ use SilverStripe\ORM\DataExtension;
  */
 class CalendarColorExtension extends DataExtension
 {
-    private static $db = array(
+    private static $db = [
         'Color' => 'Varchar'
-    );
+    ];
 
     public function TextColor()
     {

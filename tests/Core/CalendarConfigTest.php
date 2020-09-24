@@ -18,19 +18,19 @@ class CalendarConfigTest extends SapphireTest
     }
 
 
-    public function testSubpackage_settings(): void
+    public function testSubPackageSettings(): void
     {
         $this->markTestSkipped('TODO');
     }
 
 
-    public function testSubpackage_enabled(): void
+    public function testSubpackageEnabled(): void
     {
         $this->markTestSkipped('TODO');
     }
 
 
-    public function testSubpackage_setting(): void
+    public function testSubpackageSetting(): void
     {
         $this->markTestSkipped('TODO');
     }

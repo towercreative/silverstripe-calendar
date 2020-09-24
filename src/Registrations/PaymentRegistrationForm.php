@@ -46,10 +46,10 @@ class PaymentRegistrationForm extends Form
 
         //Validator
         $validator = RequiredFields::create(
-            array(
+            [
                 'Name',
                 Email::class,
-            ),
+            ],
         );
 
         $this->addExtraClass('PaymentRegistrationForm');

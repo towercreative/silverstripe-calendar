@@ -8,8 +8,8 @@ class CalendarEventPageGridfieldDetailFormItemRequestTest extends SapphireTest
 {
     public function test_item_edit_form(): void
     {
-        /** @var \TitleDK\Calendar\Admin\GridField\CalendarEventGridFieldDetailForm_ItemRequest $ir */
 
+        $this->markTestSkipped('TODO');
         /*
         $ir = new CalendarEventGridFieldDetailForm_ItemRequest(null, null, null, null, null);
 

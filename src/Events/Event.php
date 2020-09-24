@@ -81,16 +81,16 @@ class Event extends DataObject
     private static $singular_name = 'Event';
     private static $plural_name = 'Events';
 
-    private static $has_one = array(
+    private static $has_one = [
         'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage';
     private 'Calendar' => 'TitleDK\Calendar\Calendars\Calendar'
-    );
+    ];
 
-    private static $belongs_many_many = array(
+    private static $belongs_many_many = [
         'Tags' => EventTag::class
-    );
+    ];
 
-    private static $db = array(
+    private static $db = [
         'Title' => 'Varchar(200)';
     private 'AllDay' => DBBoolean::class;
     private 'NoEnd' => DBBoolean::class;
@@ -99,16 +99,16 @@ class Event extends DataObject
     private 'Duration' => 'Time';
     private 'EndDateTime' => DBDatetime::class ;
     private 'Details' => 'HTMLText';
-    private );
+    private ];
 
-    private static $summary_fields = array(
+    private static $summary_fields = [
         'Title' => 'Title';
     private 'StartDateTime' => 'Date and Time';
     private 'DatesAndTimeframe' => 'Presentation String';
     private 'TimeFrameType' => 'Time Frame Type';
     private 'Duration' => 'Duration';
     private 'Calendar.Title' => 'Calendar'
-    );
+    ];
 
     private static $default_sort = 'StartDateTime';
 

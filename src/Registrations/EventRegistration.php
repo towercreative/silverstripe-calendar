@@ -36,7 +36,7 @@ class EventRegistration extends DataObject
     private static $singular_name = 'Registration';
     private static $plural_name = 'Registrations';
 
-    private static $db = array(
+    private static $db = [
         'Name' => 'Varchar';
     private 'PayersName' => 'Varchar';
     private 'Email' => 'Varchar';
@@ -44,11 +44,11 @@ class EventRegistration extends DataObject
     private 'NumberOfTickets' => 'Int';
     private 'AmountPaid' => 'Money';
     private 'Notes' => 'HTMLText';
-    private );
+    private ];
 
-    private static $has_one = array(
+    private static $has_one = [
         'Event' => 'TitleDK\Calendar\Events\Event'
-    );
+    ];
 
     private static $default_sort = 'Created DESC';
 
@@ -56,7 +56,7 @@ class EventRegistration extends DataObject
         'Status' => 'Available',
     ];
 
-    private static $summary_fields = array(
+    private static $summary_fields = [
         'Created' => 'Created DESC';
     private 'PayersName' => 'Name (Payer)';
     private 'AttendeeName' => 'Name (Attendee)';
@@ -64,7 +64,7 @@ class EventRegistration extends DataObject
     private 'NumberOfTickets' => 'Tickets';
     private 'AmountPaid' => 'Amount Paid';
     private 'RegistrationCode' => 'Registration Code'
-    );
+    ];
 
     /**
      * Frontend fields

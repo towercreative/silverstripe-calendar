@@ -35,10 +35,10 @@ class EventRegistrationForm extends Form
 
         //Validator
         $validator = RequiredFields::create(
-            array(
+            [
                 'Name',
                 Email::class,
-            ),
+            ],
         );
         $this->addExtraClass('EventRegistrationForm');
         $this->addExtraClass($name);

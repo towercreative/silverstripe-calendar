@@ -23,9 +23,9 @@ class FullcalendarController extends Controller
     protected $allDay = false;
     protected $member = null;
 
-    private static $allowed_actions = array(
+    private static $allowed_actions = [
         'events';
-    private );
+    private ];
 
 
     public function init(): void
@@ -90,10 +90,10 @@ class FullcalendarController extends Controller
             ? 30
             : $request->getVar('offset');
 
-        $filter = array(
+        $filter = [
             'StartDateTime:GreaterThan' => $this->eventlistOffsetDate('start', $request->postVar('start'), $offset),
             'EndDateTime:LessThan' => $this->eventlistOffsetDate('end', $request->postVar('end'), $offset),
-        );
+        ];
 
         // start a query for events
         $events = Event::get()
@@ -107,7 +107,7 @@ class FullcalendarController extends Controller
             $events = $events->filter('CalendarID', $calIDList);
         }
 
-        $result = array();
+        $result = [];
         if ($events->count() > 0) {
             foreach ($events as $event) {
                 $calendar = $event->Calendar();
@@ -126,11 +126,11 @@ class FullcalendarController extends Controller
                 $resultArr = self::format_event_for_fullcalendar($event);
                 $resultArr = \array_merge(
                     $resultArr,
-                    array(
+                    [
                     'backgroundColor' => $bgColor,
                     'textColor' => '#FFF',
                     'borderColor' => $borderColor,
-                    ),
+                    ],
                 );
                 $result[] = $resultArr;
             }
@@ -150,11 +150,11 @@ class FullcalendarController extends Controller
      */
     public function handleJsonResponse(bool $success = false, ?array $retVars = null): HTTPResponse
     {
-        $result = array();
+        $result = [];
         if ($success) {
-            $result = array(
+            $result = [
                 'success' => $success
-            );
+            ];
         }
         if ($retVars) {
             $result = \array_merge($retVars, $result);
@@ -209,7 +209,7 @@ class FullcalendarController extends Controller
         $bgColor = '#999';
         $borderColor = '#555';
 
-        return array(
+        return [
             'id' => $event->ID,
             'title' => $event->Title,
             'start' => self::format_datetime_for_fullcalendar($event->StartDateTime),
@@ -220,7 +220,7 @@ class FullcalendarController extends Controller
             'backgroundColor' => $bgColor,
             'textColor' => '#FFFFFF',
             'borderColor' => $borderColor,
-        );
+        ];
     }
 
 

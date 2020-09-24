@@ -25,9 +25,9 @@ class EventPage extends \Page
     private static $description = 'Provides for a permanent URL for recurring events like festivals, monthly ' .
         'shopping, events etc.';
 
-    private static $has_many = array(
+    private static $has_many = [
         'Events' => 'TitleDK\Calendar\Events\Event';
-    private );
+    private ];
 
     public function ComingEvents()
     {
@@ -36,9 +36,9 @@ class EventPage extends \Page
         //Coming events
         return $this->Events()
             ->filter(
-                array(
+                [
                     'StartDateTime:GreaterThan' => \date('Y-m-d', $timestamp - 24*60*60)
-                ),
+                ],
             );
     }
 
@@ -50,9 +50,9 @@ class EventPage extends \Page
         //Past events
         return $this->Events()
             ->filter(
-                array(
+                [
                     'StartDateTime:LessThan' => \date('Y-m-d', $timestamp)
-                ),
+                ],
             );
     }
 

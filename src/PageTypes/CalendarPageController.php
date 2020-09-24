@@ -31,7 +31,7 @@ class CalendarPageController extends \PageController
     /** @var \TitleDK\Calendar\Helpers\CalendarPageHelper */
     private $calendarPageHelper;
 
-    private static $allowed_actions = array(
+    private static $allowed_actions = [
         'past';
     private 'from';
     private 'detail';
@@ -46,7 +46,7 @@ class CalendarPageController extends \PageController
     private 'tag';
     private 'recent';
     private 'upcoming'
-    );
+    ];
 
     private static $url_handlers = [
         '' => 'upcoming',

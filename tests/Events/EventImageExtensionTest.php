@@ -26,7 +26,7 @@ class EventImageExtensionTest extends SapphireTest
     }
 
 
-    public function test_get_thumbnail_no_image(): void
+    public function testGetThumbnailNoImage(): void
     {
         $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
         $event->setField('FeaturedImage', null);
@@ -35,7 +35,7 @@ class EventImageExtensionTest extends SapphireTest
 
     // @todo Not sure how to write a unit test involving asset Files
 
-    public function test_get_thumbnail_an_empty_file_image(): void
+    public function testGetThumbnailAnEmptyFileImage(): void
     {
         $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
 

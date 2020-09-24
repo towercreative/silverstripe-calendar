@@ -54,7 +54,7 @@ class CalendarPageControllerTest extends FunctionalTest
     /**
      * Test a load of the index page
      */
-    public function test_index(): void
+    public function testIndex(): void
     {
         $this->logInAs($this->member);
         $page = $this->get('/test-calendar-page/');
@@ -67,7 +67,7 @@ class CalendarPageControllerTest extends FunctionalTest
     }
 
 
-    public function test_upcoming(): void
+    public function testUpcoming(): void
     {
         $page = $this->get('/test-calendar-page/eventlist?month=2019-12');
         $this->assertEquals(200, $page->getStatusCode());
@@ -80,7 +80,7 @@ class CalendarPageControllerTest extends FunctionalTest
     }
 
 
-    public function test_event_list(): void
+    public function testEventList(): void
     {
         $page = $this->get('/test-calendar-page/eventlist?month=2019-12');
         $this->assertEquals(200, $page->getStatusCode());
@@ -111,7 +111,7 @@ class CalendarPageControllerTest extends FunctionalTest
     }
 
 
-    public function test_detail(): void
+    public function testDetail(): void
     {
         $event = $this->objFromFixture(Event::class, 'eventAllDay');
         $page = $this->get('/test-calendar-page/detail/' . $event->ID);
@@ -137,7 +137,7 @@ class CalendarPageControllerTest extends FunctionalTest
     }
 
 
-    public function test_search_enabled(): void
+    public function testSearchEnabled(): void
     {
         $this->assertTrue($this->calendarPageController->SearchEnabled());
     }

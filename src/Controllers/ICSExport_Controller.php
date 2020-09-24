@@ -24,11 +24,11 @@ use TitleDK\Calendar\Helpers\ICSExportHelper;
 class ICSExport_Controller extends Controller
 {
 
-    private static $allowed_actions = array(
+    private static $allowed_actions = [
         'cal';
     private 'all';
     private 'my';
-    private );
+    private ];
 
     public function init(): void
     {
@@ -146,15 +146,15 @@ class ICSExport_Controller extends Controller
     {
         $events = PrivateEvent::get()
             ->filter(
-                array(
+                [
                 'OwnerID' => $member->ID
-                ),
+                ],
             )
             ->filter(
-                array(
+                [
                 'StartDateTime:GreaterThan' => PrivateCalendarController::offset_date('start', null, 300),
                 'EndDateTime:LessThan' => PrivateCalendarController::offset_date('end', null, 300),
-                ),
+                ],
             );
 
         $eventsArr = $events->toNestedArray();

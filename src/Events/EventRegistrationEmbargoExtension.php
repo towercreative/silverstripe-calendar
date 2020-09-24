@@ -17,9 +17,9 @@ use SilverStripe\ORM\FieldType\DBDatetime;
 class EventRegistrationEmbargoExtension extends DataExtension
 {
 
-    private static $db = array(
+    private static $db = [
         'RegistrationEmbargoAt' => DBDatetime::class;
-    private );
+    private ];
 
     private static $summary_fields = [
         'RegistrationEmbargoAt' => 'Embargo Registration At',

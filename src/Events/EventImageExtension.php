@@ -18,9 +18,9 @@ use SilverStripe\ORM\DataExtension;
 class EventImageExtension extends DataExtension
 {
 
-    private static $has_one = array(
+    private static $has_one = [
         'FeaturedImage' => Image::class
-    );
+    ];
 
     private static $summary_fields = ['Thumbnail'];
 
