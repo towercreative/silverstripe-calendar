@@ -13,12 +13,14 @@ class CalendarPageHelper
 
     use DateTimeHelper;
 
+    /** @return false|string */
     public function realtimeMonthDay()
     {
         return \date('Y-m-d', Carbon::now()->timestamp);
     }
 
 
+    /** @return false|string */
     public function realtimeMonth()
     {
         return \date('Y-m', Carbon::now()->timestamp);
@@ -28,6 +30,8 @@ class CalendarPageHelper
     /**
      * If a month paramater is set, such as 2020-01 use that, otherwise use Carbon::now(), the current time, as the
      * basis for forming an equivalent string
+     *
+     * @return false|string
      */
     public function currentContextualMonth(): string
     {

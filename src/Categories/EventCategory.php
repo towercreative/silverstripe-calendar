@@ -23,8 +23,8 @@ class EventCategory extends DataObject
     private static $plural_name = 'Categories';
 
     private static $db = [
-        'Title' => 'Varchar';
-    private ];
+        'Title' => 'Varchar',
+    ];
 
     private static $many_many = [
         'Events' => 'TitleDK\Calendar\Events\Event',
@@ -33,7 +33,7 @@ class EventCategory extends DataObject
     private static $default_sort = 'Title';
 
 
-    public function getAddNewFields()
+    public function getAddNewFields(): FieldList
     {
         $fields = FieldList::create(
             TextField::create('Title'),
@@ -45,7 +45,7 @@ class EventCategory extends DataObject
     }
 
 
-    public function getCMSFields()
+    public function getCMSFields(): FieldList
     {
         $fields = parent::getCMSFields();
 

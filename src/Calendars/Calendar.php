@@ -48,8 +48,8 @@ class Calendar extends DataObject
 
     // for applying group restrictions
     private static $belongs_many_many = [
-        'Groups' => Group::class;
-    private ];
+        'Groups' => Group::class,
+    ];
 
     private static $many_many = [
         'CalendarPages' => CalendarPage::class,
@@ -98,7 +98,7 @@ class Calendar extends DataObject
 
 
     // @todo Check context iterative type
-    
+
     /** @param array<string> $context */
     public function canCreate(?Member $member = null, array $context = []): bool
     {

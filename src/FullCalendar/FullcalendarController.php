@@ -24,8 +24,8 @@ class FullcalendarController extends Controller
     protected $member = null;
 
     private static $allowed_actions = [
-        'events';
-    private ];
+        'events',
+    ];
 
 
     public function init(): void
@@ -46,8 +46,9 @@ class FullcalendarController extends Controller
             $this->allDay = true;
         }
 
+        $eventID = (int)$request->getVar('eventID');
         //Setting event based on request vars
-        if ((!$eventID = (int) $request->getVar('eventID')) || ($eventID <= 0)) {
+        if ((!$eventID) || ($eventID <= 0)) {
             return;
         }
 
@@ -66,12 +67,12 @@ class FullcalendarController extends Controller
      * Currently set to offset of 30 days
      *
      * @param string $type ("start"/"end")
-     * @param int $timestamp
+     * @param int $offset offset
      * return \SS_Datetime
      */
-    public function eventlistOffsetDate(string $type, int $timestamp, $offset = 30)
+    public function eventlistOffsetDate(string $type, int $timestamp, int $offset = 30)
     {
-        return self::offset_date($type, $timestamp, $offset);
+        return self::offsetDate($type, $timestamp, $offset);
     }
 
 
@@ -86,7 +87,9 @@ class FullcalendarController extends Controller
         $calendars = $request->getVar('calendars');
 
         /** @var string $offset days to offset by */
-        $offset = empty($request->getVar('offset'))
+        $offset = $request->getVar('offset');
+
+        $offset = !isset($offset)
             ? 30
             : $request->getVar('offset');
 
@@ -123,13 +126,13 @@ class FullcalendarController extends Controller
                     $borderColor = $calendar->getColorWithHash();
                 }
 
-                $resultArr = self::format_event_for_fullcalendar($event);
+                $resultArr = self::formatEventForFullCalendar($event);
                 $resultArr = \array_merge(
                     $resultArr,
                     [
-                    'backgroundColor' => $bgColor,
-                    'textColor' => '#FFF',
-                    'borderColor' => $borderColor,
+                        'backgroundColor' => $bgColor,
+                        'textColor' => '#FFF',
+                        'borderColor' => $borderColor,
                     ],
                 );
                 $result[] = $resultArr;
@@ -170,9 +173,10 @@ class FullcalendarController extends Controller
     /**
      * Calculate start/end date for event list
      *
+     * @return int date in int format
      * @todo this should go in a helper class
      */
-    public static function offset_date(string $type, int $timestamp, $offset = 30)
+    public static function offsetDate(string $type, int $timestamp, int $offset = 30): int
     {
         if (!$timestamp) {
             $timestamp = \time();
@@ -201,9 +205,10 @@ class FullcalendarController extends Controller
     /**
      * Format an event to comply with the fullcalendar format
      *
+     * @return array<string,mixed>
      * @todo Move to a helper
      */
-    public static function format_event_for_fullcalendar(Event $event)
+    public static function formatEventForFullCalendar(Event $event): array
     {
         //default
         $bgColor = '#999';
@@ -212,8 +217,8 @@ class FullcalendarController extends Controller
         return [
             'id' => $event->ID,
             'title' => $event->Title,
-            'start' => self::format_datetime_for_fullcalendar($event->StartDateTime),
-            'end' => self::format_datetime_for_fullcalendar($event->EndDateTime),
+            'start' => self::formateDateTimeForFullCalendar($event->StartDateTime),
+            'end' => self::formateDateTimeForFullCalendar($event->EndDateTime),
             'allDay' => $event->isAllDay(),
             'className' => $event->ClassName,
             //event calendar
@@ -229,7 +234,7 @@ class FullcalendarController extends Controller
      *
      * @todo Move to a helper
      */
-    public static function format_datetime_for_fullcalendar(string $datetime)
+    public static function formateDateTimeForFullCalendar(string $datetime): int
     {
         $time = \strtotime($datetime);
 

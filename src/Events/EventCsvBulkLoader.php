@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace TitleDK\Calendar\Events;
 
@@ -17,23 +17,22 @@ class EventCsvBulkLoader extends CsvBulkLoader
 {
 
     public $columnMap = [
-        'Title' => 'Title';
-    public 'Start Date' => '->importStartDate';
-    public 'Start Time' => '->importStartTime';
-    public 'End Date' => '->importEndDate';
-    public 'End Time' => '->importEndTime';
-    public 'Calendar' => 'Calendar.Title',
+        'Title' => 'Title',
+        'Start Date' => '->importStartDate',
+        'Start Time' => '->importStartTime',
+        'End Date' => '->importEndDate',
+        'End Time' => '->importEndTime',
+        'Calendar' => 'Calendar.Title',
     ];
 
     /** @var array */
     public $relationCallbacks = [
         'Calendar.Title' => [
-            'relationname' => 'Calendar';
-
-    /** @var array */
-    public 'callback' => 'getCalendarByTitle',
-        ],
-    ];
+            'relationname' => 'Calendar',
+            'callback' => 'getCalendarByTitle',
+            ],
+        ]
+    ;
 
     private static $dateFormat = 'm/d/Y';
     private static $timeFormat = 'H:i';
@@ -58,7 +57,7 @@ class EventCsvBulkLoader extends CsvBulkLoader
             'Start Time' => \_t('Event.StartTime', 'Start Time'),
             'End Date' => \_t(
                 'Event.EndDateSpec',
-                'End date in format {dateformat}'.'',
+                'End date in format {dateformat}' . '',
                 ['dateformat' => $dateFormat],
             ),
             'End Time' => \_t('Event.EndTime', 'End Time'),

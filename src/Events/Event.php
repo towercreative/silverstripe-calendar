@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace TitleDK\Calendar\Events;
 
@@ -82,8 +82,8 @@ class Event extends DataObject
     private static $plural_name = 'Events';
 
     private static $has_one = [
-        'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage';
-    private 'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
+        'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage',
+        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
     ];
 
     private static $belongs_many_many = [
@@ -91,23 +91,23 @@ class Event extends DataObject
     ];
 
     private static $db = [
-        'Title' => 'Varchar(200)';
-    private 'AllDay' => DBBoolean::class;
-    private 'NoEnd' => DBBoolean::class;
-    private 'StartDateTime' => DBDatetime::class;
-    private 'TimeFrameType' => "Enum('Duration,DateTime','Duration')";
-    private 'Duration' => 'Time';
-    private 'EndDateTime' => DBDatetime::class ;
-    private 'Details' => 'HTMLText';
-    private ];
+        'Title' => 'Varchar(200)',
+        'AllDay' => DBBoolean::class,
+        'NoEnd' => DBBoolean::class,
+        'StartDateTime' => DBDatetime::class,
+        'TimeFrameType' => "Enum('Duration,DateTime','Duration')",
+        'Duration' => 'Time',
+        'EndDateTime' => DBDatetime::class,
+        'Details' => 'HTMLText',
+    ];
 
     private static $summary_fields = [
-        'Title' => 'Title';
-    private 'StartDateTime' => 'Date and Time';
-    private 'DatesAndTimeframe' => 'Presentation String';
-    private 'TimeFrameType' => 'Time Frame Type';
-    private 'Duration' => 'Duration';
-    private 'Calendar.Title' => 'Calendar',
+        'Title' => 'Title',
+        'StartDateTime' => 'Date and Time',
+        'DatesAndTimeframe' => 'Presentation String',
+        'TimeFrameType' => 'Time Frame Type',
+        'Duration' => 'Duration',
+        'Calendar.Title' => 'Calendar',
     ];
 
     private static $default_sort = 'StartDateTime';
@@ -123,8 +123,6 @@ class Event extends DataObject
     }
     //Countering problem with onbefore write being called more than once
 //See http://www.silverstripe.org/data-model-questions/show/6805
-
-
 
 
     /* ---- from event has event page extension ---- */
@@ -395,9 +393,9 @@ class Event extends DataObject
             SelectionGroup::create(
                 'TimeFrameType',
                 [
-                "Duration//Duration" => TimeField::create('Duration', '')->setRightTitle('up to 24h')
-                    ->setAttribute('placeholder', 'Enter duration'),
-                "DateTime//Date/Time" => $endDateTime = DatetimeField::create('EndDateTime', ''),
+                    "Duration//Duration" => TimeField::create('Duration', '')->setRightTitle('up to 24h')
+                        ->setAttribute('placeholder', 'Enter duration'),
+                    "DateTime//Date/Time" => $endDateTime = DatetimeField::create('EndDateTime', ''),
                 ],
             ),
             LiteralField::create('Clear', '<div class="clear"></div>'),
@@ -517,7 +515,7 @@ class Event extends DataObject
     {
         return new RequiredFields(
             [
-            'Title', 'CalendarID',
+                'Title', 'CalendarID',
             ],
         );
     }

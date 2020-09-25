@@ -1,0 +1,6 @@
+parameters:
+    checkMissingIterableValueType: false
+    bootstrapFiles:
+        - ../app/src/Page.php
+        - ../app/src/PageController.php
+

@@ -19,8 +19,10 @@ use SilverStripe\ORM\DataObject;
  */
 class Attendee extends DataObject
 {
+    /** @var string  */
     private static $table_name = 'Attendee';
 
+    /** @var array<string,string> */
     private static $db = [
         'Title' => 'Varchar(255)',
         'FirstName' => 'Varchar(255)',
@@ -30,11 +32,12 @@ class Attendee extends DataObject
         'Email' => 'Varchar(255)',
     ];
 
+    /** @var array<string> */
     private static $summary_fields = [
       'Title', 'FirstName', 'Surname', 'Company', 'Phone', 'Email',
     ];
 
-    /** @var array */
+    /** @var array<string,string> */
     private static $many_many = [
         'Registrations' => EventRegistration::class,
     ];

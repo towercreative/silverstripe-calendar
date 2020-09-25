@@ -4,6 +4,9 @@ namespace TitleDK\Calendar\Categories;
 
 use SilverStripe\Security\Permission;
 
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+// @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+
 /**
  * Public Event Category
  *
@@ -13,13 +16,14 @@ use SilverStripe\Security\Permission;
 class PublicEventCategory extends EventCategory
 {
 
-    public function ComingEvents($from = false)
+    /** @return \SilverStripe\ORM\DataList<\TitleDK\Calendar\Categories\Event> */
+    public function ComingEvents(bool $from = false): DataList
     {
         return $this->Events()
             ->filter(
                 [
                 'StartDateTime:GreaterThan' => \date('Y-m-d', $from ? \strtotime($from) : \time()),
-                ],
+                ]
             );
     }
 
@@ -35,7 +39,8 @@ class PublicEventCategory extends EventCategory
     }
 
 
-    public function canCreate(?Member $member = null, $context = []): bool
+    /** @param array<string,string> $context */
+    public function canCreate(?Member $member = null, array $context = []): bool
     {
         return $this->canManage($member);
     }

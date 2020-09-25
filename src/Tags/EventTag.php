@@ -24,7 +24,7 @@ class EventTag extends DataObject
      * @const string
      * This must be a string because ValidationException has decided we can't use int
      */
-    const DUPLICATE_EXCEPTION = 'DUPLICATE';
+    public const DUPLICATE_EXCEPTION = 'DUPLICATE';
 
     /**
      * {@inheritDoc}

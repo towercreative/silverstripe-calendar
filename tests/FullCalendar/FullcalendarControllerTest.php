@@ -75,7 +75,7 @@ class FullcalendarControllerTest extends FunctionalTest
 
     public function testOffsetDateNullTImestamp(): void
     {
-        $result = FullcalendarController::offset_date('start', null, 124);
+        $result = FullcalendarController::offsetDate('start', null, 124);
         $this->assertEquals('2019-09-03', $result);
 
         // @tired, need to revisit
@@ -98,7 +98,7 @@ class FullcalendarControllerTest extends FunctionalTest
     public function testFormatEventForFullCalendar(): void
     {
         $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
-        $formatted = FullcalendarController::format_event_for_fullcalendar($event);
+        $formatted = FullcalendarController::formatEventForFullCalendar($event);
         $this->assertEquals([
             'id' => $event->ID,
             'title' => 'Scottish Cricket Season',
@@ -117,7 +117,7 @@ class FullcalendarControllerTest extends FunctionalTest
     {
         $this->assertEquals(
             '2019-12-15T08:30:00+00:00',
-            FullcalendarController::format_datetime_for_fullcalendar('2019-12-15 08:30:00'),
+            FullcalendarController::formateDateTimeForFullCalendar('2019-12-15 08:30:00'),
         );
     }
 }

@@ -13,14 +13,14 @@ use SilverStripe\View\Requirements;
  */
 class CalendarEventGridFieldDetailForm_ItemRequest extends GridFieldDetailForm_ItemRequest
 {
-
+    /** @var array<string> */
     private static $allowed_actions = [
         'edit',
         'view',
         'ItemEditForm',
     ];
 
-    /** @return {Form} */
+    /** @return \SilverStripe\Control\HTTPResponse|\SilverStripe\Forms\Form */
     public function ItemEditForm()
     {
 

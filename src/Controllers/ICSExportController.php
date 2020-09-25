@@ -10,6 +10,7 @@ use SilverStripe\Security\Member;
 use TitleDK\Calendar\Helpers\ICSExportHelper;
 
 //by Anselm
+
 /**
  * ICS Export controller
  *
@@ -21,14 +22,14 @@ use TitleDK\Calendar\Helpers\ICSExportHelper;
  * More explaination:
  * https://github.com/colinburns/daypack.com.au/issues/48
  */
-class ICSExport_Controller extends Controller
+class ICSExportController extends Controller
 {
 
     private static $allowed_actions = [
-        'cal';
-    private 'all';
-    private 'my';
-    private ];
+        'cal',
+        'all',
+        'my',
+    ];
 
     public function init(): void
     {
@@ -36,7 +37,7 @@ class ICSExport_Controller extends Controller
     }
 
 
-    public function index()
+    public function index(): bool
     {
         return false;
     }
@@ -48,8 +49,10 @@ class ICSExport_Controller extends Controller
      * For public calendars either the calendar id or the calendar url can be supplied
      * For private calendars user email and hash need to be supplied - like this.
      * The private calendar hash is created in {@see PrivateCalendarMemberExtension}
+     *
+     * @return string calendar in ICS format
      */
-    public function cal()
+    public function cal(): string
     {
         $cal = null;
         $request = $this->getRequest();
@@ -64,7 +67,7 @@ class ICSExport_Controller extends Controller
         if (\is_numeric($idOrURL)) {
             //calendar id is requested
             //echo 'request is numeric';
-            $cal = Calendar::get()->ByID((int) $request->param('ID'));
+            $cal = Calendar::get()->ByID((int)$request->param('ID'));
 
             //echo $cal->getLink();
 
@@ -93,7 +96,6 @@ class ICSExport_Controller extends Controller
         }
 
 
-
         if ($cal && $cal->exists()) {
             //everybody can access public calendars
             if ($cal->ClassName === 'Calendar') {
@@ -112,7 +114,7 @@ class ICSExport_Controller extends Controller
     /**
      * All public calendars
      */
-    public function all()
+    public function all(): string
     {
         $calendars = Calendar::get();
         $events = new ArrayList();
@@ -131,49 +133,53 @@ class ICSExport_Controller extends Controller
     /**
      * The currently logged in user's calendar
      */
-    public function my()
+    public function my(): void
     {
         $member = Member::currentUser();
         if (!$member) {
-            return 'please log in';
+            // @todo what to render here
+            //return 'please log in';
         }
 
-        return $this->memberCalendar($member);
+        $this->memberCalendar($member);
     }
 
 
-    protected function memberCalendar($member)
+    /** @return */
+    protected function memberCalendar(Member $member): void
     {
         $events = PrivateEvent::get()
             ->filter(
                 [
-                'OwnerID' => $member->ID,
-                ],
+                    'OwnerID' => $member->ID,
+                ]
             )
             ->filter(
                 [
-                'StartDateTime:GreaterThan' => PrivateCalendarController::offset_date('start', null, 300),
-                'EndDateTime:LessThan' => PrivateCalendarController::offset_date('end', null, 300),
-                ],
+                    'StartDateTime:GreaterThan' => PrivateCalendarController::offset_date('start', null, 300),
+                    'EndDateTime:LessThan' => PrivateCalendarController::offset_date('end', null, 300),
+                ]
             );
 
         $eventsArr = $events->toNestedArray();
 
         $ics = new ICSExport($eventsArr);
 
-        return $this->output($ics, \strtolower($member->FirstName));
+        $this->output($ics, \strtolower($member->FirstName));
     }
 
 
-    protected function output(?ICSExport $ics, $name): void
+    protected function output(?ICSExport $ics, string $name): void
     {
         if (!$ics) {
             return;
         }
 
-        if (!isset($_GET['dump'])) {
+        $dump = $this->getRequest()->getVar('dump');
+        if ($dump) {
             //normal mode
-            return $ics->getFile("$name.ics");
+            // @todo what to do here
+            //return $ics->getFile("$name.ics");
         }
 
         //dump/debug mode

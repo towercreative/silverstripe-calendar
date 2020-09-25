@@ -18,8 +18,8 @@ class EventRegistrationEmbargoExtension extends DataExtension
 {
 
     private static $db = [
-        'RegistrationEmbargoAt' => DBDatetime::class;
-    private ];
+        'RegistrationEmbargoAt' => DBDatetime::class,
+    ];
 
     private static $summary_fields = [
         'RegistrationEmbargoAt' => 'Embargo Registration At',
@@ -40,7 +40,7 @@ class EventRegistrationEmbargoExtension extends DataExtension
         $fields->addFieldToTab(
             'Root.Main',
             $embargoField,
-            'CalendarID',
+            'CalendarID'
         );
     }
 }
