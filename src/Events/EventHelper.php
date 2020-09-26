@@ -21,7 +21,7 @@ class EventHelper
      *
      * @todo move to config
      */
-    const YMD_DATE_FORMAT='Y-m-d';
+    public const YMD_DATE_FORMAT='Y-m-d';
 
     /**
      * Formatted Dates
@@ -34,10 +34,11 @@ class EventHelper
      * @param \SilverStripe\ORM\FieldType\DBDatetime $startObj
      * @param \SilverStripe\ORM\FieldType\DBDatetime $endObj
      */
-    public static function formatted_dates(DBDatetime $startObj, DBDatetime $endObj): string
+    public static function formattedDates(DBDatetime $startObj, DBDatetime $endObj): string
     {
         //Checking if end date is set
-        $endDateIsset = !empty($endObj->getValue());
+        $endValue = $endObj->getValue();
+        $endDateIsset = isset($endValue);
 
         $startTime = \strtotime($startObj->value);
         $endTime = \strtotime($endObj->value);
@@ -72,7 +73,11 @@ class EventHelper
     }
 
 
-    public static function formatted_start_date($startObj)
+    /**
+     * @param Object|\SilverStripe\ORM\FieldType\DBField $startObj
+     * @return false|string
+     */
+    public static function formattedStartDate($startObj)
     {
         $startTime = \strtotime($startObj->value);
 
@@ -80,7 +85,11 @@ class EventHelper
     }
 
 
-    public static function formatted_alldates($startObj, $endObj)
+    /**
+     * @param Object|\SilverStripe\ORM\FieldType\DBField $startObj
+     * @param Object|\SilverStripe\ORM\FieldType\DBField $endObj
+     */
+    public static function formattedAllDates($startObj, $endObj): string
     {
         $startDate = \date(self::YMD_DATE_FORMAT, \strtotime($startObj->value));
         $endDate = \date(self::YMD_DATE_FORMAT, \strtotime($endObj->value));
@@ -95,11 +104,12 @@ class EventHelper
         // @todo This should be a separate helper method
         //
         // Note that the end date time is set when editing, this needs imported also
-        $startDate = \date('g:ia', $startTime) === '12:00am' ? \date('M j F, Y', $startTime) : \date('M j, Y (g:ia)', $startTime);
+        $startDate = \date('g:ia', $startTime) === '12:00am' ? \date('M j F, Y', $startTime) :
+            \date('M j, Y (g:ia)', $startTime);
 
         // @todo see note above
         // @tod null date passes this test without the addition of empty
-        if (\date('g:ia', $endTime) === '12:00am' && !empty($endDate)) {
+        if (\date('g:ia', $endTime) === '12:00am' && isset($endDate)) {
             $endDate = \date('M j, Y', $endTime);
         } else {
             // This is the straddling midnight case
@@ -123,7 +133,7 @@ class EventHelper
      * @param \SilverStripe\ORM\FieldType\DBDatetime $startDBDateTime
      * @param \SilverStripe\ORM\FieldType\DBDatetime $endDBDateTime
      */
-    public static function formatted_timeframe(DBDatetime $startDBDateTime, DBDatetime $endDBDateTime): ?string
+    public static function formattedTimeframe(DBDatetime $startDBDateTime, DBDatetime $endDBDateTime): ?string
     {
         $str = null;
 

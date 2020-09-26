@@ -33,6 +33,7 @@ class EventImageExtension extends DataExtension
     }
 
 
+    /** @return \SilverStripe\Assets\Storage\AssetContainer|string */
     public function getThumbnail()
     {
         $image = $this->owner->FeaturedImage();

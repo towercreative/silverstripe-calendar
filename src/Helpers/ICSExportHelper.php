@@ -24,7 +24,7 @@ class ICSExportHelper
      * @param \TitleDK\Calendar\Calendars\Calendar $ssCalendar SilverStripe calendar
      * @throws \Jsvrcek\ICS\Exception\CalendarEventException
      */
-    public function processCalendar(Calendar $ssCalendar)
+    public function processCalendar(Calendar $ssCalendar): string
     {
         $this->ssCalendar = $ssCalendar;
         $this->strics = '';

@@ -8,6 +8,10 @@ use SilverStripe\Forms\GridField\GridFieldDetailForm_ItemRequest;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\View\Requirements;
 
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+
+// @TODO is the _TemRequest mandatory on these classes or not?
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
 /**
  * extension to the @see GridFieldDetailForm_ItemRequest
  */

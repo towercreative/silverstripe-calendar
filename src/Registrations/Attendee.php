@@ -19,7 +19,7 @@ use SilverStripe\ORM\DataObject;
  */
 class Attendee extends DataObject
 {
-    /** @var string  */
+    /** @var string */
     private static $table_name = 'Attendee';
 
     /** @var array<string,string> */

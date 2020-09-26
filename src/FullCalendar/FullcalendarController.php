@@ -7,6 +7,8 @@ use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Events\Event;
 
+// @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+
 /**
  * Fullcalendar controller
  * Controller/API, used for interacting with the fullcalendar js plugin
@@ -68,7 +70,7 @@ class FullcalendarController extends Controller
      *
      * @param string $type ("start"/"end")
      * @param int $offset offset
-     * return \SS_Datetime
+     * @return false|string
      */
     public function eventlistOffsetDate(string $type, int $timestamp, int $offset = 30)
     {
@@ -149,7 +151,7 @@ class FullcalendarController extends Controller
     /**
      * AJAX Json Response handler
      *
-     * @param array|null $retVars
+     * @param array<string,string>|null $retVars
      */
     public function handleJsonResponse(bool $success = false, ?array $retVars = null): HTTPResponse
     {
@@ -173,10 +175,10 @@ class FullcalendarController extends Controller
     /**
      * Calculate start/end date for event list
      *
-     * @return int date in int format
+     * @return string|false date in Y-m-d format
      * @todo this should go in a helper class
      */
-    public static function offsetDate(string $type, int $timestamp, int $offset = 30): int
+    public static function offsetDate(string $type, int $timestamp, int $offset = 30)
     {
         if (!$timestamp) {
             $timestamp = \time();
@@ -202,11 +204,12 @@ class FullcalendarController extends Controller
     }
 
 
+    // @todo move to a helper
+
     /**
      * Format an event to comply with the fullcalendar format
      *
      * @return array<string,mixed>
-     * @todo Move to a helper
      */
     public static function formatEventForFullCalendar(Event $event): array
     {
@@ -232,9 +235,9 @@ class FullcalendarController extends Controller
     /**
      * Format SS_Datime to fullcalendar format
      *
-     * @todo Move to a helper
+     * @return false|string
      */
-    public static function formateDateTimeForFullCalendar(string $datetime): int
+    public static function formateDateTimeForFullCalendar(string $datetime)
     {
         $time = \strtotime($datetime);
 

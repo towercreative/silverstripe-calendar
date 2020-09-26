@@ -3,8 +3,7 @@
 namespace TitleDK\Calendar\Helpers;
 
 use Carbon\Carbon;
-use SilverStripe\ORM\DataObject;
-use TitleDK\Calendar\Calendars\Calendar;
+use SilverStripe\Control\Controller;
 use TitleDK\Calendar\Core\CalendarHelper;
 use TitleDK\Calendar\DateTime\DateTimeHelper;
 
@@ -35,13 +34,18 @@ class CalendarPageHelper
      */
     public function currentContextualMonth(): string
     {
-        return isset($_GET['month'])
-            ? $_GET['month']
+        $request = Controller::curr()->getRequest();
+        $month = $request->getVar('month');
+
+        return isset($month)
+            ? $month
             : $this->realtimeMonth();
     }
 
 
     // @todo This is inconsistent with the JavaScript which uses the full month name
+
+    /** @return false|string */
     public function currentContextualMonthStr()
     {
         $month = $this->currentContextualMonth();
@@ -51,6 +55,7 @@ class CalendarPageHelper
     }
 
 
+    /** @return false|string */
     public function previousContextualMonth()
     {
         $month = $this->currentContextualMonth();
@@ -61,6 +66,7 @@ class CalendarPageHelper
     }
 
 
+    /** @return false|string */
     public function nextContextualMonth()
     {
         $month = $this->currentContextualMonth();
@@ -76,7 +82,7 @@ class CalendarPageHelper
     /**
      * Recent events are only related to 'now', not any contextual month from a GET param
      *
-     * @param array $calendarIDs calendar IDs to pull events from
+     * @param array<int> $calendarIDs calendar IDs to pull events from
      * @return \SilverStripe\ORM\DataList recent events
      */
     public function recentEvents(array $calendarIDs): \SilverStripe\ORM\DataList
@@ -95,22 +101,16 @@ class CalendarPageHelper
      * Upcoming events are related to the contextual month, this method is called to get the upcoming events from
      * a given point in time, i.e. a contextual month
      *
-     * @param array $calendarIDs calendar IDs to pull events from
+     * @param array<int> $calendarIDs calendar IDs to pull events from
      * @return \SilverStripe\ORM\DataList recent events
      */
     public function upcomingEvents(array $calendarIDs): \SilverStripe\ORM\DataList
     {
-        $calendar = DataObject::get_by_id(Calendar::class, $calendarIDs[0]);
-        $events = $calendar->Events();
-
         $currentContextualMonth = $this->currentContextualMonth();
         $now = $this->realtimeMonthDay();
         $nowMonth = \substr($now, 0, 7);
 
-        // if nowMonth is the same as the current month, as in realtime month
-
         $start = null;
-
         $start = $currentContextualMonth === $nowMonth
             ? $now
             : $currentContextualMonth . '-01';
@@ -125,7 +125,7 @@ class CalendarPageHelper
     }
 
 
-    public function performSearch($query)
+    public function performSearch(string $query): \SilverStripe\ORM\DataList
     {
         // @todo This is case sensitive with Postgresql, not so with MySQL
         //$query = strlower(addslashes($query));

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Events;
 
@@ -6,6 +6,8 @@ use SilverStripe\Core\Config\Config;
 use SilverStripe\Dev\CsvBulkLoader;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Categories\EventCategory;
+
+// @phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
 
 /**
  * PlayerCsvBulkLoader
@@ -16,6 +18,7 @@ use TitleDK\Calendar\Categories\EventCategory;
 class EventCsvBulkLoader extends CsvBulkLoader
 {
 
+    /** @var array<string,string> */
     public $columnMap = [
         'Title' => 'Title',
         'Start Date' => '->importStartDate',
@@ -25,7 +28,7 @@ class EventCsvBulkLoader extends CsvBulkLoader
         'Calendar' => 'Calendar.Title',
     ];
 
-    /** @var array */
+    /** @var array<string,array<string,string>> */
     public $relationCallbacks = [
         'Calendar.Title' => [
             'relationname' => 'Calendar',
@@ -34,11 +37,15 @@ class EventCsvBulkLoader extends CsvBulkLoader
         ]
     ;
 
+    /** @var string */
     private static $dateFormat = 'm/d/Y';
+
+    /** @var string */
     private static $timeFormat = 'H:i';
 
 
-    public function getImportSpec()
+    /** @return array<mixed> */
+    public function getImportSpec(): array
     {
         $spec = [];
         $dateFormat = Config::inst()->get('EventCsvBulkLoader', 'dateFormat');
@@ -81,70 +88,70 @@ class EventCsvBulkLoader extends CsvBulkLoader
     }
 
 
-    public static function importStartDate(&$obj, $val, $record): void
+    public static function importStartDate(Event &$event, string $val): void
     {
         $dateTime = self::importDate($val);
-        $obj->TimeFrameType = 'DateTime';
-        $obj->StartDateTime = $dateTime;
-        $obj->AllDay = true;
+        $event->TimeFrameType = 'DateTime';
+        $event->StartDateTime = $dateTime;
+        $event->AllDay = true;
     }
 
 
-    public static function importStartTime(&$obj, $val, $record): void
+    /** @throws \Exceptionq */
+    public static function importStartTime(Event &$event, string $val): void
     {
         if (!\strlen($val)) {
             return;
         }
-        $dt = new \DateTime($obj->StartDateTime);
+        $dt = new \DateTime($event->StartDateTime);
         $date = $dt->format('Y-m-d');
-        $obj->StartDateTime = $date . ' ' . $val;
-        $obj->AllDay = false;
+        $event->StartDateTime = $date . ' ' . $val;
+        $event->AllDay = false;
     }
 
 
-    public static function importEndDate(&$obj, $val, $record): void
+    public static function importEndDate(Event &$event, string $val): void
     {
         $dateTime = self::importDate($val);
-        $obj->EndDateTime = $dateTime;
+        $event->EndDateTime = $dateTime;
     }
 
 
-    public static function importEndTime(&$obj, $val, $record): void
+    /** @throws \Exception */
+    public static function importEndTime(Event &$event, string $val): void
     {
         if (!\strlen($val)) {
             return;
         }
-        $dt = new \DateTime($obj->EndDateTime);
+        $dt = new \DateTime($event->EndDateTime);
         $date = $dt->format('Y-m-d');
-        $obj->EndDateTime = $date . ' ' . $val;
+        $event->EndDateTime = $date . ' ' . $val;
     }
 
 
-    public static function findOrCreateCalendarByTitle(&$obj, $val, $record): DataObject
+    /** @throws \SilverStripe\ORM\ValidationException */
+    public static function findOrCreateCalendarByTitle(string $title): DataObject
     {
-        $c = Calendar::get()->filter('Title', $val)->First();
+        $c = Calendar::get()->filter('Title', $title)->First();
         if ($c && $c->exists()) {
             return $c;
         }
 
         $c = new Calendar();
-        $c->Title = $val;
+        $c->Title = $title;
         $c->write();
 
         return $c;
     }
 
 
-    /**
-     * @param $val
-     * @return string|\TitleDK\Calendar\Events\DateTime
-     */
-    protected static function importDate($val, $rt = 'string')
+    /** @return string|\TitleDK\Calendar\Events\DateTime */
+    protected static function importDate(string $dateAsString, string $rt = 'string')
     {
         $dateFormat = Config::inst()->get(EventCsvBulkLoader::class, 'dateFormat');
         $dateFormat .= ' ' . 'H:i';
         //$val = $val . '0:00';
-        $dateTime = \date_create_from_format($dateFormat, $val);
+        $dateTime = \date_create_from_format($dateFormat, $dateAsString);
 
         return $rt === 'string'
             ? $dateTime->format('Y-m-d H:i:s')

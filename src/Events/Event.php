@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace TitleDK\Calendar\Events;
+
+// @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps
+// @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
 use Carbon\Carbon;
 use SilverStripe\Control\Controller;
@@ -101,6 +104,7 @@ class Event extends DataObject
         'Details' => 'HTMLText',
     ];
 
+    /** @var array<string,string> */
     private static $summary_fields = [
         'Title' => 'Title',
         'StartDateTime' => 'Date and Time',
@@ -110,9 +114,11 @@ class Event extends DataObject
         'Calendar.Title' => 'Calendar',
     ];
 
+    /** @var string */
     private static $default_sort = 'StartDateTime';
 
-    public function summaryFields()
+    /** @return array<string,string> */
+    public function summaryFields(): array
     {
         $fields = parent::summaryFields();
 
@@ -127,9 +133,9 @@ class Event extends DataObject
 
     /* ---- from event has event page extension ---- */
 
-    // @todo this method is suspicous
+    //@todo this method is suspicous
 
-    public function getEventPageCalendarTitle()
+    public function getEventPageCalendarTitle(): string
     {
         $owner = $this->owner;
 
@@ -139,7 +145,7 @@ class Event extends DataObject
     }
 
 
-    public function DetailsSummary()
+    public function DetailsSummary(): string
     {
         return \implode(' ', \array_slice(\explode(
             ' ',
@@ -153,7 +159,7 @@ class Event extends DataObject
      * Rules for event saving:
      * 1. Events have
      */
-    public function onBeforeWrite()
+    public function onBeforeWrite(): void
     {
         parent::onBeforeWrite();
 
@@ -184,12 +190,11 @@ class Event extends DataObject
             $formatDate = $this->calcEndDateTimeBasedOnDuration();
             //only write the end date if a duration has actually been entered
             //If not, leave the end date blank for now, and it'll be taken care later in this method
-            if ($this->StartDateTime !== $formatDate) {
-                $this->EndDateTime = $formatDate;
-            } else {
-                //setting the end date/time to null, as it has automatically been set via javascript
+            //setting the end date/time to null, as it has automatically been set via javascript
+            $this->getFormattedStartDate() !== $formatDate
+                ? $this->EndDateTime = $formatDate
+                :
                 $this->EndDateTime = null;
-            }
         } else {
             //reset duration
             $this->Duration = '';
@@ -354,12 +359,8 @@ class Event extends DataObject
         $endTime = \strtotime($this->EndDateTime);
 
         $durationInSeconds = $endTime - $startTime;
-        if ($durationInSeconds > $secsInDay) {
-            return true;
-        }
 
-        // return an explicit false instead of relying on a falsey null.  This was picked up by unit testing
-        return false;
+        return $durationInSeconds > $secsInDay;
     }
 
 
@@ -367,10 +368,8 @@ class Event extends DataObject
      * Frontend fields
      * Simple list of the basic fields - how they're intended to be edited
      */
-    public function getFrontEndFields($params = null)
+    public function getFrontEndFields(): FieldList
     {
-        //parent::getFrontEndFields($params);
-
         $timeFrameHeaderText = 'Time Frame';
         if (!$this->config()->get('force_end')) {
             $timeFrameHeaderText = 'End Date / Time (optional)';
@@ -401,7 +400,7 @@ class Event extends DataObject
             LiteralField::create('Clear', '<div class="clear"></div>'),
         );
 
-        // @todo API for show calendar has changed
+        //@todo API for show calendar has changed
         $startDateTime
             //->getDateField()
             //->setConfig('showcalendar', 1)
@@ -453,7 +452,7 @@ class Event extends DataObject
     /**
      * CMS Fields
      */
-    public function getCMSFields()
+    public function getCMSFields(): FieldList
     {
         $eventFields = $this->getFrontEndFields();
 
@@ -511,7 +510,7 @@ class Event extends DataObject
     }
 
 
-    public function getCMSValidator()
+    public function getCMSValidator(): Validator
     {
         return new RequiredFields(
             [
@@ -521,18 +520,16 @@ class Event extends DataObject
     }
 
 
-    public function getAddNewFields()
+    public function getAddNewFields(): FieldList
     {
         return $this->getFrontEndFields();
     }
 
 
-    /** @todo unit test */
-    public function getIsPastEvent()
+    // @todo Unit test
+    public function getIsPastEvent(): bool
     {
-        return \strtotime($this->StartDateTime) < \mktime(0, 0, 0, \date('m'), \date('d'), \date('Y'))
-            ? true
-            : false;
+        return \strtotime($this->StartDateTime) < \mktime(0, 0, 0, \date('m'), \date('d'), \date('Y'));
     }
 
 
@@ -552,11 +549,13 @@ class Event extends DataObject
      *
      * @return \Carbon\Carbon|\SilverStripe\Forms\DatetimeField the embargo time as a carbon date object
      */
-    public function getRegistrationEmbargoDate($returnAsDateTime = false)
+    public function getRegistrationEmbargoDate(bool $returnAsDateTime = false)
     {
         $result = null;
-        if (empty($this->RegistrationEmbargoAt)) {
+        if (!isset($this->RegistrationEmbargoAt)) {
             $mins = $this->config()->get('embargo_registration_relative_to_end_datetime_mins');
+
+            // @todo Fix bug
             $result = $this->carbonDateTime($this->StartDateTime)->addMinutes($mins);
         } else {
             $result = $this->carbonDateTime($this->RegistrationEmbargoAt);
@@ -570,7 +569,7 @@ class Event extends DataObject
     }
 
 
-    public function getIsPastRegistrationClosing()
+    public function getIsPastRegistrationClosing(): bool
     {
         $expiryDate = $this->getRegistrationEmbargoDate();
 
@@ -578,9 +577,10 @@ class Event extends DataObject
     }
 
 
+    /** @return false|string */
     public function getFormattedStartDate()
     {
-        return EventHelper::formatted_start_date($this->obj('StartDateTime'));
+        return EventHelper::formattedStartDate($this->obj('StartDateTime'));
     }
 
 
@@ -589,16 +589,16 @@ class Event extends DataObject
      * Returns either the event's date or both start and end date if the event spans more than
      * one date
      */
-    public function getFormattedDates()
+    public function getFormattedDates(): string
     {
         // @todo use standard silverstripe date formatters, otherwise we are looking at 2 different formatting types :(
-        return EventHelper::formatted_dates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
+        return EventHelper::formattedDates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
 
 
-    public function getFormattedTimeframe()
+    public function getFormattedTimeframe(): ?string
     {
-        return EventHelper::formatted_timeframe($this->obj('StartDateTime'), $this->obj('EndDateTime'));
+        return EventHelper::formattedTimeframe($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
 
 
@@ -609,11 +609,11 @@ class Event extends DataObject
      */
     public function getStartAndEndDates()
     {
-        return EventHelper::formatted_alldates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
+        return EventHelper::formattedAllDates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
     }
 
 
-    public function getDatesAndTimeframe()
+    public function getDatesAndTimeframe(): string
     {
         $dates = $this->getFormattedDates();
         $timeframe = $this->getFormattedTimeframe();
@@ -629,7 +629,7 @@ class Event extends DataObject
      * **** NOTE: The current implementation only works properly as long as there's only one
      * {@see CalendarPage} in the site ****
      */
-    public function getInternalLink()
+    public function getInternalLink(): string
     {
         //for now all event details will only have one link - that is the main calendar page
         //NOTE: this could be amended by calling that link via AJAX, and thus could be shown as an overlay
@@ -638,7 +638,7 @@ class Event extends DataObject
 
         return CalendarHelper::addPreviewParams(
             Controller::join_links($calendarPage->Link('detail'), $this->ID),
-            $this,
+            $this
         );
     }
 
@@ -646,7 +646,7 @@ class Event extends DataObject
     /**
      * Get a link relative to the current calendar page URL. This is for rendering in calendar page event listings
      */
-    public function getRelativeLink()
+    public function getRelativeLink(): string
     {
         return 'detail/' . $this->ID;
     }
@@ -663,7 +663,10 @@ class Event extends DataObject
     }
 
 
-    public function canCreate(?Member $member = null, $context = []): bool
+    // @todo Is $context the correct type?
+
+    /** @param array<string> $context */
+    public function canCreate(?Member $member = null, array $context = []): bool
     {
         return $this->canManage($member);
     }
@@ -677,7 +680,7 @@ class Event extends DataObject
     *
     * @return bool
     */
-    public function canCreateTags($member = null)
+    public function canCreateTags(?Member $member = null): bool
     {
         return $this->canManage($member);
     }
@@ -695,7 +698,7 @@ class Event extends DataObject
     }
 
 
-    public function TicketsRemaining()
+    public function TicketsRemaining(): int
     {
         $helper = new EventRegistrationTicketsHelper($this);
 

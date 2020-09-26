@@ -2,6 +2,11 @@
 
 namespace TitleDK\Calendar\Controllers;
 
+use Jsvrcek\ICS\CalendarExport;
+use Jsvrcek\ICS\CalendarStream;
+use Jsvrcek\ICS\Model\Calendar;
+use Jsvrcek\ICS\Model\CalendarEvent;
+use Jsvrcek\ICS\Utility\Formatter;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Core\Convert;
@@ -61,23 +66,16 @@ class ICSExportController extends Controller
 
         $idOrURL = $request->param('ID');
 
-        //echo $idOrURL;
-
         //Public calendar via id
         if (\is_numeric($idOrURL)) {
             //calendar id is requested
-            //echo 'request is numeric';
             $cal = Calendar::get()->ByID((int)$request->param('ID'));
-
-            //echo $cal->getLink();
 
             //Public calendar via url
         } else {
             //calendar url is requested
-            //echo 'request is a string';
             $url = Convert::raw2url($idOrURL);
 
-            // @todo This needs changed to slug
             $cal = Calendar::get()
                 ->filter('Slug', $url)
                 ->First();
@@ -124,7 +122,7 @@ class ICSExportController extends Controller
 
         $eventsArr = $events->toNestedArray();
 
-        $ics = new ICSExport($eventsArr);
+        $ics = $this->exportICS($eventsArr);
 
         return $this->output($ics, 'all');
     }
@@ -163,28 +161,44 @@ class ICSExportController extends Controller
 
         $eventsArr = $events->toNestedArray();
 
-        $ics = new ICSExport($eventsArr);
+        $ics = $this->exportICS($eventsArr);
 
         $this->output($ics, \strtolower($member->FirstName));
     }
 
 
-    protected function output(?ICSExport $ics, string $name): void
+    /**
+     * @param array<\TitleDK\Calendar\Events\Event> $eventsArr
+     * @return string The ICS for these events
+     */
+    private function exportICS(array $eventsArr): string
     {
-        if (!$ics) {
-            return;
-        }
+        $icsCalendar = new Calendar();
 
-        $dump = $this->getRequest()->getVar('dump');
-        if ($dump) {
-            //normal mode
-            // @todo what to do here
-            //return $ics->getFile("$name.ics");
-        }
+        // @TODO Need sensible non fixed values here
+        $icsCalendar->setProdId('-//My Company//Cool Calendar App//EN');
 
-        //dump/debug mode
-        echo "<pre>";
-        echo $ics->getString();
-        echo "</pre>";
+        /** @var \TitleDK\Calendar\Events\Event $ssEvent */
+        foreach ($eventsArr as $ssEvent) {
+            $icsEvent = new CalendarEvent();
+            // @TODO add attendees, location, test this
+            $icsEvent->setStart($ssEvent->start)
+                ->setUid($ssEvent->ID)
+                ->setUid($ssEvent->AllDay)
+                ->setSummary($ssEvent->Title)
+                ->setDescription($ssEvent->Details);
+        }
+        //$calendarExport = new CalendarExport(new CalendarStream, new Formatter());
+        $calendarExport = new CalendarExport(new CalendarStream(), new Formatter());
+
+        return $calendarExport->getStream();
+    }
+
+
+    // @TODO Include context param
+    private function output(string $ics): void
+    {
+        // @TODO test this, not sure how it will work in the context of a browser, or indeed how it is meant to
+        echo $ics;
     }
 }
