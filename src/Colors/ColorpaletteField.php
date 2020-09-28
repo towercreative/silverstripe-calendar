@@ -36,7 +36,11 @@ class ColorpaletteField extends DropdownField
     }
 
 
-    public function Field(): string
+    /**
+     * @param array $properties
+     * @return string
+     */
+    public function Field($properties = [])
     {
         $this->addExtraClass('ColorpaletteInput');
         ColorpaletteHelper::requirements();

@@ -11,7 +11,7 @@ trait DateTimeHelper
      * @todo Timezones
      * @return \Carbon\Carbon same time, but in Carbon
      */
-    public function carbonDateTime(string $ssDateTimeString): Carbon
+    public function carbonDateTime(?string $ssDateTimeString): Carbon
     {
         //2018-05-21 13:04:00
         return Carbon::createFromFormat('Y-m-d H:i:s', $ssDateTimeString);

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace TitleDK\Calendar\Admin;
 
@@ -94,9 +94,12 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
         return $models;
     }
 
-
-    //public function getEditForm(?int $id, ?FieldList $fields): \SilverStripe\Forms\Form
-    public function getEditForm(): \SilverStripe\Forms\Form
+    /**
+     * @param int|null $id
+     * @param \SilverStripe\Forms\FieldList $fields
+     * @return \SilverStripe\Forms\Form A Form object with one tab per {@link \SilverStripe\Forms\GridField\GridField}
+     */
+    public function getEditForm($id = null, $fields = null)
     {
         $list = $this->getList();
         $exportButton = new GridFieldExportButton('buttons-before-left');
@@ -209,7 +212,7 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
     /** @return bool true if calendars enabled in the config */
     protected function calendarsEnabled(): bool
     {
-        return (bool) Config::inst()->get(Calendar::class, 'enabled');
+        return (bool)Config::inst()->get(Calendar::class, 'enabled');
     }
 
 

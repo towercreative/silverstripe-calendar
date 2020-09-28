@@ -23,6 +23,7 @@ use SilverStripe\Forms\TimeField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBBoolean;
 use SilverStripe\ORM\FieldType\DBDatetime;
+use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 use SilverStripe\TagField\TagField;
 use TitleDK\Calendar\Calendars\Calendar;
@@ -165,7 +166,7 @@ class Event extends DataObject
 
         //only allowing to run this once:
         if ($this->hasWritten) {
-            return false;
+            return;
         }
         $this->hasWritten = true;
         //echo "this should only execute once \n";
@@ -653,11 +654,10 @@ class Event extends DataObject
 
 
     /**
-     * Anyone can view public events
-     *
-     * @param \SilverStripe\Security\Member $member
+     * @param Member $member
+     * @return boolean
      */
-    public function canView(?Member $member = null): bool
+    public function canView($member = null)
     {
         return true;
     }
@@ -706,7 +706,7 @@ class Event extends DataObject
     }
 
 
-    protected function canManage(Member $member): bool
+    protected function canManage(?Member $member): bool
     {
         return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENT_MANAGE', 'any', $member);
     }

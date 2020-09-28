@@ -7,6 +7,7 @@ use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Permission;
 use TitleDK\Calendar\PageTypes\CalendarPage;
+use SilverStripe\Security\Member;
 
 // @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
@@ -87,11 +88,10 @@ class Calendar extends DataObject
 
 
     /**
-     * Anyone can view public calendar
-     *
-     * @param \SilverStripe\Security\Member $member
+     * @param Member $member
+     * @return boolean
      */
-    public function canView(?Member $member = null): bool
+    public function canView($member = null)
     {
         return true;
     }
@@ -99,20 +99,32 @@ class Calendar extends DataObject
 
     // @todo Check context iterative type
 
-    /** @param array<string> $context */
-    public function canCreate(?Member $member = null, array $context = []): bool
+    /**
+     * @param Member $member
+     * @param array $context Additional context-specific data which might
+     * affect whether (or where) this object could be created.
+     * @return boolean
+     */
+    public function canCreate($member = null, $context = [])
     {
         return $this->canManage($member);
     }
 
 
-    public function canEdit(?Member $member = null): bool
-    {
+    /**
+     * @param Member $member
+     * @return boolean
+     */
+    public function canEdit($member = null)    {
         return $this->canManage($member);
     }
 
 
-    public function canDelete(?Member $member = null): bool
+    /**
+     * @param Member $member
+     * @return boolean
+     */
+    public function canDelete($member = null)
     {
         return $this->canManage($member);
     }

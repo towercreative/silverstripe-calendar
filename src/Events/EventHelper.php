@@ -4,6 +4,7 @@ namespace TitleDK\Calendar\Events;
 
 use Carbon\Carbon;
 use TitleDK\Calendar\DateTime\DateTimeHelper;
+use SilverStripe\ORM\FieldType\DBDatetime;
 
 /**
  * Event Helper

@@ -2,6 +2,8 @@
 
 namespace TitleDK\Calendar\Registrations\Helper;
 
+use TitleDK\Calendar\Events\Event;
+
 class EventRegistrationTicketsHelper
 {
     /** @var \TitleDK\Calendar\Registrations\Helper\Event */
