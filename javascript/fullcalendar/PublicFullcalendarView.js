@@ -137,7 +137,7 @@ var PublicFullcalendarView;
 				//public events
 				{
 					url: $this.buildControllerUrl('events') + '?calendars=' + $this.options.calendars,
-					type: 'POST',
+					type: 'GET',
 					error: function() {
 					},
 					editable: false

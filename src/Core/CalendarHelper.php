@@ -6,9 +6,11 @@ use Carbon\Carbon;
 use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
 use SilverStripe\ORM\DataList;
+use SilverStripe\ORM\ManyManyList;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\PageTypes\CalendarPage;
 
 /**
  * Calendar Helper
@@ -20,11 +22,11 @@ use TitleDK\Calendar\Events\Event;
 class CalendarHelper
 {
     /**
-     * @param array<\TitleDK\Calendar\Calendars\Calendar> $calendars
-     * @param bool $returnCSV true to return CSV, false not to
-     * @return array<int> Calendar IDs
+     * @param ManyManyList $calendars
+     * @param bool $returnCSV
+     * @return array|string
      */
-    public static function getValidCalendarIDsForCurrentUser(array $calendars, bool $returnCSV = false): array
+    public static function getValidCalendarIDsForCurrentUser(ManyManyList $calendars, bool $returnCSV = false)
     {
         $member = Security::getCurrentUser();
         $memberGroups = [];
@@ -181,10 +183,10 @@ class CalendarHelper
      * @param string $link original link
      * @param \TitleDK\Calendar\Calendars\Calendar $calendar a calendar, with possibly a subsite ID
      */
-    public static function addPreviewParams(string $link, Calendar $calendar): string
+    public static function addPreviewParams(string $link, $calendar): string
     {
         // Pass through if not logged in
-        if (!Member::currentUserID()) {
+        if (!Security::getCurrentUser()) {
             return $link;
         }
         $modifiedLink = '';

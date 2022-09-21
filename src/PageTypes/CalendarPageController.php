@@ -47,6 +47,7 @@ class CalendarPageController extends \PageController
         'tag',
         'recent',
         'upcoming',
+        'detail'
     ];
 
     private static $url_handlers = [
@@ -147,12 +148,10 @@ class CalendarPageController extends \PageController
 
 
     /**
-     * Calendar View
-     * Renders the fullcalendar
-     *
-     * @todo is this correct?
+     * @return $this
+     * @throws \SilverStripe\Control\HTTPResponse_Exception
      */
-    public function calendarview(): Calendar
+    public function calendarview()
     {
         if (Config::inst()->get(CalendarPage::class, 'calendarview')) {
             $prefix = 'titledk/silverstripe-calendar:thirdparty/fullcalendar';

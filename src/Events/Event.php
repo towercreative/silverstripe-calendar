@@ -368,8 +368,11 @@ class Event extends DataObject
     /**
      * Frontend fields
      * Simple list of the basic fields - how they're intended to be edited
+     *
+     * @param $params
+     * @return FieldList
      */
-    public function getFrontEndFields(): FieldList
+    public function getFrontEndFields($params = null): FieldList
     {
         $timeFrameHeaderText = 'Time Frame';
         if (!$this->config()->get('force_end')) {
@@ -511,7 +514,7 @@ class Event extends DataObject
     }
 
 
-    public function getCMSValidator(): Validator
+    public function getCMSValidator(): RequiredFields
     {
         return new RequiredFields(
             [
@@ -662,11 +665,12 @@ class Event extends DataObject
         return true;
     }
 
-
-    // @todo Is $context the correct type?
-
-    /** @param array<string> $context */
-    public function canCreate(?Member $member = null, array $context = []): bool
+    /**
+     * @param $member
+     * @param $context
+     * @return bool
+     */
+    public function canCreate($member = null, $context = [])
     {
         return $this->canManage($member);
     }
@@ -680,23 +684,20 @@ class Event extends DataObject
     *
     * @return bool
     */
-    public function canCreateTags(?Member $member = null): bool
+    public function canCreateTags(Member $member = null): bool
     {
         return $this->canManage($member);
     }
 
-
-    public function canEdit(?Member $member = null): bool
+    public function canEdit($member = null)
     {
         return $this->canManage($member);
     }
 
-
-    public function canDelete(?Member $member = null): bool
+    public function canDelete($member = null)
     {
         return $this->canManage($member);
     }
-
 
     public function TicketsRemaining(): int
     {

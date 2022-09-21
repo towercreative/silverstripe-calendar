@@ -1,11 +1,16 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace TitleDK\Calendar\Calendars;
 
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SilverStripe\Forms\ListboxField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Group;
 use SilverStripe\Security\Permission;
+use Symbiote\GridFieldExtensions\GridFieldAddExistingSearchButton;
+use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\PageTypes\CalendarPage;
 use SilverStripe\Security\Member;
 
@@ -34,7 +39,7 @@ class Calendar extends DataObject
     ];
 
     private static $has_many = [
-        'Events' => 'TitleDK\Calendar\Events\Event',
+        'Events' => Event::class,
     ];
 
     private static $default_sort = 'Title';
@@ -59,29 +64,41 @@ class Calendar extends DataObject
 
     public function getCMSFields(): \SilverStripe\Forms\FieldList
     {
+        $this->beforeUpdateCMSFields(function (FieldList $fields) {
+            $groupsMap = [];
+            foreach (Group::get() as $group) {
+                // Listboxfield values are escaped, use ASCII char instead of &raquo;
+                $groupsMap[$group->ID] = $group->getBreadcrumbs(' > ');
+            }
+            \asort($groupsMap);
+
+            $fields->addFieldToTab(
+                'Root.Main',
+                ListboxField::create('Groups', Group::singleton()->i18n_plural_name())
+                    ->setSource($groupsMap)
+                    ->setAttribute(
+                        'data-placeholder',
+                        \_t(self::class . '.ADDGROUP', 'Add group restriction', 'Placeholder text for a dropdown'),
+                    )->setRightTitle(
+                        'Only these groups will be able to see this calendar and events, leave empty for public',
+                    ),
+            );
+        });
+
         $fields = parent::getCMSFields();
-
-        $groupsMap = [];
-        foreach (Group::get() as $group) {
-            // Listboxfield values are escaped, use ASCII char instead of &raquo;
-            $groupsMap[$group->ID] = $group->getBreadcrumbs(' > ');
-        }
-        \asort($groupsMap);
-
-        $fields->addFieldToTab(
-            'Root.Main',
-            ListboxField::create('Groups', Group::singleton()->i18n_plural_name())
-                ->setSource($groupsMap)
-                ->setAttribute(
-                    'data-placeholder',
-                    \_t(self::class . '.ADDGROUP', 'Add group restriction', 'Placeholder text for a dropdown'),
-                )->setRightTitle(
-                    'Only these groups will be able to see this calendar and events, leave empty for public',
-                ),
-        );
 
         //Events shouldn't be editable from here by default
         $fields->removeByName('Events');
+
+        /** @var GridField $calendarPages */
+        if ($calendarPages = $fields->dataFieldByName('CalendarPages')) {
+            $calendarPages->getConfig()
+                ->removeComponentsByType([
+                    GridFieldAddExistingAutocompleter::class,
+                ])->addComponents([
+                    new GridFieldAddExistingSearchButton()
+                ]);
+        }
 
         return $fields;
     }
@@ -115,7 +132,8 @@ class Calendar extends DataObject
      * @param Member $member
      * @return boolean
      */
-    public function canEdit($member = null)    {
+    public function canEdit($member = null)
+    {
         return $this->canManage($member);
     }
 
@@ -130,7 +148,7 @@ class Calendar extends DataObject
     }
 
 
-    protected function canManage(Member $member): bool
+    protected function canManage(Member $member = null): bool
     {
         return Permission::check('ADMIN', 'any', $member) || Permission::check('CALENDAR_MANAGE', 'any', $member);
     }

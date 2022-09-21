@@ -3,6 +3,7 @@
 namespace TitleDK\Calendar\FullCalendar;
 
 use SilverStripe\Control\Controller;
+use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Events\Event;
@@ -72,7 +73,7 @@ class FullcalendarController extends Controller
      * @param int $offset offset
      * @return false|string
      */
-    public function eventlistOffsetDate(string $type, int $timestamp, int $offset = 30)
+    public function eventlistOffsetDate(string $type, int $timestamp = null, int $offset = 30)
     {
         return self::offsetDate($type, $timestamp, $offset);
     }
@@ -178,16 +179,10 @@ class FullcalendarController extends Controller
      * @return string|false date in Y-m-d format
      * @todo this should go in a helper class
      */
-    public static function offsetDate(string $type, int $timestamp, int $offset = 30)
+    public static function offsetDate(string $type, int $timestamp = null, int $offset = 30)
     {
         if (!$timestamp) {
             $timestamp = \time();
-        }
-
-        // check whether the timestamp was
-        // given as a date string (2016-09-05)
-        if (\strpos($timestamp, "-") > 0) {
-            $timestamp = \strtotime($timestamp);
         }
 
         //days in secs

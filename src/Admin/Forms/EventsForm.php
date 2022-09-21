@@ -2,6 +2,7 @@
 
 namespace TitleDK\Calendar\Admin\Forms;
 
+use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
@@ -28,9 +29,9 @@ class EventsForm extends Form
     /**
      * Contructor
      *
-     * @param \TitleDK\Calendar\PageTypes\EventPageController $controller
+     * @param Controller $controller
      */
-    public function __construct(EventPage_Controller $controller, string $name)
+    public function __construct(Controller $controller, string $name)
     {
         $fields = FieldList::create();
         $fields->push(TabSet::create("Root"));

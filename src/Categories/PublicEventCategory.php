@@ -70,7 +70,7 @@ class PublicEventCategory extends EventCategory
     }
 
 
-    protected function canManage(Member $member): bool
+    protected function canManage(Member $member = null): bool
     {
         return Permission::check('ADMIN', 'any', $member) || Permission::check('EVENTCATEGORY_MANAGE', 'any', $member);
     }

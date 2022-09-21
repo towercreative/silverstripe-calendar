@@ -37,35 +37,39 @@ class EventHelper
      */
     public static function formattedDates(DBDatetime $startObj, DBDatetime $endObj): string
     {
-        //Checking if end date is set
-        $endValue = $endObj->getValue();
-        $endDateIsset = isset($endValue);
+        $str = '';
 
-        $startTime = \strtotime($startObj->value);
-        $endTime = \strtotime($endObj->value);
+        if($startObj->value && $endObj->value){
+            //Checking if end date is set
+            $endValue = $endObj->getValue();
+            $endDateIsset = isset($endValue);
 
-        $startMonth = \date('M', $startTime);
+            $startTime = \strtotime($startObj->value);
+            $endTime = \strtotime($endObj->value);
 
-        // include ordinal, e.g. 1st, 4th
-        $startDayOfMonth = $startObj->DayOfMonth(true);
+            $startMonth = \date('M', $startTime);
 
-        $str = $startMonth . ' ' . $startDayOfMonth ;
+            // include ordinal, e.g. 1st, 4th
+            $startDayOfMonth = $startObj->DayOfMonth(true);
 
-        if (\date(self::YMD_DATE_FORMAT, $startTime) === \date(self::YMD_DATE_FORMAT, $endTime)) {
-            //one date - str. has already been written
-        } else {
-            //two dates
+            $str = $startMonth . ' ' . $startDayOfMonth ;
 
-            if ($endDateIsset) {
-                $endMonth = \date('M', $endTime);
+            if (\date(self::YMD_DATE_FORMAT, $startTime) === \date(self::YMD_DATE_FORMAT, $endTime)) {
+                //one date - str. has already been written
+            } else {
+                //two dates
 
-                // include ordinal, e.g. 1st, 4th
-                $endDayOfMonth = $endObj->DayOfMonth(true);
+                if ($endDateIsset) {
+                    $endMonth = \date('M', $endTime);
 
-                if ($startMonth === $endMonth) {
-                    $str .= ' - ' . $endDayOfMonth;
-                } else {
-                    $str .= ' - ' . $endMonth . ' ' . $endDayOfMonth;
+                    // include ordinal, e.g. 1st, 4th
+                    $endDayOfMonth = $endObj->DayOfMonth(true);
+
+                    if ($startMonth === $endMonth) {
+                        $str .= ' - ' . $endDayOfMonth;
+                    } else {
+                        $str .= ' - ' . $endMonth . ' ' . $endDayOfMonth;
+                    }
                 }
             }
         }
@@ -136,22 +140,24 @@ class EventHelper
      */
     public static function formattedTimeframe(DBDatetime $startDBDateTime, DBDatetime $endDBDateTime): ?string
     {
-        $str = null;
+        $str = '';
 
-        $startTime = \strtotime($startDBDateTime->value);
-        $endTime = \strtotime($endDBDateTime->value);
+        if($startDBDateTime->value && $endDBDateTime->value){
+            $startTime = \strtotime($startDBDateTime->value);
+            $endTime = \strtotime($endDBDateTime->value);
 
-        if ($startTime === $endTime) {
-            return null;
-        }
-
-        if ($endTime) {
-            //time frame is only applicable if both start and end time is on the same day
-            if (\date('Y-m-d', $startTime) === \date('Y-m-d', $endTime)) {
-                $str = \date('g:ia', $startTime) . ' - ' . \date('g:ia', $endTime);
+            if ($startTime === $endTime) {
+                return null;
             }
-        } else {
-            $str = \date('g:ia', $startTime);
+
+            if ($endTime) {
+                //time frame is only applicable if both start and end time is on the same day
+                if (\date('Y-m-d', $startTime) === \date('Y-m-d', $endTime)) {
+                    $str = \date('g:ia', $startTime) . ' - ' . \date('g:ia', $endTime);
+                }
+            } else {
+                $str = \date('g:ia', $startTime);
+            }
         }
 
         return $str;

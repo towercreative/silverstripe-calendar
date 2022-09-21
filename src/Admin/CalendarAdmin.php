@@ -6,6 +6,7 @@ use SilverStripe\Admin\LeftAndMain;
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Control\Controller;
 use SilverStripe\Core\Config\Config;
+use SilverStripe\Dev\CsvBulkLoader;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
@@ -18,6 +19,9 @@ use SilverStripe\Security\PermissionProvider;
 use SilverStripe\View\Requirements;
 use TitleDK\Calendar\Calendars\Calendar;
 use TitleDK\Calendar\Categories\EventCategory;
+use TitleDK\Calendar\Categories\PublicEventCategory;
+use TitleDK\Calendar\Events\Event;
+use TitleDK\Calendar\Events\EventCsvBulkLoader;
 
 /**
  * Calendar Admin
@@ -43,16 +47,16 @@ class CalendarAdmin extends ModelAdmin implements PermissionProvider
 
     /** @var array<string> */
     private static $managed_models = [
-        'TitleDK\Calendar\Events\Event',
-        'TitleDK\Calendar\Categories\PublicEventCategory',
-        'TitleDK\Calendar\Calendars\Calendar',
+        Event::class,
+        PublicEventCategory::class,
+        Calendar::class,
     ];
 
     /** @var array<string,string> */
     private static $model_importers = [
-        'TitleDK\Calendar\Events\Event' => 'TitleDK\Calendar\Events\EventCsvBulkLoader',
-        'TitleDK\Calendar\Categories\PublicEventCategory' => 'SilverStripe\Dev\CsvBulkLoader',
-        'TitleDK\Calendar\Calendars\Calendar' => 'SilverStripe\Dev\CsvBulkLoader',
+        Event::class => EventCsvBulkLoader::class,
+        PublicEventCategory::class => CsvBulkLoader::class,
+        Calendar::class => CsvBulkLoader::class,
     ];
 
     /** @var string */
