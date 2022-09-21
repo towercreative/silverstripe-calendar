@@ -2,6 +2,7 @@
 
 namespace TitleDK\Calendar\Registrations;
 
+use SilverStripe\Control\Controller;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Forms\EmailField;
 use SilverStripe\Forms\FieldList;
@@ -28,7 +29,7 @@ class PaymentRegistrationForm extends Form
     /**
      * Contructor
      */
-    public function __construct(type $controller, type $name)
+    public function __construct(Controller $controller, string $name)
     {
         //Fields
         $fields = FieldList::create(
@@ -79,7 +80,7 @@ class PaymentRegistrationForm extends Form
      * @param array<string,string|int|float|bool> $data
      * @throws \SilverStripe\ORM\ValidationException
      */
-    public function doRegister(array $data, Form $form): \SS_HTTPResponse
+    public function doRegister(array $data, Form $form)
     {
         $registration = new EventRegistration();
         $form->saveInto($registration);

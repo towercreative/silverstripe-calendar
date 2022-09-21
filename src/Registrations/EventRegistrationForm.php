@@ -2,12 +2,14 @@
 
 namespace TitleDK\Calendar\Registrations;
 
+use SilverStripe\Control\Controller;
 use SilverStripe\Control\Email\Email;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormAction;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\RequiredFields;
+use TitleDK\Calendar\Events\Event;
 
 // @phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 
@@ -24,10 +26,10 @@ class EventRegistrationForm extends Form
     /**
      * Contructor
      */
-    public function __construct(type $controller, type $name)
+    public function __construct(Controller $controller, string $name)
     {
         //Fields
-        $fields = \singleton('TitleDK\Calendar\Registrations\EventRegistration')->getFrontEndFields();
+        $fields = EventRegistration::singleton()->getFrontEndFields();
 
         //Actions
         $actions = FieldList::create(
@@ -66,7 +68,7 @@ class EventRegistrationForm extends Form
     /**
      * Register action
      */
-    public function doRegister(type $data, type $form): \SS_HTTPResponse
+    public function doRegister(array $data, Form $form)
     {
         $r = new EventRegistration();
         $form->saveInto($r);
@@ -78,7 +80,7 @@ class EventRegistrationForm extends Form
         }
         $r->write();
 
-        $from = Email::getAdminEmail();
+        $from = Email::config()->get('admin_email');
         $to = $r->Email;
         $bcc = $EventDetails->RSVPEmail;
         $subject = "Event Registration - ".$EventDetails->Title." - ".\date("d/m/Y H:ia");

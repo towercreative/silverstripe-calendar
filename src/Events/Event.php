@@ -533,7 +533,7 @@ class Event extends DataObject
     // @todo Unit test
     public function getIsPastEvent(): bool
     {
-        return \strtotime($this->StartDateTime) < \mktime(0, 0, 0, \date('m'), \date('d'), \date('Y'));
+        return \strtotime($this->StartDateTime) < \mktime(0, 0, 0, (int) \date('m'), (int) \date('d'), (int) \date('Y'));
     }
 
 

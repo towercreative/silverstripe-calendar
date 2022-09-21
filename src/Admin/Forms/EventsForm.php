@@ -93,7 +93,7 @@ class EventsForm extends Form
 
         $dataColumns->setDisplayFields($summaryFields);
 
-        $gridEventConfig->addComponent($dataColumns, GridFieldEditButton::class);
+        $gridEventConfig->addComponent($dataColumns);
 
         return $gridEventConfig;
     }
