@@ -27,7 +27,7 @@
         "silverstripe/recipe-cms": "^4.10",
         "unclecheese/display-logic": "^2.0",
         "suilven/sluggable": "dev-master",
-        "jsvrcek/ics": "^0.6",
+        "jsvrcek/ics": "^0.8",
         "ramsey/uuid": "^3.9"
     },
     "repositories": [
