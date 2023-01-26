@@ -21,7 +21,7 @@
     ],
     "require": {
         "silverware/calendar": "~1",
-        "nesbot/carbon": "^1",
+        "nesbot/carbon": "^2.0",
         "silverstripe/tagfield": "^2",
         "weboftalent/gridrows": "^2",
         "silverstripe/recipe-cms": "^4.10",
