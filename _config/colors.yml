@@ -1,0 +1,14 @@
+---
+Name: silverstripe-calendar-colors
+---
+TitleDK\Calendar\Colors\ColorpaletteHelper:
+  base_palette:
+    - '#4B0082'
+    - '#696969'
+    - '#B22222'
+    - '#A52A2A'
+    - '#DAA520'
+    - '#006400'
+    - '#40E0D0'
+    - '#0000CD'
+    - '#800080'

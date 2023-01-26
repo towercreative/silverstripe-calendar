@@ -1,0 +1,1159 @@
+TitleDK\Calendar\Tags\EventTag:
+  tag1:
+    Title: Conference
+  tag2:
+    Title: SilverStripe
+
+
+TitleDK\Calendar\Categories\PublicEventCategory:
+  category1:
+    Title: Conference
+
+TitleDK\Calendar\Events\Event:
+  conference:
+    Title: Example Conference
+    EndDateTime: 2019-10-16 09:00
+    StartDateTime: 2019-10-19 18:00
+    TicketsRequired: true
+    TimeFrameType: DateTime
+    Tags:
+      - =>TitleDK\Calendar\Tags\EventTag.tag1
+      - =>TitleDK\Calendar\Tags\EventTag.tag2
+
+
+TitleDK\Calendar\Registrations\Attendee:
+  attendee1:
+    Title: Mr
+    FirstName: Emilio
+    Surname: Wilderman
+    Company: Price Ltd
+    Phone: (425) 850-9246 x3082
+    Email: emilio.wilderman@hotmail.com
+
+  attendee2:
+    Title: Mr
+    FirstName: Hubert
+    Surname: Bernhard
+    Company: Klocko, Ferry and Breitenberg
+    Phone: 1-396-700-3282 x0695
+    Email: hubert.bernhard@gmail.com
+
+  attendee3:
+    Title: Mr
+    FirstName: Wilber
+    Surname: Mann
+    Company: Hessel-Parisian
+    Phone: 1-494-410-4293 x4588
+    Email: wilber.mann@toy.org
+
+  attendee4:
+    Title: Mr
+    FirstName: Torey
+    Surname: Parker
+    Company: Bailey-Grimes
+    Phone: 561-926-4105 x4487
+    Email: torey.parker@gmail.com
+
+  attendee5:
+    Title: Mr
+    FirstName: Dock
+    Surname: Murazik
+    Company: Grant, Williamson and Crona
+    Phone: 967-946-1818 x82182
+    Email: dock.murazik@yahoo.com
+
+  attendee6:
+    Title: Mr
+    FirstName: Sonny
+    Surname: Kunze
+    Company: Ondricka LLC
+    Phone: 1-247-620-5375 x4812
+    Email: sonny.kunze@veum.com
+
+  attendee7:
+    Title: Mr
+    FirstName: Scotty
+    Surname: Konopelski
+    Company: McClure and Sons
+    Phone: (397) 521-5258 x6303
+    Email: scotty.konopelski@hotmail.com
+
+  attendee8:
+    Title: Mr
+    FirstName: Lee
+    Surname: Connelly
+    Company: Ritchie and Sons
+    Phone: (649) 324-0454 x533
+    Email: lee.connelly@mccullough.com
+
+  attendee9:
+    Title: Mr
+    FirstName: Nasir
+    Surname: Mante
+    Company: Upton Group
+    Phone: 1-452-250-4214 x02075
+    Email: nasir.mante@ward.com
+
+  attendee10:
+    Title: Mr
+    FirstName: Thomas
+    Surname: Beer
+    Company: Ledner, Pfeffer and Ullrich
+    Phone: 1-884-919-6099 x49973
+    Email: thomas.beer@hotmail.com
+
+  attendee11:
+    Title: Mr
+    FirstName: Clint
+    Surname: Kling
+    Company: Runolfsdottir LLC
+    Phone: 1-537-636-3483 x059
+    Email: clint.kling@hotmail.com
+
+  attendee12:
+    Title: Mr
+    FirstName: Caden
+    Surname: Nikolaus
+    Company: Bradtke-Morissette
+    Phone: (387) 770-0211 x8460
+    Email: caden.nikolaus@yahoo.com
+
+  attendee13:
+    Title: Mr
+    FirstName: Darrel
+    Surname: Wuckert
+    Company: Hermiston Group
+    Phone: 1-302-962-0682 x84316
+    Email: darrel.wuckert@gmail.com
+
+  attendee14:
+    Title: Mr
+    FirstName: Carleton
+    Surname: Koelpin
+    Company: Lowe, Kertzmann and Weimann
+    Phone: (283) 483-0409 x517
+    Email: carleton.koelpin@yahoo.com
+
+  attendee15:
+    Title: Mr
+    FirstName: Darryl
+    Surname: Grimes
+    Company: Reilly, Bartell and Kshlerin
+    Phone: 692-632-8863 x7592
+    Email: darryl.grimes@hotmail.com
+
+  attendee16:
+    Title: Mr
+    FirstName: Elwyn
+    Surname: Daugherty
+    Company: Gibson-Hayes
+    Phone: 1-751-965-7817 x2194
+    Email: elwyn.daugherty@hotmail.com
+
+  attendee17:
+    Title: Mr
+    FirstName: Isaac
+    Surname: Terry
+    Company: Prosacco-O'Keefe
+    Phone: (208) 538-7227 x19085
+    Email: isaac.terry@hotmail.com
+
+  attendee18:
+    Title: Mr
+    FirstName: Tyree
+    Surname: Jacobson
+    Company: Kessler, Cruickshank and Harvey
+    Phone: 975.983.4732 x4014
+    Email: tyree.jacobson@kuphal.com
+
+  attendee19:
+    Title: Mr
+    FirstName: Buster
+    Surname: Beer
+    Company: Donnelly-Kovacek
+    Phone: 1-640-538-9224 x21887
+    Email: buster.beer@gmail.com
+
+  attendee20:
+    Title: Mr
+    FirstName: Josh
+    Surname: Graham
+    Company: Fadel LLC
+    Phone: 280.970.6874
+    Email: josh.graham@yahoo.com
+
+  attendee21:
+    Title: Mr
+    FirstName: Zechariah
+    Surname: Muller
+    Company: Gleason, Boehm and Heidenreich
+    Phone: 1-741-304-4765 x90583
+    Email: zechariah.muller@yundt.com
+
+  attendee22:
+    Title: Mr
+    FirstName: Matt
+    Surname: Jaskolski
+    Company: Ullrich-Eichmann
+    Phone: 1-353-336-8497 x081
+    Email: matt.jaskolski@kertzmann.com
+
+  attendee23:
+    Title: Mr
+    FirstName: Fred
+    Surname: Herman
+    Company: Tremblay-Schowalter
+    Phone: +1-232-534-5329
+    Email: fred.herman@watsica.com
+
+  attendee24:
+    Title: Mr
+    FirstName: Ike
+    Surname: Schneider
+    Company: Watsica-Gusikowski
+    Phone: +1.662.539.8252
+    Email: ike.schneider@gmail.com
+
+  attendee25:
+    Title: Mr
+    FirstName: Dave
+    Surname: Brakus
+    Company: Daniel and Sons
+    Phone: 442-239-5976 x74068
+    Email: dave.brakus@hotmail.com
+
+  attendee26:
+    Title: Mr
+    FirstName: Abner
+    Surname: McCullough
+    Company: Crona, Hartmann and White
+    Phone: 392.706.4777 x21465
+    Email: abner.mccullough@gmail.com
+
+  attendee27:
+    Title: Mr
+    FirstName: Clair
+    Surname: Jenkins
+    Company: Romaguera-Cummerata
+    Phone: (463) 777-4918 x2895
+    Email: clair.jenkins@gmail.com
+
+  attendee28:
+    Title: Mr
+    FirstName: Barry
+    Surname: Cartwright
+    Company: Ryan Inc
+    Phone: 410-386-6233 x184
+    Email: barry.cartwright@hotmail.com
+
+  attendee29:
+    Title: Mr
+    FirstName: Royce
+    Surname: Breitenberg
+    Company: Balistreri LLC
+    Phone: 1-502-966-7498 x5902
+    Email: royce.breitenberg@stroman.com
+
+  attendee30:
+    Title: Mr
+    FirstName: Albin
+    Surname: Wolff
+    Company: Conroy Inc
+    Phone: 1-518-615-3759 x05003
+    Email: albin.wolff@gmail.com
+
+  attendee31:
+    Title: Mr
+    FirstName: Adalberto
+    Surname: Adams
+    Company: Muller-Goyette
+    Phone: 473-949-1123
+    Email: adalberto.adams@dickinson.com
+
+  attendee32:
+    Title: Mr
+    FirstName: Javon
+    Surname: Harber
+    Company: O'Kon-Schulist
+    Phone: 483.913.8483 x62071
+    Email: javon.harber@hettinger.org
+
+  attendee33:
+    Title: Mr
+    FirstName: Bertha
+    Surname: Kemmer
+    Company: Wolff LLC
+    Phone: 1-965-439-1919
+    Email: bertha.kemmer@gmail.com
+
+  attendee34:
+    Title: Mr
+    FirstName: Wilhelm
+    Surname: Howell
+    Company: Deckow Inc
+    Phone: 734-914-3064
+    Email: wilhelm.howell@gmail.com
+
+  attendee35:
+    Title: Mr
+    FirstName: Jaycee
+    Surname: Hills
+    Company: Jacobi and Sons
+    Phone: 985.707.0549 x5183
+    Email: jaycee.hills@collier.com
+
+  attendee36:
+    Title: Mr
+    FirstName: Gilbert
+    Surname: Brakus
+    Company: Schuster Ltd
+    Phone: 705.295.6234 x845
+    Email: gilbert.brakus@ward.com
+
+  attendee37:
+    Title: Mr
+    FirstName: Scot
+    Surname: Bartell
+    Company: Romaguera and Sons
+    Phone: (496) 406-8167 x92836
+    Email: scot.bartell@gmail.com
+
+  attendee38:
+    Title: Mr
+    FirstName: Myrl
+    Surname: Krajcik
+    Company: Emard Ltd
+    Phone: 1-496-296-1382 x641
+    Email: myrl.krajcik@stracke.com
+
+  attendee39:
+    Title: Mr
+    FirstName: Linwood
+    Surname: Tromp
+    Company: Crist, Weissnat and Armstrong
+    Phone: (685) 794-7317 x2603
+    Email: linwood.tromp@hotmail.com
+
+  attendee40:
+    Title: Mr
+    FirstName: Archibald
+    Surname: Cassin
+    Company: Kshlerin-Gutkowski
+    Phone: 273-701-0057 x5505
+    Email: archibald.cassin@hotmail.com
+
+  attendee41:
+    Title: Mr
+    FirstName: Vaughn
+    Surname: Rosenbaum
+    Company: Littel-Cronin
+    Phone: (578) 449-9131
+    Email: vaughn.rosenbaum@von.org
+
+  attendee42:
+    Title: Mr
+    FirstName: Bernhard
+    Surname: Stracke
+    Company: Barton-Kub
+    Phone: 687.210.4107 x3432
+    Email: bernhard.stracke@sawayn.org
+
+  attendee43:
+    Title: Mr
+    FirstName: Raleigh
+    Surname: Cormier
+    Company: Zemlak and Sons
+    Phone: (967) 516-5698 x856
+    Email: raleigh.cormier@skiles.biz
+
+  attendee44:
+    Title: Mr
+    FirstName: Leopold
+    Surname: Wuckert
+    Company: Boyle-Lockman
+    Phone: 558-788-8911
+    Email: leopold.wuckert@gmail.com
+
+  attendee45:
+    Title: Mr
+    FirstName: Osborne
+    Surname: Block
+    Company: Bauch LLC
+    Phone: 265.954.7656 x857
+    Email: osborne.block@gmail.com
+
+  attendee46:
+    Title: Mr
+    FirstName: Rodrick
+    Surname: Smith
+    Company: Smitham, Schiller and Oberbrunner
+    Phone: 1-953-715-9550 x4219
+    Email: rodrick.smith@gmail.com
+
+  attendee47:
+    Title: Mr
+    FirstName: Rosendo
+    Surname: Beatty
+    Company: Morar, Rau and Wiza
+    Phone: 1-389-216-1153 x30295
+    Email: rosendo.beatty@hotmail.com
+
+  attendee48:
+    Title: Mr
+    FirstName: Jairo
+    Surname: McDermott
+    Company: Nienow, Turner and Douglas
+    Phone: (658) 799-1252 x5761
+    Email: jairo.mcdermott@gmail.com
+
+  attendee49:
+    Title: Mr
+    FirstName: Bernardo
+    Surname: Abshire
+    Company: Rau-Toy
+    Phone: 983-329-8488
+    Email: bernardo.abshire@gmail.com
+
+  attendee50:
+    Title: Mr
+    FirstName: Quentin
+    Surname: West
+    Company: Howell, Hyatt and Grant
+    Phone: (635) 947-0648
+    Email: quentin.west@ledner.biz
+
+  attendee51:
+    Title: Mr
+    FirstName: Dylan
+    Surname: Jerde
+    Company: Ferry-Batz
+    Phone: (440) 337-6551
+    Email: dylan.jerde@gmail.com
+
+  attendee52:
+    Title: Mr
+    FirstName: Bradley
+    Surname: Morar
+    Company: Dooley-Russel
+    Phone: 1-769-743-3812
+    Email: bradley.morar@yahoo.com
+
+  attendee53:
+    Title: Mr
+    FirstName: Myrl
+    Surname: Wiza
+    Company: Corwin LLC
+    Phone: (387) 245-2812
+    Email: myrl.wiza@deckow.com
+
+  attendee54:
+    Title: Mr
+    FirstName: Rupert
+    Surname: Cole
+    Company: Kerluke, Kerluke and Goldner
+    Phone: 1-470-685-9808 x1880
+    Email: rupert.cole@thompson.info
+
+  attendee55:
+    Title: Mr
+    FirstName: Rasheed
+    Surname: Jacobs
+    Company: Konopelski-Hegmann
+    Phone: 965.932.5531
+    Email: rasheed.jacobs@hotmail.com
+
+  attendee56:
+    Title: Mr
+    FirstName: Benton
+    Surname: Welch
+    Company: Gusikowski, Cummerata and Blanda
+    Phone: 278-988-4221 x870
+    Email: benton.welch@gmail.com
+
+  attendee57:
+    Title: Mr
+    FirstName: Mose
+    Surname: Dach
+    Company: Ferry, Bailey and Boyer
+    Phone: 1-734-461-9580
+    Email: mose.dach@hotmail.com
+
+  attendee58:
+    Title: Mr
+    FirstName: Zion
+    Surname: Weissnat
+    Company: McClure Inc
+    Phone: +1 (726) 370-4406
+    Email: zion.weissnat@vonrueden.com
+
+  attendee59:
+    Title: Mr
+    FirstName: Gennaro
+    Surname: Runte
+    Company: Paucek Inc
+    Phone: 1-406-390-2074 x305
+    Email: gennaro.runte@bahringer.com
+
+  attendee60:
+    Title: Mr
+    FirstName: Javier
+    Surname: Bayer
+    Company: Schiller-Rowe
+    Phone: 568.847.4172 x894
+    Email: javier.bayer@gmail.com
+
+  attendee61:
+    Title: Mr
+    FirstName: Elton
+    Surname: Daniel
+    Company: Leuschke, Larson and Beahan
+    Phone: 1-965-943-7830 x1802
+    Email: elton.daniel@veum.net
+
+  attendee62:
+    Title: Mr
+    FirstName: Zachariah
+    Surname: Fisher
+    Company: Feeney Group
+    Phone: 270.770.9219
+    Email: zachariah.fisher@hotmail.com
+
+  attendee63:
+    Title: Mr
+    FirstName: Ansel
+    Surname: Boyer
+    Company: Schuster-Simonis
+    Phone: 1-843-736-1401 x4220
+    Email: ansel.boyer@kiehn.com
+
+  attendee64:
+    Title: Mr
+    FirstName: Griffin
+    Surname: Ebert
+    Company: Lesch Inc
+    Phone: 1-976-460-1589
+    Email: griffin.ebert@will.info
+
+  attendee65:
+    Title: Mr
+    FirstName: Frederick
+    Surname: Breitenberg
+    Company: Nolan-Cassin
+    Phone: 779-673-1415
+    Email: frederick.breitenberg@mante.com
+
+  attendee66:
+    Title: Mr
+    FirstName: Harvey
+    Surname: Koch
+    Company: Heaney Group
+    Phone: 1-978-948-1522
+    Email: harvey.koch@emard.com
+
+  attendee67:
+    Title: Mr
+    FirstName: Geovanni
+    Surname: Hill
+    Company: Prohaska Group
+    Phone: 1-992-806-2284
+    Email: geovanni.hill@gmail.com
+
+  attendee68:
+    Title: Mr
+    FirstName: Angel
+    Surname: Ratke
+    Company: Wunsch-Rippin
+    Phone: 212.706.2381 x0295
+    Email: angel.ratke@hotmail.com
+
+  attendee69:
+    Title: Mr
+    FirstName: Jedediah
+    Surname: Considine
+    Company: Wisoky-Little
+    Phone: (414) 365-1018
+    Email: jedediah.considine@lemke.com
+
+  attendee70:
+    Title: Mr
+    FirstName: Kristian
+    Surname: Dicki
+    Company: Collins, Deckow and Murray
+    Phone: 829.873.3375 x65102
+    Email: kristian.dicki@hotmail.com
+
+  attendee71:
+    Title: Mr
+    FirstName: Cedrick
+    Surname: Stokes
+    Company: Keebler PLC
+    Phone: (443) 592-5965
+    Email: cedrick.stokes@hotmail.com
+
+  attendee72:
+    Title: Mr
+    FirstName: Xzavier
+    Surname: Dietrich
+    Company: Von, Jones and Kertzmann
+    Phone: 921.564.2624 x694
+    Email: xzavier.dietrich@yahoo.com
+
+  attendee73:
+    Title: Mr
+    FirstName: Ned
+    Surname: Daniel
+    Company: Bayer, Beier and Heidenreich
+    Phone: (298) 704-5250
+    Email: ned.daniel@hotmail.com
+
+  attendee74:
+    Title: Mr
+    FirstName: Colin
+    Surname: Rogahn
+    Company: Von LLC
+    Phone: 1-641-894-5096
+    Email: colin.rogahn@oberbrunner.com
+
+  attendee75:
+    Title: Mr
+    FirstName: Jeremie
+    Surname: Sauer
+    Company: Crooks, Mills and Kub
+    Phone: 991-720-8915
+    Email: jeremie.sauer@hagenes.com
+
+  attendee76:
+    Title: Mr
+    FirstName: Benny
+    Surname: Metz
+    Company: Erdman PLC
+    Phone: 862.523.4785 x9609
+    Email: benny.metz@rau.com
+
+  attendee77:
+    Title: Mr
+    FirstName: Vincenzo
+    Surname: Gleason
+    Company: Ratke, Ebert and Gorczany
+    Phone: 676.424.7087
+    Email: vincenzo.gleason@yahoo.com
+
+  attendee78:
+    Title: Mr
+    FirstName: Finn
+    Surname: Cormier
+    Company: Grady-Bins
+    Phone: 251.488.1833 x77740
+    Email: finn.cormier@hotmail.com
+
+  attendee79:
+    Title: Mr
+    FirstName: Kiley
+    Surname: Lindgren
+    Company: Wolf-Kirlin
+    Phone: 271-489-4137 x654
+    Email: kiley.lindgren@yahoo.com
+
+  attendee80:
+    Title: Mr
+    FirstName: Jaleel
+    Surname: Rosenbaum
+    Company: Davis, Ferry and Stracke
+    Phone: 749-540-6490
+    Email: jaleel.rosenbaum@macejkovic.biz
+
+  attendee81:
+    Title: Mr
+    FirstName: Timmy
+    Surname: Hintz
+    Company: Mante, Reynolds and Wolff
+    Phone: +1 (567) 862-2302
+    Email: timmy.hintz@runolfsdottir.info
+
+  attendee82:
+    Title: Mr
+    FirstName: Adalberto
+    Surname: Brakus
+    Company: Schuster Ltd
+    Phone: 285-797-5529 x67679
+    Email: adalberto.brakus@yahoo.com
+
+  attendee83:
+    Title: Mr
+    FirstName: Jeffery
+    Surname: Schumm
+    Company: Hessel-White
+    Phone: (831) 506-9411 x779
+    Email: jeffery.schumm@donnelly.org
+
+  attendee84:
+    Title: Mr
+    FirstName: Alfonso
+    Surname: Abshire
+    Company: King Inc
+    Phone: 1-474-490-5201 x406
+    Email: alfonso.abshire@thiel.com
+
+  attendee85:
+    Title: Mr
+    FirstName: Raul
+    Surname: Adams
+    Company: Mayert Inc
+    Phone: (918) 679-1829 x59000
+    Email: raul.adams@gmail.com
+
+  attendee86:
+    Title: Mr
+    FirstName: Pete
+    Surname: Leuschke
+    Company: Raynor, Will and Larkin
+    Phone: (665) 874-4916
+    Email: pete.leuschke@gmail.com
+
+  attendee87:
+    Title: Mr
+    FirstName: Donavon
+    Surname: Kutch
+    Company: Thompson-Schuppe
+    Phone: 1-878-890-3016 x0515
+    Email: donavon.kutch@hotmail.com
+
+  attendee88:
+    Title: Mr
+    FirstName: Zander
+    Surname: O'Keefe
+    Company: Schneider Inc
+    Phone: 965.830.0689 x317
+    Email: zander.o'keefe@yahoo.com
+
+  attendee89:
+    Title: Mr
+    FirstName: Rickie
+    Surname: Kilback
+    Company: Lebsack-Gulgowski
+    Phone: 1-687-585-5580 x291
+    Email: rickie.kilback@mueller.info
+
+  attendee90:
+    Title: Mr
+    FirstName: Clark
+    Surname: Rohan
+    Company: Tromp and Sons
+    Phone: (250) 807-8283
+    Email: clark.rohan@hotmail.com
+
+  attendee91:
+    Title: Mr
+    FirstName: Josue
+    Surname: Boyer
+    Company: Schowalter, Marks and Romaguera
+    Phone: +1-262-670-6973
+    Email: josue.boyer@okuneva.org
+
+  attendee92:
+    Title: Mr
+    FirstName: Lavern
+    Surname: D'Amore
+    Company: Botsford-Denesik
+    Phone: (638) 344-5625
+    Email: lavern.d'amore@gmail.com
+
+  attendee93:
+    Title: Mr
+    FirstName: Derek
+    Surname: Jones
+    Company: Halvorson, Brown and Bauch
+    Phone: +1.270.432.0123
+    Email: derek.jones@yahoo.com
+
+  attendee94:
+    Title: Mr
+    FirstName: Jordan
+    Surname: Stanton
+    Company: Jones-Nicolas
+    Phone: 1-942-823-5785 x786
+    Email: jordan.stanton@yahoo.com
+
+  attendee95:
+    Title: Mr
+    FirstName: Odell
+    Surname: Davis
+    Company: Corkery-Lueilwitz
+    Phone: (753) 495-4297 x147
+    Email: odell.davis@gmail.com
+
+  attendee96:
+    Title: Mr
+    FirstName: Edd
+    Surname: Zboncak
+    Company: Wolf, Klein and McCullough
+    Phone: +1-732-442-2850
+    Email: edd.zboncak@hotmail.com
+
+  attendee97:
+    Title: Mr
+    FirstName: Emmett
+    Surname: Goyette
+    Company: Stamm, Hermann and Strosin
+    Phone: (927) 461-9096 x42290
+    Email: emmett.goyette@terry.info
+
+  attendee98:
+    Title: Mr
+    FirstName: Zakary
+    Surname: Ledner
+    Company: Windler, Hegmann and Skiles
+    Phone: 1-649-942-5147
+    Email: zakary.ledner@farrell.org
+
+  attendee99:
+    Title: Mr
+    FirstName: Terrence
+    Surname: Kunze
+    Company: Goldner-Kilback
+    Phone: 964.641.5699
+    Email: terrence.kunze@turner.info
+
+  attendee100:
+    Title: Mr
+    FirstName: Filiberto
+    Surname: Morar
+    Company: Moen Inc
+    Phone: 730-772-4421 x680
+    Email: filiberto.morar@gmail.com
+
+TitleDK\Calendar\Registrations\EventRegistration:
+  registation0:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Cole Breitenberg
+    PayersName: Cole Breitenberg
+    Email: cole.breitenberg@eichmann.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: incubate robust webservices
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee1
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee2
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee3
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee4
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee5
+
+  registration1:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Elias Reichel
+    PayersName: Elias Reichel
+    Email: elias.reichel@gmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: deliver web-enabled partnerships
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee6
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee7
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee8
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee9
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee10
+
+  registration2:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Lionel Bernier
+    PayersName: Lionel Bernier
+    Email: lionel.bernier@yahoo.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: synergize mission-critical mindshare
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee11
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee12
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee13
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee14
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee15
+
+  registration3:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Caesar Thiel
+    PayersName: Caesar Thiel
+    Email: caesar.thiel@gmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: exploit world-class experiences
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee16
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee17
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee18
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee19
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee20
+
+  registration4:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Ian Hauck
+    PayersName: Ian Hauck
+    Email: ian.hauck@hotmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: engage interactive metrics
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee21
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee22
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee23
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee24
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee25
+
+  registration5:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Kayley VonRueden
+    PayersName: Kayley VonRueden
+    Email: kayley.vonrueden@hotmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: unleash magnetic systems
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee26
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee27
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee28
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee29
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee30
+
+  registration6:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Toney Doyle
+    PayersName: Toney Doyle
+    Email: toney.doyle@tremblay.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: integrate mission-critical metrics
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee31
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee32
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee33
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee34
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee35
+
+  registration7:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Richmond Bernhard
+    PayersName: Richmond Bernhard
+    Email: richmond.bernhard@raynor.org
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: target integrated action-items
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee36
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee37
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee38
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee39
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee40
+
+  registration8:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Gillian Balistreri
+    PayersName: Gillian Balistreri
+    Email: gillian.balistreri@fisher.info
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: reinvent B2B applications
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee41
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee42
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee43
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee44
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee45
+
+  registration9:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Joan Reichert
+    PayersName: Joan Reichert
+    Email: joan.reichert@hotmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: harness revolutionary content
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee46
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee47
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee48
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee49
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee50
+
+  registration10:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Buford McDermott
+    PayersName: Buford McDermott
+    Email: buford.mcdermott@hotmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: generate innovative web-readiness
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee51
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee52
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee53
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee54
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee55
+
+  registration11:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Herman Wisozk
+    PayersName: Herman Wisozk
+    Email: herman.wisozk@gmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: extend enterprise applications
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee56
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee57
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee58
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee59
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee60
+
+  registration12:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Royce Crona
+    PayersName: Royce Crona
+    Email: royce.crona@von.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: transform cross-platform e-markets
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee61
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee62
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee63
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee64
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee65
+
+  registration13:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Jeremie Jakubowski
+    PayersName: Jeremie Jakubowski
+    Email: jeremie.jakubowski@gulgowski.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: optimize next-generation e-commerce
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee66
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee67
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee68
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee69
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee70
+
+  registration14:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Finn Olson
+    PayersName: Finn Olson
+    Email: finn.olson@yahoo.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: deliver one-to-one communities
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee71
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee72
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee73
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee74
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee75
+
+  registration15:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Rashawn Williamson
+    PayersName: Rashawn Williamson
+    Email: rashawn.williamson@schaefer.net
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: innovate compelling web-readiness
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee76
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee77
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee78
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee79
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee80
+
+  registration16:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Kayden Sanford
+    PayersName: Kayden Sanford
+    Email: kayden.sanford@dickens.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: envisioneer compelling paradigms
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee81
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee82
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee83
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee84
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee85
+
+  registration17:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Emiliano Jacobi
+    PayersName: Emiliano Jacobi
+    Email: emiliano.jacobi@hotmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: redefine synergistic webservices
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee86
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee87
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee88
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee89
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee90
+
+  registration18:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Ulises Schuster
+    PayersName: Ulises Schuster
+    Email: ulises.schuster@gmail.com
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: engage proactive infomediaries
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee91
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee92
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee93
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee94
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee95
+
+  registration19:
+    Event: =>TitleDK\Calendar\Events\Event.conference
+    Name: Arturo Watsica
+    PayersName: Arturo Watsica
+    Email: arturo.watsica@damore.org
+    Status: Booked
+    NumberOfTickets: 5
+    AmountPaid: 20
+    Notes: disintermediate proactive applications
+    Attendees:
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee96
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee97
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee98
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee99
+      - =>TitleDK\Calendar\Registrations\Attendee.attendee100
+
+
+TitleDK\Calendar\Calendars\Calendar:
+  conferenceCalendar:
+    Title: Conference Calendar
+    Events:
+      - =>TitleDK\Calendar\Events\Event.conference
+
+TitleDK\Calendar\PageTypes\CalendarPage:
+    calendarpageconference:
+      Title: Conference Page
+      Content: This is a test calendar page about a conference
+      Calendars:
+        - =>TitleDK\Calendar\Calendars\Calendar.conferenceCalendar
+

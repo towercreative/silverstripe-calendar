@@ -1,0 +1,11 @@
+---
+Name: silverstripe-calendar-events
+---
+TitleDK\Calendar\Events\Event:
+  # Allow events to be all day
+  enable_allday_events: true
+
+  # Force events to have an end date time
+  force_end: true
+
+

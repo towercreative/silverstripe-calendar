@@ -1,0 +1,185 @@
+SilverStripe\Security\Member:
+  member1:
+    FirstName: Gordon
+    Surname: Anderson
+  member2:
+    FirstName: Fred
+    Surname: Bloggs
+
+
+SilverStripe\Security\Group:
+  group1:
+    Title: Test Calendar Group 1
+    Members:
+      - =>SilverStripe\Security\Member.member1
+
+  group2:
+    Title: Test Calendar Group 2
+    Members:
+      - =>SilverStripe\Security\Member.member2
+
+TitleDK\Calendar\Tags\EventTag:
+  tag1:
+    Title: Cumberland Sausages
+  tag2:
+    Title: Eggs
+  tag3:
+    Title: Beans
+  tag4:
+    Title: Beans
+  tag5:
+    Title: Beans
+
+TitleDK\Calendar\Categories\PublicEventCategory:
+  category1:
+    Title: Test Category
+  category2:
+    Title: Test 2 Category
+
+TitleDK\Calendar\Events\Event:
+  eventWithDuration:
+    Title: This is an example event with duration
+    StartDateTime: 2019-10-12 18:00
+
+    # Seconds included here to ensure calculation does not regress
+    Duration: 04:05:24
+
+    TimeFrameType: Duration
+    Tags:
+      - =>TitleDK\Calendar\Tags\EventTag.tag1
+      - =>TitleDK\Calendar\Tags\EventTag.tag2
+      - =>TitleDK\Calendar\Tags\EventTag.tag3
+
+  eventSameDay:
+    Title: SilverStripe Meet Up
+    StartDateTime: 2019-12-16 20:00
+    EndDateTime: 2019-12-16 21:30
+    TimeFrameType: DateTime
+    Details: <a href="https://silverstripe.org">SilverStripe</a> meetup, <b>almost sold out</b>
+    Categories:
+      - =>TitleDK\Calendar\Categories\PublicEventCategory.category1
+
+  # For testing the isAllDay method, added the AllDay true fla
+  eventAllDay:
+    Title: SilverStripe Booze Up
+    StartDateTime: 2019-12-16 09:00
+    EndDateTime: 2019-12-16 21:30
+    AllDay: true
+    TimeFrameType: DateTime
+    Details: Christmas Booze Up
+
+  eventCricketSeason:
+    Title: Scottish Cricket Season
+    StartDateTime: 2020-04-11 12:00
+    EndDateTime: 2020-09-21 21:30
+    TimeFrameType: DateTime
+    Details: Multi month event example
+
+  eventWeekend:
+    Title: Freezing in the Park
+    StartDateTime: 2019-12-13 19:00
+    EndDateTime: 2019-12-15 21:30
+    TimeFrameType: DateTime
+    Details: Weekend example, in the same month
+
+  eventFuture:
+    Title: Chilling in the Future
+    StartDateTime: 9019-12-13 19:00
+    EndDateTime: 9019-12-15 21:30
+    TimeFrameType: DateTime
+    Details: Weekend waaaaay in the future
+    Categories:
+      - =>TitleDK\Calendar\Categories\PublicEventCategory.category1
+      - =>TitleDK\Calendar\Categories\PublicEventCategory.category2
+
+  # The following are for time formatting tests, to try and get 100% coverage
+  eventZeroSeconds1:
+    Title: Blink And You Will Miss It
+    StartDateTime: 2019-12-13 19:00
+    EndDateTime: 2019-12-13 19:00
+    TimeFrameType: DateTime
+    Details: Zero second event with identical times
+
+  eventZeroSeconds2:
+    Title: Blink And You Will Miss It 2
+    StartDateTime: 2019-12-13 19:00
+    EndDateTime: 2019-12-13 7PM
+    TimeFrameType: DateTime
+    Details: Zero second event with identical times
+
+  eventNewYear:
+    Title: Happy New Year!!
+    StartDateTime: 2019-12-31 19:00
+    EndDateTime: 2020-01-01 07:00
+    TimeFrameType: DateTime
+    Details: Event straddling new year
+    Categories:
+      - =>TitleDK\Calendar\Categories\PublicEventCategory.category1
+
+  eventNoEnd:
+    Title: The Neverending Event
+    StartDateTime: 2019-12-13 19:00
+    EndDateTime: null
+    TimeFrameType: DateTime
+    Details: Event with no end time
+
+  eventForPublicCalendar:
+    Title: An Event for Public Calendar
+    StartDateTime: 2019-08-22 19:00
+    EndDateTime: 2019-08-22 21:00
+    TimeFrameType: DateTime
+    Details: Event for Public Calendar
+
+TitleDK\Calendar\Calendars\Calendar:
+  testCalendar1:
+    Title: Test Calendar 1
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventWithDuration
+      - =>TitleDK\Calendar\Events\Event.eventSameDay
+      - =>TitleDK\Calendar\Events\Event.eventAllDay
+      - =>TitleDK\Calendar\Events\Event.eventCricketSeason
+      - =>TitleDK\Calendar\Events\Event.eventWeekend
+      - =>TitleDK\Calendar\Events\Event.eventFuture
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds1
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds2
+      - =>TitleDK\Calendar\Events\Event.eventNoEnd
+
+    Groups:
+      - =>SilverStripe\Security\Group.group1
+
+
+  testCalendar2:
+    Title: Test Calendar 2
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventNewYear
+    Groups:
+      - =>SilverStripe\Security\Group.group2
+
+  # No groups here, so the calendar is public
+  testPublicCalendar:
+    Title: Public Calendar
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventForPublicCalendar
+
+
+
+TitleDK\Calendar\PageTypes\CalendarPage:
+  testcalendarpage:
+    Title: Test Calendar Page
+    Content: This is a test calendar page with several events
+    Calendars:
+      - =>TitleDK\Calendar\Calendars\Calendar.testCalendar1
+
+TitleDK\Calendar\PageTypes\EventPage:
+  testEventPage:
+    Title: Test Event Page
+    Content: This is a test event page
+    Events:
+      - =>TitleDK\Calendar\Events\Event.eventWithDuration
+      - =>TitleDK\Calendar\Events\Event.eventAllDay
+      - =>TitleDK\Calendar\Events\Event.eventCricketSeason
+      - =>TitleDK\Calendar\Events\Event.eventWeekend
+      - =>TitleDK\Calendar\Events\Event.eventFuture
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds1
+      - =>TitleDK\Calendar\Events\Event.eventZeroSeconds2
+      - =>TitleDK\Calendar\Events\Event.eventNoEnd

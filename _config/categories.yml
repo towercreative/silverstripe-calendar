@@ -1,0 +1,5 @@
+---
+Name: silverstripe-calendar-categories
+---
+TitleDK\Calendar\Categories\EventCategory:
+  enabled: true

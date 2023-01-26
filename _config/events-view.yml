@@ -1,0 +1,5 @@
+---
+Name: silverstripe-calendar-events-view
+---
+TitleDK\Calendar\PageTypes\CalendarPageController:
+  search_enabled: true
