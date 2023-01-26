@@ -96,13 +96,13 @@ class EventHelper
      * @param Object|\SilverStripe\ORM\FieldType\DBField $startObj
      * @param Object|\SilverStripe\ORM\FieldType\DBField $endObj
      */
-    public static function formattedAllDates($startObj, $endObj): DBField
+    public static function formattedAllDates($startObj, $endObj):? DBField
     {
         $startDate = \date(self::YMD_DATE_FORMAT, \strtotime($startObj->value));
         $endDate = \date(self::YMD_DATE_FORMAT, \strtotime($endObj->value));
 
         if ($startDate === $endDate) {
-            return false;
+            return null;
         }
 
         $startTime = \strtotime($startObj->value);

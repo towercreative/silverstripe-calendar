@@ -315,9 +315,9 @@ class Event extends DataObject
     {
         $duration = $this->Duration;
 
-        $secs = (\substr($duration, 0, 2) * 3600) +
-            (\substr($duration, 3, 2) * 60) +
-            (\substr($duration, 6, 2));
+        $secs = ((int) \substr($duration, 0, 2) * 3600) +
+            ((int) \substr($duration, 3, 2) * 60) +
+            ((int) \substr($duration, 6, 2));
 
         $startDate = \strtotime($this->StartDateTime);
 
@@ -563,7 +563,9 @@ class Event extends DataObject
     public function getRegistrationEmbargoDate(bool $returnAsDateTime = false)
     {
         $result = null;
-        if (!isset($this->RegistrationEmbargoAt)) {
+        $embargo = $this->RegistrationEmbargoAt;
+
+        if (!$embargo) {
             $mins = $this->config()->get('embargo_registration_relative_to_end_datetime_mins');
 
             // @todo Fix bug
@@ -609,7 +611,7 @@ class Event extends DataObject
 
     public function getFormattedTimeframe(): ?string
     {
-        return EventHelper::formattedTimeframe($this->obj('StartDateTime'), $this->obj('EndDateTime'));
+        return EventHelper::formattedTimeframe($this->dbObject('StartDateTime'), $this->dbObject('EndDateTime'));
     }
 
 
@@ -620,7 +622,7 @@ class Event extends DataObject
      */
     public function getStartAndEndDates()
     {
-        return EventHelper::formattedAllDates($this->obj('StartDateTime'), $this->obj('EndDateTime'));
+        return EventHelper::formattedAllDates($this->dbObject('StartDateTime'), $this->dbObject('EndDateTime'));
     }
 
 
