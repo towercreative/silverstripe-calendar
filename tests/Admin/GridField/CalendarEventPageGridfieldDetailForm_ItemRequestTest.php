@@ -4,7 +4,7 @@ namespace TitleDK\Calendar\Tests\Admin\GridField;
 
 use SilverStripe\Dev\SapphireTest;
 
-class CalendarEventPageGridfieldDetailFormItemRequestTest extends SapphireTest
+class CalendarEventPageGridfieldDetailForm_ItemRequestTest extends SapphireTest
 {
     public function testItemEditForm(): void
     {

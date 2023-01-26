@@ -31,7 +31,13 @@
         "ramsey/uuid": "^3.9"
     },
     "require-dev": {
-        "silverstripe/recipe-testing": "^2"
+        "silverstripe/recipe-testing": "^2",
+        "suilven/php-travis-enhancer": "^1.0",
+        "slevomat/coding-standard": "^6.4",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
+        "php-parallel-lint/php-console-highlighter": "^0.5.0",
+        "phpstan/phpstan-strict-rules": "^0.12.5",
+        "phpstan/extension-installer": "^1.0"
     },
     "repositories": [
         {
@@ -61,32 +67,10 @@
             "css",
             "javascript",
             "thirdparty"
-        ],
-        "project-files-installed": [
-            "app/.htaccess",
-            "app/_config.php",
-            "app/_config/mimevalidator.yml",
-            "app/_config/mysite.yml",
-            "app/src/Page.php",
-            "app/src/PageController.php"
-        ],
-        "public-files-installed": [
-            ".htaccess",
-            "index.php",
-            "web.config"
         ]
     },
     "support": {
         "issues": "https://github.com/titledk/silverstripe-calendar/issues"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "suilven/php-travis-enhancer": "^1.0",
-        "slevomat/coding-standard": "^6.4",
-        "php-parallel-lint/php-parallel-lint": "^1.2",
-        "php-parallel-lint/php-console-highlighter": "^0.5.0",
-        "phpstan/phpstan-strict-rules": "^0.12.5",
-        "phpstan/extension-installer": "^1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -8,7 +8,7 @@ use TitleDK\Calendar\Calendars\Calendar;
 
 class CalendarTest extends SapphireTest
 {
-    protected static $fixture_file = ['tests/events.yml'];
+    protected static $fixture_file = ['../events.yml'];
 
     /** @var \TitleDK\Calendar\Calendars\Calendar */
     private $calendar;

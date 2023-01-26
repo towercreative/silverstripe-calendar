@@ -8,7 +8,7 @@ use TitleDK\Calendar\FullCalendar\FullcalendarController;
 
 class FullcalendarControllerTest extends FunctionalTest
 {
-    protected static $fixture_file = ['tests/events.yml'];
+    protected static $fixture_file = ['../events.yml'];
 
     /**
      * Test events over a date range. This is the call made by the JavaScript calendar code
