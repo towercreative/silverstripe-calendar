@@ -38,7 +38,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "TitleDK\\Calendar\\": "code/",
+            "TitleDK\\Calendar\\": "src/",
             "TitleDK\\Calendar\\Tests\\": "tests/"
         }
     },
