@@ -88,7 +88,7 @@ class Event extends DataObject
 
     private static $has_one = [
         'EventPage' => EventPage::class,
-        'Calendar' => CalendarPage::class,
+        'Calendar' => Calendar::class,
     ];
 
     private static $belongs_many_many = [
