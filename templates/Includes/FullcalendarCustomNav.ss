@@ -1,5 +1,4 @@
 <div id="FullcalendarCustomNav">
-    MENU=$CurrentMenu
 	<div class="fullcalendarCustomNavTop">
         <% if $CurrentMenu == 'calendarview' %>
 		<div class="date-tabs">
