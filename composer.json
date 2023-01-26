@@ -28,7 +28,8 @@
         "unclecheese/display-logic": "^2.0",
         "suilven/sluggable": "dev-master",
         "jsvrcek/ics": "^0.8",
-        "ramsey/uuid": "^3.9"
+        "ramsey/uuid": "^3.9",
+        "symbiote/silverstripe-gridfieldextensions": "^3.0"
     },
     "require-dev": {
         "silverstripe/recipe-testing": "^2",

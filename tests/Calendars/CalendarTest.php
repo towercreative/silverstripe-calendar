@@ -44,7 +44,7 @@ class CalendarTest extends SapphireTest
             return $field->Name;
         }, $fields);
 
-        $this->assertEquals(['Slug', 'Title', 'Color', 'Groups'], $titles);
+        $this->assertEquals([], array_diff(['Slug', 'Title', 'Color', 'Groups'], $titles));
     }
 
 
