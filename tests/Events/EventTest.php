@@ -16,7 +16,7 @@ class EventTest extends SapphireTest
 
     use DateTimeHelper;
 
-    protected static $fixture_file = 'tests/events.yml';
+    protected static $fixture_file = '../events.yml';
 
     /** @var \TitleDK\Calendar\Events\Event */
     private $eveningMeetUpEvent;
@@ -55,16 +55,16 @@ class EventTest extends SapphireTest
     {
         parent::setUp();
 
-        $this->eveningMeetUpEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventSameDay');
-        $this->allDayEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventAllDay');
-        $this->durationEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventWithDuration');
-        $this->cricketSeasonEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventCricketSeason');
-        $this->weekendEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventWeekend');
-        $this->futureEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventFuture');
-        $this->zeroSecondsEvent1 = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventZeroSeconds1');
-        $this->zeroSecondsEvent2 = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventZeroSeconds2');
-        $this->noEndEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventNoEnd');
-        $this->newYearEvent = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'eventNewYear');
+        $this->eveningMeetUpEvent = $this->objFromFixture(Event::class, 'eventSameDay');
+        $this->allDayEvent = $this->objFromFixture(Event::class, 'eventAllDay');
+        $this->durationEvent = $this->objFromFixture(Event::class, 'eventWithDuration');
+        $this->cricketSeasonEvent = $this->objFromFixture(Event::class, 'eventCricketSeason');
+        $this->weekendEvent = $this->objFromFixture(Event::class, 'eventWeekend');
+        $this->futureEvent = $this->objFromFixture(Event::class, 'eventFuture');
+        $this->zeroSecondsEvent1 = $this->objFromFixture(Event::class, 'eventZeroSeconds1');
+        $this->zeroSecondsEvent2 = $this->objFromFixture(Event::class, 'eventZeroSeconds2');
+        $this->noEndEvent = $this->objFromFixture(Event::class, 'eventNoEnd');
+        $this->newYearEvent = $this->objFromFixture(Event::class, 'eventNewYear');
         $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'testcalendarpage');
     }
 
@@ -252,7 +252,7 @@ class EventTest extends SapphireTest
 
     public function testGetFrontEndFieldsNoEnd(): void
     {
-        Config::inst()->set(Event::class, 'force_end', false);
+        Config::modify()->set(Event::class, 'force_end', false);
         $fields = $this->weekendEvent->getAddNewFields();
 
         $names = [];
@@ -268,7 +268,7 @@ class EventTest extends SapphireTest
     public function testGetFrontEndFieldsNoAllDay(): void
     {
      //   Config::inst()->update('ClassName', 'var_name', 'new_var_value');
-        Config::inst()->set(Event::class, 'enable_allday_events', false);
+        Config::modify()->set(Event::class, 'enable_allday_events', false);
         $fields = $this->weekendEvent->getAddNewFields();
 
         $names = [];

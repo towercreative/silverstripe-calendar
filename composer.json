@@ -30,6 +30,9 @@
         "jsvrcek/ics": "^0.8",
         "ramsey/uuid": "^3.9"
     },
+    "require-dev": {
+        "silverstripe/recipe-testing": "^2"
+    },
     "repositories": [
         {
             "type": "vcs",
