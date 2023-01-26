@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace TitleDK\Calendar\Events;
 
@@ -77,6 +77,7 @@ class Event extends DataObject
 
     use DateTimeHelper;
 
+
     protected $hasWritten = false;
 
     private static $table_name = 'Event';
@@ -86,8 +87,8 @@ class Event extends DataObject
     private static $plural_name = 'Events';
 
     private static $has_one = [
-        'EventPage' => 'TitleDK\Calendar\PageTypes\EventPage',
-        'Calendar' => 'TitleDK\Calendar\Calendars\Calendar',
+        'EventPage' => EventPage::class,
+        'Calendar' => CalendarPage::class,
     ];
 
     private static $belongs_many_many = [
@@ -118,7 +119,9 @@ class Event extends DataObject
     /** @var string */
     private static $default_sort = 'StartDateTime';
 
-    /** @return array<string,string> */
+    /**
+     * @return array
+     */
     public function summaryFields(): array
     {
         $fields = parent::summaryFields();
@@ -146,8 +149,12 @@ class Event extends DataObject
     }
 
 
-    public function DetailsSummary(): string
+    public function DetailsSummary():? string
     {
+        if (!$this->Details) {
+            return null;
+        }
+
         return \implode(' ', \array_slice(\explode(
             ' ',
             \strip_tags($this->Details, "<a>"),
@@ -533,7 +540,7 @@ class Event extends DataObject
     // @todo Unit test
     public function getIsPastEvent(): bool
     {
-        return \strtotime($this->StartDateTime) < \mktime(0, 0, 0, (int) \date('m'), (int) \date('d'), (int) \date('Y'));
+        return \strtotime($this->StartDateTime) < \mktime(0, 0, 0, (int)\date('m'), (int)\date('d'), (int)\date('Y'));
     }
 
 

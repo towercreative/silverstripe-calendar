@@ -3,6 +3,8 @@
 namespace TitleDK\Calendar\Events;
 
 use Carbon\Carbon;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\ORM\FieldType\DBHTMLText;
 use TitleDK\Calendar\DateTime\DateTimeHelper;
 use SilverStripe\ORM\FieldType\DBDatetime;
 
@@ -94,7 +96,7 @@ class EventHelper
      * @param Object|\SilverStripe\ORM\FieldType\DBField $startObj
      * @param Object|\SilverStripe\ORM\FieldType\DBField $endObj
      */
-    public static function formattedAllDates($startObj, $endObj): string
+    public static function formattedAllDates($startObj, $endObj): DBField
     {
         $startDate = \date(self::YMD_DATE_FORMAT, \strtotime($startObj->value));
         $endDate = \date(self::YMD_DATE_FORMAT, \strtotime($endObj->value));
@@ -126,7 +128,7 @@ class EventHelper
             $endDate = \date('M j, Y', $endTime) . '  (' . $durationHrs . ' hrs)';
         }
 
-        return $startDate." &ndash; ".$endDate;
+        return DBField::create_field(DBHTMLText::class, "$startDate &ndash; $endDate");
     }
 
 
