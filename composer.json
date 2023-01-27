@@ -1,14 +1,13 @@
 {
     "name": "titledk/silverstripe-calendar",
     "description": "Highly flexible calendar system for SilverStripe",
+    "license": "MIT",
     "type": "silverstripe-vendormodule",
-    "homepage": "https://github.com/titledk/silverstripe-calendar",
     "keywords": [
         "silverstripe",
         "calendar",
         "events"
     ],
-    "license": "MIT",
     "authors": [
         {
             "name": "Anselm Christophersen",
@@ -19,26 +18,30 @@
             "email": "ccburns@gmail.com"
         }
     ],
+    "homepage": "https://github.com/titledk/silverstripe-calendar",
+    "support": {
+        "issues": "https://github.com/titledk/silverstripe-calendar/issues"
+    },
     "require": {
-        "silverware/calendar": "~1",
-        "nesbot/carbon": "^2.0",
-        "silverstripe/tagfield": "^2",
-        "weboftalent/gridrows": "^2",
-        "silverstripe/recipe-cms": "^4.10",
-        "unclecheese/display-logic": "^2.0",
-        "suilven/sluggable": "dev-master",
         "jsvrcek/ics": "^0.8",
+        "nesbot/carbon": "^2.0",
         "ramsey/uuid": "^3.9",
-        "symbiote/silverstripe-gridfieldextensions": "^3.0"
+        "silverstripe/recipe-cms": "^4.10",
+        "silverstripe/tagfield": "^2",
+        "silverware/calendar": "~1",
+        "suilven/sluggable": "dev-master",
+        "symbiote/silverstripe-gridfieldextensions": "^3.0",
+        "unclecheese/display-logic": "^2.0",
+        "weboftalent/gridrows": "^2"
     },
     "require-dev": {
-        "silverstripe/recipe-testing": "^2",
-        "suilven/php-travis-enhancer": "^1.0",
-        "slevomat/coding-standard": "^6.4",
-        "php-parallel-lint/php-parallel-lint": "^1.2",
         "php-parallel-lint/php-console-highlighter": "^0.5.0",
+        "php-parallel-lint/php-parallel-lint": "^1.2",
+        "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan-strict-rules": "^0.12.5",
-        "phpstan/extension-installer": "^1.0"
+        "silverstripe/recipe-testing": "^2",
+        "slevomat/coding-standard": "^6.4",
+        "suilven/php-travis-enhancer": "^1.0"
     },
     "repositories": [
         {
@@ -46,6 +49,8 @@
             "url": "https://github.com/vyg/silverstripe-sluggable.git"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "TitleDK\\Calendar\\": "src/",
@@ -58,27 +63,22 @@
         ]
     },
     "extra": {
-        "installer-name": "calendar",
-        "screenshots": [
-            "docs/img/preview.png",
-            "docs/img/screenshots/frontend-fullcalendar.png"
-        ],
         "expose": [
             "images",
             "css",
             "javascript",
             "thirdparty"
+        ],
+        "installer-name": "calendar",
+        "screenshots": [
+            "docs/img/preview.png",
+            "docs/img/screenshots/frontend-fullcalendar.png"
         ]
     },
-    "support": {
-        "issues": "https://github.com/titledk/silverstripe-calendar/issues"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
+        "checkCode": "composer checkcs && composer lint && composer phpstan",
         "checkcs": "vendor/bin/phpcs --standard=ruleset.xml --extensions=php --tab-width=4 -sp src tests",
         "fixcs": "vendor/bin/phpcbf --standard=ruleset.xml --extensions=php --tab-width=4 -sp src tests",
-        "checkCode": "composer checkcs && composer lint && composer phpstan",
         "lint": "vendor/bin/parallel-lint src/ tests/",
         "phpstan": "vendor/bin/phpstan analyse --level=6 --memory-limit=4G -c tests/phpstan.neon src/"
     }
