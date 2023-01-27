@@ -7,6 +7,7 @@ use SilverStripe\Control\Controller;
 use SilverStripe\Control\HTTP;
 use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\ManyManyList;
+use SilverStripe\ORM\SS_List;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Security;
 use TitleDK\Calendar\Events\Event;
@@ -22,11 +23,11 @@ use TitleDK\Calendar\PageTypes\CalendarPage;
 class CalendarHelper
 {
     /**
-     * @param ManyManyList $calendars
+     * @param SS_List $calendars
      * @param bool $returnCSV
      * @return array|string
      */
-    public static function getValidCalendarIDsForCurrentUser(ManyManyList $calendars, bool $returnCSV = false)
+    public static function getValidCalendarIDsForCurrentUser(SS_List $calendars, bool $returnCSV = false)
     {
         $member = Security::getCurrentUser();
         $memberGroups = [];
@@ -67,7 +68,7 @@ class CalendarHelper
      * @TODO is this parameter type correct?
      * @return \SilverStripe\ORM\DataList<\TitleDK\Calendar\Events\Event>
      */
-    public static function comingEvents(bool $from = false): DataList
+    public static function comingEvents(string $from = null): DataList
     {
         $time = ($from ? \strtotime($from) : Carbon::now()->timestamp);
         $sql = "(\"StartDateTime\" >= '".\date('Y-m-d', $time)." 00:00:00')";

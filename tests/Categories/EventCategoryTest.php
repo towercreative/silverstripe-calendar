@@ -9,7 +9,7 @@ class EventCategoryTest extends SapphireTest
 {
     public function testGetAddNewFields(): void
     {
-        $ec = new EventCategory();
+        $ec = EventCategory::singleton();
 
         /** @var \SilverStripe\Forms\FieldList $fields */
         $fields = $ec->getAddNewFields();
@@ -20,7 +20,7 @@ class EventCategoryTest extends SapphireTest
 
     public function testGetCMSFields(): void
     {
-        $ec = new EventCategory();
+        $ec = EventCategory::singleton();
 
         /** @var \SilverStripe\Forms\FieldList $fields */
         $fields = $ec->getCMSFields();

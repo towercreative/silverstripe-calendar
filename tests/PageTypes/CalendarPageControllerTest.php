@@ -15,7 +15,7 @@ class CalendarPageControllerTest extends FunctionalTest
 
     use DateTimeHelper;
 
-    protected static $fixture_file = ['tests/events.yml'];
+    protected static $fixture_file = ['../events.yml'];
 
     /** @var \TitleDK\Calendar\PageTypes\CalendarPage */
     private $calendarPage;
@@ -32,7 +32,7 @@ class CalendarPageControllerTest extends FunctionalTest
 
         $this->calendarPage = $this->objFromFixture(CalendarPage::class, 'testcalendarpage');
 
-        $this->calendarPageController = new CalendarPageController($this->calendarPage);
+        $this->calendarPageController = CalendarPageController::create($this->calendarPage);
 
         // this is necessary to publish a page from the fixtures so that it can be seen
         $this->calendarPage->publishRecursive();

@@ -12,7 +12,7 @@ class AttendeesExtensionTest extends SapphireTest
 
     public function testUpdateCMSFields(): void
     {
-        $registration = new EventRegistration();
+        $registration = EventRegistration::singleton();
         $fields = $registration->getCMSFields();
 
         /** @var \SilverStripe\Forms\TabSet $rootTab */

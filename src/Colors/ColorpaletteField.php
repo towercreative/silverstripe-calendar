@@ -3,6 +3,7 @@
 namespace TitleDK\Calendar\Colors;
 
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\Form;
 use SilverStripe\View\Requirements;
 
 // @phpcs:disable PSR1.Methods.CamelCapsMethodName.NotCamelCaps

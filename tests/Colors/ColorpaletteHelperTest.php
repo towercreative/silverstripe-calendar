@@ -9,7 +9,7 @@ class ColorpaletteHelperTest extends SapphireTest
 {
     public function testRequirements(): void
     {
-        //$this->markTestSkipped('TODO');
+        $this->markTestSkipped('TODO');
     }
 
 

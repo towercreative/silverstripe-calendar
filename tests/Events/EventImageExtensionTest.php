@@ -8,7 +8,7 @@ use TitleDK\Calendar\Events\Event;
 
 class EventImageExtensionTest extends SapphireTest
 {
-    protected static $fixture_file = ['tests/events.yml'];
+    protected static $fixture_file = ['../events.yml'];
 
     /**
      * Assert there is a field called FeaturedImage, which is what the extension adds
@@ -40,7 +40,7 @@ class EventImageExtensionTest extends SapphireTest
         $event = $this->objFromFixture(Event::class, 'eventCricketSeason');
 
         /** @var \SilverStripe\Assets\Image $image */
-        $image = new Image();
+        $image = Image::create();
         $image->write();
         $event->FeaturedImageID = $image->ID;
 

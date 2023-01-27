@@ -8,7 +8,7 @@ use TitleDK\Calendar\Events\EventCsvBulkLoader;
 
 class EventCsvBulkLoaderTest extends SapphireTest
 {
-    protected static $fixture_file = 'tests/events.yml';
+    protected static $fixture_file = '../events.yml';
 
     /** @var \TitleDK\Calendar\Events\EventCsvBulkLoader */
     private $bulkLoader;
@@ -20,8 +20,8 @@ class EventCsvBulkLoaderTest extends SapphireTest
     {
         parent::setUp();
 
-        $this->bulkLoader = new EventCsvBulkLoader('');
-        $this->event = new Event();
+        $this->bulkLoader = EventCsvBulkLoader::create('');
+        $this->event = Event::create();
         $this->event->Title = 'test event';
         $this->event->write();
     }

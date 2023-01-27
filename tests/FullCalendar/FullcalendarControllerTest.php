@@ -87,7 +87,7 @@ class FullcalendarControllerTest extends FunctionalTest
     {
         // params are arbitrary here
         $params = ['title' => 'Some Event Title', 'allday' => true];
-        $controller = new FullcalendarController();
+        $controller = FullcalendarController::create();
         ;
 
         $response = $controller->handleJsonResponse(true, $params);

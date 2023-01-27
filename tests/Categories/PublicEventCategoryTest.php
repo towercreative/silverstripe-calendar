@@ -3,10 +3,11 @@
 namespace TitleDK\Calendar\Tests\Categories;
 
 use SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Categories\PublicEventCategory;
 
 class PublicEventCategoryTest extends SapphireTest
 {
-    protected static $fixture_file = 'tests/events.yml';
+    protected static $fixture_file = '../events.yml';
 
     /** @var \TitleDK\Calendar\Categories\PublicEventCategory */
     private $category1;
@@ -19,8 +20,8 @@ class PublicEventCategoryTest extends SapphireTest
         // this has to happen before accessing the fixtures
         parent::setUp();
 
-        $this->category1 = $this->objFromFixture('TitleDK\Calendar\Categories\PublicEventCategory', 'category1');
-        $this->category2 = $this->objFromFixture('TitleDK\Calendar\Categories\PublicEventCategory', 'category2');
+        $this->category1 = $this->objFromFixture(PublicEventCategory::class, 'category1');
+        $this->category2 = $this->objFromFixture(PublicEventCategory::class, 'category2');
     }
 
 

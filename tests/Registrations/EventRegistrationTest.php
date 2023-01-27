@@ -3,11 +3,12 @@
 namespace TitleDK\Calendar\Tests\Registrations;
 
 use SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Events\Event;
 use TitleDK\Calendar\Registrations\EventRegistration;
 
 class EventRegistrationTest extends SapphireTest
 {
-    protected static $fixture_file = 'tests/registered-events.yml';
+    protected static $fixture_file = '../registered-events.yml';
 
     /** @var \TitleDK\Calendar\Events\Event */
     private $conference;
@@ -16,7 +17,7 @@ class EventRegistrationTest extends SapphireTest
     {
         parent::setUp();
 
-        $this->conference = $this->objFromFixture('TitleDK\Calendar\Events\Event', 'conference');
+        $this->conference = $this->objFromFixture(Event::class, 'conference');
     }
 
 

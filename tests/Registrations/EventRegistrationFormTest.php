@@ -3,13 +3,14 @@
 namespace TitleDK\Calendar\Tests\Registrations;
 
 use SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Registrations\EventRegistrationController;
 use TitleDK\Calendar\Registrations\EventRegistrationForm;
 
 class EventRegistrationFormTest extends SapphireTest
 {
     public function testConstruct(): void
     {
-        $form = new EventRegistrationForm(null, 'eventFormTest');
+        $form = EventRegistrationForm::create(EventRegistrationController::create(), 'eventFormTest');
         $fields = $form->Fields()->toArray();
         $names = \array_map(static function ($field) {
             return $field->Name;
@@ -20,7 +21,7 @@ class EventRegistrationFormTest extends SapphireTest
 
     public function testSetDone(): void
     {
-        $form = new EventRegistrationForm(null, 'eventFormTest');
+        $form = EventRegistrationForm::create(EventRegistrationController::create(), 'eventFormTest');
         $form->setDone();
         $fields = $form->Fields()->toArray();
         $names = \array_map(static function ($field) {
@@ -38,7 +39,7 @@ class EventRegistrationFormTest extends SapphireTest
 
     public function testSetFormField(): void
     {
-        $form = new EventRegistrationForm(null, 'eventFormTest');
+        $form = EventRegistrationForm::create(EventRegistrationController::create(), 'eventFormTest');
         $form->setFormField('Email', 'fred@fred.com');
 
         /** @var \SilverStripe\Forms\FieldList $fields */

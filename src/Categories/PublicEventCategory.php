@@ -2,6 +2,7 @@
 
 namespace TitleDK\Calendar\Categories;
 
+use SilverStripe\ORM\DataList;
 use SilverStripe\Security\Member;
 use SilverStripe\Security\Permission;
 
@@ -18,7 +19,7 @@ class PublicEventCategory extends EventCategory
 {
 
     /** @return \SilverStripe\ORM\DataList<\TitleDK\Calendar\Categories\Event> */
-    public function ComingEvents(bool $from = false): DataList
+    public function ComingEvents(string $from = null): DataList
     {
         return $this->Events()
             ->filter(

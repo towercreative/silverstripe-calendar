@@ -9,7 +9,7 @@ class EventCategoryExtentionTest extends SapphireTest
 {
     public function testUpdateCMSFields(): void
     {
-        $event = new Event();
+        $event = Event::singleton();
         $fields = $event->getCMSFields()->toArray();
         $names = \array_map(static function ($field) {
             return $field->Name;

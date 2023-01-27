@@ -1,9 +1,12 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace TitleDK\Calendar\Tests\Admin;
 
 use SilverStripe\Dev\SapphireTest;
 use TitleDK\Calendar\Admin\CalendarAdmin;
+use TitleDK\Calendar\Calendars\Calendar;
+use TitleDK\Calendar\Categories\PublicEventCategory;
+use TitleDK\Calendar\Events\Event;
 
 class CalendarAdminTest extends SapphireTest
 {
@@ -14,8 +17,8 @@ class CalendarAdminTest extends SapphireTest
     {
         parent::setUp();
 
-        $this->admin = new CalendarAdmin();
-        $this->admin->modelClass = 'TitleDK\Calendar\Events\Event';
+        $this->admin = CalendarAdmin::create();
+        $this->admin->modelClass = Event::class;
         $this->admin->init();
     }
 
@@ -31,9 +34,18 @@ class CalendarAdminTest extends SapphireTest
         $managedModels = $this->admin->getManagedModels();
         $this->assertEquals(
             [
-                'TitleDK\Calendar\Events\Event' => ['title' => 'Events'],
-                'TitleDK\Calendar\Categories\PublicEventCategory' => ['title' => 'Categories'],
-                'TitleDK\Calendar\Calendars\Calendar' => ['title' => 'Calendars'],
+                Event::class => [
+                    'title' => 'Events',
+                    'dataClass' => Event::class,
+                ],
+                PublicEventCategory::class => [
+                    'title' => 'Categories',
+                    'dataClass' => PublicEventCategory::class
+                ],
+                Calendar::class => [
+                    'title' => 'Calendars',
+                    'dataClass' => Calendar::class,
+                ],
             ],
             $managedModels,
         );
@@ -59,7 +71,7 @@ class CalendarAdminTest extends SapphireTest
     public function testGetEditFormCalendar(): void
     {
         $this->admin->modelClass = 'TitleDK\Calendar\Calendars\Calendar';
-       // @todo What to test here?
+        // @todo What to test here?
         // $form = $this->admin->getEditForm();
         $this->markTestIncomplete('No assertions');
     }

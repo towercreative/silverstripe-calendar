@@ -9,7 +9,7 @@ use TitleDK\Calendar\Calendars\Calendar;
 
 class ICSExportHelperTest extends SapphireTest
 {
-    protected static $fixture_file = ['tests/events.yml', 'tests/eventpages.yml'];
+    protected static $fixture_file = ['../events.yml', '../eventpages.yml'];
 
     /** @var \TitleDK\Calendar\Calendars\Calendar */
     private $calendar;
@@ -59,7 +59,7 @@ class ICSExportHelperTest extends SapphireTest
     private function createEventsArray(): array
     {
         $calendars = Calendar::get();
-        $events = new ArrayList();
+        $events = ArrayList::create();
         foreach ($calendars as $cal) {
             $events->merge($cal->Events());
         }

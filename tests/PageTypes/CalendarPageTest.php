@@ -10,16 +10,16 @@ class CalendarPageTest extends SapphireTest
 {
     public function testIsCalendar(): void
     {
-        $calendarPage = new CalendarPage();
+        $calendarPage = CalendarPage::create();
         $this->assertTrue($calendarPage->isCalendar());
     }
 
 
     public function testGetCMSFields(): void
     {
-        $calendar = new Calendar();
+        $calendar = Calendar::create();
         $calendar->write();
-        $calendarPage = new CalendarPage();
+        $calendarPage = CalendarPage::create();
         $calendarPage->Calendars()->add($calendar);
         $fields = $calendarPage->getCMSFields();
         /** @var \SilverStripe\Forms\TabSet $rootTab */

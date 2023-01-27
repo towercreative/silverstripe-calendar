@@ -16,7 +16,7 @@ class EventRegistrationStateMachineTest extends SapphireTest
     {
         parent::setUp();
 
-        $registration = new EventRegistration();
+        $registration = EventRegistration::create();
         $registration->write();
         $this->stateMachine = new EventRegistrationStateMachine($registration);
     }

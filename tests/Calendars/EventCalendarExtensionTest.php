@@ -6,7 +6,7 @@ use SilverStripe\Dev\SapphireTest;
 
 class EventCalendarExtensionTest extends SapphireTest
 {
-    protected static $fixture_file = 'tests/events.yml';
+    protected static $fixture_file = '../events.yml';
 
     public function testUpdateFrontEndFields(): void
     {

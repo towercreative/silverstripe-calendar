@@ -7,7 +7,7 @@ use TitleDK\Calendar\Events\Event;
 
 class EventRegistrationExtensionTest extends SapphireTest
 {
-    protected static $fixture_file = ['tests/registered-events.yml'];
+    protected static $fixture_file = ['../registered-events.yml'];
 
     /** @var \TitleDK\Calendar\Events\Event */
     private $event;

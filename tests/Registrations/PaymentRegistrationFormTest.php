@@ -3,13 +3,14 @@
 namespace TitleDK\Calendar\Tests\Registrations;
 
 use SilverStripe\Dev\SapphireTest;
+use TitleDK\Calendar\Registrations\EventRegistrationController;
 use TitleDK\Calendar\Registrations\PaymentRegistrationForm;
 
 class PaymentRegistrationFormTest extends SapphireTest
 {
     public function testConstruct(): void
     {
-        $form = new PaymentRegistrationForm(null, 'paymentFormTest');
+        $form = PaymentRegistrationForm::create(EventRegistrationController::create(), 'paymentFormTest');
         $fields = $form->Fields()->toArray();
         $names = \array_map(static function ($field) {
             return $field->Name;
@@ -28,7 +29,7 @@ class PaymentRegistrationFormTest extends SapphireTest
 
     public function testSetDone(): void
     {
-        $form = new PaymentRegistrationForm(null, 'paymentFormTest');
+        $form = PaymentRegistrationForm::create(EventRegistrationController::create(), 'paymentFormTest');
         $form->setDone();
         $fields = $form->Fields()->toArray();
         $names = \array_map(static function ($field) {
@@ -49,7 +50,7 @@ class PaymentRegistrationFormTest extends SapphireTest
 
     public function testSetFormField(): void
     {
-        $form = new PaymentRegistrationForm(null, 'eventFormTest');
+        $form = PaymentRegistrationForm::create(EventRegistrationController::create(), 'eventFormTest');
         $form->setFormField('Email', 'fred@fred.com');
 
         /** @var \TitleDK\Calendar\Tests\Registrations\FieldList $fields */

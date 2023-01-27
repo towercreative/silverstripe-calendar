@@ -12,7 +12,7 @@ class EventPageTest extends SapphireTest
 
     use DateTimeHelper;
 
-    protected static $fixture_file = ['tests/events.yml', 'tests/eventpages.yml'];
+    protected static $fixture_file = ['../events.yml', '../eventpages.yml'];
 
     /** @var \TitleDK\Calendar\PageTypes\EventPage */
     private $eventPage;
